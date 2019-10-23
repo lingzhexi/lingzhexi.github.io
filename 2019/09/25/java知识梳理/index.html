@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="知识梳理," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="基础篇 面向对象 面向过程：把问题分解成一个一个步骤，每个步骤用函数实现，依次调用即可  面向对象（OOP) ：程序是由对象组成的，每个对象包含的用户公开的特定功能部分和隐藏的实际部分。  对象：是一组状态和一系列行为的组合体。状态是对象的内在特性，行为是对象的外在特性   三大特点：封装、继承、多态 封装:提供外部可范文的方法 继承: IS-A 关系； 里氏替换原则：当一个子类的实例应该能够替换">
+<meta name="keywords" content="知识梳理">
+<meta property="og:type" content="article">
+<meta property="og:title" content="&#39;java 知识梳理&#39;">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;09&#x2F;25&#x2F;java%E7%9F%A5%E8%AF%86%E6%A2%B3%E7%90%86&#x2F;index.html">
+<meta property="og:site_name" content="Stormling的博客">
+<meta property="og:description" content="基础篇 面向对象 面向过程：把问题分解成一个一个步骤，每个步骤用函数实现，依次调用即可  面向对象（OOP) ：程序是由对象组成的，每个对象包含的用户公开的特定功能部分和隐藏的实际部分。  对象：是一组状态和一系列行为的组合体。状态是对象的内在特性，行为是对象的外在特性   三大特点：封装、继承、多态 封装:提供外部可范文的方法 继承: IS-A 关系； 里氏替换原则：当一个子类的实例应该能够替换">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https:&#x2F;&#x2F;design-patterns.readthedocs.io&#x2F;zh_CN&#x2F;latest&#x2F;_images&#x2F;uml_dependency.jpg">
+<meta property="og:updated_time" content="2019-10-09T09:29:07.095Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;design-patterns.readthedocs.io&#x2F;zh_CN&#x2F;latest&#x2F;_images&#x2F;uml_dependency.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/09/25/java知识梳理/"/>
+
+
+
+
+
+  <title>'java 知识梳理' | Stormling的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Stormling的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">厚积薄发</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/25/java%E7%9F%A5%E8%AF%86%E6%A2%B3%E7%90%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Stormling">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Stormling的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">'java 知识梳理'</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-09-25T01:44:14+08:00">
+                2019-09-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="基础篇"><a href="#基础篇" class="headerlink" title="基础篇"></a><strong>基础篇</strong></h1><ul>
+<li><h2 id="面向对象"><a href="#面向对象" class="headerlink" title="面向对象"></a><strong>面向对象</strong></h2><ul>
+<li><p>面向过程：把问题分解成一个一个步骤，每个步骤用函数实现，依次调用即可</p>
+</li>
+<li><p>面向对象（OOP) ：程序是由对象组成的，每个对象包含的用户公开的特定功能部分和隐藏的实际部分。</p>
+<ul>
+<li>对象：是一组<strong>状态</strong>和一系列<strong>行为</strong>的<a href="https://baike.baidu.com/item/组合体" target="_blank" rel="noopener">组合体</a>。状态是对象的内在特性，行为是对象的外在特性</li>
+</ul>
+</li>
+<li><h3 id="三大特点：封装、继承、多态"><a href="#三大特点：封装、继承、多态" class="headerlink" title="三大特点：封装、继承、多态"></a><strong>三大特点：封装、继承、多态</strong></h3><ul>
+<li>封装:提供外部可范文的方法</li>
+<li>继承: <strong>IS-A</strong> 关系；<ul>
+<li><strong>里氏替换原则</strong>：当一个子类的实例应该能够替换任何其超类的实例时，它们之间才具有is-A关系</li>
+<li>契约式设计（DBC）:<ol>
+<li>前置条件</li>
+<li>后置条件</li>
+<li>类不变项</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>多态: 编译和运行时<ul>
+<li>运行时多态有三个条件：<ul>
+<li>继承   extend Men</li>
+<li>重写    overriding say()</li>
+<li>向上造型 Men men = new Women()</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h3 id="五大设计原则："><a href="#五大设计原则：" class="headerlink" title="五大设计原则："></a><strong>五大设计原则</strong>：</h3><ul>
+<li>单一职责原则：一个类，最好只做一件事，修改一个类的原因只有一个;<ul>
+<li>低耦合高内聚，类单一功能;一个类承担过多的指责,就等与将职责耦合在一起</li>
+<li>当这个类需要承当其他类型的责任的时候，就需要分解这个类。</li>
+</ul>
+</li>
+<li>开放封闭原则：类对扩展开放，修改封闭；<ul>
+<li>实体可扩展,不可修改；符合开闭原则最典型的设计模式是<strong>装饰者模式</strong></li>
+</ul>
+</li>
+<li>liskov替换原则：子类对象必须可以替换父类的所有对象；<ul>
+<li>主要着眼于对抽象和多态建立在继承的基础。违反了里式替换原则就必然导致违反开放封闭原则。 里式替换原则能够保证系统具有良好的拓展性，同时实现基于多态的抽象机制，能够减少代码冗余，避免运行期的类型判别。</li>
+</ul>
+</li>
+<li>依赖倒置原则：依赖于抽象,就是对接口编程，不要对实现编程。<ul>
+<li>高层模块不应该依赖底层模块，二者都应该依赖抽象；抽象不依赖具体，具体依赖抽象</li>
+<li>高层与底层之间建立一个接口,底层实现接口定义,借此来控制耦合关系</li>
+<li>(Service层与Controller层之间的调用为例)</li>
+</ul>
+</li>
+<li>接口隔离原则：不应该强迫客户依赖于它们不用的方法<ul>
+<li>因此使用多个专门的接口比使用单一的总接口要好。</li>
+<li>分离方法:<ol>
+<li>委托分离：通过增加一个新的类型来委托客户的请求，隔离客户和接口的直接依赖，但是会增加系统的开销。<strong>新增接口</strong></li>
+<li>多重继承分离：通过接口多继承来实现客户的需求，这种方式是较好的。<strong>多继承接口</strong></li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h3 id="类图"><a href="#类图" class="headerlink" title="类图"></a>类图</h3><ul>
+<li><p>泛化关系：extends 继承</p>
+</li>
+<li><p>实现关系；implements 接口</p>
+</li>
+<li><p>组合关系：整体和部分是强依赖的，公司和部门。</p>
+</li>
+<li><p>聚合关系：整体由部分组成，但是整体和部分不是强依赖的，整体不存在了部分还是会存在。如公司与员工</p>
+</li>
+<li><p>关联关系：不同类之间有关联，静态关系，运行时无关。学校与学生</p>
+</li>
+<li><p>依赖关系：不是很理解，需要再分析 <strong>/TODO</strong> <a href="[https://github.com/CyC2018/CS-Notes/blob/master/notes/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E6%80%9D%E6%83%B3.md#%E4%BA%8C%E7%B1%BB%E5%9B%BE](https://github.com/CyC2018/CS-Notes/blob/master/notes/面向对象思想.md#二类图)">类图-依赖关系</a> <a href="https://design-patterns.readthedocs.io/zh_CN/latest/read_uml.html#generalization" target="_blank" rel="noopener">依赖关系2</a></p>
+<p><img src="https://design-patterns.readthedocs.io/zh_CN/latest/_images/uml_dependency.jpg" alt="依赖关系"></p>
+<p>一个对象在运行时会用另一个对象的关系。在最终代码中，依赖关系体现为类构造方法及类方法的传入参数，箭头的指向为调用关系；依赖关系除了临时知道对方外，还是“使用”对方的方法和属性；</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>不可变字符串？</p>
+</li>
+<li></li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E7%9F%A5%E8%AF%86%E6%A2%B3%E7%90%86/" rel="tag"># 知识梳理</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/09/18/%E8%AF%A6%E8%A7%A3%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AD%97%E8%8A%82%E7%A0%81%E6%89%A7%E8%A1%8C%E5%BC%95%E6%93%8E%E4%B9%8B%E9%9D%99%E6%80%81%E9%93%BE%E6%8E%A5%E3%80%81%E5%8A%A8%E6%80%81%E9%93%BE%E6%8E%A5%E4%B8%8E%E5%88%86%E6%B4%BE/" rel="next" title="'详解虚拟机字节码执行引擎之静态链接、动态链接与分派'">
+                <i class="fa fa-chevron-left"></i> '详解虚拟机字节码执行引擎之静态链接、动态链接与分派'
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/10/09/idea%E5%B8%B8%E7%94%A8%E5%BF%AB%E6%8D%B7%E9%94%AE/" rel="prev" title="idea常用快捷键">
+                idea常用快捷键 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Stormling</p>
+              <p class="site-description motion-element" itemprop="description">javaer fish</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%20%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#基础篇"><span class="nav-number">1.</span> <span class="nav-text">基础篇</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#面向对象"><span class="nav-number">1.1.</span> <span class="nav-text">面向对象</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#三大特点：封装、继承、多态"><span class="nav-number">1.1.1.</span> <span class="nav-text">三大特点：封装、继承、多态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#五大设计原则："><span class="nav-number">1.1.2.</span> <span class="nav-text">五大设计原则：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#类图"><span class="nav-number">1.1.3.</span> <span class="nav-text">类图</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Stormling</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

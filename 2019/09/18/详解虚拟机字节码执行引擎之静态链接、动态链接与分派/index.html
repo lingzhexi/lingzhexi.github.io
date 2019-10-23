@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="本文由 简悦 SimpRead 转码， 原文地址 https:&#x2F;&#x2F;blog.csdn.net&#x2F;championhengyi&#x2F;article&#x2F;details&#x2F;78760590 版权声明：本文为博主原创文章，遵循 CC 4.0 BY-SA 版权协议，转载请附上原文出处链接和本声明。 本文链接：https:&#x2F;&#x2F;blog.csdn.net&#x2F;championhengyi&#x2F;article&#x2F;details&#x2F;7">
+<meta name="keywords" content="java、随想、发言地">
+<meta property="og:type" content="article">
+<meta property="og:title" content="&#39;详解虚拟机字节码执行引擎之静态链接、动态链接与分派&#39;">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;09&#x2F;18&#x2F;%E8%AF%A6%E8%A7%A3%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AD%97%E8%8A%82%E7%A0%81%E6%89%A7%E8%A1%8C%E5%BC%95%E6%93%8E%E4%B9%8B%E9%9D%99%E6%80%81%E9%93%BE%E6%8E%A5%E3%80%81%E5%8A%A8%E6%80%81%E9%93%BE%E6%8E%A5%E4%B8%8E%E5%88%86%E6%B4%BE&#x2F;index.html">
+<meta property="og:site_name" content="Stormling的博客">
+<meta property="og:description" content="本文由 简悦 SimpRead 转码， 原文地址 https:&#x2F;&#x2F;blog.csdn.net&#x2F;championhengyi&#x2F;article&#x2F;details&#x2F;78760590 版权声明：本文为博主原创文章，遵循 CC 4.0 BY-SA 版权协议，转载请附上原文出处链接和本声明。 本文链接：https:&#x2F;&#x2F;blog.csdn.net&#x2F;championhengyi&#x2F;article&#x2F;details&#x2F;7">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-09-18T03:30:42.332Z">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/09/18/详解虚拟机字节码执行引擎之静态链接、动态链接与分派/"/>
+
+
+
+
+
+  <title>'详解虚拟机字节码执行引擎之静态链接、动态链接与分派' | Stormling的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Stormling的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">厚积薄发</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/18/%E8%AF%A6%E8%A7%A3%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AD%97%E8%8A%82%E7%A0%81%E6%89%A7%E8%A1%8C%E5%BC%95%E6%93%8E%E4%B9%8B%E9%9D%99%E6%80%81%E9%93%BE%E6%8E%A5%E3%80%81%E5%8A%A8%E6%80%81%E9%93%BE%E6%8E%A5%E4%B8%8E%E5%88%86%E6%B4%BE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Stormling">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Stormling的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">'详解虚拟机字节码执行引擎之静态链接、动态链接与分派'</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-09-18T11:25:04+08:00">
+                2019-09-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>本文由 <a href="http://ksria.com/simpread/" target="_blank" rel="noopener">简悦 SimpRead</a> 转码， 原文地址 <a href="https://blog.csdn.net/championhengyi/article/details/78760590" target="_blank" rel="noopener">https://blog.csdn.net/championhengyi/article/details/78760590</a> <a href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener"></a>版权声明：本文为博主原创文章，遵循 <a href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener">CC 4.0 BY-SA</a> 版权协议，转载请附上原文出处链接和本声明。 本文链接：<a href="https://blog.csdn.net/championhengyi/article/details/78760590" target="_blank" rel="noopener">https://blog.csdn.net/championhengyi/article/details/78760590</a></p>
+</blockquote>
+<p>这篇博客主要带你认识何谓静态链接、动态链接。并且会讲述 JVM 中分派的知识，让你对 Java 中的多态实现机制有一个浅显的认识。</p>
+<hr>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a><strong>前言</strong></h3><p>从接触 Java 语言的第一天起，往后，我相信你一定听过什么动态链接啊，动态扩展啊，静态链接啊，它和 C++ 相比有哪些优缺点啊… … 如果你只是听说而没有探究过他们，也许你现在仍没办法说出 Java 语言到底有什么优缺点。</p>
+<p>我们知道 class 文件是源代码经过编译后得到的字节码，如果学过编译原理会知道，这个仅仅完成了一半的工作（词法分析、语法分析、语义分析、中间代码生成），接下来就是实际的运行了。而 Java 选择的是<strong>动态链接的方式，即用到某个类再加载进内存</strong>，而不是像 C++ 那样使用<strong>静态链接：将所有类加载，不论是否使用到</strong>。当然了，孰优孰劣不好判断。<strong>静态链接优点在速度，动态链接优点在灵活</strong>。</p>
+<hr>
+<h3 id="静态链接"><a href="#静态链接" class="headerlink" title="静态链接"></a><strong>静态链接</strong></h3><p>那么，首先，咱们先来聊聊静态链接。</p>
+<p>如上面的概念所述，在 C/C++ 中静态链接就是在编译期将所有类加载并找到他们的直接引用，不论是否使用到。而在 Java 中我们知道，编译 Java 程序之后，会得到程序中每一个类或者接口的独立的 class 文件。虽然独立看上去毫无关联，但是<strong>他们之间通过接口 (harbor) 符号互相联系，或者与 Java API 的 class 文件相联系</strong>。</p>
+<p>我们之前也讲述了类加载机制中的一个过程—解析，并在其中提到了解析就是将 class 文件中的一部分符号引用直接解析为直接引用的过程，但是当时我们并没有详细说明这种解析所发生的条件，现在我给大家进行补充：</p>
+<blockquote>
+<p>方法在程序真正运行之前就有一个可确定的调用版本，并且这个方法的调用版本在运行期是不可改变的。可以概括为：编译期可知、运行期不可变。</p>
+</blockquote>
+<p>符合上述条件的方法主要包括静态方法和私有方法两大类。前者与类型直接关联，后者在外部不可被访问，这两种方法的特点决定了它们都不可能通过继承或别的方式重写其他版本，因此它们适合在类加载阶段进行解析。</p>
+<p>额外补充一点：</p>
+<p>在 Java 虚拟机中提供了 5 条方法调用字节码指令，其中 invokestatic 和 invokespecial 指令调用的方法，都可以在解析阶段中确定唯一的调用版本，符合这个条件的有静态方法、私有方法、实例构造器、父类方法（不知道这是个什么玩意、不重要，先放下）4 类。它们在类加载的时候就会把符号引用解析为该方法的直接引用，因此这些方法也被称为<strong>非虚方法（包括 final 方法）</strong>，与之相反的称为<strong>虚方法</strong>。</p>
+<p><strong>解析调用一定是个静态过程，在编译期间就完全确定，在类加载的解析阶段就会把涉及的符号引用转化为可确定的直接引用，不会延迟到运行期再去完成</strong>，这也就是 Java 中的静态链接。</p>
+<hr>
+<h3 id="动态链接"><a href="#动态链接" class="headerlink" title="动态链接"></a><strong>动态链接</strong></h3><p>上面大概说完了静态链接，那么什么是动态链接、它有什么用？</p>
+<p>如上所述，在 Class 文件中的常量持中存有大量的符号引用。字节码中的方法调用指令就以常量池中指向方法的符号引用作为参数。这些符号引用一部分在类的加载阶段（解析）或第一次使用的时候就转化为了直接引用（指向数据所存地址的指针或句柄等），这种转化称为<strong>静态链接</strong>。而相反的，另一部分<strong>在运行期间转化为直接引用，就称为动态链接</strong>。</p>
+<p>与那些在编译时进行链接的语言不同，Java 类型的加载和链接过程都是在运行的时候进行的，这样虽然在类加载的时候稍微增加一些性能开销，但是却能为 Java 应用程序提供高度的灵活性，Java 中<strong>天生可以动态扩展的语言特性</strong>就是依赖动态加载和动态链接这个特点实现的。</p>
+<p>动态扩展就是在运行期可以动态修改字节码，也就是反射机制与 cglib，有兴趣的朋友可以查一下。</p>
+<hr>
+<h3 id="分派"><a href="#分派" class="headerlink" title="分派"></a><strong>分派</strong></h3><p>我们先不谈分派是什么，先来说说学习分派对你有什么用。</p>
+<p><strong>分派会解释多态性特征的一些最基本的体现，如 “重载”、“重写” 在 Java 虚拟机中是如何实现的</strong>，当然这里的实现不是语法上该怎么写，我们关心的是虚拟机如何确定正确的目标方法。</p>
+<hr>
+<h4 id="静态分派"><a href="#静态分派" class="headerlink" title="静态分派"></a><strong>静态分派</strong></h4><p>这就是刚才不谈分派的原因，分派的概念比较泛，分为静态分派、动态分派、单分派、多分派。我们先来说说静态分派。</p>
+<p>来看一下静态分派的概念：<strong>所有依赖静态类型来定位方法执行版本的分派动作称为静态分派。静态分派的典型应用是方法重载</strong>。</p>
+<p>你应该会对<strong>静态类型</strong>这个名词感到疑惑。</p>
+<p>再来解释一下：</p>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">Human man</span> = new Man();</span><br></pre></td></tr></table></figure>
+
+<p>如上代码，Human 被称为静态类型，Man 被称为实际类型。</p>
+<p>再来看一段代码：</p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//实际类型变化</span></span><br><span class="line">Human man = <span class="keyword">new</span> <span class="constructor">Man()</span>;</span><br><span class="line">man = <span class="keyword">new</span> <span class="constructor">Woman()</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//静态类型变化</span></span><br><span class="line">StaticDispatch sr = <span class="keyword">new</span> <span class="constructor">StaticDispatch()</span>;</span><br><span class="line">sr.say<span class="constructor">Hello((Human)</span> man);</span><br><span class="line">sr.say<span class="constructor">Hello((Woman)</span> man);</span><br></pre></td></tr></table></figure>
+
+<p>可以看到的静态类型和实际类型都会发生变化，但是有区别：静态类型的变化仅仅在使用时发生，变量本身的静态类型不会被改变，并且最终的静态类型是在<strong>编译期可知</strong>的，而实际类型变化的结果在<strong>运行期才可确定</strong>。</p>
+<p>知道这些东西之后，我给大家贴上完整代码：</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Human</span> </span>&#123;  </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Man</span> <span class="keyword">extends</span> <span class="title">Human</span> </span>&#123;  </span><br><span class="line">&#125;  </span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Woman</span> <span class="keyword">extends</span> <span class="title">Human</span> </span>&#123;  </span><br><span class="line">&#125;  </span><br><span class="line"></span><br><span class="line">public <span class="class"><span class="keyword">class</span> <span class="title">StaticDispatch</span> </span>&#123;  </span><br><span class="line"></span><br><span class="line">    public void sayHello(<span class="type">Human</span> guy) &#123;  </span><br><span class="line">        <span class="type">System</span>.out.println(<span class="string">"hello, guy!"</span>);  </span><br><span class="line">    &#125;  </span><br><span class="line"></span><br><span class="line">    public void sayHello(<span class="type">Man</span> guy)&#123;  </span><br><span class="line">        <span class="type">System</span>.out.println(<span class="string">"hello, gentleman!"</span>);  </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void sayHello(<span class="type">Woman</span> guy)&#123;  </span><br><span class="line">        <span class="type">System</span>.out.println(<span class="string">"hello, lady!"</span>);  </span><br><span class="line">    &#125;  </span><br><span class="line"></span><br><span class="line">    public static void main(<span class="type">String</span>[] args)&#123;  </span><br><span class="line">        <span class="type">Human</span> man = <span class="keyword">new</span> <span class="type">Man</span>();  </span><br><span class="line">        <span class="type">Human</span> woman = <span class="keyword">new</span> <span class="type">Woman</span>();  </span><br><span class="line">        <span class="type">StaticDisPatch</span> sr = <span class="keyword">new</span> <span class="type">StaticDisPatch</span>();  </span><br><span class="line">        sr.sayHello(man);  </span><br><span class="line">        sr.sayHello(woman);  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>运行结果：</p>
+<figure class="highlight autohotkey"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">hello,</span> guy!</span><br><span class="line"><span class="built_in">hello,</span> guy!</span><br></pre></td></tr></table></figure>
+
+<p>如上代码与运行结果，在调用 sayHello() 方法时，方法的调用者都为 sr 的前提下，使用哪个重载版本，完全取决于传入参数的数量和数据类型。代码中刻意定义了两个静态类型相同、实际类型不同的变量，可见<strong>编译器</strong>（不是虚拟机，因为<strong>如果是根据静态类型做出的判断，那么在编译期就确定了</strong>）在重载时是<strong>通过参数的静态类型而不是实际类型作为判定依据的</strong>。并且静态类型是编译期可知的，所以在编译阶段，javac 编译器就根据参数的静态类型决定使用哪个重载版本。这就是静态分派最典型的应用。</p>
+<p>在静态分派中还有一个<strong>重载方法匹配优先级</strong>的问题，因为觉得并不是我要分享的重点，所以在这里我就不贴了，有兴趣的同学可以查阅《深入理解 Java 虚拟机》第 249 页或自行百度。</p>
+<hr>
+<h4 id="动态分派"><a href="#动态分派" class="headerlink" title="动态分派"></a><strong>动态分派</strong></h4><p>动态分派与多态性的另一个重要体现——方法重写有着很紧密的关系。向上转型后调用子类覆写的方法便是一个很好地说明动态分派的例子。这种情况很常见，因此这里不再用示例程序进行分析。很显然，在判断执行父类中的方法还是子类中覆盖的方法时，如果用<strong>静态类型</strong>来判断，那么无论怎么进行向上转型，都只会调用父类中的方法，但实际情况是，根据对父类实例化的子类的不同，调用的是不同子类中覆写的方法，很明显，这里是要根据变量的实际类型来分派方法的执行版本。而实际类型的确定需要在程序运行时才能确定下来，这种在运行期根据实际类型确定方法执行版本的分派过程称为动态分派。</p>
+<p>关于动态分派与多态实现机制更详细的内容，建议参考博主的另一篇博客： <a href="http://blog.csdn.net/championhengyi/article/details/78998821" target="_blank" rel="noopener">JVM–从 JVM 层面深入解析对象实例化、多态性实现机制</a></p>
+<p>总结一下静态分派：注意静态类型，编译阶段。动态分派注意局部变量表、操作数栈、invokevirtual 指令的解析过程。</p>
+<hr>
+<h4 id="单分派与多分派"><a href="#单分派与多分派" class="headerlink" title="单分派与多分派"></a><strong>单分派与多分派</strong></h4><p>先给出<strong>宗量</strong>的定义：方法的接受者（亦即方法的调用者）与方法的参数统称为方法的宗量。单分派是根据一个宗量对目标方法进行选择，多分派是根据多于一个宗量对目标方法进行选择。</p>
+<p>为了方便理解：</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title">Eat</span> &#123;  </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title">Drink</span> &#123;  </span><br><span class="line">&#125;  </span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title">Father</span> &#123;  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doSomething</span>(<span class="params">Eat arg</span>)</span> &#123;  </span><br><span class="line">        System.<span class="keyword">out</span>.println(<span class="string">"爸爸在吃饭"</span>);  </span><br><span class="line">    &#125;  </span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doSomething</span>(<span class="params">Drink arg</span>)</span> &#123;  </span><br><span class="line">        System.<span class="keyword">out</span>.println(<span class="string">"爸爸在喝水"</span>);  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;  </span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title">Child</span> <span class="title">extends</span> <span class="title">Father</span> &#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doSomething</span>(<span class="params">Eat arg</span>)</span> &#123;  </span><br><span class="line">        System.<span class="keyword">out</span>.println(<span class="string">"儿子在吃饭"</span>);  </span><br><span class="line">    &#125;  </span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doSomething</span>(<span class="params">Drink arg</span>)</span> &#123;  </span><br><span class="line">        System.<span class="keyword">out</span>.println(<span class="string">"儿子在喝水"</span>);  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;  </span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">SingleDoublePai</span> &#123;  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span>(<span class="params">String[] args</span>)</span> &#123;  </span><br><span class="line">        Father father = <span class="keyword">new</span> Father();  </span><br><span class="line">        Father child = <span class="keyword">new</span> Child();  </span><br><span class="line">        father.doSomething(<span class="keyword">new</span> Eat());  </span><br><span class="line">        child.doSomething(<span class="keyword">new</span> Drink());  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>运行结果应该非常容易判断：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">爸爸在吃饭</span><br><span class="line">儿子在喝水</span><br></pre></td></tr></table></figure>
+
+<p>我们首先来看编译阶段编译器的选择过程，即静态分派过程。这时候选择目标方法的依据有两点：一是方法的接受者（即调用者）的静态类型是 Father 还是 Child，二是方法参数类型是 Eat 还是 Drink。因为是根据两个宗量进行选择，所以 <strong>Java 语言的静态分派属于多分派类型</strong>。</p>
+<p>再来看运行阶段虚拟机的选择，即动态分派过程。由于编译期已经了确定了目标方法的参数类型（<strong>编译期根据参数的静态类型进行静态分派</strong>），因此唯一可以影响到虚拟机选择的因素只有此方法的接受者的实际类型是 Father 还是 Child。因为只有一个宗量作为选择依据，所以 <strong>Java 语言的动态分派属于单分派类型</strong>。</p>
+<p>根据以上论证，我们可以总结如下：<strong>目前的 Java 语言（JDK1.6）是一门静态多分派（方法重载）、动态单分派（方法重写）的语言</strong>。</p>
+<hr>
+<h3 id="参考阅读"><a href="#参考阅读" class="headerlink" title="参考阅读"></a><strong>参考阅读</strong></h3><p>《深入理解 Java 虚拟机》—周志明</p>
+<p><a href="http://ningg.top/understanding-jvm-chapter-7/" target="_blank" rel="noopener">Understanding the JVM：虚拟机类加载机制</a></p>
+<p><a href="http://www.360doc.com/content/17/0702/18/43088713_668245796.shtml" target="_blank" rel="noopener">JVM - 动态链接 (Dynamic Linking and Resolution)</a></p>
+<p><a href="http://wiki.jikexueyuan.com/project/java-vm/polymorphism.html" target="_blank" rel="noopener">多态性实现机制——静态分派与动态分派</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/09/12/%E7%AB%AF%E5%8F%A3%E5%8D%A0%E7%94%A8-md/" rel="next" title="'端口占用.md'">
+                <i class="fa fa-chevron-left"></i> '端口占用.md'
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/09/25/java%E7%9F%A5%E8%AF%86%E6%A2%B3%E7%90%86/" rel="prev" title="'java 知识梳理'">
+                'java 知识梳理' <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Stormling</p>
+              <p class="site-description motion-element" itemprop="description">javaer fish</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%20%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#静态链接"><span class="nav-number">2.</span> <span class="nav-text">静态链接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#动态链接"><span class="nav-number">3.</span> <span class="nav-text">动态链接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分派"><span class="nav-number">4.</span> <span class="nav-text">分派</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#静态分派"><span class="nav-number">4.1.</span> <span class="nav-text">静态分派</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#动态分派"><span class="nav-number">4.2.</span> <span class="nav-text">动态分派</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#单分派与多分派"><span class="nav-number">4.3.</span> <span class="nav-text">单分派与多分派</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考阅读"><span class="nav-number">5.</span> <span class="nav-text">参考阅读</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Stormling</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

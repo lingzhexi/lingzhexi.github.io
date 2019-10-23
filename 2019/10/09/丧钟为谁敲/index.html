@@ -1,0 +1,1033 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="oo不足," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="本文由 简悦 SimpRead 转码， 原文地址 http:&#x2F;&#x2F;blog.sina.com.cn&#x2F;s&#x2F;blog_61e2420a0101nh8i.html  *本文转发自我的独立博客： http:&#x2F;&#x2F;wuleiblog.cn&#x2F;index.php&#x2F;381.html * 此系列文章是对徐昊对庄表伟的 〈敲响 OO 时代的丧钟〉 系列文章中一些观点的反驳！    开篇之前先说明一下 ，我和老庄有着不错">
+<meta name="keywords" content="oo不足">
+<meta property="og:type" content="article">
+<meta property="og:title" content="丧钟为谁敲">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;10&#x2F;09&#x2F;%E4%B8%A7%E9%92%9F%E4%B8%BA%E8%B0%81%E6%95%B2&#x2F;index.html">
+<meta property="og:site_name" content="Stormling的博客">
+<meta property="og:description" content="本文由 简悦 SimpRead 转码， 原文地址 http:&#x2F;&#x2F;blog.sina.com.cn&#x2F;s&#x2F;blog_61e2420a0101nh8i.html  *本文转发自我的独立博客： http:&#x2F;&#x2F;wuleiblog.cn&#x2F;index.php&#x2F;381.html * 此系列文章是对徐昊对庄表伟的 〈敲响 OO 时代的丧钟〉 系列文章中一些观点的反驳！    开篇之前先说明一下 ，我和老庄有着不错">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;ExpandedBlockStart.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;InBlock.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;InBlock.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;ExpandedBlockEnd.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;ExpandedBlockStart.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;InBlock.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;dot.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;ExpandedBlockEnd.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;ExpandedBlockStart.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;InBlock.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;dot.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;ExpandedBlockEnd.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;ExpandedBlockStart.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;InBlock.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;dot.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;ExpandedBlockEnd.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;ExpandedBlockStart.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;InBlock.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;InBlock.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;dot.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;ExpandedBlockEnd.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;ExpandedBlockStart.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;InBlock.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;InBlock.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;dot.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;ExpandedBlockEnd.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;dot.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;dot.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;dot.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;ExpandedBlockStart.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;InBlock.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;ExpandedSubBlockStart.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;InBlock.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;dot.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;ExpandedSubBlockEnd.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;ExpandedBlockEnd.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;dot.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;dot.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;dot.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;dot.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;ExpandedBlockStart.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;InBlock.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;InBlock.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;ExpandedBlockEnd.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;ExpandedBlockStart.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;InBlock.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;dot.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;ExpandedBlockEnd.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;ExpandedBlockStart.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;InBlock.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;ExpandedBlockEnd.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;ExpandedBlockStart.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;InBlock.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;ExpandedBlockEnd.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;ExpandedBlockStart.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;InBlock.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;InBlock.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;ExpandedBlockEnd.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;ExpandedBlockStart.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;ExpandedBlockEnd.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;ExpandedBlockStart.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;InBlock.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;InBlock.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;InBlock.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;ExpandedBlockEnd.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;ExpandedBlockStart.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;InBlock.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;InBlock.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;ExpandedBlockEnd.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;dot.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;dot.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;dot.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;dot.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;dot.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;ExpandedBlockStart.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;InBlock.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;ExpandedBlockEnd.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;ExpandedBlockStart.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;InBlock.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;ExpandedBlockEnd.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;ExpandedBlockStart.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;ExpandedBlockEnd.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;ExpandedBlockStart.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;InBlock.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;InBlock.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;InBlock.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;ExpandedBlockEnd.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;dot.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;dot.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;dot.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+<meta property="og:updated_time" content="2019-10-09T07:45:13.416Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http:&#x2F;&#x2F;www.blogjava.net&#x2F;Images&#x2F;OutliningIndicators&#x2F;None.gif">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/10/09/丧钟为谁敲/"/>
+
+
+
+
+
+  <title>丧钟为谁敲 | Stormling的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Stormling的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">厚积薄发</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/09/%E4%B8%A7%E9%92%9F%E4%B8%BA%E8%B0%81%E6%95%B2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Stormling">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Stormling的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">丧钟为谁敲</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-10-09T15:44:00+08:00">
+                2019-10-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>本文由 <a href="http://ksria.com/simpread/" target="_blank" rel="noopener">简悦 SimpRead</a> 转码， 原文地址 <a href="http://blog.sina.com.cn/s/blog_61e2420a0101nh8i.html" target="_blank" rel="noopener">http://blog.sina.com.cn/s/blog_61e2420a0101nh8i.html</a></p>
+</blockquote>
+<p>*<em><em>本文转发自我的独立博客： <a href="http://wuleiblog.cn/index.php/381.html" target="_blank" rel="noopener">http://wuleiblog.cn/index.php/381.html</a></em> *</em></p>
+<p>此系列文章是对徐昊对庄表伟的 〈敲响 OO 时代的丧钟〉 系列文章中一些观点的反驳！   </p>
+<p>开篇之前先说明一下 ，我和老庄有着不错的私交 ，他最初写丧钟系列的时候 ，我是忠实的拥趸之一 ，庄兄见我尚有寸尺所长 ，还在丧钟系列里引用了我的几个观点 。然而最近一段时间里 ，我作了这样几件事情：</p>
+<p><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">1. 重新学习了 lambda 演算 。我的数学基础不及 taowen 等 ，费了一些时日仍不完全了然 ，目前大抵能对着 R5RS 后面的语义定义对一些简单的 scheme 程序进行 lambda 演算 。<br><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">2. 反复研究了几遍 SICP 。同时看了录像和书 （感谢曹老师下的 Video）    ，自信对前二章半有些许认识书中未及 ，后二章半粗知大览尚不能发前人所未发之言 。<br><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">3. 学习了 Smalltalk 和 Ruby ，Duck Typing 以及其他一些有关类型系统的东西 。<br><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">4. 回顾了一下面向对象语言的一些发展史 ，以史为鉴粗知一些兴替 。<br><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">5. 经日和 taowen ，老庄讨论语言 、设计等等之类 ，每为一辨必穷我所知争发一言 ，所以知识可以迅速杂糅: D  </p>
+<h2 id="经过种种之后-，发现当初所谓鸣-OO-之丧钟-，实在是言过其实-。"><a href="#经过种种之后-，发现当初所谓鸣-OO-之丧钟-，实在是言过其实-。" class="headerlink" title="经过种种之后 ，发现当初所谓鸣 OO 之丧钟 ，实在是言过其实 。"></a>经过种种之后 ，发现当初所谓鸣 OO 之丧钟 ，实在是言过其实 。</h2><p>第 0 关于 “面向对象”</p>
+<p>既然要为人家敲丧钟 ，先要找对了苦主 ，不然岂不是白忙活了一场 。什么是面向对象？ 这个问题太大 ，我们举一个很常见的例子：</p>
+<p><img src="http://www.blogjava.net/Images/OutliningIndicators/ExpandedBlockStart.gif" alt="">interface Instrument {<br><img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt="">   void playNote(Note note);<br><img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt="">   void playChord(Chord chord);<br><img src="http://www.blogjava.net/Images/OutliningIndicators/ExpandedBlockEnd.gif" alt=""> }<br><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt=""><br><img src="http://www.blogjava.net/Images/OutliningIndicators/ExpandedBlockStart.gif" alt="">abstrat class Keyboard implement Instrument {<br><img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt="">  <img src="http://www.blogjava.net/Images/dot.gif" alt="">..<br><img src="http://www.blogjava.net/Images/OutliningIndicators/ExpandedBlockEnd.gif" alt=""> }<br><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt=""><br><img src="http://www.blogjava.net/Images/OutliningIndicators/ExpandedBlockStart.gif" alt="">class ClassicGuitar implements Instrument {<br><img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt="">   <img src="http://www.blogjava.net/Images/dot.gif" alt="">.<br><img src="http://www.blogjava.net/Images/OutliningIndicators/ExpandedBlockEnd.gif" alt=""> }<br><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt=""><br><img src="http://www.blogjava.net/Images/OutliningIndicators/ExpandedBlockStart.gif" alt="">class Piano extends Keyboard {<br><img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt="">  <img src="http://www.blogjava.net/Images/dot.gif" alt="">..<br><img src="http://www.blogjava.net/Images/OutliningIndicators/ExpandedBlockEnd.gif" alt=""> }<br><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt=""><br><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">in person class<br><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt=""><br><img src="http://www.blogjava.net/Images/OutliningIndicators/ExpandedBlockStart.gif" alt="">void playSolo(Instrument instrument) {<br><img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt="">   instrument.playNote(AbsoluteNote.C1).playNote(AbsoluteNote.C2);<br><img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt="">   <img src="http://www.blogjava.net/Images/dot.gif" alt=""><br><img src="http://www.blogjava.net/Images/OutliningIndicators/ExpandedBlockEnd.gif" alt=""> }<br><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt=""><br><img src="http://www.blogjava.net/Images/OutliningIndicators/ExpandedBlockStart.gif" alt="">void playBackground(Instrument instrument) {<br><img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt="">   instrument.playChord(Chord.C5).playChord(Chord.C9);<br><img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt="">   <img src="http://www.blogjava.net/Images/dot.gif" alt=""><br><img src="http://www.blogjava.net/Images/OutliningIndicators/ExpandedBlockEnd.gif" alt=""> }<br><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt=""><br><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt=""><br><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">in some case<br><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt=""><br><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">ClassicGuitar perez711= <img src="http://www.blogjava.net/Images/dot.gif" alt="">.<br><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">Piano pianoHere = <img src="http://www.blogjava.net/Images/dot.gif" alt="">.<br><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt=""><br><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">)vincent.playSolo(stenzel);<br><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">)may.playBackground(pianoHere);<br><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt=""><br><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">)etc<img src="http://www.blogjava.net/Images/dot.gif" alt="">.</p>
+<p>这个例子自然很不充分 ，不过继承啊 ，接口啊 ，多态啊 ，略举大概 ，尚可以作为一个讨论的例子 。从这个例子里 ，我们发现有这样一个事实 ，就是 Person 类有两个方法</p>
+<p><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">void playSolo(Instrument instrument);<br><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">void playBackground(Instrument instrument);</p>
+<p>分别表示 ，需要一个类型为 Instrument 的对象 instrument ，然后对他进行相应的操作 ，而且 ，从概念上来讲 ，第一个方法 ，使演奏旋律的 ，也就是单音 ，而第二个方法是演奏和声的 。那么 ，如果我有一个类</p>
+<p><img src="http://www.blogjava.net/Images/OutliningIndicators/ExpandedBlockStart.gif" alt="">class GlassBottle {<br><img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt=""><br><img src="http://www.blogjava.net/Images/OutliningIndicators/ExpandedSubBlockStart.gif" alt="">   void playNote(Note note) {<br><img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt="">      <img src="http://www.blogjava.net/Images/dot.gif" alt="">..<br><img src="http://www.blogjava.net/Images/OutliningIndicators/ExpandedSubBlockEnd.gif" alt="">    }<br><img src="http://www.blogjava.net/Images/OutliningIndicators/ExpandedBlockEnd.gif" alt=""> }</p>
+<p>我们知道 ，玻璃瓶装了水也是可以发出声音 ，Mozart 可是为玻璃瓶写过曲子的 ，而这里我们却不能</p>
+<p><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">GlassBottle beerBottle = <img src="http://www.blogjava.net/Images/dot.gif" alt="">.<br><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">)vincent.playSolo(beerBottle);</p>
+<p>因为我们在构造 Person 类的时候 ，我们的 play 方法是依赖一个类型为 Instrument 的 Object ，换而言之 ，我们这里所谓的 Object-Oriented 其实称作 Object-with-Type-Oriented 的更合适 ，其实这类语言有一个专有名词 ，叫做 static type object oriented 。那 Object-Oriented 是不是就一定是 Static Type Object Oriented 的呢？ 不然 ，比如在 Ruby 里 ，我们可以写成：</p>
+<p><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">class Person<br><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">  def playSolo(thing)<br><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">     thing.playNote(Note.C1).playNot(Note.c2)<br><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">  end<br><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">  def playBackground(thing)<br><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">     thing.playChord(Chord.C5).playChord(Chord.C9)<br><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">  end<br><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">end<br><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt=""><br><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">class Guitar<br><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">  def playNote(note)<br><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">    <img src="http://www.blogjava.net/Images/dot.gif" alt=""><br><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">  end<br><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">  def playChord(chord)<br><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">    <img src="http://www.blogjava.net/Images/dot.gif" alt=""><br><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">  end<br><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">end<br><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt=""><br><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">class GlassBottle<br><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">  def playNote(note)<br><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">    <img src="http://www.blogjava.net/Images/dot.gif" alt=""><br><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">  end<br><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">end</p>
+<p>然后就可以</p>
+<p><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">perez711 = Guitar.new<br><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">vincent = Person.new<br><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">)vincent.playSolo(perez711)</p>
+<p>同样也可以</p>
+<p><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">)vincent.playSolo(GlassBottle.new)</p>
+<p>在这里 ，类型可以推演也可以留到 runtime 检查 ，如果是推演的话 ，在 playNote 里 ，由于 thing 调用了 playNote 方法 ，所以传进来的对象必须要刻意接受 playNote 这个消息 ，于是 Guitar 和 GlassBottle 都是可以通过 ，因此我即可以演奏我的 Perez 711 ，也可以敲玻璃瓶 。这种方式叫做 dynamic type 。</p>
+<p>那么 static type 和 dynamic type 区别在那呢？ static type 认为 ，class 就是 type ，type 就是 class; subclass 就是 subtyping ，subtyping 就是 subclass(其实这句不严谨 ，在 c++ 里可以使得 subclass 不是 subtyping ，但是 java 里就没办法了); 而 dynamic type 则认为类型和 class 没有关系 ，类型取决于一个对象能够接受的消息 。</p>
+<p>那么哪个才是面向对象之真貌呢？ 遗憾的说 ，static type 并不是最初的面向对象 。以对象作为模块化的单位 ，始自 Simula 67 。但是 Simula 67 并不是一个面向对象系统 ，以目前的观点来看 ，充其量是 Object-based ，第一个面向对象语言当推 Smalltalk ，Smalltalk 是 dynamic type 的 。不过 Smalltalk 不太流行 ，第一个大面积流行的面向对象语言是 C++ ，C++ 是 static type 的 ，正如 Lisp 是第一个函数式编程语言 ，很多 Lisp 的特性被当作函数式语言的共有特性 (比如表是最重要的数据结构 ，轻语法) 一样 ，所以很多人以为面向对象就必然是 static type （比如老庄和我） 。对于面向对象的误解 ，80% 来自 C++ 。也就是说 ，80% 来自于 static type 的面向对象系统 。将 static type 面向对象归咎于整个面向对象 ，我辈实在是大而无当言过其实 。</p>
+<p>后面我再一一将老庄所言之 OO 不当之处加以说明</p>
+<p>第 1 关于 “接口”</p>
+<p>关于接口的问题老庄说对了 ，这个东西并不属于面向对象的概念 ，而且在动态类型面向对象语言 (比如 Ruby, Smalltalk 里) ，根本没有这个东西 。这是一个纯粹的静态类型面向对象语言的特性 ，或者直接说 ，接口就是一个纯类型 (Type) 。还是上次的例子：</p>
+<p> 1<img src="http://www.blogjava.net/Images/OutliningIndicators/ExpandedBlockStart.gif" alt="">interface Instrument {<br> 2<img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt="">   void playNote(Note note);<br> 3<img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt="">   void playChord(Chord chord);<br> 4<img src="http://www.blogjava.net/Images/OutliningIndicators/ExpandedBlockEnd.gif" alt="">}<br> 5<img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt=""><br> 6<img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">in Person Class<br> 7<img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt=""><br> 8<img src="http://www.blogjava.net/Images/OutliningIndicators/ExpandedBlockStart.gif" alt="">void playSolo(Instrument instrument) {<br> 9<img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt=""> <img src="http://www.blogjava.net/Images/dot.gif" alt=""><br>10<img src="http://www.blogjava.net/Images/OutliningIndicators/ExpandedBlockEnd.gif" alt="">}</p>
+<p>在我接触 Smalltalk 的最开始的一段时间里 ，这种地方是让我最难受 ，我已经习惯了用类型辅助我的思维 ，但是我发现我在 Smalltalk 里做不到 ，虽然我可以写出</p>
+<p><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">Instrument&gt;&gt;playNote:note<br><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">  ^self subclassResponsibility.<br><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt=""><br><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">Instrument&gt;&gt;playChord:chord<br><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">  ^self subclassResponsibility.</p>
+<p>但是他却不是一个接口 ，我可以很用</p>
+<p><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">instrument = Instrument new.<br><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">instrument playNote: Note C.</p>
+<p>来构造一个 Instrument 之后在它之上调用 playNote 方法 ，然而我会得到一个 messageNotUnderstand 的错误 ，Smalltalk 和 Ruby 里没有 Abstract 的概念 。也就是说 abstract method ，abstract class 以及 interface ，都不是面向对象的概念 （或者严格一些说 ，都不是面向对象的必须的概念） ，而是面向对象类型系统的概念 。那么在 Smalltalk 里我们会怎么做呢？</p>
+<p><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">Person&gt;&gt;playSoloOnInstrument:instrument<br><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">  instrument playNote: Note C;<br><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">             playNote: Note D;<br><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">             playNote: Note E.<br><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt=""><br><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">Person&gt;&gt;playBackgroundOnInstrument:instrument<br><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">  instrument playChord: Chord C1;<br><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">                      playChord: Chord C1;<br><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">                      playChord: Chord C1;</p>
+<p>对于 playSoloOnInstrument:instrument ，我们对于 instrument 的类型是有要求的 ，就是它必须能够接受 playNote 这个消息 。当然这个类型需要是隐性 ，我也可以对等的写出静态面向对象的代码把这个隐性的类型显示的表示出来:</p>
+<p>1<img src="http://www.blogjava.net/Images/OutliningIndicators/ExpandedBlockStart.gif" alt="">interface Instrument {<br>2<img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt="">   Instrument playNote(Note note);<br>3<img src="http://www.blogjava.net/Images/OutliningIndicators/ExpandedBlockEnd.gif" alt="">}</p>
+<p>同样对于第二个方法我们也可以写出来:</p>
+<p>1<img src="http://www.blogjava.net/Images/OutliningIndicators/ExpandedBlockStart.gif" alt="">interface Instrument {<br>2<img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt="">   Instrument playChord(Note note);<br>3<img src="http://www.blogjava.net/Images/OutliningIndicators/ExpandedBlockEnd.gif" alt="">}</p>
+<p>如果我们需要多于一个的消息也是一样的 ，比如</p>
+<p><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">Person&gt;&gt;playBWV996OnInstrument:instrument<br><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">   instrument playNote: Note C;<br><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">              playChord: Chord C;<br><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">              playNote: Note D.</p>
+<p>同样这个时候隐性的类型需要就是</p>
+<p>1<img src="http://www.blogjava.net/Images/OutliningIndicators/ExpandedBlockStart.gif" alt="">interface Instrument {<br>2<img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt="">   Instrument playNote(Note note);<br>3<img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt="">   Instrument playChord(Note note);<br>4<img src="http://www.blogjava.net/Images/OutliningIndicators/ExpandedBlockEnd.gif" alt="">}</p>
+<p>那么接口是什么呢？ 我给出一个不确切的说法 ，<strong>interface 是一个消息的发送者 (sender) 和一个消息的接受者 (reciver) 间的一种类型的约定</strong> ，也就是说在我看来 interface 的用处主要在细粒度的显式类型约定 。我有一个同事 ，每次写代码都为一个 Test Case 所要测试的对象定义一个 interface ，每个 interface 都只有 2-3 个方法 （lx 同学夸你呢: D） ，这是很得 interface 之三味的用法 。这种的做法对于在静态的面向对象系统的好处我们在继承里再论述 。</p>
+<p>至于老庄所说的接口是多继承的一种代替品 ，这只不过是世俗的看法 ，在静态类型的面向对象里 ，继承至少有 2 个语义:</p>
+<ol>
+<li>实现继承 ，这个在 Smalltalk ，Ruby ，C++ 里有 ，而在 java 里没有 ，C++ 里是通过 private extends 来实现的</li>
+</ol>
+<p>1<img src="http://www.blogjava.net/Images/OutliningIndicators/ExpandedBlockStart.gif" alt="">class SubClassA: private ImplementationParent {<br>2<img src="http://www.blogjava.net/Images/OutliningIndicators/ExpandedBlockEnd.gif" alt="">}</p>
+<p>这也是 C++ 里为数不多的 subclass 不是 subtype 的例子 。</p>
+<ol start="2">
+<li>类型继承 ，这个在 C++ 和 java 里有 ，而在 smalltalk,ruby 有却不明显 。</li>
+</ol>
+<p>类型继承的极致就是 C++ 里的纯虚父类</p>
+<p>1<img src="http://www.blogjava.net/Images/OutliningIndicators/ExpandedBlockStart.gif" alt="">abstract class Parent {<br>2<img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt=""><br>3<img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt="">  public asbtract void method1() = 0;<br>4<img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt="">  public asbtract void method2() = 0;<br>5<img src="http://www.blogjava.net/Images/OutliningIndicators/ExpandedBlockEnd.gif" alt="">}</p>
+<p>也就是 java 里的 interface</p>
+<p>1<img src="http://www.blogjava.net/Images/OutliningIndicators/ExpandedBlockStart.gif" alt="">interface Parent {<br>2<img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt="">   void method1();<br>3<img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt="">   void method2();<br>4<img src="http://www.blogjava.net/Images/OutliningIndicators/ExpandedBlockEnd.gif" alt="">}</p>
+<p>因此 ，也就明了了 ，所谓 “面向接口编程” 是以类型作为约定的编程 。我觉得这点大家一定不陌生 ，面向接口的编程里 interface 都很小而且约定明确 。但是要说明一点的是 ，这个东西和 “面向抽象而不要面向具体编程” 其实还不一样 ，所以这个东西也就仅仅能算是静态类型面向对象的一个惯用法 ，还到不了原则这么高 。</p>
+<p>第 2 继承</p>
+<p>前面已经说过了 ，继承至少有 2 个语义: 实现继承和类型继承 ，在说明这两个东西之前 ，我们继续来看上面的例子</p>
+<p><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">Person&gt;&gt;playSoloOnInstrument:instrument<br><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">  instrument playNote: Note C;<br><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">             playNote: Note D;<br><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">             playNote: Note E.<br><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt=""><br><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">Person&gt;&gt;playBackgroundOnInstrument:instrument<br><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">  instrument playChord: Chord C1;<br><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">      playChord: Chord C1;<br><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">             playChord: Chord C1;<br><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt=""><br><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">Person&gt;&gt;playBWV996OnInstrument:instrument<br><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">   instrument playNote: Note C;<br><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">              playChord: Chord C;<br><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">              playNote: Note D.</p>
+<p>现在我们看 playBWV996 这个消息 ，BWV996 是 Bach 所写一个鲁特琴组曲 ，鲁特琴是弹拨乐器 ，同时也是和声乐器 (所谓和声乐器就是可以演奏和声) 。在很多乐器上都有改编的版本 ，比如鲁特琴的近亲吉他等等 ，这个时候 ，我们可以实现这样几个类</p>
+<p><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">Lute&gt;&gt;playNote:note<br><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">  <img src="http://www.blogjava.net/Images/dot.gif" alt=""><br><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">Lute&gt;&gt;playChord:note<br><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">  <img src="http://www.blogjava.net/Images/dot.gif" alt=""><br><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt=""><br><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">Guitar&gt;&gt;playNote:note<br><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">  <img src="http://www.blogjava.net/Images/dot.gif" alt=""><br><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">Guitar&gt;&gt;playChord:note<br><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">  <img src="http://www.blogjava.net/Images/dot.gif" alt=""><br><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt=""><br><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">Bass&gt;&gt;playNote:note<br><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">  <img src="http://www.blogjava.net/Images/dot.gif" alt=""></p>
+<p>然后我们可以尝试以此调用</p>
+<p><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">vincent.playBWV996OnInstrument: Guitar new.<br><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">vincent.playBWV996OnInstrument: Lute new.<br><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">vincent.playBWV996OnInstrument: Bass new.</p>
+<p>最后一个会得到一个 messageNotUnderstand 的错误 。也就是说 ，对于 Bass 而言由于不能演奏和声从而不能演奏 BMV996(不过这个世界上能人太多了… 哎) ，我们换到静态类型面向对象系统来看 。<br>对于第一个方法 ，playSolo 的时候我们要求的类型是能够演奏单音的 。我们可以写出来</p>
+<p>1<img src="http://www.blogjava.net/Images/OutliningIndicators/ExpandedBlockStart.gif" alt="">interface SoloInstrument {<br>2<img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt="">  SoloInstrument playNote(Note note);<br>3<img src="http://www.blogjava.net/Images/OutliningIndicators/ExpandedBlockEnd.gif" alt="">}</p>
+<p>对于第二个方法 ，playChord 的时候我们要求的类型是能够演奏和弦的 ，我们可以写出来</p>
+<p>1<img src="http://www.blogjava.net/Images/OutliningIndicators/ExpandedBlockStart.gif" alt="">interface ChordInstrument {<br>2<img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt="">  ChordInstrument playChord(Chord note);<br>3<img src="http://www.blogjava.net/Images/OutliningIndicators/ExpandedBlockEnd.gif" alt="">}</p>
+<p>而对于第三个方法 ，playBWV996 的时候我们要求既能演奏和弦也能演奏单音 ，这个时候出现一个问题 ，我们怎么处理 Instrument 的继承关系? 一个能演奏和弦的乐器是否可以演奏单音 (答案是一般而言是的 ，但是也不排除有一些不是这样的)? 还是我们简单的写:</p>
+<p>1<img src="http://www.blogjava.net/Images/OutliningIndicators/ExpandedBlockStart.gif" alt="">interface SoloAndChordInstrument extends SoloInstrument, ChordInstrument{<br>2<img src="http://www.blogjava.net/Images/OutliningIndicators/ExpandedBlockEnd.gif" alt="">}</p>
+<p>或者</p>
+<p>1<img src="http://www.blogjava.net/Images/OutliningIndicators/ExpandedBlockStart.gif" alt="">interface BWV996Playable {<br>2<img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt=""><br>3<img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt="">  BWV996Playable playNote(Note note);<br>4<img src="http://www.blogjava.net/Images/OutliningIndicators/InBlock.gif" alt="">  BWV996Playable playChord(Chord note);<br>5<img src="http://www.blogjava.net/Images/OutliningIndicators/ExpandedBlockEnd.gif" alt="">}</p>
+<p>对于动态类型简单的隐性类型约定 ，显示的类型系统带来的一个副作用就是我们必须处理类型之间的关系 。<strong>注意这里是类型之间的关系 ，而不是对象之间的关系</strong> 。老庄同志批了很多篇的面向对象的抽象 ，面向对象的类型系统以及面向对象的本体论 ，<strong>其实都在是在类型关系上折腾 ，而不是在对象关系上折腾</strong> 。而事实上面向对象的<strong>类型系统并非必然就是静态类型系统 ，而我们的类之间的关系不一定就和类型的关系相一致 。</strong>就像上例所示 ，在 Smalltalk 里 ，Lute ，Guitar 和 Bass 之间没有任何的继承关系 ，但是对于 person 的 3 个消息而言 ，它们却是有类型的 。  </p>
+<p>因此老庄所批的 ，是对象类型系统的抽象能力 ，而非面向对象的抽象能力 。正如他在类型系统里所给的例子 ，那张他认为很失败的面向对象的图 ，其实可以完全不依赖继承来实现 ，而对这个类型系统的消费者而言 ，他们能够以一定的类型的观点 ，来处理这个系统的对象 。</p>
+<p>而老庄最后一个结论:</p>
+<p><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">我的结论是： “一个类型 ，是由其本质决定了所能表现出的可操作性 ，而不是有其所能接受的操作决定了其本质 。然而 ，OO 正好把这个问题搞反了！ ”</p>
+<p>我的看法是 ，这句话根本就是诡辩 ，前面半句的主语是 “一个类型” ，后面半句的主语是 “OO”…<br>虽然前半句是对的 ，但是换一样说法可能更好:” <strong>所能接受的操作反映了其本质</strong> “ ，面向对象本身就没有说我要做一个本质抽象 ，这一点在 Smalltalk 的类型判断操作上的可能是一个佐证 ，Smalltalk 用 isKindOf 来判断继承关系 ，我们来玩一个文字游戏 ，改成俚语就是 kinda ，也就是  “ 有一点 ，有几分 “ 的意思 ，而不是说 ，“就是” ，或者 “从分类学上可证明之类的含义” 。我再举一个龌龊的例子 。</p>
+<p><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">vincent ballon: AirBallon new.<br><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">vincent ballon: Condom new.</p>
+<p>气球和保险套 ，对于 ballon 这个方法而言是一个类型 ，都是 “有几分” 可以吹起来 。但是我怎么定义一个精确的本质？ Ballonable？ 还是 MakeFromLatexAndVeryThin? 或者简单说 FlexableAndThin？</p>
+<p>在继承这一点上 ，我想老庄引文中: Elminster 的话是从事物的特征与属性归纳出它的 “类型” 。恰恰对于静态类型面向对象系统是可行的 。如我前文所述 ，我把一个 object 和所有 sender 的约定 （也就是 interface） ，继承在一起 ，恰恰就是一个颇为恰当的类型定义 。  </p>
+<p>而对于动态类型系统里的面向对象语言 ，继承的也有类型继承的含义 ，但是并不是唯一的途径 。用一句我们常说的话 ，在静态类型系统里 ，类型和类是紧耦合的 ，动态类型系统中他们的耦合比较松 。  </p>
+<p>从此而观 ，所有对于面向对象的哲学考虑以及本体的思考 ，对于动态面向对象系统已经不是那么迫切了 。而把对象类型系统的不足归咎于面向对象的不足 ，也似乎论据不足 。</p>
+<p>第 3. 一切皆对象和面向对象的理论基础</p>
+<p>老庄是反对一切皆对象的 ，而 TrustNo1 在 javaeye 的一篇帖子上说:</p>
+<p><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">第一 ，我可以很负责的说, OO 的 ，70 年代成型 ，80 年代在理论基础上就给人毙掉 。从这种意义上说不是 OO 死不死的问题 ，而是 OO 还活着么？ 当然理论基础给人毙掉 ，不是说没有用 。</p>
+<p>我先说面向对象的理论基础的问题 ，至于一切皆对象稍后再表 。<br>所谓面向对象的理论基础其实是没有的 ，原因很简单 ，面向对象根本就不是一种计算模型 。在第一次软件危机的那个时代 ，对与计算机的非数值计算应用的讨论以及对于可计算性问题的研究和发展 ，大抵确立了几种主流的计算模型： 递归函数类 ，图灵机 ，Lambda 演算 ，Horn 子句 ，Post 系统等等 。  </p>
+<p>其中递归函数类是可计算性问题的数学解释; 图灵机是图灵解决可计算问题的时候所设计的装置 ，其后成为计算机的装置模型 ，与图灵机相关的形式语言和自动机成为了命令式语言的理论基础; lambda 演算成为了函数式语言的理论基础; Horn 子句是 prolog 这类逻辑语言的理论基础 。但是我们惊讶的发现 ，面向对象没有计算模型的理论基础 ，换而言之 ，面向对象根本就不是从可计算性的研究上发展过来的 ，那么面向对象的理论基础的价值本身就不大 。</p>
+<p>所以我很奇怪的一个问题就是 TrustNo1 所谓的面向对象在 80 年代理论基础上给人毙掉的说法是从何而来的？ 既然面向对象本质上不是一种计算模型 ，那么它大抵上只能归结为一种应用技术 ，应用技术自然可以从各种不同的领域里得到相似的应用 ，那么毙掉的理论基础所指的又是什么呢？ 甚怪之 。</p>
+<p>既然面向对象不是一个计算模型 ，那么我们可以从不同的角度推断出 OO 的各种形态 ，老庄已经出给了从 ADT 引出 OO 的问题以及例子 ，我就不罗嗦了 ，我给一个从 Functional Programming 出来的例子 ，其实就是 SICP 里的 Data as Procedure 。</p>
+<p><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">(define (make-user name age sex)<br><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">  (define (dispatch message)<br><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">     (cond ((eq? message ‘getName) name)<br><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">           ((eq? message ‘getAge) age)<br><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">           ((eq? message ‘getSex) sex))<br><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">)           (else (error ‘messageNotUnderstand))))<br><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">  dispatch)</p>
+<p>然后我们就可以</p>
+<p><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">(define vincent (make-user ‘Vincent 24 ‘Male))<br><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">(vincent ‘getName)</p>
+<p>自然的 ，如果我调用</p>
+<p><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">(vincent ‘sayHi)</p>
+<p>会得到一个 messageNotUnderstand 的 runtime 错误 ，这就是一个很自然 dyanmic type 的对象封装 ，最早的面向对象系统 Smalltalk 和 CLOS 基本上都是这个路子 ，于是有一个问题 ，为什么最早的面向对象系统都是 dyanmic type？ 这里就跟 lambda 演算有关了 。</p>
+<p>lambda 演算这个计算模型根本的一个假设就是 ，对于任何一个定义良好的数学函数 ，我都可以使用 lambda 抽象来表述他的求值 ，因此无论是什么东西你能够构造 lambda 抽象的话 ，我就能计算 。这个地方东西很多 ，大家可以找找 lambda 演算相关的资料 ，这里我说三件事 (由于 lambda 太难输入 ，我用 scheme 程序代替 ，然后由于 alpha 变化 ，beta 规约和 eta 规约我也用 scheme 伪码来模拟 。)</p>
+<p>第一个是数值的表述 ，其实这个很简单 ，不考虑丘奇代数的系统的话 ，我们可以把数值表示成单值函数:</p>
+<p><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">(define one (lambda (x) 1))</p>
+<p>这个东西无论给什么 x 都返回 1 ，然后根据 lambda 演算里的 alpha 变换 ，这个 lambda 抽象等价于数值 1 。因此 ，对于所有的数值 ，我们可以按 lambda 演算处理 。</p>
+<p>第二个是 bool 的表达 ，也就是如何逻辑进行 lambda 抽象 ，下面我直接给出了 ，缺省认为大家都看了 SICP ，对 Scheme 也颇有心得 。</p>
+<p><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">(define true-new (lambda (x y) x)) ;;; 这个函数也叫 select-first<br><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">(define false-new (lambda (x y) x));;; 这个函数也叫 select-second<br><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt=""><br><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">(define if-new (lambda (conditon if-true if-false) (condition if-true if-false)))</p>
+<p>然后我就可以做一个测试</p>
+<p><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">(if-new true-new 3 4)<br><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">3<br><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt=""><br><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">(if-new false-new 3 4)<br><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">4</p>
+<p>因此 ，对于所有 bool 我们可以按 lambda 演算来处理</p>
+<p>第三个是自定义类型 ，这里我们还是先看一个 Lisp 里的例子 ，序对 。</p>
+<p><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">(define (cons a b) (lambda (dispath) (dispatch a b)))<br><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">(define (car list) (list select-first))<br><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">(define (cdr list) (list select-second))</p>
+<p>这里依旧是 high-order ，我们来测试  </p>
+<p><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">(define list1 (cons 1 2))<br><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">(car list1)<br><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">1<br><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">(cdr list1)<br><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">2</p>
+<p>这里大家自己用 beta 规约算一下 ，就发现的确是这样的 。这里我们又可以看到 ，在 lambda 演算里 ，根本没有数据或者类型 。有的永远各种各样的 lambda 抽象而已 (目前已经有了带类型的 lambda 演算) 。这里说一句题外话 ，SICP 里的 Data as Procedure 其实就是在说这个问题 ，不过他没明说 ，而是用了一种特殊的用法而引出了消息传递风格 ，我觉得这里 SICP 有些顾此失彼 ，对于 data as procedure 我总结的一般形式是</p>
+<p><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">(define (construct-function value1 value2 value3 value4<img src="http://www.blogjava.net/Images/dot.gif" alt="">)valuen) (lambda (dispatch) (dispatch value1 value2 value3 value4<img src="http://www.blogjava.net/Images/dot.gif" alt="">)valuen)))<br><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">(define (select-function1 data) (data select-first))<br><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">(define (select-function2 data) (data select-second))<br><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">)<img src="http://www.blogjava.net/Images/dot.gif" alt="">.<br><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">(define (select-functionn data) (data select-last))</p>
+<p>综上所述 ，我们看到在 lambda 演算里 ，一切都是 lambda 抽象 ，然后对于不同的 lambda 抽象使用 alpha 变换 ，beta 规约和 eta 规约 ，表述各种不同计算 。看 ，在面向对象之前就已经有了一切皆某某的完美的计算理论存在了 。而且回顾一下：</p>
+<p><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">(define (make-user name age sex)<br><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">  (define (dispatch message)<br><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">     (cond ((eq? message ‘getName) name)<br><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">           ((eq? message ‘getAge) age)<br><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">           ((eq? message ‘getSex) sex))<br><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">)           (else (error ‘messageNotUnderstand))))<br><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">  dispatch)<br><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt=""><br><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">(define vincent (make-user ‘Vincent 24 ‘Male))<br><img src="http://www.blogjava.net/Images/OutliningIndicators/None.gif" alt="">(vincent ‘getName)</p>
+<p>我们有理由说 ，对象其实就是一个 lambda 抽象 ，所以一切皆对象不过是一切皆 lambda 抽象的演化 ，这也是为什么 SICP 里把面向对象称作一种 “方便的界面” 而不是一种抽象的方法的原因了 。那么对象和 lambda 抽象又什么区别呢？  </p>
+<p>嘿嘿 ，熟悉 FP 的人都应该知道了 ，就是 Side-Effect ，副作用 。对象允许对其内部状态进行修改 ，那么这个东西就破化了 eta 规约的前提条件 ，也就是说允许修改内部状态的东西 ，已经不是一个可以进行 lambda 计算的 lambda 抽象了 。因此暂且给一个别的名字吧 ，就叫对象吧….. 因此我认为 ，对象很大程度上是一种带有副作用的 lambda 抽象 。</p>
+<p>我在有一篇 blog 上写了 Say sorry to object-oriented ，里面给了一只用对象作分支的例子 ，这里就不重复了 ，有兴趣大家可以去看一下 （刚才好像在 JavaEye 上看到一个说法 ，说 Everything is Object 是 Smalltalk 的广告语 ，唉 ，Smalltalk 里的的的确确 everything is object 啊。 ）<br>这里我们来总结一下 ，面向对象作为一种 “方便的界面” 主要解决了一个局部化和模块化的问题 ，这是从 lambda 演算和函数编程的角度来看面向对象技术 。 （taowen 在他的一篇 blog 上说 ，面向对象局部化了 Side-Effect ，我深以为然） ，这个东西我个人认为更加接近面向对象本来的意思 ，而不是由 ADT 里发展出来的带类型的对象系统的那个意思 。因此老庄不以为然的面向对象类型系统 ，我也不以为然 。但是面向对象作为 lambda 抽象的界面 ，我觉得还是很不错的 。这一点在 Smalltalk 和 Ruby 里都有不错的体现 。</p>
+<p>共计： 12895 个字符 ，汉字： 4763 ，段落： 302 ，英文单词： 1070 ，阅读进度： 0% ，阅读时间： 0分25秒</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/oo%E4%B8%8D%E8%B6%B3/" rel="tag"># oo不足</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/10/09/idea%E5%B8%B8%E7%94%A8%E5%BF%AB%E6%8D%B7%E9%94%AE/" rel="next" title="idea常用快捷键">
+                <i class="fa fa-chevron-left"></i> idea常用快捷键
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/10/23/hello-world/" rel="prev" title="Hello World">
+                Hello World <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Stormling</p>
+              <p class="site-description motion-element" itemprop="description">javaer fish</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%20%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#经过种种之后-，发现当初所谓鸣-OO-之丧钟-，实在是言过其实-。"><span class="nav-number">1.</span> <span class="nav-text">经过种种之后 ，发现当初所谓鸣 OO 之丧钟 ，实在是言过其实 。</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Stormling</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
