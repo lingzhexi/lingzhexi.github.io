@@ -1,122 +1,115 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Hexo x GitPage 部署</title>
-    <url>/2021/09/22/Hexo-GitPage-%E9%83%A8%E7%BD%B2/</url>
-    <content><![CDATA[<blockquote>
-<p>本文只介绍如何部署到GitPage，默认Hexo本地已经存在，故略去Hexo搭建过程</p>
-</blockquote>
-<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><h3 id="GitHub-Pages-是什么？"><a href="#GitHub-Pages-是什么？" class="headerlink" title="# GitHub Pages 是什么？"></a><strong># GitHub Pages 是什么？</strong></h3><ul>
-<li>  <a href="https://help.github.com/en/articles/what-is-github-pages">What is GitHub Pages? - GitHub Help</a></li>
-</ul>
-<p>GitHub Pages 是由 GitHub 官方提供的一种免费的静态站点托管服务，让我们可以在 GitHub 仓库里托管和发布自己的静态网站页面。</p>
-<h3 id="Hexo-是什么？"><a href="#Hexo-是什么？" class="headerlink" title="# Hexo 是什么？"></a><strong># Hexo 是什么？</strong></h3><ul>
-<li>  官网：<a href="https://hexo.io/zh-cn/">hexo.io</a></li>
-</ul>
-<p>Hexo 是一个快速、简洁且高效的静态博客框架，它基于 Node.js 运行，可以将我们撰写的 Markdown 文档解析渲染成静态的 HTML 网页。</p>
-<h3 id="Hexo-GitHub-文章发布原理"><a href="#Hexo-GitHub-文章发布原理" class="headerlink" title="# Hexo + GitHub 文章发布原理"></a><strong># Hexo + GitHub 文章发布原理</strong></h3><p>在本地撰写 Markdown 格式文章后，通过 Hexo 解析文档，渲染生成具有主题样式的 HTML 静态网页，再推送到 GitHub 上完成博文的发布。</p>
-<p><img src="https://pic3.zhimg.com/v2-a193a47cf70fe6ecf156e5f3d34920ea_r.jpg"></p>
-<h2 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h2><h3 id="连接Github"><a href="#连接Github" class="headerlink" title="连接Github"></a>连接Github</h3><p>设置<code>Github</code> 信息<br>设置 git 配置的用户名邮箱 (将<code>lingzhexi</code> / <code>lingzhexi@gmail.com</code> 分别替换成自己的用户名和邮箱)</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git config --global user.name &quot;lingzhexi&quot;</span><br><span class="line">git config --global user.email &quot;lingzhexi@gmail.com&quot;</span><br></pre></td></tr></table></figure>
-
-<h4 id="创建-SSH-密匙"><a href="#创建-SSH-密匙" class="headerlink" title="创建 SSH 密匙"></a>创建 SSH 密匙</h4><p>输入 <code>ssh-keygen -t rsa -C &quot;GitHub 邮箱&quot;</code>，然后一路回车。<br><img src="https://gitee.com/lingzhexi/blogImage/raw/master/2021/09/22/202109221047531.png" alt="img.png"></p>
-<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/2021/09/22/202109221047883.png" alt="image-20210922104651057"> </p>
-<h4 id="添加密匙"><a href="#添加密匙" class="headerlink" title="添加密匙"></a>添加密匙</h4><p>进入 [C:\Users \ 用户名 .ssh] 目录（要勾选显示 “隐藏的项目”），用记事本打开公钥 id_rsa.pub 文件并复制里面的内容。</p>
-<p>登陆 GitHub ，进入 Settings 页面，选择左边栏的 SSH and GPG keys，点击 New SSH key。</p>
-<p>Title 随便取个名字，粘贴复制的 id_rsa.pub 内容到 Key 中，点击 Add SSH key 完成添加。<br><img src="https://gitee.com/lingzhexi/blogImage/raw/master/2021/09/22/202109221107309.png" alt="img_2.png"></p>
-<h4 id="验证连接"><a href="#验证连接" class="headerlink" title="验证连接"></a>验证连接</h4><p>打开 Git Bash，输入 <code>ssh -T git@github.com</code> 出现 “Are you sure……”，输入 yes 回车确认。</p>
-<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/2021/09/22/202109221048625.png" alt="image-20210922104829350"></p>
-<p>显示 “Hi xxx! You’ve successfully……” 即连接成功。</p>
-<h3 id="创建-Github-Pages-仓库"><a href="#创建-Github-Pages-仓库" class="headerlink" title="创建 Github Pages 仓库"></a>创建 Github Pages 仓库</h3><hr>
-<p>GitHub 主页右上角加号 -&gt; New repository：</p>
-<ul>
-<li>  Repository name 中输入 <code>用户名.github.io</code></li>
-<li>  勾选 “Initialize this repository with a README”</li>
-<li>  Description 选填</li>
-</ul>
-<p>填好后点击 Create repository 创建。</p>
-<p><img src="https://pic2.zhimg.com/v2-67a8165154f4c5f4a6333e76e78ed815_r.jpg"></p>
-<p>创建后默认自动启用 HTTPS，博客地址为：<code>https://用户名.github.io</code></p>
-<h3 id="部署-Hexo-到-GitHub-Pages"><a href="#部署-Hexo-到-GitHub-Pages" class="headerlink" title="部署 Hexo 到 GitHub Pages"></a>部署 Hexo 到 GitHub Pages</h3><hr>
-<p>本地博客测试成功后，就是上传到 GitHub 进行部署，使其能够在网络上访问。</p>
-<p>首先<strong>安装 hexo-deployer-git</strong>：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
-
-<p>然后<strong>修改 _config.yml</strong> 文件末尾的 Deployment 部分，修改成如下：</p>
-<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">deploy:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">git</span></span><br><span class="line">  <span class="attr">repository:</span> <span class="string">git@github.com:lingzhexi/lingzhexi.github.io.git</span></span><br><span class="line">  <span class="attr">branch:</span> <span class="string">master</span></span><br></pre></td></tr></table></figure>
-
-<p>完成后运行 <code>hexo d</code> 将网站上传部署到 GitHub Pages。</p>
-<p>完成！这时访问我们的 GitHub 域名 <code>https://lingzhexi.github.io</code> 就可以看到 Hexo 网站了。</p>
-<h2 id="问题汇总"><a href="#问题汇总" class="headerlink" title="问题汇总"></a>问题汇总</h2><h3 id="1-git提示：warning-LF-will-be-replaced-by-CRLF"><a href="#1-git提示：warning-LF-will-be-replaced-by-CRLF" class="headerlink" title="1. git提示：warning: LF will be replaced by CRLF"></a>1. git提示：warning: LF will be replaced by CRLF</h3><p>在部署的提交静态文件到Github上时：</p>
-<blockquote>
-<p>hexo d </p>
-</blockquote>
-<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/2021/09/22/202109221052526.png" alt="image-20210922105234518"></p>
-<h4 id="分析问题"><a href="#分析问题" class="headerlink" title="分析问题"></a><strong>分析问题</strong></h4><p>​    格式化与多余的空白字符，特别是在跨平台情况下，有时候是一个令人发指的问题。由于编辑器的不同或者文件行尾的换行符在 Windows 下被替换了，一些细微的空格变化会不经意地混入提交，造成麻烦。虽然这是小问题，但它会极大地扰乱跨平台协作。<br> 其实，这是因为在文本处理中，<a href="https://link.jianshu.com/?t=http://en.wikipedia.org/wiki/Carriage_return">CR</a>（<strong>C</strong>arriage<strong>R</strong>eturn），<a href="https://link.jianshu.com/?t=http://en.wikipedia.org/wiki/Line_feed">LF</a>（<strong>L</strong>ine<strong>F</strong>eed），CR/LF是不同操作系统上使用的换行符，具体如下：</p>
-<h4 id="换行符‘-n’和回车符‘-r’"><a href="#换行符‘-n’和回车符‘-r’" class="headerlink" title="换行符‘\n’和回车符‘\r’"></a>换行符‘\n’和回车符‘\r’</h4><ul>
-<li>回车符就是回到一行的开头，用符号r表示，十进制ASCII代码是13，十六进制代码为0x0D，回车（return）；</li>
-<li>换行符就是另起一行，用n符号表示，ASCII代码是10，十六制为0x0A， 换行（newline）。</li>
-</ul>
-<p>所以我们平时编写文件的回车符应该确切来说叫做回车换行符。</p>
-<h4 id="影响"><a href="#影响" class="headerlink" title="影响"></a>影响</h4><ul>
-<li>一个直接后果是，Unix/Mac系统下的文件在Windows里打开的话，所有文字会变成一行；</li>
-<li>而Windows里的文件在Unix/Mac下打开的话，在每行的结尾可能会多出一个^M符号。</li>
-<li>Linux保存的文件在windows上用记事本看的话会出现黑点。</li>
-</ul>
-<p>这些问题都可以通过一定方式进行转换统一，例如，在linux下，命令unix2dos 是把linux文件格式转换成windows文件格式，命令dos2unix 是把windows格式转换成linux文件格式。</p>
-<h4 id="解决问题"><a href="#解决问题" class="headerlink" title="解决问题"></a>解决问题</h4><pre><code>Git 可以在你提交时自动地把回车（CR）和换行（LF）转换成换行（LF），而在检出代码时把换行（LF）转换成回车（CR）和换行（LF）。 你可以用`git config --global core.autocrlf true` 来打开此项功能。 如果是在 Windows 系统上，把它设置成 true，这样在检出代码时，换行会被转换成回车和换行：
-</code></pre>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">提交时转换为LF，检出时转换为CRLF</span></span><br><span class="line">git config --global core.autocrlf true</span><br></pre></td></tr></table></figure>
-
-<p>问题解决</p>
-<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/2021/09/22/202109221056943.png" alt="image-20210922105645713"></p>
-<p>参考：<br>    - <a href="https://hexo.bootcss.com/docs/github-pages.html">Hexo/GitPage 部署</a><br>    - <a href="https://zhuanlan.zhihu.com/p/60578464">使用 Hexo+GitHub 搭建个人免费博客教程（小白向）</a><br>    - <a href="https://zhuanlan.zhihu.com/p/26625249">GitHub+Hexo 搭建个人网站详细教程</a><br>    - <a href="https://www.jianshu.com/p/450cd21b36a4">解决git LF/CRLF</a></p>
-]]></content>
-      <tags>
-        <tag>GitPage</tag>
-        <tag>Hexo 部署</tag>
-        <tag>LF/CRLF 错误</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Hexo第一篇文章</title>
-    <url>/2021/09/16/My-New-Post/</url>
-    <content><![CDATA[<h2 id="这是Hexo-的第一篇文章"><a href="#这是Hexo-的第一篇文章" class="headerlink" title="这是Hexo 的第一篇文章"></a>这是Hexo 的第一篇文章</h2><p>之后会在这里输出工作，生活，技术相关的内容</p>
-]]></content>
-      <categories>
-        <category>Hexo</category>
-        <category>Post</category>
-      </categories>
-      <tags>
-        <tag>Hexo</tag>
-        <tag>Post</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Java 基础</title>
     <url>/2021/09/18/Java-%E5%9F%BA%E7%A1%80/</url>
-    <content><![CDATA[<h1 id="JAVA概念讲解"><a href="#JAVA概念讲解" class="headerlink" title="JAVA概念讲解"></a>JAVA概念讲解</h1><h1 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h1><ol>
+    <content><![CDATA[<h1 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h1><ol>
 <li><p>面向对象：封装、继承、多态</p>
 </li>
-<li><p>平台无关性：（JVM实现）</p>
+<li><p>平台无关性：（JVM实现） </p>
 </li>
-<li><p>编译与解释并存</p>
+<li><p>编译与解释并存    </p>
 </li>
 </ol>
 <h1 id="JVM-JDK-JRE"><a href="#JVM-JDK-JRE" class="headerlink" title="JVM/JDK/JRE"></a>JVM/JDK/JRE</h1><p>JVM：运行java字节码的虚拟机</p>
-<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/2021/09/18/202109181042117.png" alt="img"></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/410759/1631866606612-6704308a-7101-4ec9-8613-5171a814432e.png" alt="img"></p>
 <h2 id="字节码"><a href="#字节码" class="headerlink" title="字节码"></a>字节码</h2><p>JVM可以理解的代码叫 <code>字节码</code> （.class 文件）</p>
-<p><strong>Java程序到源代码运行：</strong></p>
-<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/2021/09/18/202109181042202.png" alt="img"></p>
-<p>编译和解释型语言：Java 编写的程序需要先经过编译步骤，生成字节码（*.class 文件），这种字节码必须由 Java 解释器来解释执</p>
+<h2 id="Java程序到源代码运行"><a href="#Java程序到源代码运行" class="headerlink" title="Java程序到源代码运行"></a>Java程序到源代码运行</h2><p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/2021/09/22/202109221123604.png" alt="img"></p>
+<h2 id="编译和解释型语言："><a href="#编译和解释型语言：" class="headerlink" title="编译和解释型语言："></a>编译和解释型语言：</h2><p>Java 编写的程序需要先经过编译步骤，生成字节码（*.class 文件），这种字节码必须由 Java 解释器来解释执行</p>
 <h1 id="基本语法"><a href="#基本语法" class="headerlink" title="基本语法"></a>基本语法</h1><h2 id="字符型常量和字符串常量"><a href="#字符型常量和字符串常量" class="headerlink" title="字符型常量和字符串常量"></a>字符型常量和字符串常量</h2><ol>
 <li><strong>含义</strong>：字符型常量相当于一个整型值（ASCII值）可以参加表达式运算；字符串常量：表示一个地址（内存中的位置）</li>
 <li><strong>内存大小</strong>：字符型常量占两个字节，字符串常量占若干个字节</li>
 </ol>
 <p>char 的包装类 <code>**Character**</code> 成员变量 <code>**Character.SIZE = 16**</code> 单位 <code>**bits**</code> ，除以8 (<code>**1byte = 8bits**</code>) 得到 2字节</p>
-<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/2021/09/18/202109181042880.png" alt="img"></p>
-<p>java 编程思想第四册 2.2.2</p>
-<h2 id="Java-中的关键字"><a href="#Java-中的关键字" class="headerlink" title="Java 中的关键字"></a>Java 中的关键字</h2><p>​    在使用类、方法、变量等定义的名称称为标识符，其中特殊的标识符称为关键字。如‘警察局’为关键字，商家开店不能叫做警察局，因为是有特殊的含义。</p>
+<table>
+<thead>
+<tr>
+<th>No.</th>
+<th>数据类型</th>
+<th>大小/位<bits></th>
+<th>可表示数据范围</th>
+<th>默认值</th>
+<th>包装类</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>byte（字节型）</td>
+<td>8</td>
+<td>-128~127</td>
+<td>0</td>
+<td>Byte</td>
+</tr>
+<tr>
+<td>2</td>
+<td>short（短整型）</td>
+<td>16</td>
+<td>-32768~32767</td>
+<td>0</td>
+<td>Short</td>
+</tr>
+<tr>
+<td>3</td>
+<td>int（整型）</td>
+<td>32</td>
+<td>-2147483648~2147483647</td>
+<td>0</td>
+<td>Integer</td>
+</tr>
+<tr>
+<td>4</td>
+<td>long（长整型）</td>
+<td>64</td>
+<td>-9223372036854775808~9223372036854775807</td>
+<td>0</td>
+<td>Long</td>
+</tr>
+<tr>
+<td>5</td>
+<td>float（单精度）</td>
+<td>32</td>
+<td>-3.4E38~3.4E38</td>
+<td>0.0</td>
+<td>Float</td>
+</tr>
+<tr>
+<td>6</td>
+<td>double（双精度）</td>
+<td>64</td>
+<td>-1.7E308~1.7E308</td>
+<td>0.0</td>
+<td>Double</td>
+</tr>
+<tr>
+<td>7</td>
+<td>char（字符）</td>
+<td>16</td>
+<td>0~255</td>
+<td>‘\u0000’</td>
+<td>Character</td>
+</tr>
+<tr>
+<td>8</td>
+<td>boolean（布尔）</td>
+<td>-</td>
+<td>true或false</td>
+<td>false</td>
+<td>Boolean</td>
+</tr>
+</tbody></table>
+<h2 id="二进制"><a href="#二进制" class="headerlink" title="二进制"></a>二进制</h2><p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/2021/09/22/202109221123327.png" alt="img"></p>
+<h2 id="基本类型和引用类型"><a href="#基本类型和引用类型" class="headerlink" title="基本类型和引用类型"></a>基本类型和引用类型</h2><h3 id="存储位置"><a href="#存储位置" class="headerlink" title="存储位置"></a>存储位置</h3><h4 id="基本变量类型"><a href="#基本变量类型" class="headerlink" title="基本变量类型"></a>基本变量类型</h4><ul>
+<li>在方法中定义的非全局基本数据类型变量的具体内容是存储在栈中的</li>
+</ul>
+<h4 id="引用变量类型"><a href="#引用变量类型" class="headerlink" title="引用变量类型"></a>引用变量类型</h4><ul>
+<li>只要是引用数据类型变量，其具体内容都是存放在堆中的，而栈中存放的是其具体内容所在内存的地址<br><em>ps:通过变量地址可以找到变量的具体内容，就如同通过房间号可以找到房间一般</em></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span></span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">       <span class="comment">//基本数据类型</span></span><br><span class="line">       <span class="keyword">int</span> i=<span class="number">1</span>;</span><br><span class="line">       <span class="keyword">double</span> d=<span class="number">1.2</span>;</span><br><span class="line">       </span><br><span class="line">       <span class="comment">//引用数据类型</span></span><br><span class="line">       String str=<span class="string">&quot;helloworld&quot;</span>;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/2021/09/22/202109221124197.png" alt="img"></p>
+<h2 id="Java内存模型"><a href="#Java内存模型" class="headerlink" title="Java内存模型"></a>Java内存模型</h2><p>JMM</p>
+<h2 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h2><p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/2021/09/22/202109221127159.png" alt="img"></p>
+<h2 id="Java-中的关键字"><a href="#Java-中的关键字" class="headerlink" title="Java 中的关键字"></a>Java 中的关键字</h2><p>标识符—关键字</p>
 <table>
 <thead>
 <tr>
@@ -244,18 +237,121 @@
 <h2 id="自增、自减"><a href="#自增、自减" class="headerlink" title="自增、自减"></a>自增、自减</h2><p>符号在前就先加/减，符号在后就后加/减</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">public static void main(String[] args) &#123;</span><br><span class="line"></span><br><span class="line">        //符号在前就先加/减，符号在后就后加/减</span><br><span class="line">        //赋值</span><br><span class="line">        int a = 1;</span><br><span class="line">        int b = 10;</span><br><span class="line">        ++a;//自增 运算 ++a =a+1  a++ =a+1</span><br><span class="line">        System.out.println(a);//2</span><br><span class="line">        a++;//自增 运算</span><br><span class="line">        System.out.println(a);//3</span><br><span class="line">        b = ++a;//自增  赋值 b = (a+1);</span><br><span class="line">        System.out.println(b);//4</span><br><span class="line">        b = a++;//自增  赋值 b = a; a= a+1;</span><br><span class="line">        System.out.println(b);//4</span><br><span class="line">        System.out.println(a);//5</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-
-
-
-
-<h2 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h2><p>局部变量–》方法、方法参数</p>
-<p>成员变量–》类中</p>
-<h2 id="方法（函数）"><a href="#方法（函数）" class="headerlink" title="方法（函数）"></a>方法（函数）</h2><h2 id="类"><a href="#类" class="headerlink" title="类"></a>类</h2><p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/2021/09/18/202109181042140.png" alt="img"></p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span></span>&#123; 	</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">add</span><span class="params">()</span> </span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> a = <span class="number">0</span>;   <span class="comment">// 3</span></span><br><span class="line">        <span class="keyword">int</span> b = <span class="number">1</span>;   <span class="comment">// 4</span></span><br><span class="line">        System.out.println( a+b );  <span class="comment">//1</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 调用方法 a = 3 b =4 进行加法运算</span></span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">addArg</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> </span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        System.out.println(a + b);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//主方法 程序执行的入口</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        addArg(<span class="number">3</span>, <span class="number">4</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+<h2 id="continue、break、和return-的区别"><a href="#continue、break、和return-的区别" class="headerlink" title="continue、break、和return 的区别"></a>continue、break、和return 的区别</h2><p>循环结构体，当循环条件不满足或者循环次数达到要求是，循环会正常结束，有时需要自定义。</p>
+<ol>
+<li><p>continue: 跳出当前循环，继续下一次循环</p>
+</li>
+<li><p>break：跳出整个循环，继续执行循环下面的语句</p>
+</li>
+<li><p>return：跳出整个方法，结束方法运行</p>
+</li>
+<li><ol>
+<li>return  ：直接使用返回方法，没有返回值函数方法</li>
+<li>return value：有返回值函数方法</li>
+</ol>
+</li>
+</ol>
+<h2 id="和-equals-比较"><a href="#和-equals-比较" class="headerlink" title="== 和 equals 比较"></a>== 和 equals 比较</h2><p>基本类型比较值，引用类型比较地址</p>
+<p>java 只有值传递，本质上来讲==就是比较值，只是引用变量存的值是对象的地址</p>
+<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/2021/09/22/202109221124265.png" alt="img"></p>
+<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/2021/09/22/202109221124980.png" alt="img"></p>
+<h2 id="哈希值"><a href="#哈希值" class="headerlink" title="哈希值"></a>哈希值</h2><p>String 的HashCode</p>
+<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/2021/09/22/202109221124091.png" alt="img"></p>
+<h2 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h2><blockquote>
+<p>type  identifier = value,[ identifier[= value] …] ;</p>
+</blockquote>
+<ul>
+<li><p>类变量：独立于方法之外的变量，用 static 修饰。</p>
+</li>
+<li><p>实例变量：独立于方法之外的变量，不过没有 static 修饰。</p>
+</li>
+<li><p>局部变量：类的方法中的变量。    </p>
+</li>
+</ul>
+<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/2021/09/22/202109221125117.png" alt="img"></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">	<span class="comment">// 使用增加方法</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">add</span><span class="params">()</span> </span>&#123;</span><br><span class="line">       <span class="keyword">int</span> a = <span class="number">0</span>;   <span class="comment">// 3</span></span><br><span class="line">       <span class="keyword">int</span> b = <span class="number">1</span>;   <span class="comment">// 4</span></span><br><span class="line">       System.out.println( a+b );  <span class="comment">//1</span></span><br><span class="line">   &#125;</span><br><span class="line">   <span class="comment">// 调用方法 a = 3 b =4 进行加法运算</span></span><br><span class="line">   <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">addArg</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> </span>&#123;</span><br><span class="line">       System.out.println(a + b);</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="comment">// 主方法 程序执行的入口</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">       addArg(<span class="number">3</span>, <span class="number">4</span>);</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>]]></content>
       <tags>
         <tag>JAVA系列</tag>
         <tag>JVM</tag>
         <tag>JAVA</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hexo x GitPage 部署</title>
+    <url>/2021/09/22/Hexo-GitPage-%E9%83%A8%E7%BD%B2/</url>
+    <content><![CDATA[<blockquote>
+<p>本文只介绍如何部署到GitPage，默认Hexo本地已经存在，故略去Hexo搭建过程</p>
+</blockquote>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><h3 id="GitHub-Pages-是什么？"><a href="#GitHub-Pages-是什么？" class="headerlink" title="# GitHub Pages 是什么？"></a><strong># GitHub Pages 是什么？</strong></h3><ul>
+<li>  <a href="https://help.github.com/en/articles/what-is-github-pages">What is GitHub Pages? - GitHub Help</a></li>
+</ul>
+<p>GitHub Pages 是由 GitHub 官方提供的一种免费的静态站点托管服务，让我们可以在 GitHub 仓库里托管和发布自己的静态网站页面。</p>
+<h3 id="Hexo-是什么？"><a href="#Hexo-是什么？" class="headerlink" title="# Hexo 是什么？"></a><strong># Hexo 是什么？</strong></h3><ul>
+<li>  官网：<a href="https://hexo.io/zh-cn/">hexo.io</a></li>
+</ul>
+<p>Hexo 是一个快速、简洁且高效的静态博客框架，它基于 Node.js 运行，可以将我们撰写的 Markdown 文档解析渲染成静态的 HTML 网页。</p>
+<h3 id="Hexo-GitHub-文章发布原理"><a href="#Hexo-GitHub-文章发布原理" class="headerlink" title="# Hexo + GitHub 文章发布原理"></a><strong># Hexo + GitHub 文章发布原理</strong></h3><p>在本地撰写 Markdown 格式文章后，通过 Hexo 解析文档，渲染生成具有主题样式的 HTML 静态网页，再推送到 GitHub 上完成博文的发布。</p>
+<p><img src="https://pic3.zhimg.com/v2-a193a47cf70fe6ecf156e5f3d34920ea_r.jpg"></p>
+<h2 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h2><h3 id="连接Github"><a href="#连接Github" class="headerlink" title="连接Github"></a>连接Github</h3><p>设置<code>Github</code> 信息<br>设置 git 配置的用户名邮箱 (将<code>lingzhexi</code> / <code>lingzhexi@gmail.com</code> 分别替换成自己的用户名和邮箱)</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git config --global user.name &quot;lingzhexi&quot;</span><br><span class="line">git config --global user.email &quot;lingzhexi@gmail.com&quot;</span><br></pre></td></tr></table></figure>
+
+<h4 id="创建-SSH-密匙"><a href="#创建-SSH-密匙" class="headerlink" title="创建 SSH 密匙"></a>创建 SSH 密匙</h4><p>输入 <code>ssh-keygen -t rsa -C &quot;GitHub 邮箱&quot;</code>，然后一路回车。<br><img src="https://gitee.com/lingzhexi/blogImage/raw/master/2021/09/22/202109221047531.png" alt="img.png"></p>
+<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/2021/09/22/202109221047883.png" alt="image-20210922104651057"> </p>
+<h4 id="添加密匙"><a href="#添加密匙" class="headerlink" title="添加密匙"></a>添加密匙</h4><p>进入 [C:\Users \ 用户名 .ssh] 目录（要勾选显示 “隐藏的项目”），用记事本打开公钥 id_rsa.pub 文件并复制里面的内容。</p>
+<p>登陆 GitHub ，进入 Settings 页面，选择左边栏的 SSH and GPG keys，点击 New SSH key。</p>
+<p>Title 随便取个名字，粘贴复制的 id_rsa.pub 内容到 Key 中，点击 Add SSH key 完成添加。<br><img src="https://gitee.com/lingzhexi/blogImage/raw/master/2021/09/22/202109221107309.png" alt="img_2.png"></p>
+<h4 id="验证连接"><a href="#验证连接" class="headerlink" title="验证连接"></a>验证连接</h4><p>打开 Git Bash，输入 <code>ssh -T git@github.com</code> 出现 “Are you sure……”，输入 yes 回车确认。</p>
+<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/2021/09/22/202109221048625.png" alt="image-20210922104829350"></p>
+<p>显示 “Hi xxx! You’ve successfully……” 即连接成功。</p>
+<h3 id="创建-Github-Pages-仓库"><a href="#创建-Github-Pages-仓库" class="headerlink" title="创建 Github Pages 仓库"></a>创建 Github Pages 仓库</h3><hr>
+<p>GitHub 主页右上角加号 -&gt; New repository：</p>
+<ul>
+<li>  Repository name 中输入 <code>用户名.github.io</code></li>
+<li>  勾选 “Initialize this repository with a README”</li>
+<li>  Description 选填</li>
+</ul>
+<p>填好后点击 Create repository 创建。</p>
+<p><img src="https://pic2.zhimg.com/v2-67a8165154f4c5f4a6333e76e78ed815_r.jpg"></p>
+<p>创建后默认自动启用 HTTPS，博客地址为：<code>https://用户名.github.io</code></p>
+<h3 id="部署-Hexo-到-GitHub-Pages"><a href="#部署-Hexo-到-GitHub-Pages" class="headerlink" title="部署 Hexo 到 GitHub Pages"></a>部署 Hexo 到 GitHub Pages</h3><hr>
+<p>本地博客测试成功后，就是上传到 GitHub 进行部署，使其能够在网络上访问。</p>
+<p>首先<strong>安装 hexo-deployer-git</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
+
+<p>然后<strong>修改 _config.yml</strong> 文件末尾的 Deployment 部分，修改成如下：</p>
+<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">deploy:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">git</span></span><br><span class="line">  <span class="attr">repository:</span> <span class="string">git@github.com:lingzhexi/lingzhexi.github.io.git</span></span><br><span class="line">  <span class="attr">branch:</span> <span class="string">master</span></span><br></pre></td></tr></table></figure>
+
+<p>完成后运行 <code>hexo d</code> 将网站上传部署到 GitHub Pages。</p>
+<p>完成！这时访问我们的 GitHub 域名 <code>https://lingzhexi.github.io</code> 就可以看到 Hexo 网站了。</p>
+<h2 id="问题汇总"><a href="#问题汇总" class="headerlink" title="问题汇总"></a>问题汇总</h2><h3 id="1-git提示：warning-LF-will-be-replaced-by-CRLF"><a href="#1-git提示：warning-LF-will-be-replaced-by-CRLF" class="headerlink" title="1. git提示：warning: LF will be replaced by CRLF"></a>1. git提示：warning: LF will be replaced by CRLF</h3><p>在部署的提交静态文件到Github上时：</p>
+<blockquote>
+<p>hexo d </p>
+</blockquote>
+<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/2021/09/22/202109221052526.png" alt="image-20210922105234518"></p>
+<h4 id="分析问题"><a href="#分析问题" class="headerlink" title="分析问题"></a><strong>分析问题</strong></h4><p>​    格式化与多余的空白字符，特别是在跨平台情况下，有时候是一个令人发指的问题。由于编辑器的不同或者文件行尾的换行符在 Windows 下被替换了，一些细微的空格变化会不经意地混入提交，造成麻烦。虽然这是小问题，但它会极大地扰乱跨平台协作。<br> 其实，这是因为在文本处理中，<a href="https://link.jianshu.com/?t=http://en.wikipedia.org/wiki/Carriage_return">CR</a>（<strong>C</strong>arriage<strong>R</strong>eturn），<a href="https://link.jianshu.com/?t=http://en.wikipedia.org/wiki/Line_feed">LF</a>（<strong>L</strong>ine<strong>F</strong>eed），CR/LF是不同操作系统上使用的换行符，具体如下：</p>
+<h4 id="换行符‘-n’和回车符‘-r’"><a href="#换行符‘-n’和回车符‘-r’" class="headerlink" title="换行符‘\n’和回车符‘\r’"></a>换行符‘\n’和回车符‘\r’</h4><ul>
+<li>回车符就是回到一行的开头，用符号r表示，十进制ASCII代码是13，十六进制代码为0x0D，回车（return）；</li>
+<li>换行符就是另起一行，用n符号表示，ASCII代码是10，十六制为0x0A， 换行（newline）。</li>
+</ul>
+<p>所以我们平时编写文件的回车符应该确切来说叫做回车换行符。</p>
+<h4 id="影响"><a href="#影响" class="headerlink" title="影响"></a>影响</h4><ul>
+<li>一个直接后果是，Unix/Mac系统下的文件在Windows里打开的话，所有文字会变成一行；</li>
+<li>而Windows里的文件在Unix/Mac下打开的话，在每行的结尾可能会多出一个^M符号。</li>
+<li>Linux保存的文件在windows上用记事本看的话会出现黑点。</li>
+</ul>
+<p>这些问题都可以通过一定方式进行转换统一，例如，在linux下，命令unix2dos 是把linux文件格式转换成windows文件格式，命令dos2unix 是把windows格式转换成linux文件格式。</p>
+<h4 id="解决问题"><a href="#解决问题" class="headerlink" title="解决问题"></a>解决问题</h4><pre><code>Git 可以在你提交时自动地把回车（CR）和换行（LF）转换成换行（LF），而在检出代码时把换行（LF）转换成回车（CR）和换行（LF）。 你可以用`git config --global core.autocrlf true` 来打开此项功能。 如果是在 Windows 系统上，把它设置成 true，这样在检出代码时，换行会被转换成回车和换行：
+</code></pre>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">提交时转换为LF，检出时转换为CRLF</span></span><br><span class="line">git config --global core.autocrlf true</span><br></pre></td></tr></table></figure>
+
+<p>问题解决</p>
+<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/2021/09/22/202109221056943.png" alt="image-20210922105645713"></p>
+<p>参考：<br>    - <a href="https://hexo.bootcss.com/docs/github-pages.html">Hexo/GitPage 部署</a><br>    - <a href="https://zhuanlan.zhihu.com/p/60578464">使用 Hexo+GitHub 搭建个人免费博客教程（小白向）</a><br>    - <a href="https://zhuanlan.zhihu.com/p/26625249">GitHub+Hexo 搭建个人网站详细教程</a><br>    - <a href="https://www.jianshu.com/p/450cd21b36a4">解决git LF/CRLF</a></p>
+]]></content>
+      <tags>
+        <tag>GitPage</tag>
+        <tag>Hexo 部署</tag>
+        <tag>LF/CRLF 错误</tag>
       </tags>
   </entry>
   <entry>
@@ -282,6 +378,20 @@
       <tags>
         <tag>Hexo</tag>
         <tag>Next</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hexo第一篇文章</title>
+    <url>/2021/09/16/My-New-Post/</url>
+    <content><![CDATA[<h2 id="这是Hexo-的第一篇文章"><a href="#这是Hexo-的第一篇文章" class="headerlink" title="这是Hexo 的第一篇文章"></a>这是Hexo 的第一篇文章</h2><p>之后会在这里输出工作，生活，技术相关的内容</p>
+]]></content>
+      <categories>
+        <category>Hexo</category>
+        <category>Post</category>
+      </categories>
+      <tags>
+        <tag>Hexo</tag>
+        <tag>Post</tag>
       </tags>
   </entry>
 </search>
