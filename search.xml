@@ -1,15 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Hexo第一篇文章</title>
+    <url>/2021/09/16/My-New-Post/</url>
+    <content><![CDATA[<h2 id="这是Hexo-的第一篇文章"><a href="#这是Hexo-的第一篇文章" class="headerlink" title="这是Hexo 的第一篇文章"></a>这是Hexo 的第一篇文章</h2><blockquote>
+<p>之后会在这里输出工作，生活，技术相关的内容<br>欢迎访问 <a href="https://hexo.io/">Hexo</a>! 这是你的第一篇文章。 访问 <a href="https://hexo.io/docs/">Hexo文档</a> 查询更多消息. 使用Hexo如有任何问题, 可以在 <a href="https://hexo.io/docs/troubleshooting.html">Hexo提问</a> 或者可以在 <a href="https://github.com/hexojs/hexo/issues">GitHub</a>提问.</p>
+</blockquote>
+<h2 id="快速开始"><a href="#快速开始" class="headerlink" title="快速开始"></a>快速开始</h2><h3 id="创建一个新的文章"><a href="#创建一个新的文章" class="headerlink" title="创建一个新的文章"></a>创建一个新的文章</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>更多信息: <a href="https://hexo.io/docs/writing.html">写作</a></p>
+<h3 id="运行服务"><a href="#运行服务" class="headerlink" title="运行服务"></a>运行服务</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>更多信息: <a href="https://hexo.io/docs/server.html">运行服务</a></p>
+<h3 id="生成静态文件"><a href="#生成静态文件" class="headerlink" title="生成静态文件"></a>生成静态文件</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>更多信息: <a href="https://hexo.io/docs/generating.html">生成</a></p>
+<h3 id="部署到远端站点"><a href="#部署到远端站点" class="headerlink" title="部署到远端站点"></a>部署到远端站点</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>更多信息: <a href="https://hexo.io/docs/one-command-deployment.html">部署</a></p>
+]]></content>
+      <categories>
+        <category>Hexo</category>
+        <category>Post</category>
+      </categories>
+      <tags>
+        <tag>Hexo</tag>
+        <tag>Post</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Java 基础</title>
     <url>/2021/09/18/Java-%E5%9F%BA%E7%A1%80/</url>
     <content><![CDATA[<h1 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h1><ol>
-<li><p>面向对象：封装、继承、多态</p>
-</li>
-<li><p>平台无关性：（JVM实现） </p>
-</li>
-<li><p>编译与解释并存    </p>
-</li>
+<li>面向对象：封装、继承、多态</li>
+<li>平台无关性：（JVM实现）</li>
+<li>编译与解释并存    </li>
 </ol>
 <h1 id="JVM-JDK-JRE"><a href="#JVM-JDK-JRE" class="headerlink" title="JVM/JDK/JRE"></a>JVM/JDK/JRE</h1><p>JVM：运行java字节码的虚拟机</p>
 <p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/2021/09/22/202109221132375.png" alt="img"></p>
@@ -270,43 +295,21 @@
 </ul>
 <p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/2021/09/22/202109221125117.png" alt="img"></p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line">	<span class="comment">// 使用增加方法</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">add</span><span class="params">()</span> </span>&#123;</span><br><span class="line">       <span class="keyword">int</span> a = <span class="number">0</span>;   <span class="comment">// 3</span></span><br><span class="line">       <span class="keyword">int</span> b = <span class="number">1</span>;   <span class="comment">// 4</span></span><br><span class="line">       System.out.println( a+b );  <span class="comment">//1</span></span><br><span class="line">   &#125;</span><br><span class="line">   <span class="comment">// 调用方法 a = 3 b =4 进行加法运算</span></span><br><span class="line">   <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">addArg</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> </span>&#123;</span><br><span class="line">       System.out.println(a + b);</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="comment">// 主方法 程序执行的入口</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">       addArg(<span class="number">3</span>, <span class="number">4</span>);</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>]]></content>
-      <tags>
-        <tag>JAVA系列</tag>
-        <tag>JVM</tag>
-        <tag>JAVA</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Hello World</title>
-    <url>/2021/09/04/hello-world/</url>
-    <content><![CDATA[<p>欢迎访问 <a href="https://hexo.io/">Hexo</a>! 这是你的第一篇文章。 访问 <a href="https://hexo.io/docs/">Hexo文档</a> 查询更多消息. 使用Hexo如有任何问题, 可以在 <a href="https://hexo.io/docs/troubleshooting.html">Hexo提问</a> 或者可以在 <a href="https://github.com/hexojs/hexo/issues">GitHub</a>提问.</p>
-<h2 id="快速开始"><a href="#快速开始" class="headerlink" title="快速开始"></a>快速开始</h2><h3 id="创建一个新的文章"><a href="#创建一个新的文章" class="headerlink" title="创建一个新的文章"></a>创建一个新的文章</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>更多信息: <a href="https://hexo.io/docs/writing.html">写作</a></p>
-<h3 id="运行服务"><a href="#运行服务" class="headerlink" title="运行服务"></a>运行服务</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>更多信息: <a href="https://hexo.io/docs/server.html">运行服务</a></p>
-<h3 id="生成静态文件"><a href="#生成静态文件" class="headerlink" title="生成静态文件"></a>生成静态文件</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>更多信息: <a href="https://hexo.io/docs/generating.html">生成</a></p>
-<h3 id="部署到远端站点"><a href="#部署到远端站点" class="headerlink" title="部署到远端站点"></a>部署到远端站点</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>更多信息: <a href="https://hexo.io/docs/one-command-deployment.html">部署</a></p>
-]]></content>
       <categories>
-        <category>Hexo</category>
-        <category>Next</category>
+        <category>JAVA系列</category>
+        <category>JAVA基础</category>
       </categories>
       <tags>
-        <tag>Hexo</tag>
-        <tag>Next</tag>
+        <tag>JAVA系列</tag>
+        <tag>JAVA基础</tag>
+        <tag>JVM</tag>
       </tags>
   </entry>
   <entry>
     <title>Hexo x GitPage 部署</title>
     <url>/2021/09/22/Hexo-GitPage-%E9%83%A8%E7%BD%B2/</url>
     <content><![CDATA[<blockquote>
-<p>本文只介绍如何部署到GitPage，默认Hexo本地已经存在，故略去Hexo搭建过程</p>
+<p>本文转载：<a href="https://zhuanlan.zhihu.com/p/60578464">使用 Hexo+GitHub 搭建个人免费博客教程（小白向）</a><br>本文只介绍如何部署到GitPage，默认Hexo本地已经存在，故略去Hexo搭建过程</p>
 </blockquote>
 <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><h3 id="GitHub-Pages-是什么？"><a href="#GitHub-Pages-是什么？" class="headerlink" title="# GitHub Pages 是什么？"></a><strong># GitHub Pages 是什么？</strong></h3><ul>
 <li>  <a href="https://help.github.com/en/articles/what-is-github-pages">What is GitHub Pages? - GitHub Help</a></li>
@@ -379,24 +382,15 @@
 <li><a href="https://www.jianshu.com/p/450cd21b36a4">解决git LF/CRLF</a></li>
 </ul>
 ]]></content>
+      <categories>
+        <category>Hexo</category>
+        <category>GitPage</category>
+        <category>部署</category>
+      </categories>
       <tags>
         <tag>GitPage</tag>
         <tag>Hexo 部署</tag>
         <tag>LF/CRLF 错误</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Hexo第一篇文章</title>
-    <url>/2021/09/16/My-New-Post/</url>
-    <content><![CDATA[<h2 id="这是Hexo-的第一篇文章"><a href="#这是Hexo-的第一篇文章" class="headerlink" title="这是Hexo 的第一篇文章"></a>这是Hexo 的第一篇文章</h2><p>之后会在这里输出工作，生活，技术相关的内容</p>
-]]></content>
-      <categories>
-        <category>Hexo</category>
-        <category>Post</category>
-      </categories>
-      <tags>
-        <tag>Hexo</tag>
-        <tag>Post</tag>
       </tags>
   </entry>
 </search>
