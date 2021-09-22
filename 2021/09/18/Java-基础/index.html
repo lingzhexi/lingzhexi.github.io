@@ -28,7 +28,7 @@
 <meta property="og:site_name" content="Codeling">
 <meta property="og:description" content="Java 概念讲解">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/410759/1631866606612-6704308a-7101-4ec9-8613-5171a814432e.png">
+<meta property="og:image" content="https://gitee.com/lingzhexi/blogImage/raw/master/2021/09/22/202109221132375.png">
 <meta property="og:image" content="https://gitee.com/lingzhexi/blogImage/raw/master/2021/09/22/202109221123604.png">
 <meta property="og:image" content="https://gitee.com/lingzhexi/blogImage/raw/master/2021/09/22/202109221123327.png">
 <meta property="og:image" content="https://gitee.com/lingzhexi/blogImage/raw/master/2021/09/22/202109221124197.png">
@@ -38,13 +38,13 @@
 <meta property="og:image" content="https://gitee.com/lingzhexi/blogImage/raw/master/2021/09/22/202109221124091.png">
 <meta property="og:image" content="https://gitee.com/lingzhexi/blogImage/raw/master/2021/09/22/202109221125117.png">
 <meta property="article:published_time" content="2021-09-18T02:29:39.000Z">
-<meta property="article:modified_time" content="2021-09-22T03:27:59.825Z">
+<meta property="article:modified_time" content="2021-09-22T03:33:22.510Z">
 <meta property="article:author" content="Lingzx">
 <meta property="article:tag" content="JAVA系列">
 <meta property="article:tag" content="JVM">
 <meta property="article:tag" content="JAVA">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://cdn.nlark.com/yuque/0/2021/png/410759/1631866606612-6704308a-7101-4ec9-8613-5171a814432e.png">
+<meta name="twitter:image" content="https://gitee.com/lingzhexi/blogImage/raw/master/2021/09/22/202109221132375.png">
 
 
 <link rel="canonical" href="http://example.com/2021/09/18/Java-%E5%9F%BA%E7%A1%80/">
@@ -271,7 +271,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-09-22 11:27:59" itemprop="dateModified" datetime="2021-09-22T11:27:59+08:00">2021-09-22</time>
+        <time title="修改时间：2021-09-22 11:33:22" itemprop="dateModified" datetime="2021-09-22T11:33:22+08:00">2021-09-22</time>
       </span>
 
   
@@ -294,7 +294,7 @@
 </li>
 </ol>
 <h1 id="JVM-JDK-JRE"><a href="#JVM-JDK-JRE" class="headerlink" title="JVM/JDK/JRE"></a>JVM/JDK/JRE</h1><p>JVM：运行java字节码的虚拟机</p>
-<p><img src="https://cdn.nlark.com/yuque/0/2021/png/410759/1631866606612-6704308a-7101-4ec9-8613-5171a814432e.png" alt="img"></p>
+<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/2021/09/22/202109221132375.png" alt="img"></p>
 <h2 id="字节码"><a href="#字节码" class="headerlink" title="字节码"></a>字节码</h2><p>JVM可以理解的代码叫 <code>字节码</code> （.class 文件）</p>
 <h2 id="Java程序到源代码运行"><a href="#Java程序到源代码运行" class="headerlink" title="Java程序到源代码运行"></a>Java程序到源代码运行</h2><p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/2021/09/22/202109221123604.png" alt="img"></p>
 <h2 id="编译和解释型语言："><a href="#编译和解释型语言：" class="headerlink" title="编译和解释型语言："></a>编译和解释型语言：</h2><p>Java 编写的程序需要先经过编译步骤，生成字节码（*.class 文件），这种字节码必须由 Java 解释器来解释执行</p>
@@ -517,7 +517,7 @@
 </tr>
 </tbody></table>
 <h2 id="自增、自减"><a href="#自增、自减" class="headerlink" title="自增、自减"></a>自增、自减</h2><p>符号在前就先加/减，符号在后就后加/减</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">public static void main(String[] args) &#123;</span><br><span class="line"></span><br><span class="line">        //符号在前就先加/减，符号在后就后加/减</span><br><span class="line">        //赋值</span><br><span class="line">        int a = 1;</span><br><span class="line">        int b = 10;</span><br><span class="line">        ++a;//自增 运算 ++a =a+1  a++ =a+1</span><br><span class="line">        System.out.println(a);//2</span><br><span class="line">        a++;//自增 运算</span><br><span class="line">        System.out.println(a);//3</span><br><span class="line">        b = ++a;//自增  赋值 b = (a+1);</span><br><span class="line">        System.out.println(b);//4</span><br><span class="line">        b = a++;//自增  赋值 b = a; a= a+1;</span><br><span class="line">        System.out.println(b);//4</span><br><span class="line">        System.out.println(a);//5</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//符号在前就先加/减，符号在后就后加/减</span></span><br><span class="line">        <span class="comment">//赋值</span></span><br><span class="line">        <span class="keyword">int</span> a = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">int</span> b = <span class="number">10</span>;</span><br><span class="line">        ++a;<span class="comment">//自增 运算 ++a =a+1  a++ =a+1</span></span><br><span class="line">        System.out.println(a);<span class="comment">//2</span></span><br><span class="line">        a++;<span class="comment">//自增 运算</span></span><br><span class="line">        System.out.println(a);<span class="comment">//3</span></span><br><span class="line">        b = ++a;<span class="comment">//自增  赋值 b = (a+1);</span></span><br><span class="line">        System.out.println(b);<span class="comment">//4</span></span><br><span class="line">        b = a++;<span class="comment">//自增  赋值 b = a; a= a+1;</span></span><br><span class="line">        System.out.println(b);<span class="comment">//4</span></span><br><span class="line">        System.out.println(a);<span class="comment">//5</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h2 id="continue、break、和return-的区别"><a href="#continue、break、和return-的区别" class="headerlink" title="continue、break、和return 的区别"></a>continue、break、和return 的区别</h2><p>循环结构体，当循环条件不满足或者循环次数达到要求是，循环会正常结束，有时需要自定义。</p>
 <ol>
