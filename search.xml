@@ -1,29 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Hello World</title>
-    <url>/2021/09/04/hello-world/</url>
-    <content><![CDATA[<p>欢迎访问 <a href="https://hexo.io/">Hexo</a>! 这是你的第一篇文章。 访问 <a href="https://hexo.io/docs/">Hexo文档</a> 查询更多消息. 使用Hexo如有任何问题, 可以在 <a href="https://hexo.io/docs/troubleshooting.html">Hexo提问</a> 或者可以在 <a href="https://github.com/hexojs/hexo/issues">GitHub</a>提问.</p>
-<h2 id="快速开始"><a href="#快速开始" class="headerlink" title="快速开始"></a>快速开始</h2><h3 id="创建一个新的文章"><a href="#创建一个新的文章" class="headerlink" title="创建一个新的文章"></a>创建一个新的文章</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+    <title>Hexo x GitPage 部署</title>
+    <url>/2021/09/22/Hexo-GitPage-%E9%83%A8%E7%BD%B2/</url>
+    <content><![CDATA[<blockquote>
+<p>本文只介绍如何部署到GitPage，默认Hexo本地已经存在，故略去Hexo搭建过程</p>
+</blockquote>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><h3 id="GitHub-Pages-是什么？"><a href="#GitHub-Pages-是什么？" class="headerlink" title="# GitHub Pages 是什么？"></a><strong># GitHub Pages 是什么？</strong></h3><ul>
+<li>  <a href="https://help.github.com/en/articles/what-is-github-pages">What is GitHub Pages? - GitHub Help</a></li>
+</ul>
+<p>GitHub Pages 是由 GitHub 官方提供的一种免费的静态站点托管服务，让我们可以在 GitHub 仓库里托管和发布自己的静态网站页面。</p>
+<h3 id="Hexo-是什么？"><a href="#Hexo-是什么？" class="headerlink" title="# Hexo 是什么？"></a><strong># Hexo 是什么？</strong></h3><ul>
+<li>  官网：<a href="https://hexo.io/zh-cn/">hexo.io</a></li>
+</ul>
+<p>Hexo 是一个快速、简洁且高效的静态博客框架，它基于 Node.js 运行，可以将我们撰写的 Markdown 文档解析渲染成静态的 HTML 网页。</p>
+<h3 id="Hexo-GitHub-文章发布原理"><a href="#Hexo-GitHub-文章发布原理" class="headerlink" title="# Hexo + GitHub 文章发布原理"></a><strong># Hexo + GitHub 文章发布原理</strong></h3><p>在本地撰写 Markdown 格式文章后，通过 Hexo 解析文档，渲染生成具有主题样式的 HTML 静态网页，再推送到 GitHub 上完成博文的发布。</p>
+<p><img src="https://pic3.zhimg.com/v2-a193a47cf70fe6ecf156e5f3d34920ea_r.jpg"></p>
+<h2 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h2><h3 id="连接Github"><a href="#连接Github" class="headerlink" title="连接Github"></a>连接Github</h3><p>设置<code>Github</code> 信息<br>设置 git 配置的用户名邮箱 (将<code>lingzhexi</code> / <code>lingzhexi@gmail.com</code> 分别替换成自己的用户名和邮箱)</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git config --global user.name &quot;lingzhexi&quot;</span><br><span class="line">git config --global user.email &quot;lingzhexi@gmail.com&quot;</span><br></pre></td></tr></table></figure>
 
-<p>更多信息: <a href="https://hexo.io/docs/writing.html">写作</a></p>
-<h3 id="运行服务"><a href="#运行服务" class="headerlink" title="运行服务"></a>运行服务</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<h4 id="创建-SSH-密匙"><a href="#创建-SSH-密匙" class="headerlink" title="创建 SSH 密匙"></a>创建 SSH 密匙</h4><p>输入 <code>ssh-keygen -t rsa -C &quot;GitHub 邮箱&quot;</code>，然后一路回车。<br><img src="https://gitee.com/lingzhexi/blogImage/raw/master/2021/09/22/202109221047531.png" alt="img.png"></p>
+<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/2021/09/22/202109221047883.png" alt="image-20210922104651057"> </p>
+<h4 id="添加密匙"><a href="#添加密匙" class="headerlink" title="添加密匙"></a>添加密匙</h4><p>进入 [C:\Users \ 用户名 .ssh] 目录（要勾选显示 “隐藏的项目”），用记事本打开公钥 id_rsa.pub 文件并复制里面的内容。</p>
+<p>登陆 GitHub ，进入 Settings 页面，选择左边栏的 SSH and GPG keys，点击 New SSH key。</p>
+<p>Title 随便取个名字，粘贴复制的 id_rsa.pub 内容到 Key 中，点击 Add SSH key 完成添加。<br><img src="https://gitee.com/lingzhexi/blogImage/raw/master/2021/09/22/202109221107309.png" alt="img_2.png"></p>
+<h4 id="验证连接"><a href="#验证连接" class="headerlink" title="验证连接"></a>验证连接</h4><p>打开 Git Bash，输入 <code>ssh -T git@github.com</code> 出现 “Are you sure……”，输入 yes 回车确认。</p>
+<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/2021/09/22/202109221048625.png" alt="image-20210922104829350"></p>
+<p>显示 “Hi xxx! You’ve successfully……” 即连接成功。</p>
+<h3 id="创建-Github-Pages-仓库"><a href="#创建-Github-Pages-仓库" class="headerlink" title="创建 Github Pages 仓库"></a>创建 Github Pages 仓库</h3><hr>
+<p>GitHub 主页右上角加号 -&gt; New repository：</p>
+<ul>
+<li>  Repository name 中输入 <code>用户名.github.io</code></li>
+<li>  勾选 “Initialize this repository with a README”</li>
+<li>  Description 选填</li>
+</ul>
+<p>填好后点击 Create repository 创建。</p>
+<p><img src="https://pic2.zhimg.com/v2-67a8165154f4c5f4a6333e76e78ed815_r.jpg"></p>
+<p>创建后默认自动启用 HTTPS，博客地址为：<code>https://用户名.github.io</code></p>
+<h3 id="部署-Hexo-到-GitHub-Pages"><a href="#部署-Hexo-到-GitHub-Pages" class="headerlink" title="部署 Hexo 到 GitHub Pages"></a>部署 Hexo 到 GitHub Pages</h3><hr>
+<p>本地博客测试成功后，就是上传到 GitHub 进行部署，使其能够在网络上访问。</p>
+<p>首先<strong>安装 hexo-deployer-git</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
 
-<p>更多信息: <a href="https://hexo.io/docs/server.html">运行服务</a></p>
-<h3 id="生成静态文件"><a href="#生成静态文件" class="headerlink" title="生成静态文件"></a>生成静态文件</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>然后<strong>修改 _config.yml</strong> 文件末尾的 Deployment 部分，修改成如下：</p>
+<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">deploy:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">git</span></span><br><span class="line">  <span class="attr">repository:</span> <span class="string">git@github.com:lingzhexi/lingzhexi.github.io.git</span></span><br><span class="line">  <span class="attr">branch:</span> <span class="string">master</span></span><br></pre></td></tr></table></figure>
 
-<p>更多信息: <a href="https://hexo.io/docs/generating.html">生成</a></p>
-<h3 id="部署到远端站点"><a href="#部署到远端站点" class="headerlink" title="部署到远端站点"></a>部署到远端站点</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p>完成后运行 <code>hexo d</code> 将网站上传部署到 GitHub Pages。</p>
+<p>完成！这时访问我们的 GitHub 域名 <code>https://lingzhexi.github.io</code> 就可以看到 Hexo 网站了。</p>
+<h2 id="问题汇总"><a href="#问题汇总" class="headerlink" title="问题汇总"></a>问题汇总</h2><h3 id="1-git提示：warning-LF-will-be-replaced-by-CRLF"><a href="#1-git提示：warning-LF-will-be-replaced-by-CRLF" class="headerlink" title="1. git提示：warning: LF will be replaced by CRLF"></a>1. git提示：warning: LF will be replaced by CRLF</h3><p>在部署的提交静态文件到Github上时：</p>
+<blockquote>
+<p>hexo d </p>
+</blockquote>
+<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/2021/09/22/202109221052526.png" alt="image-20210922105234518"></p>
+<h4 id="分析问题"><a href="#分析问题" class="headerlink" title="分析问题"></a><strong>分析问题</strong></h4><p>​    格式化与多余的空白字符，特别是在跨平台情况下，有时候是一个令人发指的问题。由于编辑器的不同或者文件行尾的换行符在 Windows 下被替换了，一些细微的空格变化会不经意地混入提交，造成麻烦。虽然这是小问题，但它会极大地扰乱跨平台协作。<br> 其实，这是因为在文本处理中，<a href="https://link.jianshu.com/?t=http://en.wikipedia.org/wiki/Carriage_return">CR</a>（<strong>C</strong>arriage<strong>R</strong>eturn），<a href="https://link.jianshu.com/?t=http://en.wikipedia.org/wiki/Line_feed">LF</a>（<strong>L</strong>ine<strong>F</strong>eed），CR/LF是不同操作系统上使用的换行符，具体如下：</p>
+<h4 id="换行符‘-n’和回车符‘-r’"><a href="#换行符‘-n’和回车符‘-r’" class="headerlink" title="换行符‘\n’和回车符‘\r’"></a>换行符‘\n’和回车符‘\r’</h4><ul>
+<li>回车符就是回到一行的开头，用符号r表示，十进制ASCII代码是13，十六进制代码为0x0D，回车（return）；</li>
+<li>换行符就是另起一行，用n符号表示，ASCII代码是10，十六制为0x0A， 换行（newline）。</li>
+</ul>
+<p>所以我们平时编写文件的回车符应该确切来说叫做回车换行符。</p>
+<h4 id="影响"><a href="#影响" class="headerlink" title="影响"></a>影响</h4><ul>
+<li>一个直接后果是，Unix/Mac系统下的文件在Windows里打开的话，所有文字会变成一行；</li>
+<li>而Windows里的文件在Unix/Mac下打开的话，在每行的结尾可能会多出一个^M符号。</li>
+<li>Linux保存的文件在windows上用记事本看的话会出现黑点。</li>
+</ul>
+<p>这些问题都可以通过一定方式进行转换统一，例如，在linux下，命令unix2dos 是把linux文件格式转换成windows文件格式，命令dos2unix 是把windows格式转换成linux文件格式。</p>
+<h4 id="解决问题"><a href="#解决问题" class="headerlink" title="解决问题"></a>解决问题</h4><pre><code>Git 可以在你提交时自动地把回车（CR）和换行（LF）转换成换行（LF），而在检出代码时把换行（LF）转换成回车（CR）和换行（LF）。 你可以用`git config --global core.autocrlf true` 来打开此项功能。 如果是在 Windows 系统上，把它设置成 true，这样在检出代码时，换行会被转换成回车和换行：
+</code></pre>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">提交时转换为LF，检出时转换为CRLF</span></span><br><span class="line">git config --global core.autocrlf true</span><br></pre></td></tr></table></figure>
 
-<p>更多信息: <a href="https://hexo.io/docs/one-command-deployment.html">部署</a></p>
+<p>问题解决</p>
+<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/2021/09/22/202109221056943.png" alt="image-20210922105645713"></p>
+<p>参考：<br>    - <a href="https://hexo.bootcss.com/docs/github-pages.html">Hexo/GitPage 部署</a><br>    - <a href="https://zhuanlan.zhihu.com/p/60578464">使用 Hexo+GitHub 搭建个人免费博客教程（小白向）</a><br>    - <a href="https://zhuanlan.zhihu.com/p/26625249">GitHub+Hexo 搭建个人网站详细教程</a><br>    - <a href="https://www.jianshu.com/p/450cd21b36a4">解决git LF/CRLF</a></p>
 ]]></content>
-      <categories>
-        <category>Hexo</category>
-        <category>Next</category>
-      </categories>
       <tags>
-        <tag>Hexo</tag>
-        <tag>Next</tag>
+        <tag>GitPage</tag>
+        <tag>Hexo 部署</tag>
+        <tag>LF/CRLF 错误</tag>
       </tags>
   </entry>
   <entry>
@@ -204,6 +256,32 @@
         <tag>JAVA系列</tag>
         <tag>JVM</tag>
         <tag>JAVA</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hello World</title>
+    <url>/2021/09/04/hello-world/</url>
+    <content><![CDATA[<p>欢迎访问 <a href="https://hexo.io/">Hexo</a>! 这是你的第一篇文章。 访问 <a href="https://hexo.io/docs/">Hexo文档</a> 查询更多消息. 使用Hexo如有任何问题, 可以在 <a href="https://hexo.io/docs/troubleshooting.html">Hexo提问</a> 或者可以在 <a href="https://github.com/hexojs/hexo/issues">GitHub</a>提问.</p>
+<h2 id="快速开始"><a href="#快速开始" class="headerlink" title="快速开始"></a>快速开始</h2><h3 id="创建一个新的文章"><a href="#创建一个新的文章" class="headerlink" title="创建一个新的文章"></a>创建一个新的文章</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>更多信息: <a href="https://hexo.io/docs/writing.html">写作</a></p>
+<h3 id="运行服务"><a href="#运行服务" class="headerlink" title="运行服务"></a>运行服务</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>更多信息: <a href="https://hexo.io/docs/server.html">运行服务</a></p>
+<h3 id="生成静态文件"><a href="#生成静态文件" class="headerlink" title="生成静态文件"></a>生成静态文件</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>更多信息: <a href="https://hexo.io/docs/generating.html">生成</a></p>
+<h3 id="部署到远端站点"><a href="#部署到远端站点" class="headerlink" title="部署到远端站点"></a>部署到远端站点</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>更多信息: <a href="https://hexo.io/docs/one-command-deployment.html">部署</a></p>
+]]></content>
+      <categories>
+        <category>Hexo</category>
+        <category>Next</category>
+      </categories>
+      <tags>
+        <tag>Hexo</tag>
+        <tag>Next</tag>
       </tags>
   </entry>
 </search>
