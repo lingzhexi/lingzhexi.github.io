@@ -1,122 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Hexo x GitPage 部署</title>
-    <url>/2021/09/22/Hexo-GitPage-%E9%83%A8%E7%BD%B2/</url>
-    <content><![CDATA[<blockquote>
-<p>本文转载：<a href="https://zhuanlan.zhihu.com/p/60578464">使用 Hexo+GitHub 搭建个人免费博客教程（小白向）</a><br>本文只介绍如何部署到GitPage，默认Hexo本地已经存在，故略去Hexo搭建过程</p>
-</blockquote>
-<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><h3 id="GitHub-Pages-是什么？"><a href="#GitHub-Pages-是什么？" class="headerlink" title="# GitHub Pages 是什么？"></a><strong># GitHub Pages 是什么？</strong></h3><ul>
-<li>  <a href="https://help.github.com/en/articles/what-is-github-pages">What is GitHub Pages? - GitHub Help</a></li>
-</ul>
-<p>GitHub Pages 是由 GitHub 官方提供的一种免费的静态站点托管服务，让我们可以在 GitHub 仓库里托管和发布自己的静态网站页面。</p>
-<h3 id="Hexo-是什么？"><a href="#Hexo-是什么？" class="headerlink" title="# Hexo 是什么？"></a><strong># Hexo 是什么？</strong></h3><ul>
-<li>  官网：<a href="https://hexo.io/zh-cn/">hexo.io</a></li>
-</ul>
-<p>Hexo 是一个快速、简洁且高效的静态博客框架，它基于 Node.js 运行，可以将我们撰写的 Markdown 文档解析渲染成静态的 HTML 网页。</p>
-<h3 id="Hexo-GitHub-文章发布原理"><a href="#Hexo-GitHub-文章发布原理" class="headerlink" title="# Hexo + GitHub 文章发布原理"></a><strong># Hexo + GitHub 文章发布原理</strong></h3><p>在本地撰写 Markdown 格式文章后，通过 Hexo 解析文档，渲染生成具有主题样式的 HTML 静态网页，再推送到 GitHub 上完成博文的发布。</p>
-<p><img src="https://pic3.zhimg.com/v2-a193a47cf70fe6ecf156e5f3d34920ea_r.jpg"></p>
-<h2 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h2><h3 id="连接Github"><a href="#连接Github" class="headerlink" title="连接Github"></a>连接Github</h3><p>设置<code>Github</code> 信息<br>设置 git 配置的用户名邮箱 (将<code>lingzhexi</code> / <code>lingzhexi@gmail.com</code> 分别替换成自己的用户名和邮箱)</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git config --global user.name &quot;lingzhexi&quot;</span><br><span class="line">git config --global user.email &quot;lingzhexi@gmail.com&quot;</span><br></pre></td></tr></table></figure>
-
-<h4 id="创建-SSH-密匙"><a href="#创建-SSH-密匙" class="headerlink" title="创建 SSH 密匙"></a>创建 SSH 密匙</h4><p>输入 <code>ssh-keygen -t rsa -C &quot;GitHub 邮箱&quot;</code>，然后一路回车。<br><img src="https://gitee.com/lingzhexi/blogImage/raw/master/2021/09/22/202109221047531.png" alt="img.png"></p>
-<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/2021/09/22/202109221047883.png" alt="image-20210922104651057"> </p>
-<h4 id="添加密匙"><a href="#添加密匙" class="headerlink" title="添加密匙"></a>添加密匙</h4><p>进入 [C:\Users \ 用户名 .ssh] 目录（要勾选显示 “隐藏的项目”），用记事本打开公钥 id_rsa.pub 文件并复制里面的内容。</p>
-<p>登陆 GitHub ，进入 Settings 页面，选择左边栏的 SSH and GPG keys，点击 New SSH key。</p>
-<p>Title 随便取个名字，粘贴复制的 id_rsa.pub 内容到 Key 中，点击 Add SSH key 完成添加。<br><img src="https://gitee.com/lingzhexi/blogImage/raw/master/2021/09/22/202109221107309.png" alt="img_2.png"></p>
-<h4 id="验证连接"><a href="#验证连接" class="headerlink" title="验证连接"></a>验证连接</h4><p>打开 Git Bash，输入 <code>ssh -T git@github.com</code> 出现 “Are you sure……”，输入 yes 回车确认。</p>
-<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/2021/09/22/202109221048625.png" alt="image-20210922104829350"></p>
-<p>显示 “Hi xxx! You’ve successfully……” 即连接成功。</p>
-<h3 id="创建-Github-Pages-仓库"><a href="#创建-Github-Pages-仓库" class="headerlink" title="创建 Github Pages 仓库"></a>创建 Github Pages 仓库</h3><hr>
-<p>GitHub 主页右上角加号 -&gt; New repository：</p>
-<ul>
-<li>  Repository name 中输入 <code>用户名.github.io</code></li>
-<li>  勾选 “Initialize this repository with a README”</li>
-<li>  Description 选填</li>
-</ul>
-<p>填好后点击 Create repository 创建。</p>
-<p><img src="https://pic2.zhimg.com/v2-67a8165154f4c5f4a6333e76e78ed815_r.jpg"></p>
-<p>创建后默认自动启用 HTTPS，博客地址为：<code>https://用户名.github.io</code></p>
-<h3 id="部署-Hexo-到-GitHub-Pages"><a href="#部署-Hexo-到-GitHub-Pages" class="headerlink" title="部署 Hexo 到 GitHub Pages"></a>部署 Hexo 到 GitHub Pages</h3><hr>
-<p>本地博客测试成功后，就是上传到 GitHub 进行部署，使其能够在网络上访问。</p>
-<p>首先<strong>安装 hexo-deployer-git</strong>：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
-
-<p>然后<strong>修改 _config.yml</strong> 文件末尾的 Deployment 部分，修改成如下：</p>
-<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">deploy:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">git</span></span><br><span class="line">  <span class="attr">repository:</span> <span class="string">git@github.com:lingzhexi/lingzhexi.github.io.git</span></span><br><span class="line">  <span class="attr">branch:</span> <span class="string">master</span></span><br></pre></td></tr></table></figure>
-
-<p>完成后运行 <code>hexo d</code> 将网站上传部署到 GitHub Pages。</p>
-<p>完成！这时访问我们的 GitHub 域名 <code>https://lingzhexi.github.io</code> 就可以看到 Hexo 网站了。</p>
-<h2 id="问题汇总"><a href="#问题汇总" class="headerlink" title="问题汇总"></a>问题汇总</h2><h3 id="1-git提示：warning-LF-will-be-replaced-by-CRLF"><a href="#1-git提示：warning-LF-will-be-replaced-by-CRLF" class="headerlink" title="1. git提示：warning: LF will be replaced by CRLF"></a>1. git提示：warning: LF will be replaced by CRLF</h3><p>在部署的提交静态文件到Github上时：</p>
-<blockquote>
-<p>hexo d </p>
-</blockquote>
-<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/2021/09/22/202109221052526.png" alt="image-20210922105234518"></p>
-<h4 id="分析问题"><a href="#分析问题" class="headerlink" title="分析问题"></a><strong>分析问题</strong></h4><p>​    格式化与多余的空白字符，特别是在跨平台情况下，有时候是一个令人发指的问题。由于编辑器的不同或者文件行尾的换行符在 Windows 下被替换了，一些细微的空格变化会不经意地混入提交，造成麻烦。虽然这是小问题，但它会极大地扰乱跨平台协作。<br> 其实，这是因为在文本处理中，<a href="https://link.jianshu.com/?t=http://en.wikipedia.org/wiki/Carriage_return">CR</a>（<strong>C</strong>arriage<strong>R</strong>eturn），<a href="https://link.jianshu.com/?t=http://en.wikipedia.org/wiki/Line_feed">LF</a>（<strong>L</strong>ine<strong>F</strong>eed），CR/LF是不同操作系统上使用的换行符，具体如下：</p>
-<h4 id="换行符‘-n’和回车符‘-r’"><a href="#换行符‘-n’和回车符‘-r’" class="headerlink" title="换行符‘\n’和回车符‘\r’"></a>换行符‘\n’和回车符‘\r’</h4><ul>
-<li>回车符就是回到一行的开头，用符号r表示，十进制ASCII代码是13，十六进制代码为0x0D，回车（return）；</li>
-<li>换行符就是另起一行，用n符号表示，ASCII代码是10，十六制为0x0A， 换行（newline）。</li>
-</ul>
-<p>所以我们平时编写文件的回车符应该确切来说叫做回车换行符。</p>
-<h4 id="影响"><a href="#影响" class="headerlink" title="影响"></a>影响</h4><ul>
-<li>一个直接后果是，Unix/Mac系统下的文件在Windows里打开的话，所有文字会变成一行；</li>
-<li>而Windows里的文件在Unix/Mac下打开的话，在每行的结尾可能会多出一个^M符号。</li>
-<li>Linux保存的文件在windows上用记事本看的话会出现黑点。</li>
-</ul>
-<p>这些问题都可以通过一定方式进行转换统一，例如，在linux下，命令unix2dos 是把linux文件格式转换成windows文件格式，命令dos2unix 是把windows格式转换成linux文件格式。</p>
-<h4 id="解决问题"><a href="#解决问题" class="headerlink" title="解决问题"></a>解决问题</h4><pre><code>Git 可以在你提交时自动地把回车（CR）和换行（LF）转换成换行（LF），而在检出代码时把换行（LF）转换成回车（CR）和换行（LF）。 你可以用`git config --global core.autocrlf true` 来打开此项功能。 如果是在 Windows 系统上，把它设置成 true，这样在检出代码时，换行会被转换成回车和换行：
-</code></pre>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">提交时转换为LF，检出时转换为CRLF</span></span><br><span class="line">git config --global core.autocrlf true</span><br></pre></td></tr></table></figure>
-
-<p>问题解决</p>
-<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/2021/09/22/202109221056943.png" alt="image-20210922105645713"></p>
-<h2 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h2><ul>
-<li><a href="https://hexo.bootcss.com/docs/github-pages.html">Hexo/GitPage 部署</a></li>
-<li><a href="https://zhuanlan.zhihu.com/p/60578464">使用 Hexo+GitHub 搭建个人免费博客教程（小白向）</a></li>
-<li><a href="https://zhuanlan.zhihu.com/p/26625249">GitHub+Hexo 搭建个人网站详细教程</a></li>
-<li><a href="https://www.jianshu.com/p/450cd21b36a4">解决git LF/CRLF</a></li>
-</ul>
-]]></content>
-      <categories>
-        <category>Hexo</category>
-        <category>GitPage</category>
-        <category>部署</category>
-      </categories>
-      <tags>
-        <tag>GitPage</tag>
-        <tag>Hexo 部署</tag>
-        <tag>LF/CRLF 错误</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Hexo第一篇文章</title>
-    <url>/2021/09/16/My-New-Post/</url>
-    <content><![CDATA[<h2 id="这是Hexo-的第一篇文章"><a href="#这是Hexo-的第一篇文章" class="headerlink" title="这是Hexo 的第一篇文章"></a>这是Hexo 的第一篇文章</h2><blockquote>
-<p>之后会在这里输出工作，生活，技术相关的内容<br>欢迎访问 <a href="https://hexo.io/">Hexo</a>! 这是你的第一篇文章。 访问 <a href="https://hexo.io/docs/">Hexo文档</a> 查询更多消息. 使用Hexo如有任何问题, 可以在 <a href="https://hexo.io/docs/troubleshooting.html">Hexo提问</a> 或者可以在 <a href="https://github.com/hexojs/hexo/issues">GitHub</a>提问.</p>
-</blockquote>
-<h2 id="快速开始"><a href="#快速开始" class="headerlink" title="快速开始"></a>快速开始</h2><h3 id="创建一个新的文章"><a href="#创建一个新的文章" class="headerlink" title="创建一个新的文章"></a>创建一个新的文章</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>更多信息: <a href="https://hexo.io/docs/writing.html">写作</a></p>
-<h3 id="运行服务"><a href="#运行服务" class="headerlink" title="运行服务"></a>运行服务</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>更多信息: <a href="https://hexo.io/docs/server.html">运行服务</a></p>
-<h3 id="生成静态文件"><a href="#生成静态文件" class="headerlink" title="生成静态文件"></a>生成静态文件</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>更多信息: <a href="https://hexo.io/docs/generating.html">生成</a></p>
-<h3 id="部署到远端站点"><a href="#部署到远端站点" class="headerlink" title="部署到远端站点"></a>部署到远端站点</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>更多信息: <a href="https://hexo.io/docs/one-command-deployment.html">部署</a></p>
-]]></content>
-      <categories>
-        <category>Hexo</category>
-        <category>Post</category>
-      </categories>
-      <tags>
-        <tag>Hexo</tag>
-        <tag>Post</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Java 基础</title>
     <url>/2021/09/18/Java-%E5%9F%BA%E7%A1%80/</url>
     <content><![CDATA[<h1 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h1><ol>
@@ -384,14 +268,83 @@
 <p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/2021/09/22/202109221125117.png" alt="img"></p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line">	<span class="comment">// 使用增加方法</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">add</span><span class="params">()</span> </span>&#123;</span><br><span class="line">       <span class="keyword">int</span> a = <span class="number">0</span>;   <span class="comment">// 3</span></span><br><span class="line">       <span class="keyword">int</span> b = <span class="number">1</span>;   <span class="comment">// 4</span></span><br><span class="line">       System.out.println( a+b );  <span class="comment">//1</span></span><br><span class="line">   &#125;</span><br><span class="line">   <span class="comment">// 调用方法 a = 3 b =4 进行加法运算</span></span><br><span class="line">   <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">addArg</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> </span>&#123;</span><br><span class="line">       System.out.println(a + b);</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="comment">// 主方法 程序执行的入口</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">       addArg(<span class="number">3</span>, <span class="number">4</span>);</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
-        <category>JAVA系列</category>
-        <category>JAVA基础</category>
+        <category>JAVA</category>
       </categories>
       <tags>
         <tag>JAVA系列</tag>
         <tag>JAVA基础</tag>
         <tag>JVM</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>文章添加字数统计和阅读时长</title>
+    <url>/2021/09/24/%E6%96%87%E7%AB%A0%E6%B7%BB%E5%8A%A0%E5%AD%97%E6%95%B0%E7%BB%9F%E8%AE%A1%E5%92%8C%E9%98%85%E8%AF%BB%E6%97%B6%E9%95%BF/</url>
+    <content><![CDATA[<h2 id="安装插件"><a href="#安装插件" class="headerlink" title="安装插件"></a>安装插件</h2><p>如果没有安装 hexo-wordcount 插件，先安装该插件：</p>
+<blockquote>
+<p>npm i –save hexo-wordcount</p>
+</blockquote>
+<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><p>Next 主题默认集成了文章 【字数统计】和【阅读时长】，我们只需要开启配置即可，</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Post wordcount display settings</span></span><br><span class="line"><span class="comment"># Dependencies: https://github.com/willin/hexo-wordcount</span></span><br><span class="line"><span class="attr">post_wordcount:</span></span><br><span class="line">  <span class="attr">item_text:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">wordcount:</span> <span class="literal">true</span>         <span class="comment"># 单篇 字数统计</span></span><br><span class="line">  <span class="attr">min2read:</span> <span class="literal">true</span>          <span class="comment"># 单篇 阅读时长</span></span><br><span class="line">  <span class="attr">totalcount:</span> <span class="literal">false</span>       <span class="comment"># 网站 字数统计</span></span><br><span class="line">  <span class="attr">separated_meta:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="添加样式"><a href="#添加样式" class="headerlink" title="添加样式"></a>添加样式</h2><p>打开 /themes/hexo-theme-next/layout/_partials/post/post-meta.njk 文件，在  <code>div</code> 的最下面添加以下代码：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">span</span> <span class="attr">title</span>=<span class="string">&quot;&#123;&#123; __(&#x27;post.wordcount&#x27;) &#125;&#125;&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;post-meta-divider&quot;</span>&gt;</span>&amp;nbsp&amp;nbsp|&amp;nbsp&amp;nbsphe<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">&quot;fas fa-book&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span></span><br><span class="line">  字数统计:&#123;&#123; wordcount(post.content) &#125;&#125;字</span><br><span class="line"><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">span</span> <span class="attr">title</span>=<span class="string">&quot;&#123;&#123; __(&#x27;post.min2read&#x27;) &#125;&#125;&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;post-meta-divider&quot;</span>&gt;</span>&amp;nbsp&amp;nbsp|&amp;nbsp&amp;nbsp<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">&quot;far fa-clock&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span></span><br><span class="line">  阅读时长≈&#123;&#123; min2read(post.content) &#125;&#125;分钟</span><br><span class="line"><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h2><p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/2021/09/24/202109241103762.png" alt="添加文字统计和阅读时长"></p>
+<h2 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h2><ul>
+<li><a href="https://www.jianshu.com/p/baea8c95e39b">Hexo添加字数统计、阅读时长</a></li>
+<li><a href="https://lingzhexi.github.io/2021/09/24/%E6%96%87%E7%AB%A0%E7%BD%AE%E9%A1%B6/">Hexo 文字置顶</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>Hexo</category>
+      </categories>
+      <tags>
+        <tag>Hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>文章置顶</title>
+    <url>/2021/09/24/%E6%96%87%E7%AB%A0%E7%BD%AE%E9%A1%B6/</url>
+    <content><![CDATA[<p>先看效果<br><img src="https://gitee.com/lingzhexi/blogImage/raw/master/2021/09/24/202109241014262.png" alt="置顶.png"></p>
+<h2 id="卸载默认的置顶方式"><a href="#卸载默认的置顶方式" class="headerlink" title="卸载默认的置顶方式"></a>卸载默认的置顶方式</h2><pre><code>$ npm uninstall hexo-generator-index --save
+
+$ npm install hexo-generator-index-pin-top --save
+</code></pre>
+<p>在需要置顶的文章的Front-matter中加上top: true 或者top: 任意数字，比如：</p>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: Java 基础</span><br><span class="line">date: 2021-09-18 10:29:39</span><br><span class="line">tags: </span><br><span class="line"><span class="bullet">    -</span> JAVA系列</span><br><span class="line"><span class="bullet">    -</span> JAVA基础</span><br><span class="line"><span class="bullet">    -</span> JVM </span><br><span class="line">categories: JAVA</span><br><span class="line">top: true</span><br><span class="line"><span class="section">description: Java 概念讲解,从三大特性讲解，认识JDK/JRE/JVM的区别，从数据类型引出二进制与java的内存空间关系</span></span><br><span class="line"><span class="section">---</span></span><br></pre></td></tr></table></figure>
+<h2 id="设置置顶图标"><a href="#设置置顶图标" class="headerlink" title="设置置顶图标"></a>设置置顶图标</h2><p>我使用主题是Next,其中Next的各版本之间略有差异，我的版本是8.7.1<br>打开/themes/next/layout/_macro/ 目录下的post.njk文件<br>在<code>&lt;div class=&quot;post-meta-container&quot;&gt;</code> 内找到 post-meta.njk 文件路径：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"> <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;post-meta-container&quot;</span>&gt;</span></span><br><span class="line">  &#123;&#123; partial(&#x27;_partials/post/post-meta.njk&#x27;) &#125;&#125; # 实际在 post-meta.njk 这个文件里面去修改</span><br><span class="line"></span><br><span class="line">  &#123;%- if post.description and (not theme.excerpt_description or not is_index) %&#125;</span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;post-description&quot;</span>&gt;</span>&#123;&#123; post.description &#125;&#125;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  &#123;%- endif %&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>打开/themes/hexo-theme-next/layout/_partials/post/post-meta.njk，在 <code>&lt;div class=&quot;post-meta&quot;&gt;</code> 插入：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">&#123;% if post.top %&#125;</span><br><span class="line">    <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;post-meta-item&quot;</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">&quot;fas fa-thumbtack&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">font</span> <span class="attr">color</span>=<span class="string">&quot;RED&quot;</span>&gt;</span>置顶<span class="tag">&lt;/<span class="name">font</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">&#123;% endif %&#125;</span><br></pre></td></tr></table></figure>
+<p>添加位置</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;post-meta&quot;</span>&gt;</span></span><br><span class="line">  &#123;%- set date_diff = date(post.date) != date(post.updated) %&#125;</span><br><span class="line">  &#123;%- set time_diff = time(post.date) != time(post.updated) %&#125;</span><br><span class="line">  # 插入下面的内容</span><br><span class="line">  &#123;% if post.top %&#125;</span><br><span class="line">    <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;post-meta-item&quot;</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">&quot;fas fa-thumbtack&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">font</span> <span class="attr">color</span>=<span class="string">&quot;RED&quot;</span>&gt;</span>置顶<span class="tag">&lt;/<span class="name">font</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">  &#123;% endif %&#125; </span><br><span class="line">  </span><br></pre></td></tr></table></figure>
+<p>其中置顶前的标签可以在 <a href="https://fontawesome.com/v5.15/icons?d=gallery&p=1">Fontawesome</a> 替换你喜欢的</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="https://www.jianshu.com/p/a9922c3ebb61">Hexo nexT主题之文章置顶</a></li>
+<li><a href="https://juejin.cn/post/6844904037465194503">Hexo Next主题设置文章置顶</a></li>
+<li><a href="http://wangwlj.com/2018/01/09/blog_pin_post/">Hexo博客彻底解决置顶问题</a></li>
+<li><a href="https://fontawesome.com/v5.15/icons?d=gallery&p=1">FontAwesome 标签库</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>Hexo</category>
+      </categories>
+      <tags>
+        <tag>Hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>学习计划</title>
+    <url>/2021/09/23/%E5%AD%A6%E4%B9%A0%E8%AE%A1%E5%88%92/</url>
+    <content><![CDATA[<h1 id="JAVA-篇"><a href="#JAVA-篇" class="headerlink" title="JAVA 篇"></a>JAVA 篇</h1><pre><code>原先是制定一个月完成Java基础的知识复习并且传授知识，目的是为了在一个月内教会小白如何JAVA
+</code></pre>
+<h1 id="Vue-篇"><a href="#Vue-篇" class="headerlink" title="Vue 篇"></a>Vue 篇</h1><pre><code>计划在一周之内做到完成Vue上手并且和SpringBoot前后端交互
+</code></pre>
+]]></content>
+      <categories>
+        <category>生活</category>
+      </categories>
   </entry>
   <entry>
     <title>Typora emoji 表情包</title>
@@ -1853,15 +1806,126 @@
 </tbody></table>
 ]]></content>
       <categories>
-        <category>Typora</category>
-        <category>emoji</category>
-        <category>md</category>
+        <category>Markdown</category>
       </categories>
       <tags>
         <tag>Typora</tag>
         <tag>emoji</tag>
         <tag>markdown</tag>
         <tag>md</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hexo x GitPage 部署</title>
+    <url>/2021/09/22/Hexo-GitPage-%E9%83%A8%E7%BD%B2/</url>
+    <content><![CDATA[<blockquote>
+<p>本文转载：<a href="https://zhuanlan.zhihu.com/p/60578464">使用 Hexo+GitHub 搭建个人免费博客教程（小白向）</a><br>本文只介绍如何部署到GitPage，默认Hexo本地已经存在，故略去Hexo搭建过程</p>
+</blockquote>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><h3 id="GitHub-Pages-是什么？"><a href="#GitHub-Pages-是什么？" class="headerlink" title="# GitHub Pages 是什么？"></a><strong># GitHub Pages 是什么？</strong></h3><ul>
+<li>  <a href="https://help.github.com/en/articles/what-is-github-pages">What is GitHub Pages? - GitHub Help</a></li>
+</ul>
+<p>GitHub Pages 是由 GitHub 官方提供的一种免费的静态站点托管服务，让我们可以在 GitHub 仓库里托管和发布自己的静态网站页面。</p>
+<h3 id="Hexo-是什么？"><a href="#Hexo-是什么？" class="headerlink" title="# Hexo 是什么？"></a><strong># Hexo 是什么？</strong></h3><ul>
+<li>  官网：<a href="https://hexo.io/zh-cn/">hexo.io</a></li>
+</ul>
+<p>Hexo 是一个快速、简洁且高效的静态博客框架，它基于 Node.js 运行，可以将我们撰写的 Markdown 文档解析渲染成静态的 HTML 网页。</p>
+<h3 id="Hexo-GitHub-文章发布原理"><a href="#Hexo-GitHub-文章发布原理" class="headerlink" title="# Hexo + GitHub 文章发布原理"></a><strong># Hexo + GitHub 文章发布原理</strong></h3><p>在本地撰写 Markdown 格式文章后，通过 Hexo 解析文档，渲染生成具有主题样式的 HTML 静态网页，再推送到 GitHub 上完成博文的发布。</p>
+<p><img src="https://pic3.zhimg.com/v2-a193a47cf70fe6ecf156e5f3d34920ea_r.jpg"></p>
+<h2 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h2><h3 id="连接Github"><a href="#连接Github" class="headerlink" title="连接Github"></a>连接Github</h3><p>设置<code>Github</code> 信息<br>设置 git 配置的用户名邮箱 (将<code>lingzhexi</code> / <code>lingzhexi@gmail.com</code> 分别替换成自己的用户名和邮箱)</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git config --global user.name &quot;lingzhexi&quot;</span><br><span class="line">git config --global user.email &quot;lingzhexi@gmail.com&quot;</span><br></pre></td></tr></table></figure>
+
+<h4 id="创建-SSH-密匙"><a href="#创建-SSH-密匙" class="headerlink" title="创建 SSH 密匙"></a>创建 SSH 密匙</h4><p>输入 <code>ssh-keygen -t rsa -C &quot;GitHub 邮箱&quot;</code>，然后一路回车。<br><img src="https://gitee.com/lingzhexi/blogImage/raw/master/2021/09/22/202109221047531.png" alt="img.png"></p>
+<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/2021/09/22/202109221047883.png" alt="image-20210922104651057"> </p>
+<h4 id="添加密匙"><a href="#添加密匙" class="headerlink" title="添加密匙"></a>添加密匙</h4><p>进入 [C:\Users \ 用户名 .ssh] 目录（要勾选显示 “隐藏的项目”），用记事本打开公钥 id_rsa.pub 文件并复制里面的内容。</p>
+<p>登陆 GitHub ，进入 Settings 页面，选择左边栏的 SSH and GPG keys，点击 New SSH key。</p>
+<p>Title 随便取个名字，粘贴复制的 id_rsa.pub 内容到 Key 中，点击 Add SSH key 完成添加。<br><img src="https://gitee.com/lingzhexi/blogImage/raw/master/2021/09/22/202109221107309.png" alt="img_2.png"></p>
+<h4 id="验证连接"><a href="#验证连接" class="headerlink" title="验证连接"></a>验证连接</h4><p>打开 Git Bash，输入 <code>ssh -T git@github.com</code> 出现 “Are you sure……”，输入 yes 回车确认。</p>
+<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/2021/09/22/202109221048625.png" alt="image-20210922104829350"></p>
+<p>显示 “Hi xxx! You’ve successfully……” 即连接成功。</p>
+<h3 id="创建-Github-Pages-仓库"><a href="#创建-Github-Pages-仓库" class="headerlink" title="创建 Github Pages 仓库"></a>创建 Github Pages 仓库</h3><hr>
+<p>GitHub 主页右上角加号 -&gt; New repository：</p>
+<ul>
+<li>  Repository name 中输入 <code>用户名.github.io</code></li>
+<li>  勾选 “Initialize this repository with a README”</li>
+<li>  Description 选填</li>
+</ul>
+<p>填好后点击 Create repository 创建。</p>
+<p><img src="https://pic2.zhimg.com/v2-67a8165154f4c5f4a6333e76e78ed815_r.jpg"></p>
+<p>创建后默认自动启用 HTTPS，博客地址为：<code>https://用户名.github.io</code></p>
+<h3 id="部署-Hexo-到-GitHub-Pages"><a href="#部署-Hexo-到-GitHub-Pages" class="headerlink" title="部署 Hexo 到 GitHub Pages"></a>部署 Hexo 到 GitHub Pages</h3><hr>
+<p>本地博客测试成功后，就是上传到 GitHub 进行部署，使其能够在网络上访问。</p>
+<p>首先<strong>安装 hexo-deployer-git</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
+
+<p>然后<strong>修改 _config.yml</strong> 文件末尾的 Deployment 部分，修改成如下：</p>
+<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">deploy:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">git</span></span><br><span class="line">  <span class="attr">repository:</span> <span class="string">git@github.com:lingzhexi/lingzhexi.github.io.git</span></span><br><span class="line">  <span class="attr">branch:</span> <span class="string">master</span></span><br></pre></td></tr></table></figure>
+
+<p>完成后运行 <code>hexo d</code> 将网站上传部署到 GitHub Pages。</p>
+<p>完成！这时访问我们的 GitHub 域名 <code>https://lingzhexi.github.io</code> 就可以看到 Hexo 网站了。</p>
+<h2 id="问题汇总"><a href="#问题汇总" class="headerlink" title="问题汇总"></a>问题汇总</h2><h3 id="1-git提示：warning-LF-will-be-replaced-by-CRLF"><a href="#1-git提示：warning-LF-will-be-replaced-by-CRLF" class="headerlink" title="1. git提示：warning: LF will be replaced by CRLF"></a>1. git提示：warning: LF will be replaced by CRLF</h3><p>在部署的提交静态文件到Github上时：</p>
+<blockquote>
+<p>hexo d </p>
+</blockquote>
+<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/2021/09/22/202109221052526.png" alt="image-20210922105234518"></p>
+<h4 id="分析问题"><a href="#分析问题" class="headerlink" title="分析问题"></a><strong>分析问题</strong></h4><p>​    格式化与多余的空白字符，特别是在跨平台情况下，有时候是一个令人发指的问题。由于编辑器的不同或者文件行尾的换行符在 Windows 下被替换了，一些细微的空格变化会不经意地混入提交，造成麻烦。虽然这是小问题，但它会极大地扰乱跨平台协作。<br> 其实，这是因为在文本处理中，<a href="https://link.jianshu.com/?t=http://en.wikipedia.org/wiki/Carriage_return">CR</a>（<strong>C</strong>arriage<strong>R</strong>eturn），<a href="https://link.jianshu.com/?t=http://en.wikipedia.org/wiki/Line_feed">LF</a>（<strong>L</strong>ine<strong>F</strong>eed），CR/LF是不同操作系统上使用的换行符，具体如下：</p>
+<h4 id="换行符‘-n’和回车符‘-r’"><a href="#换行符‘-n’和回车符‘-r’" class="headerlink" title="换行符‘\n’和回车符‘\r’"></a>换行符‘\n’和回车符‘\r’</h4><ul>
+<li>回车符就是回到一行的开头，用符号r表示，十进制ASCII代码是13，十六进制代码为0x0D，回车（return）；</li>
+<li>换行符就是另起一行，用n符号表示，ASCII代码是10，十六制为0x0A， 换行（newline）。</li>
+</ul>
+<p>所以我们平时编写文件的回车符应该确切来说叫做回车换行符。</p>
+<h4 id="影响"><a href="#影响" class="headerlink" title="影响"></a>影响</h4><ul>
+<li>一个直接后果是，Unix/Mac系统下的文件在Windows里打开的话，所有文字会变成一行；</li>
+<li>而Windows里的文件在Unix/Mac下打开的话，在每行的结尾可能会多出一个^M符号。</li>
+<li>Linux保存的文件在windows上用记事本看的话会出现黑点。</li>
+</ul>
+<p>这些问题都可以通过一定方式进行转换统一，例如，在linux下，命令unix2dos 是把linux文件格式转换成windows文件格式，命令dos2unix 是把windows格式转换成linux文件格式。</p>
+<h4 id="解决问题"><a href="#解决问题" class="headerlink" title="解决问题"></a>解决问题</h4><pre><code>Git 可以在你提交时自动地把回车（CR）和换行（LF）转换成换行（LF），而在检出代码时把换行（LF）转换成回车（CR）和换行（LF）。 你可以用`git config --global core.autocrlf true` 来打开此项功能。 如果是在 Windows 系统上，把它设置成 true，这样在检出代码时，换行会被转换成回车和换行：
+</code></pre>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">提交时转换为LF，检出时转换为CRLF</span></span><br><span class="line">git config --global core.autocrlf true</span><br></pre></td></tr></table></figure>
+
+<p>问题解决</p>
+<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/2021/09/22/202109221056943.png" alt="image-20210922105645713"></p>
+<h2 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h2><ul>
+<li><a href="https://hexo.bootcss.com/docs/github-pages.html">Hexo/GitPage 部署</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/60578464">使用 Hexo+GitHub 搭建个人免费博客教程（小白向）</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/26625249">GitHub+Hexo 搭建个人网站详细教程</a></li>
+<li><a href="https://www.jianshu.com/p/450cd21b36a4">解决git LF/CRLF</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>Hexo</category>
+      </categories>
+      <tags>
+        <tag>GitPage</tag>
+        <tag>Hexo 部署</tag>
+        <tag>LF/CRLF 错误</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hexo第一篇文章</title>
+    <url>/2021/09/16/My-New-Post/</url>
+    <content><![CDATA[<h2 id="这是Hexo-的第一篇文章"><a href="#这是Hexo-的第一篇文章" class="headerlink" title="这是Hexo 的第一篇文章"></a>这是Hexo 的第一篇文章</h2><blockquote>
+<p>之后会在这里输出工作，生活，技术相关的内容<br>欢迎访问 <a href="https://hexo.io/">Hexo</a>! 这是你的第一篇文章。 访问 <a href="https://hexo.io/docs/">Hexo文档</a> 查询更多消息. 使用Hexo如有任何问题, 可以在 <a href="https://hexo.io/docs/troubleshooting.html">Hexo提问</a> 或者可以在 <a href="https://github.com/hexojs/hexo/issues">GitHub</a>提问.</p>
+</blockquote>
+<h2 id="快速开始"><a href="#快速开始" class="headerlink" title="快速开始"></a>快速开始</h2><h3 id="创建一个新的文章"><a href="#创建一个新的文章" class="headerlink" title="创建一个新的文章"></a>创建一个新的文章</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>更多信息: <a href="https://hexo.io/docs/writing.html">写作</a></p>
+<h3 id="运行服务"><a href="#运行服务" class="headerlink" title="运行服务"></a>运行服务</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>更多信息: <a href="https://hexo.io/docs/server.html">运行服务</a></p>
+<h3 id="生成静态文件"><a href="#生成静态文件" class="headerlink" title="生成静态文件"></a>生成静态文件</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>更多信息: <a href="https://hexo.io/docs/generating.html">生成</a></p>
+<h3 id="部署到远端站点"><a href="#部署到远端站点" class="headerlink" title="部署到远端站点"></a>部署到远端站点</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>更多信息: <a href="https://hexo.io/docs/one-command-deployment.html">部署</a></p>
+]]></content>
+      <categories>
+        <category>Hexo</category>
+      </categories>
+      <tags>
+        <tag>Hexo</tag>
+        <tag>Post</tag>
       </tags>
   </entry>
 </search>
