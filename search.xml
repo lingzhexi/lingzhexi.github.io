@@ -1,6 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Hexo第一篇文章</title>
+    <url>/2021/09/16/My-New-Post/</url>
+    <content><![CDATA[<h2 id="这是Hexo-的第一篇文章"><a href="#这是Hexo-的第一篇文章" class="headerlink" title="这是Hexo 的第一篇文章"></a>这是Hexo 的第一篇文章</h2><blockquote>
+<p>之后会在这里输出工作，生活，技术相关的内容<br>欢迎访问 <a href="https://hexo.io/">Hexo</a>! 这是你的第一篇文章。 访问 <a href="https://hexo.io/docs/">Hexo文档</a> 查询更多消息. 使用Hexo如有任何问题, 可以在 <a href="https://hexo.io/docs/troubleshooting.html">Hexo提问</a> 或者可以在 <a href="https://github.com/hexojs/hexo/issues">GitHub</a>提问.</p>
+</blockquote>
+<h2 id="快速开始"><a href="#快速开始" class="headerlink" title="快速开始"></a>快速开始</h2><h3 id="创建一个新的文章"><a href="#创建一个新的文章" class="headerlink" title="创建一个新的文章"></a>创建一个新的文章</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>更多信息: <a href="https://hexo.io/docs/writing.html">写作</a></p>
+<h3 id="运行服务"><a href="#运行服务" class="headerlink" title="运行服务"></a>运行服务</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>更多信息: <a href="https://hexo.io/docs/server.html">运行服务</a></p>
+<h3 id="生成静态文件"><a href="#生成静态文件" class="headerlink" title="生成静态文件"></a>生成静态文件</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>更多信息: <a href="https://hexo.io/docs/generating.html">生成</a></p>
+<h3 id="部署到远端站点"><a href="#部署到远端站点" class="headerlink" title="部署到远端站点"></a>部署到远端站点</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>更多信息: <a href="https://hexo.io/docs/one-command-deployment.html">部署</a></p>
+]]></content>
+      <categories>
+        <category>Hexo</category>
+      </categories>
+      <tags>
+        <tag>Hexo</tag>
+        <tag>Post</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Java 基础</title>
     <url>/2021/09/18/Java-%E5%9F%BA%E7%A1%80/</url>
     <content><![CDATA[<h1 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h1><ol>
@@ -9,6 +36,8 @@
 <li>编译与解释并存    </li>
 </ol>
 <h1 id="JVM-JDK-JRE"><a href="#JVM-JDK-JRE" class="headerlink" title="JVM/JDK/JRE"></a>JVM/JDK/JRE</h1><p>JVM：运行java字节码的虚拟机</p>
+<span id="more"></span>
+
 <p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/2021/09/22/202109221132375.png" alt="img"></p>
 <h2 id="字节码"><a href="#字节码" class="headerlink" title="字节码"></a>字节码</h2><p>JVM可以理解的代码叫 <code>字节码</code> （.class 文件）</p>
 <h2 id="Java程序到源代码运行"><a href="#Java程序到源代码运行" class="headerlink" title="Java程序到源代码运行"></a>Java程序到源代码运行</h2><p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/2021/09/22/202109221123604.png" alt="img"></p>
@@ -363,22 +392,27 @@
       </tags>
   </entry>
   <entry>
-    <title>文章添加字数统计和阅读时长</title>
-    <url>/2021/09/24/%E6%96%87%E7%AB%A0%E6%B7%BB%E5%8A%A0%E5%AD%97%E6%95%B0%E7%BB%9F%E8%AE%A1%E5%92%8C%E9%98%85%E8%AF%BB%E6%97%B6%E9%95%BF/</url>
-    <content><![CDATA[<h2 id="安装插件"><a href="#安装插件" class="headerlink" title="安装插件"></a>安装插件</h2><p>如果没有安装 hexo-wordcount 插件，先安装该插件：</p>
-<blockquote>
-<p>npm i –save hexo-wordcount</p>
+    <title>Hexo 显示文章摘要</title>
+    <url>/2021/09/24/Hexo-%E6%98%BE%E7%A4%BA%E6%96%87%E7%AB%A0%E6%91%98%E8%A6%81/</url>
+    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><blockquote>
+<p>Hexo 默认的文章是全部展示，对于阅读的体验感很差，所以就需要对文章进行摘要显示部分文章内容</p>
 </blockquote>
-<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><p>Next 主题默认集成了文章 【字数统计】和【阅读时长】，我们只需要开启配置即可，</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Post wordcount display settings</span></span><br><span class="line"><span class="comment"># Dependencies: https://github.com/willin/hexo-wordcount</span></span><br><span class="line"><span class="attr">post_wordcount:</span></span><br><span class="line">  <span class="attr">item_text:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">wordcount:</span> <span class="literal">true</span>         <span class="comment"># 单篇 字数统计</span></span><br><span class="line">  <span class="attr">min2read:</span> <span class="literal">true</span>          <span class="comment"># 单篇 阅读时长</span></span><br><span class="line">  <span class="attr">totalcount:</span> <span class="literal">false</span>       <span class="comment"># 网站 字数统计</span></span><br><span class="line">  <span class="attr">separated_meta:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="添加样式"><a href="#添加样式" class="headerlink" title="添加样式"></a>添加样式</h2><p>打开 /themes/hexo-theme-next/layout/_partials/post/post-meta.njk 文件，在  <code>div</code> 的最下面添加以下代码：</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">span</span> <span class="attr">title</span>=<span class="string">&quot;&#123;&#123; __(&#x27;post.wordcount&#x27;) &#125;&#125;&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;post-meta-divider&quot;</span>&gt;</span>&amp;nbsp&amp;nbsp|&amp;nbsp&amp;nbsphe<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">&quot;fas fa-book&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span></span><br><span class="line">  字数统计:&#123;&#123; wordcount(post.content) &#125;&#125;字</span><br><span class="line"><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">span</span> <span class="attr">title</span>=<span class="string">&quot;&#123;&#123; __(&#x27;post.min2read&#x27;) &#125;&#125;&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;post-meta-divider&quot;</span>&gt;</span>&amp;nbsp&amp;nbsp|&amp;nbsp&amp;nbsp<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">&quot;far fa-clock&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span></span><br><span class="line">  阅读时长≈&#123;&#123; min2read(post.content) &#125;&#125;分钟</span><br><span class="line"><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h2 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h2><p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/2021/09/24/202109241103762.png" alt="添加文字统计和阅读时长"></p>
-<h2 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h2><ul>
-<li><a href="https://www.jianshu.com/p/baea8c95e39b">Hexo添加字数统计、阅读时长</a></li>
-<li><a href="https://lingzhexi.github.io/2021/09/24/%E6%96%87%E7%AB%A0%E7%BD%AE%E9%A1%B6/">Hexo 文字置顶</a></li>
+<h1 id="Start"><a href="#Start" class="headerlink" title="Start"></a>Start</h1><blockquote>
+<p>Hexo 中有两种形式添加摘要：</p>
+<ul>
+<li>文章开头配置 <code>description</code>  </li>
+<li>在文章中直接添加 <code>&lt;!-- more --&gt;</code></li>
+</ul>
+</blockquote>
+<span id="more"></span>
+<h2 id="添加-description"><a href="#添加-description" class="headerlink" title="添加 description"></a>添加 <code>description</code></h2><p>Hexo 每篇文章的开头可以表示文章的信息,其中可以添加 <code>descrption</code> 来表示正篇文章的摘要 </p>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: Hexo 显示文章摘要</span><br><span class="line">date: 2021-09-24 13:47:10</span><br><span class="line">tags: Hexo</span><br><span class="line">categories: Hexo</span><br><span class="line"><span class="section">description: 显示文章摘要 # 这里表示添加文章摘要</span></span><br><span class="line"><span class="section">---</span></span><br></pre></td></tr></table></figure>
+<h2 id="添加-more"><a href="#添加-more" class="headerlink" title="添加 more"></a>添加 more</h2><p>在文章的适当处直接添加</p>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line"><span class="section"># 前言</span></span><br><span class="line"><span class="quote">&gt; Hexo 默认的文章是全部展示，对于阅读的体验感很差，所以就需要对文章进行摘要显示部分文章内容</span></span><br><span class="line"></span><br><span class="line"><span class="section"># Start</span></span><br><span class="line"><span class="quote">&gt; Hexo 中有两种形式添加摘要：</span></span><br><span class="line"><span class="quote">&gt;   - 文章开头配置 `description`  </span></span><br><span class="line"><span class="quote">&gt;   - 在文章中直接添加 `&lt;!-- more --&gt;`</span></span><br><span class="line"></span><br><span class="line">&lt;!-- more --&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h2><p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/2021/09/24/202109241407073.png" alt="more.png"></p>
+<h1 id="End"><a href="#End" class="headerlink" title="End"></a>End</h1><p>到这里就结束了</p>
+<h1 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h1><ul>
+<li><a href="https://ryderchan.github.io/2017/01/26/hexo%E5%B0%8F%E6%8A%80%E5%B7%A7-%E9%A6%96%E9%A1%B5%E6%98%BE%E7%A4%BA%E6%96%87%E7%AB%A0%E6%91%98%E8%A6%81%E5%8F%8A%E5%9B%BE%E7%89%87/">hexo小技巧-首页显示文章摘要及图片</a></li>
 </ul>
 ]]></content>
       <categories>
@@ -386,33 +420,6 @@
       </categories>
       <tags>
         <tag>Hexo</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Hexo第一篇文章</title>
-    <url>/2021/09/16/My-New-Post/</url>
-    <content><![CDATA[<h2 id="这是Hexo-的第一篇文章"><a href="#这是Hexo-的第一篇文章" class="headerlink" title="这是Hexo 的第一篇文章"></a>这是Hexo 的第一篇文章</h2><blockquote>
-<p>之后会在这里输出工作，生活，技术相关的内容<br>欢迎访问 <a href="https://hexo.io/">Hexo</a>! 这是你的第一篇文章。 访问 <a href="https://hexo.io/docs/">Hexo文档</a> 查询更多消息. 使用Hexo如有任何问题, 可以在 <a href="https://hexo.io/docs/troubleshooting.html">Hexo提问</a> 或者可以在 <a href="https://github.com/hexojs/hexo/issues">GitHub</a>提问.</p>
-</blockquote>
-<h2 id="快速开始"><a href="#快速开始" class="headerlink" title="快速开始"></a>快速开始</h2><h3 id="创建一个新的文章"><a href="#创建一个新的文章" class="headerlink" title="创建一个新的文章"></a>创建一个新的文章</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>更多信息: <a href="https://hexo.io/docs/writing.html">写作</a></p>
-<h3 id="运行服务"><a href="#运行服务" class="headerlink" title="运行服务"></a>运行服务</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>更多信息: <a href="https://hexo.io/docs/server.html">运行服务</a></p>
-<h3 id="生成静态文件"><a href="#生成静态文件" class="headerlink" title="生成静态文件"></a>生成静态文件</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>更多信息: <a href="https://hexo.io/docs/generating.html">生成</a></p>
-<h3 id="部署到远端站点"><a href="#部署到远端站点" class="headerlink" title="部署到远端站点"></a>部署到远端站点</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>更多信息: <a href="https://hexo.io/docs/one-command-deployment.html">部署</a></p>
-]]></content>
-      <categories>
-        <category>Hexo</category>
-      </categories>
-      <tags>
-        <tag>Hexo</tag>
-        <tag>Post</tag>
       </tags>
   </entry>
   <entry>
@@ -1885,6 +1892,33 @@
       </tags>
   </entry>
   <entry>
+    <title>文章添加字数统计和阅读时长</title>
+    <url>/2021/09/24/%E6%96%87%E7%AB%A0%E6%B7%BB%E5%8A%A0%E5%AD%97%E6%95%B0%E7%BB%9F%E8%AE%A1%E5%92%8C%E9%98%85%E8%AF%BB%E6%97%B6%E9%95%BF/</url>
+    <content><![CDATA[<h2 id="安装插件"><a href="#安装插件" class="headerlink" title="安装插件"></a>安装插件</h2><p>如果没有安装 hexo-wordcount 插件，先安装该插件：</p>
+<blockquote>
+<p>npm i –save hexo-wordcount</p>
+</blockquote>
+<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><p>Next 主题默认集成了文章 【字数统计】和【阅读时长】，我们只需要开启配置即可，</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Post wordcount display settings</span></span><br><span class="line"><span class="comment"># Dependencies: https://github.com/willin/hexo-wordcount</span></span><br><span class="line"><span class="attr">post_wordcount:</span></span><br><span class="line">  <span class="attr">item_text:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">wordcount:</span> <span class="literal">true</span>         <span class="comment"># 单篇 字数统计</span></span><br><span class="line">  <span class="attr">min2read:</span> <span class="literal">true</span>          <span class="comment"># 单篇 阅读时长</span></span><br><span class="line">  <span class="attr">totalcount:</span> <span class="literal">false</span>       <span class="comment"># 网站 字数统计</span></span><br><span class="line">  <span class="attr">separated_meta:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+<span id="more"></span>
+
+<h2 id="添加样式"><a href="#添加样式" class="headerlink" title="添加样式"></a>添加样式</h2><p>打开 /themes/hexo-theme-next/layout/_partials/post/post-meta.njk 文件，在  <code>div</code> 的最下面添加以下代码：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">span</span> <span class="attr">title</span>=<span class="string">&quot;&#123;&#123; __(&#x27;post.wordcount&#x27;) &#125;&#125;&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;post-meta-divider&quot;</span>&gt;</span>&amp;nbsp&amp;nbsp|&amp;nbsp&amp;nbsphe<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">&quot;fas fa-book&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span></span><br><span class="line">  字数统计:&#123;&#123; wordcount(post.content) &#125;&#125;字</span><br><span class="line"><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">span</span> <span class="attr">title</span>=<span class="string">&quot;&#123;&#123; __(&#x27;post.min2read&#x27;) &#125;&#125;&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;post-meta-divider&quot;</span>&gt;</span>&amp;nbsp&amp;nbsp|&amp;nbsp&amp;nbsp<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">&quot;far fa-clock&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span></span><br><span class="line">  阅读时长≈&#123;&#123; min2read(post.content) &#125;&#125;分钟</span><br><span class="line"><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h2><p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/2021/09/24/202109241340113.png" alt="添加文字统计和阅读时长"></p>
+<h2 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h2><ul>
+<li><a href="https://www.jianshu.com/p/baea8c95e39b">Hexo添加字数统计、阅读时长</a></li>
+<li><a href="https://lingzhexi.github.io/2021/09/24/%E6%96%87%E7%AB%A0%E7%BD%AE%E9%A1%B6/">Hexo 文字置顶</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>Hexo</category>
+      </categories>
+      <tags>
+        <tag>Hexo</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>学习计划</title>
     <url>/2021/09/23/%E5%AD%A6%E4%B9%A0%E8%AE%A1%E5%88%92/</url>
     <content><![CDATA[<h1 id="JAVA-篇"><a href="#JAVA-篇" class="headerlink" title="JAVA 篇"></a>JAVA 篇</h1><pre><code>原先是制定一个月完成Java基础的知识复习并且传授知识，目的是为了在一个月内教会小白如何JAVA
@@ -1897,13 +1931,25 @@
       </categories>
   </entry>
   <entry>
+    <title>Hexo 添加看板娘</title>
+    <url>/2021/09/24/Hexo-%E6%B7%BB%E5%8A%A0%E7%9C%8B%E6%9D%BF%E5%A8%98/</url>
+    <content><![CDATA[]]></content>
+      <categories>
+        <category>Hexo</category>
+      </categories>
+      <tags>
+        <tag>Hexo</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>文章置顶</title>
     <url>/2021/09/24/%E6%96%87%E7%AB%A0%E7%BD%AE%E9%A1%B6/</url>
-    <content><![CDATA[<h2 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h2><p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/2021/09/24/202109241014262.png" alt="置顶.png"></p>
+    <content><![CDATA[<h2 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h2><p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/2021/09/24/202109241339525.png" alt="置顶示例.png"></p>
 <h2 id="卸载默认的置顶方式"><a href="#卸载默认的置顶方式" class="headerlink" title="卸载默认的置顶方式"></a>卸载默认的置顶方式</h2><pre><code>$ npm uninstall hexo-generator-index --save
 
 $ npm install hexo-generator-index-pin-top --save
 </code></pre>
+<span id="more"></span>|
 <p>在需要置顶的文章的Front-matter中加上top: true 或者top: 任意数字，比如：</p>
 <figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: Java 基础</span><br><span class="line">date: 2021-09-18 10:29:39</span><br><span class="line">tags: </span><br><span class="line"><span class="bullet">    -</span> JAVA系列</span><br><span class="line"><span class="bullet">    -</span> JAVA基础</span><br><span class="line"><span class="bullet">    -</span> JVM </span><br><span class="line">categories: JAVA</span><br><span class="line">top: true</span><br><span class="line"><span class="section">description: Java 概念讲解,从三大特性讲解，认识JDK/JRE/JVM的区别，从数据类型引出二进制与java的内存空间关系</span></span><br><span class="line"><span class="section">---</span></span><br></pre></td></tr></table></figure>
 <h2 id="设置置顶图标"><a href="#设置置顶图标" class="headerlink" title="设置置顶图标"></a>设置置顶图标</h2><p>我使用主题是Next,其中Next的各版本之间略有差异，我的版本是8.7.1<br>打开/themes/next/layout/_macro/ 目录下的post.njk文件<br>在<code>&lt;div class=&quot;post-meta-container&quot;&gt;</code> 内找到 post-meta.njk 文件路径：</p>
