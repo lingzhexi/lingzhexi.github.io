@@ -1864,8 +1864,8 @@ $ npm install hexo-generator-index-pin-top --save
   <entry>
     <title>Hexo x GitPage 部署</title>
     <url>/2021/09/22/Hexo-GitPage-%E9%83%A8%E7%BD%B2/</url>
-    <content><![CDATA[<blockquote>
-<p>本文转载：<a href="https://zhuanlan.zhihu.com/p/60578464">使用 Hexo+GitHub 搭建个人免费博客教程（小白向）</a><br>本文只介绍如何部署到GitPage，默认Hexo本地已经存在，故略去Hexo搭建过程</p>
+    <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
+<p>本文转载：<a href="https://zhuanlan.zhihu.com/p/60578464">使用 Hexo+GitHub 搭建个人免费博客教程（小白向）</a><br>本文只介绍如何部署到GitPage，默认Hexo已搭建</p>
 </blockquote>
 <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><h3 id="GitHub-Pages-是什么？"><a href="#GitHub-Pages-是什么？" class="headerlink" title="# GitHub Pages 是什么？"></a><strong># GitHub Pages 是什么？</strong></h3><ul>
 <li>  <a href="https://help.github.com/en/articles/what-is-github-pages">What is GitHub Pages? - GitHub Help</a></li>
