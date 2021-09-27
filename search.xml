@@ -310,7 +310,7 @@
       </tags>
   </entry>
   <entry>
-    <title>Hexo 添加看板娘</title>
+    <title>Hexo 添加看板娘(todo)</title>
     <url>/2021/09/24/Hexo-%E6%B7%BB%E5%8A%A0%E7%9C%8B%E6%9D%BF%E5%A8%98/</url>
     <content><![CDATA[]]></content>
       <categories>
@@ -321,8 +321,8 @@
       </tags>
   </entry>
   <entry>
-    <title>文章添加字数统计和阅读时长</title>
-    <url>/2021/09/24/%E6%96%87%E7%AB%A0%E6%B7%BB%E5%8A%A0%E5%AD%97%E6%95%B0%E7%BB%9F%E8%AE%A1%E5%92%8C%E9%98%85%E8%AF%BB%E6%97%B6%E9%95%BF/</url>
+    <title>Hexo 文章添加字数统计和阅读时长</title>
+    <url>/2021/09/24/Hexo-%E6%96%87%E7%AB%A0%E6%B7%BB%E5%8A%A0%E5%AD%97%E6%95%B0%E7%BB%9F%E8%AE%A1%E5%92%8C%E9%98%85%E8%AF%BB%E6%97%B6%E9%95%BF/</url>
     <content><![CDATA[<h2 id="安装插件"><a href="#安装插件" class="headerlink" title="安装插件"></a>安装插件</h2><p>如果没有安装 hexo-wordcount 插件，先安装该插件：</p>
 <blockquote>
 <p>npm i –save hexo-wordcount</p>
@@ -348,8 +348,8 @@
       </tags>
   </entry>
   <entry>
-    <title>文章置顶</title>
-    <url>/2021/09/24/%E6%96%87%E7%AB%A0%E7%BD%AE%E9%A1%B6/</url>
+    <title>Hexo 文章置顶</title>
+    <url>/2021/09/24/Hexo-%E6%96%87%E7%AB%A0%E7%BD%AE%E9%A1%B6/</url>
     <content><![CDATA[<h2 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h2><p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/2021/09/24/202109241339525.png" alt="置顶示例.png"></p>
 <h2 id="卸载默认的置顶方式"><a href="#卸载默认的置顶方式" class="headerlink" title="卸载默认的置顶方式"></a>卸载默认的置顶方式</h2><pre><code>$ npm uninstall hexo-generator-index --save
 
@@ -1948,7 +1948,7 @@ $ npm install hexo-generator-index-pin-top --save
       </tags>
   </entry>
   <entry>
-    <title>Hexo第一篇文章</title>
+    <title>Hexo 第一篇文章</title>
     <url>/2021/09/16/My-New-Post/</url>
     <content><![CDATA[<h2 id="这是Hexo-的第一篇文章"><a href="#这是Hexo-的第一篇文章" class="headerlink" title="这是Hexo 的第一篇文章"></a>这是Hexo 的第一篇文章</h2><blockquote>
 <p>之后会在这里输出工作，生活，技术相关的内容<br>欢迎访问 <a href="https://hexo.io/">Hexo</a>! 这是你的第一篇文章。 访问 <a href="https://hexo.io/docs/">Hexo文档</a> 查询更多消息. 使用Hexo如有任何问题, 可以在 <a href="https://hexo.io/docs/troubleshooting.html">Hexo提问</a> 或者可以在 <a href="https://github.com/hexojs/hexo/issues">GitHub</a>提问.</p>
