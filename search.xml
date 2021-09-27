@@ -1878,7 +1878,7 @@ $ npm install hexo-generator-index-pin-top --save
 <h3 id="Hexo-GitHub-文章发布原理"><a href="#Hexo-GitHub-文章发布原理" class="headerlink" title="# Hexo + GitHub 文章发布原理"></a><strong># Hexo + GitHub 文章发布原理</strong></h3><p>在本地撰写 Markdown 格式文章后，通过 Hexo 解析文档，渲染生成具有主题样式的 HTML 静态网页，再推送到 GitHub 上完成博文的发布。</p>
 <p><img src="https://pic3.zhimg.com/v2-a193a47cf70fe6ecf156e5f3d34920ea_r.jpg"></p>
 <h2 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h2><h3 id="连接Github"><a href="#连接Github" class="headerlink" title="连接Github"></a>连接Github</h3><p>设置<code>Github</code> 信息<br>设置 git 配置的用户名邮箱 (将<code>lingzhexi</code> / <code>lingzhexi@gmail.com</code> 分别替换成自己的用户名和邮箱)</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git config --global user.name &quot;lingzhexi&quot;</span><br><span class="line">git config --global user.email &quot;lingzhexi@gmail.com&quot;</span><br></pre></td></tr></table></figure>
+<figure class="highlight verilog"><table><tr><td class="code"><pre><span class="line">git <span class="keyword">config</span> --<span class="keyword">global</span> user<span class="variable">.name</span> <span class="string">&quot;lingzhexi&quot;</span></span><br><span class="line">git <span class="keyword">config</span> --<span class="keyword">global</span> user<span class="variable">.email</span> <span class="string">&quot;lingzhexi@gmail.com&quot;</span></span><br></pre></td></tr></table></figure>
 
 <h4 id="创建-SSH-密匙"><a href="#创建-SSH-密匙" class="headerlink" title="创建 SSH 密匙"></a>创建 SSH 密匙</h4><p>输入 <code>ssh-keygen -t rsa -C &quot;GitHub 邮箱&quot;</code>，然后一路回车。<br><img src="https://gitee.com/lingzhexi/blogImage/raw/master/2021/09/22/202109221047531.png" alt="img.png"></p>
 <p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/2021/09/22/202109221047883.png" alt="image-20210922104651057"> </p>
@@ -1901,7 +1901,7 @@ $ npm install hexo-generator-index-pin-top --save
 <h3 id="部署-Hexo-到-GitHub-Pages"><a href="#部署-Hexo-到-GitHub-Pages" class="headerlink" title="部署 Hexo 到 GitHub Pages"></a>部署 Hexo 到 GitHub Pages</h3><hr>
 <p>本地博客测试成功后，就是上传到 GitHub 进行部署，使其能够在网络上访问。</p>
 <p>首先<strong>安装 hexo-deployer-git</strong>：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
+<figure class="highlight ada"><table><tr><td class="code"><pre><span class="line">npm install hexo-deployer-git <span class="comment">--save</span></span><br></pre></td></tr></table></figure>
 
 <p>然后<strong>修改 _config.yml</strong> 文件末尾的 Deployment 部分，修改成如下：</p>
 <figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">deploy:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">git</span></span><br><span class="line">  <span class="attr">repository:</span> <span class="string">git@github.com:lingzhexi/lingzhexi.github.io.git</span></span><br><span class="line">  <span class="attr">branch:</span> <span class="string">master</span></span><br></pre></td></tr></table></figure>
