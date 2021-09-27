@@ -12,8 +12,13 @@
 <span id="more"></span>
 
 <p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/2021/09/22/202109221132375.png" alt="img"></p>
-<h2 id="字节码"><a href="#字节码" class="headerlink" title="字节码"></a>字节码</h2><p>JVM可以理解的代码叫 <code>字节码</code> （.class 文件）</p>
+<center> JDK/JRE/JVM </center>
+## 字节码
+
+<p>JVM可以理解的代码叫 <code>字节码</code> （.class 文件）</p>
 <h2 id="Java程序到源代码运行"><a href="#Java程序到源代码运行" class="headerlink" title="Java程序到源代码运行"></a>Java程序到源代码运行</h2><p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/2021/09/22/202109221123604.png" alt="img"></p>
+<center>Java源文件编译过程</center>
+
 <h2 id="编译和解释型语言："><a href="#编译和解释型语言：" class="headerlink" title="编译和解释型语言："></a>编译和解释型语言：</h2><p>Java 编写的程序需要先经过编译步骤，生成字节码（*.class 文件），这种字节码必须由 Java 解释器来解释执行</p>
 <h1 id="基本语法"><a href="#基本语法" class="headerlink" title="基本语法"></a>基本语法</h1><h2 id="字符型常量和字符串常量"><a href="#字符型常量和字符串常量" class="headerlink" title="字符型常量和字符串常量"></a>字符型常量和字符串常量</h2><ol>
 <li><strong>含义</strong>：字符型常量相当于一个整型值（ASCII值）可以参加表达式运算；字符串常量：表示一个地址（内存中的位置）</li>
@@ -97,7 +102,10 @@
 </tr>
 </tbody></table>
 <h2 id="二进制"><a href="#二进制" class="headerlink" title="二进制"></a>二进制</h2><p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/2021/09/22/202109221123327.png" alt="img"></p>
-<h2 id="基本类型和引用类型"><a href="#基本类型和引用类型" class="headerlink" title="基本类型和引用类型"></a>基本类型和引用类型</h2><h3 id="存储位置"><a href="#存储位置" class="headerlink" title="存储位置"></a>存储位置</h3><h4 id="基本变量类型"><a href="#基本变量类型" class="headerlink" title="基本变量类型"></a>基本变量类型</h4><ul>
+<center>二进制</center>
+## 基本类型和引用类型
+
+<h3 id="存储位置"><a href="#存储位置" class="headerlink" title="存储位置"></a>存储位置</h3><h4 id="基本变量类型"><a href="#基本变量类型" class="headerlink" title="基本变量类型"></a>基本变量类型</h4><ul>
 <li>在方法中定义的非全局基本数据类型变量的具体内容是存储在栈中的</li>
 </ul>
 <h4 id="引用变量类型"><a href="#引用变量类型" class="headerlink" title="引用变量类型"></a>引用变量类型</h4><ul>
@@ -106,8 +114,15 @@
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span></span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">       <span class="comment">//基本数据类型</span></span><br><span class="line">       <span class="keyword">int</span> i=<span class="number">1</span>;</span><br><span class="line">       <span class="keyword">double</span> d=<span class="number">1.2</span>;</span><br><span class="line">       </span><br><span class="line">       <span class="comment">//引用数据类型</span></span><br><span class="line">       String str=<span class="string">&quot;helloworld&quot;</span>;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/2021/09/22/202109221124197.png" alt="img"></p>
+<center>基本类型和引用类型的内存情况</center> 
+
 <h2 id="Java内存模型"><a href="#Java内存模型" class="headerlink" title="Java内存模型"></a>Java内存模型</h2><p>JMM</p>
-<h2 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h2><p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/2021/09/22/202109221127159.png" alt="img"></p>
+<h2 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h2><p>Java中注释有三种：</p>
+<ol>
+<li>单行注释  //</li>
+<li>多行注释  /**/</li>
+<li>文档注释 /****/</li>
+</ol>
 <h2 id="Java-中的关键字"><a href="#Java-中的关键字" class="headerlink" title="Java 中的关键字"></a>Java 中的关键字</h2><p>标识符—关键字</p>
 <table>
 <thead>
