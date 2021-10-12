@@ -21,13 +21,14 @@
   <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","version":"8.7.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
-<meta name="description" content="特点 面向对象：封装、继承、多态 平台无关性：（JVM实现） 编译与解释并存      JVM&#x2F;JDK&#x2F;JREJVM：运行java字节码的虚拟机">
+<meta name="description" content="Java 基础知识图解 特点 面向对象：封装、继承、多态 平台无关性：（JVM实现） 编译与解释并存      JVM&#x2F;JDK&#x2F;JREJVM：运行java字节码的虚拟机">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java 基础">
 <meta property="og:url" content="http://example.com/2021/09/18/Java-%E5%9F%BA%E7%A1%80/index.html">
 <meta property="og:site_name" content="Codeling&#39;s Blog">
-<meta property="og:description" content="特点 面向对象：封装、继承、多态 平台无关性：（JVM实现） 编译与解释并存      JVM&#x2F;JDK&#x2F;JREJVM：运行java字节码的虚拟机">
+<meta property="og:description" content="Java 基础知识图解 特点 面向对象：封装、继承、多态 平台无关性：（JVM实现） 编译与解释并存      JVM&#x2F;JDK&#x2F;JREJVM：运行java字节码的虚拟机">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitee.com/lingzhexi/blogImage/raw/master/2021/09/24/202109272113401.png">
 <meta property="og:image" content="https://gitee.com/lingzhexi/blogImage/raw/master/2021/09/22/202109221132375.png">
 <meta property="og:image" content="https://gitee.com/lingzhexi/blogImage/raw/master/2021/09/22/202109221123604.png">
 <meta property="og:image" content="https://gitee.com/lingzhexi/blogImage/raw/master/2021/09/22/202109221123327.png">
@@ -37,13 +38,13 @@
 <meta property="og:image" content="https://gitee.com/lingzhexi/blogImage/raw/master/2021/09/22/202109221124091.png">
 <meta property="og:image" content="https://gitee.com/lingzhexi/blogImage/raw/master/2021/09/22/202109221125117.png">
 <meta property="article:published_time" content="2021-09-18T02:29:39.000Z">
-<meta property="article:modified_time" content="2021-09-27T07:34:39.176Z">
+<meta property="article:modified_time" content="2021-09-27T14:10:33.522Z">
 <meta property="article:author" content="codeling">
 <meta property="article:tag" content="JAVA系列">
 <meta property="article:tag" content="JAVA基础">
 <meta property="article:tag" content="JVM">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://gitee.com/lingzhexi/blogImage/raw/master/2021/09/22/202109221132375.png">
+<meta name="twitter:image" content="https://gitee.com/lingzhexi/blogImage/raw/master/2021/09/24/202109272113401.png">
 
 
 <link rel="canonical" href="http://example.com/2021/09/18/Java-%E5%9F%BA%E7%A1%80/">
@@ -168,7 +169,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%89%B9%E7%82%B9"><span class="nav-text">特点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JVM-JDK-JRE"><span class="nav-text">JVM&#x2F;JDK&#x2F;JRE</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Java%E7%A8%8B%E5%BA%8F%E5%88%B0%E6%BA%90%E4%BB%A3%E7%A0%81%E8%BF%90%E8%A1%8C"><span class="nav-text">Java程序到源代码运行</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%96%E8%AF%91%E5%92%8C%E8%A7%A3%E9%87%8A%E5%9E%8B%E8%AF%AD%E8%A8%80%EF%BC%9A"><span class="nav-text">编译和解释型语言：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95"><span class="nav-text">基本语法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E5%9E%8B%E5%B8%B8%E9%87%8F%E5%92%8C%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%B8%B8%E9%87%8F"><span class="nav-text">字符型常量和字符串常量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E8%BF%9B%E5%88%B6"><span class="nav-text">二进制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%98%E5%82%A8%E4%BD%8D%E7%BD%AE"><span class="nav-text">存储位置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E5%8F%98%E9%87%8F%E7%B1%BB%E5%9E%8B"><span class="nav-text">基本变量类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BC%95%E7%94%A8%E5%8F%98%E9%87%8F%E7%B1%BB%E5%9E%8B"><span class="nav-text">引用变量类型</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Java%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B"><span class="nav-text">Java内存模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B3%A8%E9%87%8A"><span class="nav-text">注释</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Java-%E4%B8%AD%E7%9A%84%E5%85%B3%E9%94%AE%E5%AD%97"><span class="nav-text">Java 中的关键字</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%87%AA%E5%A2%9E%E3%80%81%E8%87%AA%E5%87%8F"><span class="nav-text">自增、自减</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#continue%E3%80%81break%E3%80%81%E5%92%8Creturn-%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-text">continue、break、和return 的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%92%8C-equals-%E6%AF%94%E8%BE%83"><span class="nav-text">&#x3D;&#x3D; 和 equals 比较</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%93%88%E5%B8%8C%E5%80%BC"><span class="nav-text">哈希值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%98%E9%87%8F"><span class="nav-text">变量</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Java-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%A7%A3"><span class="nav-text">Java 基础知识图解</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%89%B9%E7%82%B9"><span class="nav-text">特点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JVM-JDK-JRE"><span class="nav-text">JVM&#x2F;JDK&#x2F;JRE</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Java%E7%A8%8B%E5%BA%8F%E5%88%B0%E6%BA%90%E4%BB%A3%E7%A0%81%E8%BF%90%E8%A1%8C"><span class="nav-text">Java程序到源代码运行</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%96%E8%AF%91%E5%92%8C%E8%A7%A3%E9%87%8A%E5%9E%8B%E8%AF%AD%E8%A8%80%EF%BC%9A"><span class="nav-text">编译和解释型语言：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95"><span class="nav-text">基本语法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E5%9E%8B%E5%B8%B8%E9%87%8F%E5%92%8C%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%B8%B8%E9%87%8F"><span class="nav-text">字符型常量和字符串常量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E8%BF%9B%E5%88%B6"><span class="nav-text">二进制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="nav-text">数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E5%8F%98%E9%87%8F%E7%B1%BB%E5%9E%8B"><span class="nav-text">基本变量类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BC%95%E7%94%A8%E5%8F%98%E9%87%8F%E7%B1%BB%E5%9E%8B"><span class="nav-text">引用变量类型</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Java%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B"><span class="nav-text">Java内存模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B3%A8%E9%87%8A"><span class="nav-text">注释</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Java-%E4%B8%AD%E7%9A%84%E5%85%B3%E9%94%AE%E5%AD%97"><span class="nav-text">Java 中的关键字</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%87%AA%E5%A2%9E%E3%80%81%E8%87%AA%E5%87%8F"><span class="nav-text">自增、自减</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#continue%E3%80%81break%E3%80%81%E5%92%8Creturn-%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-text">continue、break、和return 的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%92%8C-equals-%E6%AF%94%E8%BE%83"><span class="nav-text">&#x3D;&#x3D; 和 equals 比较</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%93%88%E5%B8%8C%E5%80%BC"><span class="nav-text">哈希值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%98%E9%87%8F"><span class="nav-text">变量</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -184,18 +185,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">9</span>
+          <span class="site-state-item-count">11</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-count">5</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-count">14</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -236,7 +237,7 @@
       <h3 class="widget-title">Tag Cloud</h3>
       <div id="myCanvasContainer" class="widget tagcloud">
           <canvas width="250" height="250" id="resCanvas" style="width:100%">
-              <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/GitPage/" rel="tag">GitPage</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/" rel="tag">Hexo</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo-%E9%83%A8%E7%BD%B2/" rel="tag">Hexo 部署</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JAVA%E5%9F%BA%E7%A1%80/" rel="tag">JAVA基础</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JAVA%E7%B3%BB%E5%88%97/" rel="tag">JAVA系列</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JVM/" rel="tag">JVM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LF-CRLF-%E9%94%99%E8%AF%AF/" rel="tag">LF/CRLF 错误</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Post/" rel="tag">Post</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Typora/" rel="tag">Typora</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/emoji/" rel="tag">emoji</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/markdown/" rel="tag">markdown</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/md/" rel="tag">md</a><span class="tag-list-count">1</span></li></ul>
+              <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/GitPage/" rel="tag">GitPage</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/" rel="tag">Hexo</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo-%E9%83%A8%E7%BD%B2/" rel="tag">Hexo 部署</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JAVA%E5%9F%BA%E7%A1%80/" rel="tag">JAVA基础</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JAVA%E7%B3%BB%E5%88%97/" rel="tag">JAVA系列</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JVM/" rel="tag">JVM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LF-CRLF-%E9%94%99%E8%AF%AF/" rel="tag">LF/CRLF 错误</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Post/" rel="tag">Post</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Typora/" rel="tag">Typora</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vue/" rel="tag">Vue</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/emoji/" rel="tag">emoji</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/markdown/" rel="tag">markdown</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/md/" rel="tag">md</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a><span class="tag-list-count">1</span></li></ul>
           </canvas>
       </div>
   </div>
@@ -302,7 +303,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-09-27 15:34:39" itemprop="dateModified" datetime="2021-09-27T15:34:39+08:00">2021-09-27</time>
+        <time title="修改时间：2021-09-27 22:10:33" itemprop="dateModified" datetime="2021-09-27T22:10:33+08:00">2021-09-27</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -325,7 +326,7 @@
   <span title="post.wordcount">
       <span class="post-meta-divider">&nbsp&nbsp|&nbsp&nbsp</span>
       <i class="fas fa-book"></i>
-      字数统计:1.1k字
+      字数统计:1.2k字
   </span>
   <span title="post.min2read">
       <span class="post-meta-divider">&nbsp&nbsp|&nbsp&nbsp</span>
@@ -341,7 +342,8 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h1 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h1><ol>
+        <h1 id="Java-基础知识图解"><a href="#Java-基础知识图解" class="headerlink" title="Java 基础知识图解"></a>Java 基础知识图解</h1><p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/2021/09/24/202109272113401.png" alt="image-20210927211233414"></p>
+<h1 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h1><ol>
 <li>面向对象：封装、继承、多态</li>
 <li>平台无关性：（JVM实现）</li>
 <li>编译与解释并存    </li>
@@ -441,9 +443,24 @@
 </tbody></table>
 <h2 id="二进制"><a href="#二进制" class="headerlink" title="二进制"></a>二进制</h2><p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/2021/09/22/202109221123327.png" alt="img"></p>
 <center>二进制</center>
-## 基本类型和引用类型
 
-<h3 id="存储位置"><a href="#存储位置" class="headerlink" title="存储位置"></a>存储位置</h3><h4 id="基本变量类型"><a href="#基本变量类型" class="headerlink" title="基本变量类型"></a>基本变量类型</h4><ul>
+
+<h2 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h2><blockquote>
+<p>基本类型和引用类型</p>
+</blockquote>
+<p>基本类型：</p>
+<ul>
+<li>数值型</li>
+<li>字符型</li>
+<li>布尔型</li>
+</ul>
+<p>引用类型：</p>
+<ul>
+<li>类 （class）：String</li>
+<li>接口（ interface）</li>
+<li>数组（ [] ）: int[] arrays  = {1,2,4,7,9};   arrays[0] arrays[5] – &gt; 数组下标越界</li>
+</ul>
+<h4 id="基本变量类型"><a href="#基本变量类型" class="headerlink" title="基本变量类型"></a>基本变量类型</h4><ul>
 <li>在方法中定义的非全局基本数据类型变量的具体内容是存储在栈中的</li>
 </ul>
 <h4 id="引用变量类型"><a href="#引用变量类型" class="headerlink" title="引用变量类型"></a>引用变量类型</h4><ul>
@@ -609,17 +626,22 @@
 <p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/2021/09/22/202109221124980.png" alt="img"></p>
 <h2 id="哈希值"><a href="#哈希值" class="headerlink" title="哈希值"></a>哈希值</h2><p>String 的HashCode</p>
 <p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/2021/09/22/202109221124091.png" alt="img"></p>
-<h2 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h2><blockquote>
+<h2 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//int aa ; 变量不能写在类外面</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span></span>&#123;</span><br><span class="line">    <span class="comment">//实例变量</span></span><br><span class="line">    <span class="keyword">int</span> a = <span class="number">10</span>;</span><br><span class="line">    <span class="comment">//类变量</span></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">int</span> b = <span class="number">20</span>;</span><br><span class="line">    <span class="comment">//方法中的变量</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">method</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="comment">//局部变量</span></span><br><span class="line">    	<span class="keyword">int</span> c = <span class="number">30</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
 <p>type  identifier = value,[ identifier[= value] …] ;</p>
 </blockquote>
 <ul>
-<li><p>类变量：独立于方法之外的变量，用 static 修饰。</p>
-</li>
-<li><p>实例变量：独立于方法之外的变量，不过没有 static 修饰。</p>
-</li>
-<li><p>局部变量：类的方法中的变量。    </p>
-</li>
+<li>成员变量：<ul>
+<li>类变量：独立于方法之外的变量，用 static 修饰。 类变量= 实例变量+static</li>
+<li>实例变量：独立于方法之外的变量，不过没有 static 修饰。</li>
 </ul>
+</li>
+<li>局部变量：类的方法中的变量。    </li>
+</ul>
+<p>数据类型</p>
 <p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/2021/09/22/202109221125117.png" alt="img"></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">	<span class="comment">// 使用增加方法</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">add</span><span class="params">()</span> </span>&#123;</span><br><span class="line">       <span class="keyword">int</span> a = <span class="number">0</span>;   <span class="comment">// 3</span></span><br><span class="line">       <span class="keyword">int</span> b = <span class="number">1</span>;   <span class="comment">// 4</span></span><br><span class="line">       System.out.println( a+b );  <span class="comment">//1</span></span><br><span class="line">   &#125;</span><br><span class="line">   <span class="comment">// 调用方法 a = 3 b =4 进行加法运算</span></span><br><span class="line">   <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">addArg</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> </span>&#123;</span><br><span class="line">       System.out.println(a + b);</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="comment">// 主方法 程序执行的入口</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">       addArg(<span class="number">3</span>, <span class="number">4</span>);</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
     </div>
@@ -723,7 +745,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共4.4k字</span>
+  <span class="post-count">博客全站共11.6k字</span>
 </div>
   <div id="site-runtime">
   <span class="post-meta-item-icon">
