@@ -3488,7 +3488,7 @@ $ npm install hexo-generator-index-pin-top --save
     <title>SpringBoot 常见面试题 30道</title>
     <url>/2022/02/22/SpringBoot-%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%98/</url>
     <content><![CDATA[<blockquote>
-<p>简介：主要对于SpringBoot是什么，如何使用及相关信息</p>
+<p>简介：主要对于SpringBoot是什么，如何使用</p>
 </blockquote>
 <h2 id="1-什么是-SpringBoot"><a href="#1-什么是-SpringBoot" class="headerlink" title="1.什么是 SpringBoot"></a>1.什么是 SpringBoot</h2><p>Spring组件一站式解决方案，主要简化了 Spring 难度，简省了繁重的配置，提供了各种的启动器，是开发上手快</p>
 <h2 id="2-Spring-Boot-优点"><a href="#2-Spring-Boot-优点" class="headerlink" title="2.Spring Boot 优点"></a>2.Spring Boot 优点</h2><ol>
@@ -3496,7 +3496,6 @@ $ npm install hexo-generator-index-pin-top --save
 <li>内嵌服务器、安全管理、运行数据监控、运行状态检查、外部化配置</li>
 <li>易上手开发效率高，有完善的第三方start库和官网 starter</li>
 </ol>
-<span id="more"></span>
 <p>总结：<strong>编码、配置、部署、监控</strong> 简单</p>
 <h2 id="2-SpringBoot-启动类注解？它是由那些注解组成？"><a href="#2-SpringBoot-启动类注解？它是由那些注解组成？" class="headerlink" title="2.SpringBoot 启动类注解？它是由那些注解组成？"></a>2.SpringBoot 启动类注解？它是由那些注解组成？</h2><p>@SpringBootApplication</p>
 <ul>
@@ -3509,10 +3508,16 @@ $ npm install hexo-generator-index-pin-top --save
 <h2 id="4-SpringBoot启动方式"><a href="#4-SpringBoot启动方式" class="headerlink" title="4.SpringBoot启动方式"></a>4.SpringBoot启动方式</h2><ol>
 <li>main方法</li>
 <li>命令行 java -jar</li>
-<li>mvn/gradle<h2 id="5-SpringBoot-需要独立的容器独立？"><a href="#5-SpringBoot-需要独立的容器独立？" class="headerlink" title="5.SpringBoot 需要独立的容器独立？"></a>5.SpringBoot 需要独立的容器独立？</h2>内置了Tomcat/Jetty</li>
+<li>mvn/gradle</li>
 </ol>
-<h2 id="6-SpringBoot自动配置原理"><a href="#6-SpringBoot自动配置原理" class="headerlink" title="6.SpringBoot自动配置原理"></a>6.SpringBoot自动配置原理</h2><p>@EnableAutoConfiguration(开启自动配置)该注解引入了AutoConfigurationImportSelector ,该类中的方法会扫描所有存在META-INF/spring.factories的jar包</p>
-<h2 id="7-SpringBoot如何配置监控"><a href="#7-SpringBoot如何配置监控" class="headerlink" title="7.SpringBoot如何配置监控"></a>7.SpringBoot如何配置监控</h2><p>pom.xml</p>
+<h2 id="5-SpringBoot-需要独立的容器独立？"><a href="#5-SpringBoot-需要独立的容器独立？" class="headerlink" title="5.SpringBoot 需要独立的容器独立？"></a>5.SpringBoot 需要独立的容器独立？</h2><p>内置了Tomcat/Jetty</p>
+<h2 id="6-SpringBoot自动配置原理"><a href="#6-SpringBoot自动配置原理" class="headerlink" title="6.SpringBoot自动配置原理"></a>6.SpringBoot自动配置原理</h2><pre><code>在sprinBoot启动时由 @SpringBootApplication 注解会自动去maven中读取每个 starter 中的 spring.factories文件,该文件里配置了所有需要被创建spring容器中的bean，并且进行自动配置把 bean注入SpringContext中 //（SpringContext是Spring的配置文件）
+</code></pre>
+<h2 id="7-SpringBoot监视器是什么，如何配置监控？"><a href="#7-SpringBoot监视器是什么，如何配置监控？" class="headerlink" title="7.SpringBoot监视器是什么，如何配置监控？"></a>7.SpringBoot监视器是什么，如何配置监控？</h2><pre><code>Spring boot actuator 是 spring 启动框架中的重要功能之一。
+Spring boot 监视器可帮助您访问生产环境中 **正在运行的应用程序的当前状态** 。
+有几个指标必须在生产环境中进行检查和监控。即使一 些外部应用程序可能正在使用这些服务来向相关人员触发警报消息。监视器模块公开了一组可直接 作为 HTTP URL 访问的REST 端点来检查状态。
+</code></pre>
+<p>pom.xml</p>
 <figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-actuator<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 <p>yml</p>
@@ -3559,14 +3564,14 @@ $ npm install hexo-generator-index-pin-top --save
 <li>SpringBoot 2相关插件最低版本很多都要比原来高</li>
 <li>2.x配置中的中文可以直接读取</li>
 </ol>
+<h2 id="14-Spring-Boot-中如何解决跨域问题"><a href="#14-Spring-Boot-中如何解决跨域问题" class="headerlink" title="14. Spring Boot 中如何解决跨域问题 ?"></a>14. Spring Boot 中如何解决跨域问题 ?</h2><pre><code>后端通过 （CORS，Cross origin resource sharing） 来解决跨域问题。这种解决方案并非 Spring Boot 特有的，在传统的 SSM 框架中，就可以通过 CORS 来解决跨域问题，只不过之前我们是在 XML 文件中配置 CORS ， 现在可以通过实现 **WebMvcConfigurer** 接口然后重写 **addCorsMappings** 方法解决跨域问题。
+</code></pre>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CorsConfig</span> <span class="keyword">implements</span> <span class="title">WebMvcConfigurer</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addCorsMappings</span><span class="params">(CorsRegistry registry)</span> </span>&#123;</span><br><span class="line">        registry.addMapping(<span class="string">&quot;/**&quot;</span>)</span><br><span class="line">        .allowedOrigins(<span class="string">&quot;*&quot;</span>)</span><br><span class="line">        .allowCredentials(<span class="keyword">true</span>)</span><br><span class="line">        .allowedMethods(<span class="string">&quot;GET&quot;</span>, <span class="string">&quot;POST&quot;</span>, <span class="string">&quot;PUT&quot;</span>, <span class="string">&quot;DELETE&quot;</span>, <span class="string">&quot;OPTIONS&quot;</span>)</span><br><span class="line">        .maxAge(<span class="number">3600</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
 <h2 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h2><p><a href="https://mp.weixin.qq.com/s/kisvBJABJ27rb6JNZdCyqA">https://mp.weixin.qq.com/s/kisvBJABJ27rb6JNZdCyqA</a></p>
 ]]></content>
-      <categories>
-        <category>面试</category>
-      </categories>
-      <tags>
-        <tag>面试</tag>
-      </tags>
   </entry>
   <entry>
     <title>Spring Cloud 常见面试题</title>
