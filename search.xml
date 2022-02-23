@@ -1082,7 +1082,7 @@
     <title>SpringBoot 常见面试题 30道</title>
     <url>/2022/02/22/SpringBoot-%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%98/</url>
     <content><![CDATA[<blockquote>
-<p>简介：主要对于SpringBoot是什么，如何使用</p>
+<p>简介：主要对于SpringBoot是什么，如何使用及相关信息</p>
 </blockquote>
 <h2 id="1-什么是-SpringBoot"><a href="#1-什么是-SpringBoot" class="headerlink" title="1.什么是 SpringBoot"></a>1.什么是 SpringBoot</h2><p>Spring组件一站式解决方案，主要简化了 Spring 难度，简省了繁重的配置，提供了各种的启动器，是开发上手快</p>
 <h2 id="2-Spring-Boot-优点"><a href="#2-Spring-Boot-优点" class="headerlink" title="2.Spring Boot 优点"></a>2.Spring Boot 优点</h2><ol>
@@ -1090,6 +1090,7 @@
 <li>内嵌服务器、安全管理、运行数据监控、运行状态检查、外部化配置</li>
 <li>易上手开发效率高，有完善的第三方start库和官网 starter</li>
 </ol>
+<span id="more"></span>
 <p>总结：<strong>编码、配置、部署、监控</strong> 简单</p>
 <h2 id="2-SpringBoot-启动类注解？它是由那些注解组成？"><a href="#2-SpringBoot-启动类注解？它是由那些注解组成？" class="headerlink" title="2.SpringBoot 启动类注解？它是由那些注解组成？"></a>2.SpringBoot 启动类注解？它是由那些注解组成？</h2><p>@SpringBootApplication</p>
 <ul>
@@ -1154,6 +1155,12 @@
 </ol>
 <h2 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h2><p><a href="https://mp.weixin.qq.com/s/kisvBJABJ27rb6JNZdCyqA">https://mp.weixin.qq.com/s/kisvBJABJ27rb6JNZdCyqA</a></p>
 ]]></content>
+      <categories>
+        <category>面试</category>
+      </categories>
+      <tags>
+        <tag>面试</tag>
+      </tags>
   </entry>
   <entry>
     <title>Java 日志从入门到实战</title>

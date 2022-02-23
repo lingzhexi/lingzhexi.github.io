@@ -21,12 +21,12 @@
   <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","version":"8.7.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
-<meta name="description" content="简介：主要对于SpringBoot是什么，如何使用  1.什么是 SpringBootSpring组件一站式解决方案，主要简化了 Spring 难度，简省了繁重的配置，提供了各种的启动器，是开发上手快 2.Spring Boot 优点 开箱即用，原理繁琐配置 内嵌服务器、安全管理、运行数据监控、运行状态检查、外部化配置 易上手开发效率高，有完善的第三方start库和官网 starter  总结：">
+<meta name="description" content="简介：主要对于SpringBoot是什么，如何使用及相关信息  1.什么是 SpringBootSpring组件一站式解决方案，主要简化了 Spring 难度，简省了繁重的配置，提供了各种的启动器，是开发上手快 2.Spring Boot 优点 开箱即用，原理繁琐配置 内嵌服务器、安全管理、运行数据监控、运行状态检查、外部化配置 易上手开发效率高，有完善的第三方start库和官网 starter">
 <meta property="og:type" content="article">
 <meta property="og:title" content="SpringBoot 常见面试题 30道">
 <meta property="og:url" content="http://example.com/2022/02/22/SpringBoot-%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%98/index.html">
 <meta property="og:site_name" content="Codeling&#39;s Blog">
-<meta property="og:description" content="简介：主要对于SpringBoot是什么，如何使用  1.什么是 SpringBootSpring组件一站式解决方案，主要简化了 Spring 难度，简省了繁重的配置，提供了各种的启动器，是开发上手快 2.Spring Boot 优点 开箱即用，原理繁琐配置 内嵌服务器、安全管理、运行数据监控、运行状态检查、外部化配置 易上手开发效率高，有完善的第三方start库和官网 starter  总结：">
+<meta property="og:description" content="简介：主要对于SpringBoot是什么，如何使用及相关信息  1.什么是 SpringBootSpring组件一站式解决方案，主要简化了 Spring 难度，简省了繁重的配置，提供了各种的启动器，是开发上手快 2.Spring Boot 优点 开箱即用，原理繁琐配置 内嵌服务器、安全管理、运行数据监控、运行状态检查、外部化配置 易上手开发效率高，有完善的第三方start库和官网 starter">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://gitee.com/lingzhexi/blogImage/raw/master/img/2021/12/image-20220223093051031.png">
 <meta property="og:image" content="https://gitee.com/lingzhexi/blogImage/raw/master/img/2021/12/image-20220223094652254.png">
@@ -35,12 +35,9 @@
 <meta property="og:image" content="https://gitee.com/lingzhexi/blogImage/raw/master/img/2021/12/image-20220223095351178.png">
 <meta property="og:image" content="https://gitee.com/lingzhexi/blogImage/raw/master/img/2021/12/image-20220223095921378.png">
 <meta property="article:published_time" content="2022-02-22T08:12:10.000Z">
-<meta property="article:modified_time" content="2022-02-23T03:14:09.334Z">
+<meta property="article:modified_time" content="2022-02-23T03:38:05.170Z">
 <meta property="article:author" content="codeling">
-<meta property="article:tag" content="Java">
-<meta property="article:tag" content="技术分享">
-<meta property="article:tag" content="生活记录">
-<meta property="article:tag" content="美食终结者">
+<meta property="article:tag" content="面试">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://gitee.com/lingzhexi/blogImage/raw/master/img/2021/12/image-20220223093051031.png">
 
@@ -189,12 +186,12 @@
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-count">9</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-count">16</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -235,7 +232,7 @@
       <h3 class="widget-title">Tag Cloud</h3>
       <div id="myCanvasContainer" class="widget tagcloud">
           <canvas width="250" height="250" id="resCanvas" style="width:100%">
-              <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/GitPage/" rel="tag">GitPage</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/" rel="tag">Hexo</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo%E9%83%A8%E7%BD%B2/" rel="tag">Hexo部署</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JAVA/" rel="tag">JAVA</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JAVA%E5%9F%BA%E7%A1%80/" rel="tag">JAVA基础</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JVM/" rel="tag">JVM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LF-CRLF%E9%94%99%E8%AF%AF/" rel="tag">LF/CRLF错误</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Post/" rel="tag">Post</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Typora/" rel="tag">Typora</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vue%E7%B3%BB%E5%88%97/" rel="tag">Vue系列</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/emoji/" rel="tag">emoji</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/markdown/" rel="tag">markdown</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/md/" rel="tag">md</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B9%A6%E7%B1%8D/" rel="tag">书籍</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%97%A5%E5%BF%97%E7%B3%BB%E7%BB%9F/" rel="tag">日志系统</a><span class="tag-list-count">1</span></li></ul>
+              <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/GitPage/" rel="tag">GitPage</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/" rel="tag">Hexo</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo%E9%83%A8%E7%BD%B2/" rel="tag">Hexo部署</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JAVA/" rel="tag">JAVA</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JAVA%E5%9F%BA%E7%A1%80/" rel="tag">JAVA基础</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JVM/" rel="tag">JVM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LF-CRLF%E9%94%99%E8%AF%AF/" rel="tag">LF/CRLF错误</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Post/" rel="tag">Post</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Typora/" rel="tag">Typora</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vue%E7%B3%BB%E5%88%97/" rel="tag">Vue系列</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/emoji/" rel="tag">emoji</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/markdown/" rel="tag">markdown</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/md/" rel="tag">md</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B9%A6%E7%B1%8D/" rel="tag">书籍</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%97%A5%E5%BF%97%E7%B3%BB%E7%BB%9F/" rel="tag">日志系统</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9D%A2%E8%AF%95/" rel="tag">面试</a><span class="tag-list-count">1</span></li></ul>
           </canvas>
       </div>
   </div>
@@ -296,8 +293,17 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2022-02-23 11:14:09" itemprop="dateModified" datetime="2022-02-23T11:14:09+08:00">2022-02-23</time>
+        <time title="修改时间：2022-02-23 11:38:05" itemprop="dateModified" datetime="2022-02-23T11:38:05+08:00">2022-02-23</time>
       </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E9%9D%A2%E8%AF%95/" itemprop="url" rel="index"><span itemprop="name">面试</span></a>
+        </span>
+    </span>
 
   
     <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
@@ -310,7 +316,7 @@
   <span title="post.wordcount">
       <span class="post-meta-divider">&nbsp&nbsp|&nbsp&nbsp</span>
       <i class="fas fa-book"></i>
-      字数统计:938字
+      字数统计:943字
   </span>
   <span title="post.min2read">
       <span class="post-meta-divider">&nbsp&nbsp|&nbsp&nbsp</span>
@@ -327,7 +333,7 @@
     
     <div class="post-body" itemprop="articleBody">
         <blockquote>
-<p>简介：主要对于SpringBoot是什么，如何使用</p>
+<p>简介：主要对于SpringBoot是什么，如何使用及相关信息</p>
 </blockquote>
 <h2 id="1-什么是-SpringBoot"><a href="#1-什么是-SpringBoot" class="headerlink" title="1.什么是 SpringBoot"></a>1.什么是 SpringBoot</h2><p>Spring组件一站式解决方案，主要简化了 Spring 难度，简省了繁重的配置，提供了各种的启动器，是开发上手快</p>
 <h2 id="2-Spring-Boot-优点"><a href="#2-Spring-Boot-优点" class="headerlink" title="2.Spring Boot 优点"></a>2.Spring Boot 优点</h2><ol>
@@ -335,6 +341,7 @@
 <li>内嵌服务器、安全管理、运行数据监控、运行状态检查、外部化配置</li>
 <li>易上手开发效率高，有完善的第三方start库和官网 starter</li>
 </ol>
+<span id="more"></span>
 <p>总结：<strong>编码、配置、部署、监控</strong> 简单</p>
 <h2 id="2-SpringBoot-启动类注解？它是由那些注解组成？"><a href="#2-SpringBoot-启动类注解？它是由那些注解组成？" class="headerlink" title="2.SpringBoot 启动类注解？它是由那些注解组成？"></a>2.SpringBoot 启动类注解？它是由那些注解组成？</h2><p>@SpringBootApplication</p>
 <ul>
@@ -423,6 +430,9 @@
   </div>
 </div>
 
+          <div class="post-tags">
+              <a href="/tags/%E9%9D%A2%E8%AF%95/" rel="tag"><i class="fa fa-tag"></i># 面试</a>
+          </div>
 
         
 
