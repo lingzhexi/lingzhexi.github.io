@@ -3497,6 +3497,7 @@ $ npm install hexo-generator-index-pin-top --save
 <li>易上手开发效率高，有完善的第三方start库和官网 starter</li>
 </ol>
 <p>总结：<strong>编码、配置、部署、监控</strong> 简单</p>
+<span id="more"></span>
 <h2 id="2-SpringBoot-启动类注解？它是由那些注解组成？"><a href="#2-SpringBoot-启动类注解？它是由那些注解组成？" class="headerlink" title="2.SpringBoot 启动类注解？它是由那些注解组成？"></a>2.SpringBoot 启动类注解？它是由那些注解组成？</h2><p>@SpringBootApplication</p>
 <ul>
 <li>@SpringBootConfiguration：组合了@Configuration注解，实现配置文件的功能。</li>
