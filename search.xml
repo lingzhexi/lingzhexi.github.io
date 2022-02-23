@@ -1079,6 +1079,83 @@
       </tags>
   </entry>
   <entry>
+    <title>SpringBoot 常见面试题 30道</title>
+    <url>/2022/02/22/SpringBoot-%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%98/</url>
+    <content><![CDATA[<blockquote>
+<p>简介：主要对于SpringBoot是什么，如何使用</p>
+</blockquote>
+<h2 id="1-什么是-SpringBoot"><a href="#1-什么是-SpringBoot" class="headerlink" title="1.什么是 SpringBoot"></a>1.什么是 SpringBoot</h2><p>Spring组件一站式解决方案，主要简化了 Spring 难度，简省了繁重的配置，提供了各种的启动器，是开发上手快</p>
+<h2 id="2-Spring-Boot-优点"><a href="#2-Spring-Boot-优点" class="headerlink" title="2.Spring Boot 优点"></a>2.Spring Boot 优点</h2><ol>
+<li>开箱即用，原理繁琐配置</li>
+<li>内嵌服务器、安全管理、运行数据监控、运行状态检查、外部化配置</li>
+<li>易上手开发效率高，有完善的第三方start库和官网 starter</li>
+</ol>
+<p>总结：<strong>编码、配置、部署、监控</strong> 简单</p>
+<h2 id="2-SpringBoot-启动类注解？它是由那些注解组成？"><a href="#2-SpringBoot-启动类注解？它是由那些注解组成？" class="headerlink" title="2.SpringBoot 启动类注解？它是由那些注解组成？"></a>2.SpringBoot 启动类注解？它是由那些注解组成？</h2><p>@SpringBootApplication</p>
+<ul>
+<li>@SpringBootConfiguration：组合了@Configuration注解，实现配置文件的功能。</li>
+<li>@EnableAutoConfiguration：打开自动配置的功能，也可以关闭某个自动配置的选项</li>
+<li>@SpringBootApplication(exclude={DataSourceAutoConfiguration.class})</li>
+<li>@ComponentScan：Spring组件扫描</li>
+</ul>
+<h2 id="3-yaml是什么"><a href="#3-yaml是什么" class="headerlink" title="3.yaml是什么"></a>3.yaml是什么</h2><p>用来表达数据序列化的参数</p>
+<h2 id="4-SpringBoot启动方式"><a href="#4-SpringBoot启动方式" class="headerlink" title="4.SpringBoot启动方式"></a>4.SpringBoot启动方式</h2><ol>
+<li>main方法</li>
+<li>命令行 java -jar</li>
+<li>mvn/gradle<h2 id="5-SpringBoot-需要独立的容器独立？"><a href="#5-SpringBoot-需要独立的容器独立？" class="headerlink" title="5.SpringBoot 需要独立的容器独立？"></a>5.SpringBoot 需要独立的容器独立？</h2>内置了Tomcat/Jetty</li>
+</ol>
+<h2 id="6-SpringBoot自动配置原理"><a href="#6-SpringBoot自动配置原理" class="headerlink" title="6.SpringBoot自动配置原理"></a>6.SpringBoot自动配置原理</h2><p>@EnableAutoConfiguration(开启自动配置)该注解引入了AutoConfigurationImportSelector ,该类中的方法会扫描所有存在META-INF/spring.factories的jar包</p>
+<h2 id="7-SpringBoot如何配置监控"><a href="#7-SpringBoot如何配置监控" class="headerlink" title="7.SpringBoot如何配置监控"></a>7.SpringBoot如何配置监控</h2><p>pom.xml</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-actuator<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>yml</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">management:</span></span><br><span class="line">    <span class="attr">endpoint:</span></span><br><span class="line">        <span class="attr">health:</span> <span class="comment">## 开启健康监控端点</span></span><br><span class="line">            <span class="attr">enabled:</span> <span class="literal">true</span></span><br><span class="line">        <span class="attr">beans:</span> <span class="comment">## 开启Bean实例监控端点</span></span><br><span class="line">            <span class="attr">enabled:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+
+<p>健康监控开启标志，启动了两个端点，默认之开启 health 和 info 端口</p>
+<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2021/12/image-20220223093051031.png" alt="image-20220223093051031"> </p>
+<p>yml</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">management:</span></span><br><span class="line">	<span class="attr">endpoints:</span></span><br><span class="line">		<span class="attr">web:</span></span><br><span class="line">			<span class="attr">exposure:</span></span><br><span class="line">				<span class="attr">include:</span> <span class="string">&quot;*&quot;</span> <span class="comment">## 开启所有端点暴露</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="8-查看各个监控信息？"><a href="#8-查看各个监控信息？" class="headerlink" title="8.查看各个监控信息？"></a>8.查看各个监控信息？</h2><p>/actuator 端点 ，默认开启了两个端点，health 和 info</p>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">&quot;_links&quot;</span>: &#123;</span><br><span class="line">    <span class="attr">&quot;self&quot;</span>: &#123;</span><br><span class="line">      <span class="attr">&quot;href&quot;</span>: <span class="string">&quot;http://localhost:9999/actuator&quot;</span>,</span><br><span class="line">      <span class="attr">&quot;templated&quot;</span>: <span class="literal">false</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">&quot;health&quot;</span>: &#123;</span><br><span class="line">      <span class="attr">&quot;href&quot;</span>: <span class="string">&quot;http://localhost:9999/actuator/health&quot;</span>, 查看当前服务的是否上线</span><br><span class="line">      <span class="attr">&quot;templated&quot;</span>: <span class="literal">false</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">&quot;health-path&quot;</span>: &#123;</span><br><span class="line">      <span class="attr">&quot;href&quot;</span>: <span class="string">&quot;http://localhost:9999/actuator/health/&#123;*path&#125;&quot;</span>,</span><br><span class="line">      <span class="attr">&quot;templated&quot;</span>: <span class="literal">true</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">&quot;info&quot;</span>: &#123;</span><br><span class="line">      <span class="attr">&quot;href&quot;</span>: <span class="string">&quot;http://localhost:9999/actuator/info&quot;</span>,</span><br><span class="line">      <span class="attr">&quot;templated&quot;</span>: <span class="literal">false</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果将所有端点暴露</p>
+<p>访问路径： ip:port/actuator/xx</p>
+<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2021/12/image-20220223094652254.png" alt="image-20220223094652254"> </p>
+<h3 id="loggers-端点"><a href="#loggers-端点" class="headerlink" title="loggers 端点"></a>loggers 端点</h3><p>访问 <code>http://localhost:8080/actuator/loggers</code> 可以查看当前应用的日志级别等信息：</p>
+<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2021/12/image-20220223095239970.png"> </p>
+<p>这里面本身并不特别，但是有一个功能却非常有用，比如我们生产环境日志级别一般都是 info，但是现在有一个 bug 通过 info 级别无法排查，那么我们就可以临时修改 log 级别。</p>
+<p>比如上图中的 ROOT 节点是 info 级别，那么我们可以通过 postman 等工具来发一个 post 请求修改日志级别。 </p>
+<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2021/12/image-20220223095330889.png" alt="image-20220223095330889"> </p>
+<p>修改之后就会发现，日志由原来的 info 变成了 debug： </p>
+<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2021/12/image-20220223095351178.png" alt="image-20220223095351178"> </p>
+<h3 id="metrics-端点"><a href="#metrics-端点" class="headerlink" title="metrics 端点"></a>metrics 端点</h3><p>非常重要的监控端点，监控内容包含 JVM内存、堆、类加载、处理器和 tomcat 容器等重要的指标</p>
+<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2021/12/image-20220223095921378.png" alt="image-20220223095921378"> </p>
+<h3 id="自定义监控端点"><a href="#自定义监控端点" class="headerlink" title="自定义监控端点"></a>自定义监控端点</h3><blockquote>
+<p>这一部分之后再详介绍</p>
+</blockquote>
+<h2 id="9-SpringBoot-中的starter"><a href="#9-SpringBoot-中的starter" class="headerlink" title="9.SpringBoot 中的starter?"></a>9.SpringBoot 中的starter?</h2><p>可以理解成对依赖的一种合成，starter会把一个或者一套功能相关的依赖包含进来，避免造轮子。</p>
+<h2 id="10-什么是SpringProfiles"><a href="#10-什么是SpringProfiles" class="headerlink" title="10.什么是SpringProfiles"></a>10.什么是SpringProfiles</h2><p>开发到生产，经过开发（dev）、测试（test）、上线（prod），主要针对不同的的配置。Spring Profiles允许用户根据配置文件（dev/test/prod）来注册bean。</p>
+<h2 id="11-激活不同环境配置"><a href="#11-激活不同环境配置" class="headerlink" title="11.激活不同环境配置"></a>11.激活不同环境配置</h2><p>yml:</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">	<span class="attr">profiles:</span></span><br><span class="line">		<span class="attr">active:</span> <span class="string">dev</span></span><br></pre></td></tr></table></figure>
+
+<p>   命令行：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">java -jar xx.jar --spring.profiles.active=dev</span><br></pre></td></tr></table></figure>
+
+<h2 id="12-SpringBoot异常处理相关注解？"><a href="#12-SpringBoot异常处理相关注解？" class="headerlink" title="12.SpringBoot异常处理相关注解？"></a>12.SpringBoot异常处理相关注解？</h2><p>@ControllerAdvice</p>
+<p>@ExceptinoHandler</p>
+<h2 id="13-SpringBoot1-1-和-2-x的区别？"><a href="#13-SpringBoot1-1-和-2-x的区别？" class="headerlink" title="13.SpringBoot1.1 和 2.x的区别？"></a>13.SpringBoot1.1 和 2.x的区别？</h2><ol>
+<li>SpringBoot 2基于Spring5和JDK8，Spring 1.x用的最低版本</li>
+<li>配置变更，参数名</li>
+<li>SpringBoot 2相关插件最低版本很多都要比原来高</li>
+<li>2.x配置中的中文可以直接读取</li>
+</ol>
+<h2 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h2><p><a href="https://mp.weixin.qq.com/s/kisvBJABJ27rb6JNZdCyqA">https://mp.weixin.qq.com/s/kisvBJABJ27rb6JNZdCyqA</a></p>
+]]></content>
+  </entry>
+  <entry>
     <title>Java 日志从入门到实战</title>
     <url>/2021/10/15/Java-%E6%97%A5%E5%BF%97%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/</url>
     <content><![CDATA[<blockquote>
