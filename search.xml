@@ -1148,16 +1148,17 @@
       </tags>
   </entry>
   <entry>
-    <title></title>
+    <title>Spring Cloud 常见面试题</title>
     <url>/2022/02/23/Spring-Cloud-%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%98/</url>
-    <content><![CDATA[<p>title: Spring Cloud 常见面试题<br>date: 2022-02-23 11:41:46<br>tags: 面试<br>categories: 面试<br>description:  注解介绍了Spring Cloud 常见面试题</p>
-<h1 id="基础介绍"><a href="#基础介绍" class="headerlink" title="基础介绍"></a>基础介绍</h1><h2 id="1-什么是微服务架构"><a href="#1-什么是微服务架构" class="headerlink" title="1.什么是微服务架构"></a>1.什么是微服务架构</h2><p>​    微服务架构就是将<strong>单体的应用程序分成多个应用程序</strong>，这多个应用程序就成为微服务，每个微服务 运行在自己的进程中，并使用轻量级的机制通信。这些服务围绕业务能力来划分，并通过自动化部 署机制来独立部署。这些服务可以使用不同的编程语言，不同数据库，以保证最低限度的集中式管 理。</p>
+    <content><![CDATA[<h1 id="基础介绍"><a href="#基础介绍" class="headerlink" title="基础介绍"></a>基础介绍</h1><h2 id="1-什么是微服务架构"><a href="#1-什么是微服务架构" class="headerlink" title="1.什么是微服务架构"></a>1.什么是微服务架构</h2><p>​    微服务架构就是将<strong>单体的应用程序分成多个应用程序</strong>，这多个应用程序就成为微服务，每个微服务 运行在自己的进程中，并使用轻量级的机制通信。这些服务围绕业务能力来划分，并通过自动化部 署机制来独立部署。这些服务可以使用不同的编程语言，不同数据库，以保证最低限度的集中式管 理。</p>
 <h2 id="2-为什么需要学习Spring-Cloud"><a href="#2-为什么需要学习Spring-Cloud" class="headerlink" title="2.为什么需要学习Spring Cloud"></a>2.为什么需要学习Spring Cloud</h2><ul>
-<li>首先Spring Cloud基于Spring Boot的优雅简洁，可还记得我们被无数xml支配的恐惧？可还记得 Spring MVC ，Mybatis 错综复杂的配置，有了Spring Boot，这些东西都不需要了，Spring Boot好处不 再赘诉，Spring Cloud就基于Spring Boot把市场上优秀的服务框架组合起来，通过Spring Boot风 格进行再封装屏蔽掉了复杂的配置和实现原理 </li>
-<li>什么叫做开箱即用？即使是当年的黄金搭档 Dubbo + ZooKeeper下载配置起来也是颇费心神的！而 Spring Cloud完成这些只需要一个jar的依赖就可以了！ </li>
-<li>Spring Cloud大多数子模块都是直击痛点，像 Zuul 解决的跨域，Fegin 解决的负载均衡，Hystrix的熔 断机制等等等等</li>
-</ul>
-<h2 id="3-Spring-Cloud-是什么"><a href="#3-Spring-Cloud-是什么" class="headerlink" title="3. Spring Cloud 是什么"></a>3. Spring Cloud 是什么</h2><ul>
+<li><p>首先Spring Cloud基于Spring Boot的优雅简洁，可还记得我们被无数xml支配的恐惧？可还记得 Spring MVC ，Mybatis 错综复杂的配置，有了Spring Boot，这些东西都不需要了，Spring Boot好处不 再赘诉，Spring Cloud就基于Spring Boot把市场上优秀的服务框架组合起来，通过Spring Boot风 格进行再封装屏蔽掉了复杂的配置和实现原理 </p>
+</li>
+<li><p>什么叫做开箱即用？即使是当年的黄金搭档 Dubbo + ZooKeeper下载配置起来也是颇费心神的！而 Spring Cloud完成这些只需要一个jar的依赖就可以了！ </p>
+</li>
+<li><p>Spring Cloud大多数子模块都是直击痛点，像 Zuul 解决的跨域，Fegin 解决的负载均衡，Hystrix的熔 断机制等等等等</p>
+<span id="more"></span>
+<h2 id="3-Spring-Cloud-是什么"><a href="#3-Spring-Cloud-是什么" class="headerlink" title="3. Spring Cloud 是什么"></a>3. Spring Cloud 是什么</h2></li>
 <li><p>Spring Cloud是一系列框架的有序集合。它利用Spring Boot的开发便利性巧妙地简化了分布式系统基础设施的开发，如 <strong>服务发现注册</strong>、<strong>配置中心</strong>、<strong>智能路由</strong>、<strong>消息总线</strong>、<strong>负载均衡</strong>、<strong>断路器</strong>、<strong>数据监控</strong>等，都可以用Spring Boot的开发风格做到一键启动和部署。</p>
 </li>
 <li><p> Spring Cloud并没有重复制造轮子，它只是将各家公司开发的比较成熟、经得起实际考验的服务框 架组合起来，通过Spring Boot风格进行再封装屏蔽掉了复杂的配置和实现原理，最终给开发者留 出了一套简单易懂、易部署和易维护的分布式系统开发工具包</p>
@@ -1273,6 +1274,12 @@
 <li>Nginxx、Zuul、Gateway</li>
 </ul>
 ]]></content>
+      <categories>
+        <category>面试</category>
+      </categories>
+      <tags>
+        <tag>面试</tag>
+      </tags>
   </entry>
   <entry>
     <title>SpringBoot 常见面试题 30道</title>
