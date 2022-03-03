@@ -21,30 +21,40 @@
   <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","version":"8.7.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
-<meta name="description" content="介绍了Spring Cloud 常见面试题">
+<meta name="description" content="城市地铁系统组成结构由：ACC（清分结算中心）、LC（线路中心）、SC（车站中心）、SLE（终端设备）、TICKET (票卡）">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Spring Cloud 常见面试题">
-<meta property="og:url" content="http://example.com/2022/02/23/Spring-Cloud-%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%98/index.html">
+<meta property="og:title" content="解析城市地铁AFC系统">
+<meta property="og:url" content="http://example.com/2022/03/03/%E8%A7%A3%E6%9E%90%E5%9F%8E%E5%B8%82%E5%9C%B0%E9%93%81AFC%E7%B3%BB%E7%BB%9F/index.html">
 <meta property="og:site_name" content="Codeling&#39;s Blog">
-<meta property="og:description" content="介绍了Spring Cloud 常见面试题">
+<meta property="og:description" content="城市地铁系统组成结构由：ACC（清分结算中心）、LC（线路中心）、SC（车站中心）、SLE（终端设备）、TICKET (票卡）">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202203021655862.jpg">
-<meta property="article:published_time" content="2022-02-23T03:41:46.000Z">
-<meta property="article:modified_time" content="2022-03-02T09:13:59.606Z">
+<meta property="og:image" content="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202203031029134.jpg">
+<meta property="og:image" content="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202203031001436.jpeg">
+<meta property="og:image" content="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202203031001029.jpeg">
+<meta property="og:image" content="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202203031001786.jpeg">
+<meta property="og:image" content="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202203031001365.jpeg">
+<meta property="og:image" content="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202203031001316.jpeg">
+<meta property="og:image" content="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202203031001343.jpeg">
+<meta property="og:image" content="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202203031001444.jpeg">
+<meta property="og:image" content="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202203031001220.jpeg">
+<meta property="og:image" content="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202203031001547.jpeg">
+<meta property="og:image" content="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202203031001372.jpeg">
+<meta property="article:published_time" content="2022-03-03T02:00:30.000Z">
+<meta property="article:modified_time" content="2022-03-03T02:51:38.331Z">
 <meta property="article:author" content="codeling">
-<meta property="article:tag" content="面试">
+<meta property="article:tag" content="AFC">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202203021655862.jpg">
+<meta name="twitter:image" content="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202203031029134.jpg">
 
 
-<link rel="canonical" href="http://example.com/2022/02/23/Spring-Cloud-%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%98/">
+<link rel="canonical" href="http://example.com/2022/03/03/%E8%A7%A3%E6%9E%90%E5%9F%8E%E5%B8%82%E5%9C%B0%E9%93%81AFC%E7%B3%BB%E7%BB%9F/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2022/02/23/Spring-Cloud-%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%98/","path":"2022/02/23/Spring-Cloud-常见面试题/","title":"Spring Cloud 常见面试题"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2022/03/03/%E8%A7%A3%E6%9E%90%E5%9F%8E%E5%B8%82%E5%9C%B0%E9%93%81AFC%E7%B3%BB%E7%BB%9F/","path":"2022/03/03/解析城市地铁AFC系统/","title":"解析城市地铁AFC系统"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>Spring Cloud 常见面试题 | Codeling's Blog</title>
+<title>解析城市地铁AFC系统 | Codeling's Blog</title>
   
 
 
@@ -157,7 +167,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%9F%BA%E7%A1%80"><span class="nav-text">微服务基础</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E4%BB%80%E4%B9%88%E6%98%AF%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84"><span class="nav-text">1.什么是微服务架构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81%E5%AD%A6%E4%B9%A0Spring-Cloud"><span class="nav-text">2.为什么需要学习Spring Cloud</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Spring-Cloud-%E6%98%AF%E4%BB%80%E4%B9%88"><span class="nav-text">3. Spring Cloud 是什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-Spring-Cloud%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9"><span class="nav-text">4. Spring Cloud的优缺点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-Spring-Boot-%E5%92%8C-Spring-Cloud-%E5%8C%BA%E5%88%AB%EF%BC%9F"><span class="nav-text">5. Spring Boot 和 Spring Cloud 区别？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-Spring-Cloud-%E5%92%8C-Spring-Boot-%E7%89%88%E6%9C%AC%E5%AF%B9%E5%BA%94%E5%85%B3%E7%B3%BB"><span class="nav-text">6.Spring Cloud 和 Spring Boot 版本对应关系?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-SpringCloud%E7%94%B1%E4%BB%80%E4%B9%88%E7%BB%84%E6%88%90"><span class="nav-text">7.SpringCloud由什么组成</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Eureka-%E7%AF%87"><span class="nav-text">Eureka 篇</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#8-%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C%E5%92%8C%E5%8F%91%E7%8E%B0%E6%98%AF%E4%BB%80%E4%B9%88%E6%84%8F%E6%80%9D%EF%BC%9FSpring-Cloud-%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E7%9A%84"><span class="nav-text">8.服务注册和发现是什么意思？Spring Cloud 如何实现的?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-%E4%BB%80%E4%B9%88%E6%98%AFEureka"><span class="nav-text">9.什么是Eureka</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#10-Eureka-%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E9%AB%98%E5%8F%AF%E7%94%A8"><span class="nav-text">10.Eureka 如何实现高可用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#11-Eureka-%E7%9A%84%E8%87%AA%E6%88%91%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6"><span class="nav-text">11.Eureka 的自我保护机制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#12-DiscoveryClient-%E4%BD%9C%E7%94%A8"><span class="nav-text">12.DiscoveryClient 作用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#13-Eureka-%E5%92%8CZooKeeper-%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-text">13.Eureka 和ZooKeeper 的区别</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Zuul-%E7%AF%87"><span class="nav-text">Zuul 篇</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#14-%E4%BB%80%E4%B9%88%E6%98%AF%E7%BD%91%E5%85%B3"><span class="nav-text">14.什么是网关</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#15-%E4%BD%9C%E7%94%A8%E6%98%AF%E4%BB%80%E4%B9%88"><span class="nav-text">15.作用是什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#16-%E4%BB%80%E4%B9%88%E6%98%AFSpring-Cloud-Zuul-%E6%9C%8D%E5%8A%A1%E7%BD%91%E5%85%B3"><span class="nav-text">16.什么是Spring Cloud Zuul (服务网关)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#17-%E7%BD%91%E5%85%B3%E5%92%8C%E8%BF%87%E6%BB%A4%E5%99%A8%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB"><span class="nav-text">17.网关和过滤器有什么区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#18-%E5%B8%B8%E7%94%A8%E7%9A%84%E7%BD%91%E5%85%B3%E6%A1%86%E6%9E%B6"><span class="nav-text">18.常用的网关框架</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#19-Zuul-%E5%92%8C-Nginx%E5%8C%BA%E5%88%AB"><span class="nav-text">19.Zuul 和 Nginx区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#20-%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E5%A5%97API%E6%8E%A5%E5%8F%A3"><span class="nav-text">20.如何设计一套API接口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#21-ZuulFilter-%E5%B8%B8%E7%94%A8%E9%82%A3%E4%BA%9B%E6%96%B9%E6%B3%95"><span class="nav-text">21.ZuulFilter 常用那些方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#22-%E5%AE%9E%E7%8E%B0%E5%8A%A8%E6%80%81Zuul%E7%BD%91%E5%85%B3%E8%B7%AF%E7%94%B1%E8%BD%AC%E5%8F%91"><span class="nav-text">22.实现动态Zuul网关路由转发</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Ribbon"><span class="nav-text">Ribbon</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#23-%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E7%9A%84%E6%84%8F%E4%B9%89"><span class="nav-text">23.负载均衡的意义</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9F%8E%E5%B8%82%E5%9C%B0%E9%93%81-AFC-%E7%B3%BB%E7%BB%9F%E7%AE%80%E6%9E%90"><span class="nav-text">城市地铁 AFC 系统简析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E6%A6%82%E8%BF%B0"><span class="nav-text">一、概述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-%E5%AE%9A%E4%B9%89"><span class="nav-text">1.1 定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-%E4%B8%BB%E8%A6%81%E5%B7%A5%E4%BD%9C%E5%86%85%E5%AE%B9"><span class="nav-text">1.2 主要工作内容</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-%E4%BC%98%E7%82%B9"><span class="nav-text">1.3 优点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E7%BB%93%E6%9E%84%E5%8F%8A%E5%8A%9F%E8%83%BD"><span class="nav-text">二、结构及功能</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-%E6%B8%85%E5%88%86%E7%BB%93%E7%AE%97%E7%AE%A1%E7%90%86%E4%B8%AD%E5%BF%83-ACC"><span class="nav-text">2.1 清分结算管理中心 (ACC)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-%E7%BA%BF%E8%B7%AF%E4%B8%AD%E5%BF%83-LC"><span class="nav-text">2.2 线路中心 (LC)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-%E8%BD%A6%E7%AB%99%E4%B8%AD%E5%BF%83-SC"><span class="nav-text">2.3 车站中心 (SC)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-AFC-%E8%BD%A6%E7%AB%99%E7%BB%88%E7%AB%AF%E8%AE%BE%E5%A4%87-SLE"><span class="nav-text">2.4 AFC 车站终端设备 (SLE)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-1-%E8%87%AA%E5%8A%A8%E6%A3%80%E7%A5%A8%E6%9C%BA-AGM"><span class="nav-text">2.4.1 自动检票机 (AGM)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-2-%E5%8D%8A%E8%87%AA%E5%8A%A8%E5%94%AE%E7%A5%A8%E6%9C%BA-BOM"><span class="nav-text">2.4.2 半自动售票机 (BOM)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-3-%E8%87%AA%E5%8A%A8%E6%9F%A5%E8%AF%A2%E6%9C%BA-TCM"><span class="nav-text">2.4.3 自动查询机 (TCM)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-5-%E7%A5%A8%E5%8D%A1-Ticket%EF%BC%89"><span class="nav-text">2.5 票卡 (Ticket）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81AFC-%E7%B3%BB%E7%BB%9F%E4%B8%BB%E8%A6%81%E4%B8%9A%E5%8A%A1%E6%B5%81%E7%A8%8B"><span class="nav-text">三、AFC 系统主要业务流程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%EF%BC%881%EF%BC%89%E7%A5%A8%E5%8A%A1%E7%AE%A1%E7%90%86%E6%B5%81%E7%A8%8B"><span class="nav-text">（1）票务管理流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EF%BC%882%EF%BC%89%E6%94%B6%E7%9B%8A%E7%AE%A1%E7%90%86%E6%B5%81%E7%A8%8B"><span class="nav-text">（2）收益管理流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EF%BC%883%EF%BC%89%E8%BF%90%E8%90%A5%E7%BB%B4%E6%8A%A4%E6%B5%81%E7%A8%8B"><span class="nav-text">（3）运营维护流程</span></a></li></ol></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -253,7 +263,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/02/23/Spring-Cloud-%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%98/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/03/03/%E8%A7%A3%E6%9E%90%E5%9F%8E%E5%B8%82%E5%9C%B0%E9%93%81AFC%E7%B3%BB%E7%BB%9F/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
@@ -266,7 +276,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Spring Cloud 常见面试题
+          解析城市地铁AFC系统
         </h1>
 
         <div class="post-meta-container">
@@ -278,23 +288,17 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
+      
 
-      <time title="创建时间：2022-02-23 11:41:46" itemprop="dateCreated datePublished" datetime="2022-02-23T11:41:46+08:00">2022-02-23</time>
+      <time title="创建时间：2022-03-03 10:00:30 / 修改时间：10:51:38" itemprop="dateCreated datePublished" datetime="2022-03-03T10:00:30+08:00">2022-03-03</time>
     </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2022-03-02 17:13:59" itemprop="dateModified" datetime="2022-03-02T17:13:59+08:00">2022-03-02</time>
-      </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E9%9D%A2%E8%AF%95/" itemprop="url" rel="index"><span itemprop="name">面试</span></a>
+          <a href="/categories/AFC/" itemprop="url" rel="index"><span itemprop="name">AFC</span></a>
         </span>
     </span>
 
@@ -309,16 +313,16 @@
   <span title="post.wordcount">
       <span class="post-meta-divider">&nbsp&nbsp|&nbsp&nbsp</span>
       <i class="fas fa-book"></i>
-      字数统计:1.8k字
+      字数统计:2.1k字
   </span>
   <span title="post.min2read">
       <span class="post-meta-divider">&nbsp&nbsp|&nbsp&nbsp</span>
       <i class="far fa-clock"></i>
-      阅读时长≈6分钟
+      阅读时长≈7分钟
   </span>
 </div>
 
-            <div class="post-description">介绍了Spring Cloud 常见面试题</div>
+            <div class="post-description">城市地铁系统组成结构由：ACC（清分结算中心）、LC（线路中心）、SC（车站中心）、SLE（终端设备）、TICKET (票卡）</div>
         </div>
       </header>
 
@@ -326,154 +330,81 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202203021655862.jpg" alt="field-g9907973de_1920"></p>
+        <p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202203031029134.jpg"></p>
 <span id="more"></span>
 
-<h1 id="微服务基础"><a href="#微服务基础" class="headerlink" title="微服务基础"></a>微服务基础</h1><h2 id="1-什么是微服务架构"><a href="#1-什么是微服务架构" class="headerlink" title="1.什么是微服务架构"></a>1.什么是微服务架构</h2><p>​    微服务架构就是将<strong>单体的应用程序分成多个应用程序</strong>，这多个应用程序就成为微服务，每个微服务 运行在自己的进程中，并使用轻量级的机制通信。这些服务围绕业务能力来划分，并通过自动化部 署机制来独立部署。这些服务可以使用不同的编程语言，不同数据库，以保证最低限度的集中式管理。</p>
-<h2 id="2-为什么需要学习Spring-Cloud"><a href="#2-为什么需要学习Spring-Cloud" class="headerlink" title="2.为什么需要学习Spring Cloud"></a>2.为什么需要学习Spring Cloud</h2><ul>
-<li>首先Spring Cloud基于Spring Boot的优雅简洁，可还记得我们被无数xml支配的恐惧？可还记得 Spring MVC ，Mybatis 错综复杂的配置，有了Spring Boot，这些东西都不需要了，Spring Boot好处不 再赘诉，Spring Cloud就基于Spring Boot把市场上优秀的服务框架组合起来，通过Spring Boot风 格进行再封装屏蔽掉了复杂的配置和实现原理 </li>
-<li>什么叫做开箱即用？即使是当年的黄金搭档 Dubbo + ZooKeeper下载配置起来也是颇费心神的！而 Spring Cloud完成这些只需要一个jar的依赖就可以了！ </li>
-<li>Spring Cloud大多数子模块都是直击痛点，像 Zuul 解决的跨域，Fegin 解决的负载均衡，Hystrix的熔 断机制等等等等</li>
-</ul>
-<h2 id="3-Spring-Cloud-是什么"><a href="#3-Spring-Cloud-是什么" class="headerlink" title="3. Spring Cloud 是什么"></a>3. Spring Cloud 是什么</h2><ul>
-<li><p>Spring Cloud是一系列框架的有序集合。它利用Spring Boot的开发便利性巧妙地简化了分布式系统基础设施的开发，如 <strong>服务发现注册</strong>、<strong>配置中心</strong>、<strong>智能路由</strong>、<strong>消息总线</strong>、<strong>负载均衡</strong>、<strong>断路器</strong>、<strong>数据监控</strong>等，都可以用Spring Boot的开发风格做到一键启动和部署。</p>
-</li>
-<li><p> Spring Cloud并没有重复制造轮子，它只是将各家公司开发的比较成熟、经得起实际考验的服务框 架组合起来，通过Spring Boot风格进行再封装屏蔽掉了复杂的配置和实现原理，最终给开发者留 出了一套简单易懂、易部署和易维护的分布式系统开发工具包</p>
-</li>
-</ul>
-<h2 id="4-Spring-Cloud的优缺点"><a href="#4-Spring-Cloud的优缺点" class="headerlink" title="4. Spring Cloud的优缺点"></a>4. Spring Cloud的优缺点</h2><p>优点</p>
-<ol>
-<li>耦合低</li>
-<li>配置简单</li>
-<li>跨平台</li>
-<li>可配置独立的数据库</li>
-<li>可以组件间之间通讯</li>
-</ol>
-<p>缺点：</p>
-<ol>
-<li>部署麻烦</li>
-<li>数据管理麻烦</li>
-<li>系统集成测试</li>
-<li>性能监控复杂</li>
-</ol>
-<h2 id="5-Spring-Boot-和-Spring-Cloud-区别？"><a href="#5-Spring-Boot-和-Spring-Cloud-区别？" class="headerlink" title="5. Spring Boot 和 Spring Cloud 区别？"></a>5. Spring Boot 和 Spring Cloud 区别？</h2><ul>
-<li><p>Spring Boot 专注单体快速开发</p>
-</li>
-<li><p>Spring Cloud 关注全局微服务协调整理治理框架，将Spring Boot 单体微服务整个管理</p>
-</li>
-<li><p>各个微服务之间提供，配置管理，服务发现，断路器，路由，微代理，消息总线，全局锁，决策竞选，分布式会话等</p>
-</li>
-</ul>
-<h2 id="6-Spring-Cloud-和-Spring-Boot-版本对应关系"><a href="#6-Spring-Cloud-和-Spring-Boot-版本对应关系" class="headerlink" title="6.Spring Cloud 和 Spring Boot 版本对应关系?"></a>6.Spring Cloud 和 Spring Boot 版本对应关系?</h2><table>
-<thead>
-<tr>
-<th align="left">Release Train</th>
-<th align="left">Boot Version</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">2020.0.x aka Ilford</td>
-<td align="left">2.4.x, 2.5.x (Starting with 2020.0.3)</td>
-</tr>
-<tr>
-<td align="left">Hoxton</td>
-<td align="left">2.2.x, 2.3.x (Starting with SR5)</td>
-</tr>
-<tr>
-<td align="left">Greenwich</td>
-<td align="left">2.1.x</td>
-</tr>
-<tr>
-<td align="left">Finchley</td>
-<td align="left">2.0.x</td>
-</tr>
-<tr>
-<td align="left">Edgware</td>
-<td align="left">1.5.x</td>
-</tr>
-<tr>
-<td align="left">Dalston</td>
-<td align="left">1.5.x</td>
-</tr>
-</tbody></table>
-<h2 id="7-SpringCloud由什么组成"><a href="#7-SpringCloud由什么组成" class="headerlink" title="7.SpringCloud由什么组成"></a>7.SpringCloud由什么组成</h2><p>这里列举几个主要的组件</p>
-<ul>
-<li>Eureka 服务注册和发现</li>
-<li>Zuul 网关</li>
-<li>Ribbon 负载均衡</li>
-<li>Feign 声明式Web服务客户端</li>
-<li>Hystrix 断路器</li>
-<li>Config 分布式统一配置管理</li>
-</ul>
-<h1 id="Eureka-篇"><a href="#Eureka-篇" class="headerlink" title="Eureka 篇"></a>Eureka 篇</h1><h2 id="8-服务注册和发现是什么意思？Spring-Cloud-如何实现的"><a href="#8-服务注册和发现是什么意思？Spring-Cloud-如何实现的" class="headerlink" title="8.服务注册和发现是什么意思？Spring Cloud 如何实现的?"></a>8.服务注册和发现是什么意思？Spring Cloud 如何实现的?</h2><p>​    一般Spring Cloud 项目由多个模块服务组成，通常在属性文件中进行配置，随着越来越多的服务开发和部署，添加修改属性变得复杂。由于所有服务都通过Eureka 服务注册统一由Eureka服务管理并通过Eureka完成查找，这样就无需知道服务的地的任何修改了。</p>
-<h2 id="9-什么是Eureka"><a href="#9-什么是Eureka" class="headerlink" title="9.什么是Eureka"></a>9.什么是Eureka</h2><p>​    Eureka 作为 Spring Cloud 服务注册中心，系统中的服务使用 Eureka 客户端将其连接 Eureka Service 中并保持心跳，可以通过 Eureka 服务来监控其他微服务是否正常运行</p>
-<h2 id="10-Eureka-如何实现高可用"><a href="#10-Eureka-如何实现高可用" class="headerlink" title="10.Eureka 如何实现高可用"></a>10.Eureka 如何实现高可用</h2><p>​    通过集群注册多台 Eureka，将各个 微服务 相互注册</p>
-<h2 id="11-Eureka-的自我保护机制"><a href="#11-Eureka-的自我保护机制" class="headerlink" title="11.Eureka 的自我保护机制"></a>11.Eureka 的自我保护机制</h2><p>​    默认情况下，如果 Eureka 服务一定时间没有收到某个微服务的心跳，那个Eureka 服务会进入自我保护模式，在该模式下 Eureka 服务会保护注册表中的信息，不删除注册表中的数据，当网路恢复后，自动退出保护模式。</p>
-<h2 id="12-DiscoveryClient-作用"><a href="#12-DiscoveryClient-作用" class="headerlink" title="12.DiscoveryClient 作用"></a>12.DiscoveryClient 作用</h2><p>​    可以从注册中心中的服务别名来注册服务器信息</p>
-<h2 id="13-Eureka-和ZooKeeper-的区别"><a href="#13-Eureka-和ZooKeeper-的区别" class="headerlink" title="13.Eureka 和ZooKeeper 的区别"></a>13.Eureka 和ZooKeeper 的区别</h2><ol>
-<li><p>ZooKeeper 的节点服务挂了要选举，选举期间的注册服务瘫痪</p>
-</li>
-<li><p>Eureka的各个节点平等，服务器挂了没关系，只要由一台可以保证服务即可，如果数据不是最新的，可能是启动了自我保护机制导致的。</p>
-</li>
-<li><p>Eureka 本质是工程，ZooKeeper 是进程</p>
-</li>
-<li><p>ZooKeeper 保证CP，Eureka 保证 AP</p>
-</li>
-</ol>
 <blockquote>
-<p>CAP: C:一致性、A:可用性、P:分区容错性</p>
+<p>本文由 <a target="_blank" rel="noopener" href="http://ksria.com/simpread/">简悦 SimpRead</a> 转码， 原文地址 <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/429357685">zhuanlan.zhihu.com</a></p>
 </blockquote>
-<h1 id="Zuul-篇"><a href="#Zuul-篇" class="headerlink" title="Zuul 篇"></a>Zuul 篇</h1><h2 id="14-什么是网关"><a href="#14-什么是网关" class="headerlink" title="14.什么是网关"></a>14.什么是网关</h2><ul>
-<li>网关相当与网络服务框架的入口，所有网络请求都必须通过网关才能转发到具体的服务</li>
-</ul>
-<h2 id="15-作用是什么"><a href="#15-作用是什么" class="headerlink" title="15.作用是什么"></a>15.作用是什么</h2><ul>
-<li>统一管理微服务请求，权限控制、负载均衡、路由转发、监控、安全控制黑名单和白名单</li>
-</ul>
-<h2 id="16-什么是Spring-Cloud-Zuul-服务网关"><a href="#16-什么是Spring-Cloud-Zuul-服务网关" class="headerlink" title="16.什么是Spring Cloud Zuul (服务网关)"></a>16.什么是Spring Cloud Zuul (服务网关)</h2><ul>
-<li>Spring Cloud 的一套路由方案，会根据请求路径不同，网关会定位到指定的微服务，并代理请求到不同的微服务接口，对外隐蔽了微服务的真正接口地址，<br>三个重要概念<ul>
-<li>动态路由表：Zuul 支持 Eureka 路由，手动配置路由</li>
-<li>路由定位： 根据请求路径，Zuul 有自己一套定位服务规则以及路由表达式匹配</li>
-<li>反向代理：客户端请求到路由网关，网关手里后，目标发送请求，拿到相应后给到客户端</li>
-</ul>
+<h1 id="城市地铁-AFC-系统简析"><a href="#城市地铁-AFC-系统简析" class="headerlink" title="城市地铁 AFC 系统简析"></a><strong>城市地铁 AFC 系统简析</strong></h1><h2 id="一、概述"><a href="#一、概述" class="headerlink" title="一、概述"></a><strong>一、概述</strong></h2><h3 id="1-1-定义"><a href="#1-1-定义" class="headerlink" title="1.1 定义"></a><strong>1.1 定义</strong></h3><p>AFC 系统的全称是 Automatic Fare Collection System（城市轨道交通自动售检票系统），是基于计算机、通信、网络、自动控制等技术，实现轨道交通售票、检票、计费、收费、统计、清分、管理等全过程的自动化系统。</p>
+<h3 id="1-2-主要工作内容"><a href="#1-2-主要工作内容" class="headerlink" title="1.2 主要工作内容"></a><strong>1.2 主要工作内容</strong></h3><p>1、实现中央系统、车站系统和终端设备之间的数据传输和处理;</p>
+<p>2、完成车 票制作、售票、检票、票务统计分析等工作;</p>
+<p>3、及时、准确地进行客流、票务数据的收集、整理、汇总和分析;</p>
+<p>4、实现轨道交通收益方得清分结算以及与关联系统等外部接口之间的清分结算，同时可通过银行或金融机构实现账务划拨。</p>
+<h3 id="1-3-优点"><a href="#1-3-优点" class="headerlink" title="1.3 优点"></a><strong>1.3 优点</strong></h3><p>1）人性化</p>
+<p>自动售检票系统为乘客设置符合人体工程学的售票机和检票机，方便乘客的购票和检票过程，同时提供符合地方特色的操作方式。</p>
+<p>2）客流导向</p>
+<p>自动售检票系统可方便地实现乘车路径和优惠票价管理，可以通过票价设定来为乘客提供导向性服务，实现柔性的乘客自主对出行路径或时段的选择，合理调整客流分布。</p>
+<p>3）社会效益</p>
+<p>一方面可通过自动售检票系统形成对区域交通客流状况的调整，对设备生活产生影响；另一方面可通过自动化的设施影响人们的行为模式，规范管理模式，客服票务工作中的舞弊行为。</p>
+<p>4）提供信息支持</p>
+<p>自动售检票系统能够提供客流量、票务收入等统计信息，为轨道交通的运营、规划和管理决策提供信息支持。</p>
+<p>5）提高运行效率</p>
+<p>轨道交通运营单位可根据自动售检票系统的客流信息及时调整运行组织，合理安排运能，提高运行效率。</p>
+<p>6）强化安全管理</p>
+<p>借助自动售检票系统付费区的封闭条件，可对乘客在车站内的行为进行管理。在紧急情况下，可通过闸机的禁止和方形措施疏导人群，实现安全管理。</p>
+<p>7）提升形象</p>
+<p>通过自动售检票系统，增加了轨道交通与乘客的操作交互性和乘客的主动性，良好的应用效果可以提升运营企业和所在地的形象。</p>
+<h2 id="二、结构及功能"><a href="#二、结构及功能" class="headerlink" title="二、结构及功能"></a><strong>二、结构及功能</strong></h2><p>AFC 的结构按层次划分一般分为车票、车站终端设备（SLE）、车站计算机系统（SC）、线路中央计算机系统（LC/LCC）、清分系统（CC）五个层次。</p>
+<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202203031001436.jpeg"></p>
+<p>图片来源：百度文库</p>
+<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202203031001029.jpeg"></p>
+<p>整体结构图</p>
+<p>图片来源：百度文库</p>
+<h3 id="2-1-清分结算管理中心-ACC"><a href="#2-1-清分结算管理中心-ACC" class="headerlink" title="2.1 清分结算管理中心 (ACC)"></a><strong>2.1 清分结算管理中心 (ACC)</strong></h3><p>清分结算中心作为整个 AFC 系统的顶层，主要是负责对地铁线路之间、地铁与城市一卡通系统之间的清分结算，对不同运营实体 (或线路) 进行管理，制定业务规程和票务规则，制作发行票卡全面协调不同线路间的日常运营。</p>
+<h3 id="2-2-线路中心-LC"><a href="#2-2-线路中心-LC" class="headerlink" title="2.2 线路中心 (LC)"></a><strong>2.2 线路中心 (LC)</strong></h3><p>线路中心管理线路内交易、客流、设备、票务等数据, 负责本线路系统的 AFC 收费数据、设备状态数据、客流量数据的采集，生成报表以及对账等。LC 将收集的本线路数据上传到清结算管理中心，接受清结算管理中心的命令与参数，并将其下发到各车站系统; 同时，LC 也管理和下发线路级的命令及系统参数，完成本线路的票务管理，具备票卡的库存管理和调配等功能。</p>
+<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202203031001786.jpeg"></p>
+<p>LC 物理结构图</p>
+<p>图片来源：百度文库</p>
+<h3 id="2-3-车站中心-SC"><a href="#2-3-车站中心-SC" class="headerlink" title="2.3 车站中心 (SC)"></a><strong>2.3 车站中心 (SC)</strong></h3><p>车站中心用来监控和配置车站本地设备，采集本地车站设备数据, 对车站的每一台设备实施监督、控制、参数化、数据采集和审计。SC 接收 LC 的指令和参数, 并下发到相应的设备。同时，SC 采集设备的交易、事件和审计数据，上传到 LC。</p>
+<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202203031001365.jpeg"></p>
+<p>图片来源：百度文库</p>
+<h3 id="2-4-AFC-车站终端设备-SLE"><a href="#2-4-AFC-车站终端设备-SLE" class="headerlink" title="2.4 AFC 车站终端设备 (SLE)"></a><strong>2.4 AFC 车站终端设备 (SLE)</strong></h3><p>AFC 设备层包括闸机、半自动售票机、自动售票机、自动充值机、银行圈存机、自助查询机、移动支付设备和其他设备等。</p>
+<h3 id="2-4-1-自动检票机-AGM"><a href="#2-4-1-自动检票机-AGM" class="headerlink" title="2.4.1 自动检票机 (AGM)"></a><strong>2.4.1 自动检票机 (AGM)</strong></h3><p>自动检票机设置在付费区与非付费区的交界处，起着分割付费区与非付费区的作用，实现票卡有效性验证、检票、通行控制、车票回收等功能。</p>
+<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202203031001316.jpeg"></p>
+<p>图片来源：百度文库</p>
+<p>自动检票机主要由进站用乘客显示器、出站用乘客显示器、进站用读写器、出站用读写器、车票回收模块、站员操作部、通道显示部、闸门、主控单元、电源模块、人体检测部、外部接口等构成。</p>
+<h3 id="2-4-2-半自动售票机-BOM"><a href="#2-4-2-半自动售票机-BOM" class="headerlink" title="2.4.2 半自动售票机 (BOM)"></a><strong>2.4.2 半自动售票机 (BOM)</strong></h3><p>设于车站服务中心，具有售票、补票和售补票功能，对于一卡通车票的处理可以按照一卡通系统的规则进行。</p>
+<p>同时可发行各种类型的车票，兼有对车票进行查验和票据打印等功能，所能实现的功能可由系统参数灵活设置。</p>
+<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202203031001343.jpeg"></p>
+<p>图片来源：百度文库</p>
+<p>当与 SC 通信中断时，具有离线工作和数据保存能力。BOM 可以保存 30 天的运营数据。在通信恢复时，能将保存的交易数据及时上传给 SC。</p>
+<p>我方提供半自动售票机上电启动后一分钟之内即可进入正常服务状态。</p>
+<h3 id="2-4-3-自动查询机-TCM"><a href="#2-4-3-自动查询机-TCM" class="headerlink" title="2.4.3 自动查询机 (TCM)"></a><strong>2.4.3 自动查询机 (TCM)</strong></h3><p>自动查询机安装在地铁车站非付费区, 供在轨道交通内使用的地铁专用票及城市 “一卡通 “ 的自助查询验票及发布地铁通知信息等服务。自动查询机操作界面采用触摸屏操作方式，由 LC 下载乘客服务信息，可以回溯车票内记录的使用历史，包括票种、购票时间、进站时间、出站时间、进站地点、出站地点、扣费金额、剩余金额、有效期等。每笔交易信息应逐条显示。对有问题的交易记录应可以醒目的提示。自动查询机在进行车票查询时，能对车票的有效性进行检查，如有问题能显示原因，并提示乘客去半自动售票机处处理。</p>
+<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202203031001444.jpeg"></p>
+<p>图片来源：百度文库</p>
+<p>自动查询机具有如下功能:</p>
+<ol>
+<li><p> 所有车票均可查询；可以自动播放预先录制的影音片断，可以向乘客介绍系统使. 用方法、显示公司通告及操作指南动画短片等信息；</p>
 </li>
-<li>应用场景：<ul>
-<li>对外暴露</li>
-<li>权限校验</li>
-<li>服务聚合</li>
-<li>日志审计</li>
-</ul>
+<li><p> 可以回溯车票内记录的使用历史 (包括票种、购票时间、进站时间、出站时间、进站地点、出站地点、扣费金额、剩余金额、有效期等) ;</p>
 </li>
-</ul>
-<h2 id="17-网关和过滤器有什么区别"><a href="#17-网关和过滤器有什么区别" class="headerlink" title="17.网关和过滤器有什么区别"></a>17.网关和过滤器有什么区别</h2><ul>
-<li>网关对所有的服务请求进行分析过滤，过滤器是对于单个服务而言的</li>
-</ul>
-<h2 id="18-常用的网关框架"><a href="#18-常用的网关框架" class="headerlink" title="18.常用的网关框架"></a>18.常用的网关框架</h2><ul>
-<li>Nginxx、Zuul、Gateway</li>
-</ul>
-<h2 id="19-Zuul-和-Nginx区别"><a href="#19-Zuul-和-Nginx区别" class="headerlink" title="19.Zuul 和 Nginx区别"></a>19.Zuul 和 Nginx区别</h2><ul>
-<li>Zuul java 实现，主要是网关服务</li>
-<li>Nginx C 实现，性能高于Zuul，可以做Zuul集群</li>
-</ul>
-<h2 id="20-如何设计一套API接口"><a href="#20-如何设计一套API接口" class="headerlink" title="20.如何设计一套API接口"></a>20.如何设计一套API接口</h2><ul>
-<li>API分类：开发API接口 和 内网API接口<ul>
-<li>内网：局域网，为内部服务考虑</li>
-<li>外网：外部单位提供接口调用，遵循Oauth2.0权限</li>
-</ul>
+<li><p> 交易信息逐条显示;</p>
 </li>
-<li>考虑安全和幂等性</li>
-</ul>
-<h2 id="21-ZuulFilter-常用那些方法"><a href="#21-ZuulFilter-常用那些方法" class="headerlink" title="21.ZuulFilter 常用那些方法"></a>21.ZuulFilter 常用那些方法</h2><ul>
-<li>Run()：过滤器的具体业务逻辑 </li>
-<li>shouldFilter()：判断过滤器是否有效 </li>
-<li>filterOrder()：过滤器执行顺序 </li>
-<li>filterType()：过滤器拦截位置</li>
-</ul>
-<h2 id="22-实现动态Zuul网关路由转发"><a href="#22-实现动态Zuul网关路由转发" class="headerlink" title="22.实现动态Zuul网关路由转发"></a>22.实现动态Zuul网关路由转发</h2><ul>
-<li>通过path配置拦截请求，通过ServicerId配置中心转发道服务列表，内部使用Ribbon实现本地负载均衡和转发</li>
-</ul>
-<h1 id="Ribbon"><a href="#Ribbon" class="headerlink" title="Ribbon"></a>Ribbon</h1><h2 id="23-负载均衡的意义"><a href="#23-负载均衡的意义" class="headerlink" title="23.负载均衡的意义"></a>23.负载均衡的意义</h2><ul>
-<li></li>
-</ul>
+<li><p> 问题的交易记录可以醒目的提示;</p>
+</li>
+<li><p> 车票有效性进行检查，如有问题显示原因并提示。</p>
+</li>
+</ol>
+<h3 id="2-5-票卡-Ticket）"><a href="#2-5-票卡-Ticket）" class="headerlink" title="2.5 票卡 (Ticket）"></a><strong>2.5 票卡 (Ticket）</strong></h3><p>五层架构体系的底层为票卡层，它是乘客所持的车费支付媒介，包括计次票、储值票、单程票、员工票和其他车票等。</p>
+<h2 id="三、AFC-系统主要业务流程"><a href="#三、AFC-系统主要业务流程" class="headerlink" title="三、AFC 系统主要业务流程"></a><strong>三、AFC 系统主要业务流程</strong></h2><p>AFC 系统运营管理的业务流程是一体三面，面向信息流，物流和责任链，主要包括三大业务流程：</p>
+<h3 id="（1）票务管理流程"><a href="#（1）票务管理流程" class="headerlink" title="（1）票务管理流程"></a>（1）票务管理流程</h3><p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202203031001220.jpeg"></p>
+<p>图片来源：百度文库</p>
+<h3 id="（2）收益管理流程"><a href="#（2）收益管理流程" class="headerlink" title="（2）收益管理流程"></a>（2）收益管理流程</h3><p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202203031001547.jpeg"></p>
+<p>图片来源：百度文库</p>
+<h3 id="（3）运营维护流程"><a href="#（3）运营维护流程" class="headerlink" title="（3）运营维护流程"></a>（3）运营维护流程</h3><p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202203031001372.jpeg"></p>
+<p>图片来源：百度文库</p>
+<p>（来源：RTAI 智慧城轨网。本文旨在分享，非商用）</p>
 
     </div>
 
@@ -500,21 +431,18 @@
 </div>
 
           <div class="post-tags">
-              <a href="/tags/%E9%9D%A2%E8%AF%95/" rel="tag"><i class="fa fa-tag"></i># 面试</a>
+              <a href="/tags/AFC/" rel="tag"><i class="fa fa-tag"></i># AFC</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2022/02/22/Spring-Boot-%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%98/" rel="prev" title="SpringBoot 常见面试题">
-                  <i class="fa fa-chevron-left"></i> SpringBoot 常见面试题
+                <a href="/2022/03/02/Java-%E5%85%AB%E8%82%A1%E6%96%87%E6%8C%87%E5%8D%97/" rel="prev" title="Java 八股文指南">
+                  <i class="fa fa-chevron-left"></i> Java 八股文指南
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2022/02/24/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E5%B9%82%E7%AD%89%E6%80%A7/" rel="next" title="深入理解幂等性">
-                  深入理解幂等性 <i class="fa fa-chevron-right"></i>
-                </a>
             </div>
           </div>
     </footer>
