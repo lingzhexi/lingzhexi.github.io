@@ -612,9 +612,7 @@
   <entry>
     <title>尚硅谷-谷粒商城-持续更新</title>
     <url>/2022/03/18/%E5%B0%9A%E7%A1%85%E8%B0%B7-%E8%B0%B7%E7%B2%92%E5%95%86%E5%9F%8E-%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0/</url>
-    <content><![CDATA[<meta name="referrer" content="no-referrer"/>
-
-<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202204072146144.png" alt="river-gb44d67b82_1280"></p>
+    <content><![CDATA[<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202204072146144.png" alt="river-gb44d67b82_1280"></p>
 <span id="more"></span>
 
 <h1 id="docker-安装"><a href="#docker-安装" class="headerlink" title="docker 安装"></a>docker 安装</h1><h2 id="docker-安装MySQL"><a href="#docker-安装MySQL" class="headerlink" title="docker 安装MySQL"></a>docker 安装MySQL</h2><ol>
@@ -728,7 +726,7 @@
 <h2 id="人人开源快速开发"><a href="#人人开源快速开发" class="headerlink" title="人人开源快速开发"></a>人人开源快速开发</h2><h3 id="后端管理-renren-fast"><a href="#后端管理-renren-fast" class="headerlink" title="后端管理 renren-fast"></a>后端管理 renren-fast</h3><ol>
 <li><p>克隆项目</p>
 <blockquote>
-<p>git clone <a href="mailto:&#x67;&#105;&#x74;&#x40;&#x67;&#105;&#x74;&#101;&#101;&#46;&#x63;&#111;&#x6d;">&#x67;&#105;&#x74;&#x40;&#x67;&#105;&#x74;&#101;&#101;&#46;&#x63;&#111;&#x6d;</a>:renrenio/renren-fast.git</p>
+<p>git clone <a href="mailto:&#x67;&#x69;&#116;&#64;&#103;&#x69;&#116;&#x65;&#x65;&#46;&#x63;&#111;&#109;">&#x67;&#x69;&#116;&#64;&#103;&#x69;&#116;&#x65;&#x65;&#46;&#x63;&#111;&#109;</a>:renrenio/renren-fast.git</p>
 </blockquote>
 </li>
 <li><p>将renren-fast 放在gulimall项目pom中 module</p>
@@ -752,7 +750,7 @@
 <h3 id="前端管理-renren-fast-vue"><a href="#前端管理-renren-fast-vue" class="headerlink" title="前端管理 renren-fast-vue"></a>前端管理 renren-fast-vue</h3><ol>
 <li><p>克隆项目</p>
 <blockquote>
-<p>git clone <a href="mailto:&#x67;&#105;&#x74;&#x40;&#103;&#x69;&#116;&#x65;&#x65;&#46;&#x63;&#x6f;&#109;">&#x67;&#105;&#x74;&#x40;&#103;&#x69;&#116;&#x65;&#x65;&#46;&#x63;&#x6f;&#109;</a>:renrenio/renren-fast-vue.git</p>
+<p>git clone <a href="mailto:&#103;&#105;&#x74;&#x40;&#103;&#105;&#x74;&#x65;&#x65;&#x2e;&#99;&#111;&#109;">&#103;&#105;&#x74;&#x40;&#103;&#105;&#x74;&#x65;&#x65;&#x2e;&#99;&#111;&#109;</a>:renrenio/renren-fast-vue.git</p>
 </blockquote>
 </li>
 <li><p>将项目拖到VSCode中</p>
@@ -786,7 +784,7 @@
 <h3 id="代码生成-renren-generator"><a href="#代码生成-renren-generator" class="headerlink" title="代码生成 renren-generator"></a>代码生成 renren-generator</h3><ol>
 <li><p>克隆项目</p>
 <blockquote>
-<p>git clone <a href="mailto:&#x67;&#105;&#x74;&#x40;&#103;&#105;&#x74;&#101;&#101;&#x2e;&#x63;&#111;&#109;">&#x67;&#105;&#x74;&#x40;&#103;&#105;&#x74;&#101;&#101;&#x2e;&#x63;&#111;&#109;</a>:renrenio/renren-generator.git</p>
+<p>git clone <a href="mailto:&#103;&#x69;&#116;&#64;&#x67;&#x69;&#116;&#x65;&#x65;&#x2e;&#x63;&#x6f;&#109;">&#103;&#x69;&#116;&#64;&#x67;&#x69;&#116;&#x65;&#x65;&#x2e;&#x63;&#x6f;&#109;</a>:renrenio/renren-generator.git</p>
 </blockquote>
 <ol start="2">
 <li><p>将项目拖到 idea 中</p>
@@ -951,15 +949,16 @@
 <ul>
 <li><p>组名：1111 、618 、1212</p>
 </li>
-<li><p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202204122240653.png" alt="image-20220412224056530"></p>
+<li><p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202204122240653.png" alt="image-20220412224056530"> </p>
 </li>
 <li><p>添加分组配置</p>
 <figure class="highlight properties"><table><tr><td class="code"><pre><span class="line"><span class="meta">spring.cloud.nacos.config.group</span>=<span class="string">1111</span></span><br></pre></td></tr></table></figure></li>
 </ul>
 </li>
+<li><p>每个微服务创建自己的命名空间，使用配置分组区分环境，dev、test、prod 环境</p>
+<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202204122247441.png" alt=" ">     </p>
+</li>
 </ul>
-<p>每个微服务创建自己的命名空间，使用配置分组区分环境，dev、test、prod 环境</p>
-<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202204122247441.png" alt=" "></p>
 </li>
 <li><p>同时加载多个配置集</p>
 <ul>
