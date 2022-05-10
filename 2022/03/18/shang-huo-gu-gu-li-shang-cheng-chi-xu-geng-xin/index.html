@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="尚硅谷-谷粒商城-持续更新, Java,技术分享,生活记录,美食终结者">
+    <meta name="keywords" content="尚硅谷-谷粒商城, Java,技术分享,生活记录,美食终结者">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>尚硅谷-谷粒商城-持续更新 | Codeling&#39;s Blog</title>
+    <title>尚硅谷-谷粒商城 | Codeling</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -41,9 +41,7 @@
             <div class="brand-logo">
                 <a href="/" class="waves-effect waves-light">
                     
-                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
-                    
-                    <span class="logo-span">Codeling&#39;s Blog</span>
+                    <span class="logo-span">Codeling</span>
                 </a>
             </div>
             
@@ -140,9 +138,7 @@
 
     <div class="mobile-head bg-color">
         
-        <img src="/medias/logo.png" class="logo-img circle responsive-img">
-        
-        <div class="logo-name">Codeling&#39;s Blog</div>
+        <div class="logo-name">Codeling</div>
         <div class="logo-desc">
             
             Never really desperate, only the lost of the soul.
@@ -310,12 +306,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/1.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/12.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">尚硅谷-谷粒商城-持续更新</h1>
+                    <h1 class="description center-align post-title">尚硅谷-谷粒商城</h1>
                 </div>
             </div>
         </div>
@@ -465,14 +461,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    4.2k
+                    3.9k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    20 分
+                    18 分
                 </div>
                 
 
@@ -492,15 +488,22 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202204072146144.png" alt="river-gb44d67b82_1280"></p>
+                <p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202204072146144.png" alt="题图"></p>
 <span id="more"></span>
 
 <h1 id="docker-安装"><a href="#docker-安装" class="headerlink" title="docker 安装"></a>docker 安装</h1><h2 id="docker-安装MySQL"><a href="#docker-安装MySQL" class="headerlink" title="docker 安装MySQL"></a>docker 安装MySQL</h2><ol>
 <li><p>下载镜像</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull mysql:5.7</span><br></pre></td></tr></table></figure></li>
+<pre class=" language-shell"><code class="language-shell">docker pull mysql:5.7
+</code></pre>
+</li>
 <li><p>创建实例</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">docker run -p 3307:3306 --name mysql \</span><br><span class="line">-v /mydata/mysql/<span class="built_in">log</span>:/var/<span class="built_in">log</span>/mysql \</span><br><span class="line">-v /mydata/mysql/data:/var/lib/mysql \</span><br><span class="line">-v /mydata/mysql/conf:/etc/mysql \</span><br><span class="line">-e MYSQL_ROOT_PASSWORD=root \</span><br><span class="line">-d mysql:5.7</span><br></pre></td></tr></table></figure>
-
+<pre class=" language-sh"><code class="language-sh">docker run -p 3307:3306 --name mysql \
+-v /mydata/mysql/log:/var/log/mysql \
+-v /mydata/mysql/data:/var/lib/mysql \
+-v /mydata/mysql/conf:/etc/mysql \
+-e MYSQL_ROOT_PASSWORD=root \
+-d mysql:5.7
+</code></pre>
 <p>参数说明：</p>
 <ul>
 <li>-p 3306:3306：-p 主机端口:容器端口，将容器的3306端口映射到主机的3306端口</li>
@@ -512,41 +515,107 @@
 </ul>
 </li>
 <li><p>进去docker 容器</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">root@af26dd647c9a:/<span class="comment"># docker exec -it mysql /bin/bash</span></span><br><span class="line">root@af26dd647c9a:/<span class="comment"># whereis mysql</span></span><br><span class="line">mysql: /usr/bin/mysql /usr/lib/mysql /etc/mysql /usr/share/mysql</span><br></pre></td></tr></table></figure></li>
+<pre class=" language-sh"><code class="language-sh">root@af26dd647c9a:/# docker exec -it mysql /bin/bash
+root@af26dd647c9a:/# whereis mysql
+mysql: /usr/bin/mysql /usr/lib/mysql /etc/mysql /usr/share/mysql
+</code></pre>
+</li>
 <li><p>mysql配置 my.cnf</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@lingzx conf]<span class="comment"># vi /mydata/mysql/conf/my.cnf</span></span><br></pre></td></tr></table></figure>
+<pre class=" language-sh"><code class="language-sh">[root@lingzx conf]# vi /mydata/mysql/conf/my.cnf
+</code></pre>
+<pre class=" language-sh"><code class="language-sh">[client]
+default-character-set=utf8
 
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">[client]</span><br><span class="line">default-character-set=utf8</span><br><span class="line"></span><br><span class="line">[mysql]</span><br><span class="line">default-character-set=utf8</span><br><span class="line"></span><br><span class="line">[mysqld]</span><br><span class="line">init_connect=<span class="string">&#x27;SET collation_connection=utf8_unicode_ci&#x27;</span></span><br><span class="line">init_connect=<span class="string">&#x27;SET NAMES utf8&#x27;</span></span><br><span class="line">character-set-server=utf8</span><br><span class="line">collation-server=utf8_unicode_ci</span><br><span class="line">skip-character-set-client-handshake</span><br><span class="line">skip-name-resolve</span><br><span class="line">lower_case_table_names=1</span><br></pre></td></tr></table></figure></li>
+[mysql]
+default-character-set=utf8
+
+[mysqld]
+init_connect='SET collation_connection=utf8_unicode_ci'
+init_connect='SET NAMES utf8'
+character-set-server=utf8
+collation-server=utf8_unicode_ci
+skip-character-set-client-handshake
+skip-name-resolve
+lower_case_table_names=1
+</code></pre>
+</li>
 <li><p>查看docker中MySQL的配置</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /etc/mysql</span><br><span class="line">cat my.cnf</span><br></pre></td></tr></table></figure></li>
+<pre class=" language-sh"><code class="language-sh">cd /etc/mysql
+cat my.cnf
+</code></pre>
+</li>
 <li><p>开机自启</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker update mysql --restart=always</span><br></pre></td></tr></table></figure></li>
+<pre class=" language-sh"><code class="language-sh">docker update mysql --restart=always
+</code></pre>
+</li>
 </ol>
 <h2 id="docker-安装Redis"><a href="#docker-安装Redis" class="headerlink" title="docker 安装Redis"></a>docker 安装Redis</h2><ol>
 <li><p>下载redis 镜像</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull redis</span><br></pre></td></tr></table></figure></li>
+<pre class=" language-sh"><code class="language-sh">docker pull redis
+</code></pre>
+</li>
 <li><p>创建实例并启动</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 由于 redis容器 /etc/redis目录下没有 redis.conf ，所以需要我们预先在主机上创建一个 redis.conf</span></span><br><span class="line">mkdir -p /mydata/redis/conf</span><br><span class="line">touch /mydata/redis/conf/redis.conf</span><br><span class="line"></span><br><span class="line">docker run -p 6379:6379 --name redis \</span><br><span class="line">-v /mydata/redis/data:/data \</span><br><span class="line">-v /mydata/redis/conf/redis.conf:/etc/redis/redis.conf \</span><br><span class="line">-d redis redis-server /etc/redis/redis.conf</span><br><span class="line"></span><br><span class="line"><span class="comment"># 连接 docker中的 redis的控制台</span></span><br><span class="line">docker <span class="built_in">exec</span> -it redis redis-cli</span><br></pre></td></tr></table></figure></li>
+<pre class=" language-sh"><code class="language-sh"># 由于 redis容器 /etc/redis目录下没有 redis.conf ，所以需要我们预先在主机上创建一个 redis.conf
+mkdir -p /mydata/redis/conf
+touch /mydata/redis/conf/redis.conf
+
+docker run -p 6379:6379 --name redis \
+-v /mydata/redis/data:/data \
+-v /mydata/redis/conf/redis.conf:/etc/redis/redis.conf \
+-d redis redis-server /etc/redis/redis.conf
+
+# 连接 docker中的 redis的控制台
+docker exec -it redis redis-cli
+</code></pre>
+</li>
 <li><p>配置持久化</p>
 <blockquote>
 <p>当前版本的redis默认配置了【文件追加写持久化】aof</p>
 </blockquote>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">vi /mydata/redis/redis.conf</span><br><span class="line"></span><br><span class="line">appendonly yes</span><br><span class="line"></span><br><span class="line">docker restart redis</span><br></pre></td></tr></table></figure></li>
+<pre class=" language-sh"><code class="language-sh">vi /mydata/redis/redis.conf
+
+appendonly yes
+
+docker restart redis
+</code></pre>
+</li>
 <li><p>开机自启</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker update redis --restart=always</span><br></pre></td></tr></table></figure></li>
+<pre class=" language-sh"><code class="language-sh">docker update redis --restart=always
+</code></pre>
+</li>
 </ol>
 <h1 id="统一环境"><a href="#统一环境" class="headerlink" title="统一环境"></a>统一环境</h1><h2 id="Maven-3-6-1"><a href="#Maven-3-6-1" class="headerlink" title="Maven 3.6.1"></a>Maven 3.6.1</h2><blockquote>
 <p>链接: <a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1Jd5EAXADSEFop2QT8sxzBA">https://pan.baidu.com/s/1Jd5EAXADSEFop2QT8sxzBA</a> 提取码: 38iw 复制这段内容后打开百度网盘手机App，操作更方便哦</p>
 </blockquote>
 <p>配置阿里云镜像</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">mirrors</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">mirror</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">id</span>&gt;</span>nexus-aliyun<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">mirrorOf</span>&gt;</span>central<span class="tag">&lt;/<span class="name">mirrorOf</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">name</span>&gt;</span>Nexus aliyun<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">url</span>&gt;</span>http://maven.aliyun.com/nexus/content/groups/public/<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">mirror</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">mirrors</span>&gt;</span> </span><br></pre></td></tr></table></figure>
-
+<pre class=" language-xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>mirrors</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>mirror</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>id</span><span class="token punctuation">></span></span>nexus-aliyun<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>id</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>mirrorOf</span><span class="token punctuation">></span></span>central<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>mirrorOf</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>Nexus aliyun<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>url</span><span class="token punctuation">></span></span>http://maven.aliyun.com/nexus/content/groups/public/<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>url</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>mirror</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>mirrors</span><span class="token punctuation">></span></span> 
+</code></pre>
 <p>配置 JDK 1.8 编译环境</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">profiles</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">profile</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">id</span>&gt;</span>jdk-1.8<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">activation</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">activeByDefault</span>&gt;</span>true<span class="tag">&lt;/<span class="name">activeByDefault</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">jdk</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">jdk</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">activation</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">maven.compile.source</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">maven.compile.source</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">maven.compile.target</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">maven.compile.target</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">maven.compile.compilerVersion</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">maven.compile.compilerVersion</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">profile</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">profiles</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
+<pre class=" language-xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>profiles</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>profile</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>id</span><span class="token punctuation">></span></span>jdk-1.8<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>id</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>activation</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>activeByDefault</span><span class="token punctuation">></span></span>true<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>activeByDefault</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>jdk</span><span class="token punctuation">></span></span>1.8<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>jdk</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>activation</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>properties</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>maven.compile.source</span><span class="token punctuation">></span></span>1.8<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>maven.compile.source</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>maven.compile.target</span><span class="token punctuation">></span></span>1.8<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>maven.compile.target</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>maven.compile.compilerVersion</span><span class="token punctuation">></span></span>1.8<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>maven.compile.compilerVersion</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>properties</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>profile</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>profiles</span><span class="token punctuation">></span></span>
+</code></pre>
 <p>配置本地仓库</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">localRepository</span>&gt;</span>D:\Program Files\Maven\LocalWareHouse<span class="tag">&lt;/<span class="name">localRepository</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
+<pre class=" language-xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>localRepository</span><span class="token punctuation">></span></span>D:\Program Files\Maven\LocalWareHouse<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>localRepository</span><span class="token punctuation">></span></span>
+</code></pre>
 <h2 id="idea-安装插件"><a href="#idea-安装插件" class="headerlink" title="idea 安装插件"></a>idea 安装插件</h2><ul>
 <li>lombok</li>
 <li>MybatisX</li>
@@ -567,14 +636,22 @@
 <li><p>下载 git：<a target="_blank" rel="noopener" href="https://git-scm.com/">https://git-scm.com</a></p>
 </li>
 <li><p>配置 git ，进入git bash</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 配置用户名</span></span><br><span class="line">git config --global user.name <span class="string">&#x27;username&#x27;</span></span><br><span class="line"><span class="comment"># 配置邮箱</span></span><br><span class="line">git config --global user.email <span class="string">&#x27;username@email.com&#x27;</span></span><br></pre></td></tr></table></figure></li>
+<pre class=" language-sh"><code class="language-sh"># 配置用户名
+git config --global user.name 'username'
+# 配置邮箱
+git config --global user.email 'username@email.com'
+</code></pre>
+</li>
 <li><p>配置 shh 免密登录，进入git bash</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C <span class="string">&#x27;xx@xxx.com&#x27;</span></span><br></pre></td></tr></table></figure>
-
+<pre class=" language-sh"><code class="language-sh">ssh-keygen -t rsa -C 'xx@xxx.com'
+</code></pre>
 <p> 三次回车，查找 id_rsa 和 id_rsa.pub</p>
 </li>
 <li><p>登录 gitee，在设置里面找到 SSH KEY 将 .pub 文件的内容粘贴进去</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看是否成功</span></span><br><span class="line">ssh -T git@gitee.com </span><br></pre></td></tr></table></figure></li>
+<pre class=" language-sh"><code class="language-sh"># 查看是否成功
+ssh -T git@gitee.com 
+</code></pre>
+</li>
 </ol>
 <h1 id="创建项目"><a href="#创建项目" class="headerlink" title="创建项目"></a>创建项目</h1><ol>
 <li><p>商品服务、仓储服务、订单服务、优惠券服务、用户服务</p>
@@ -586,10 +663,36 @@
 </ol>
 </li>
 <li><p>添加pom文件</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">project</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://maven.apache.org/POM/4.0.0&quot;</span> <span class="attr">xmlns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xsi:schemaLocation</span>=<span class="string">&quot;http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">modelVersion</span>&gt;</span>4.0.0<span class="tag">&lt;/<span class="name">modelVersion</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.atguigu.gulimall<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>gulimall<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>0.0.1-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>gulimall<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">description</span>&gt;</span>聚合服务<span class="tag">&lt;/<span class="name">description</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">packaging</span>&gt;</span>pom<span class="tag">&lt;/<span class="name">packaging</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">modules</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">module</span>&gt;</span>gulimall-coupon<span class="tag">&lt;/<span class="name">module</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">module</span>&gt;</span>gulimall-member<span class="tag">&lt;/<span class="name">module</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">module</span>&gt;</span>gulimall-order<span class="tag">&lt;/<span class="name">module</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">module</span>&gt;</span>gulimall-product<span class="tag">&lt;/<span class="name">module</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">module</span>&gt;</span>gulimall-ware<span class="tag">&lt;/<span class="name">module</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">modules</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">project</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+<pre class=" language-xml"><code class="language-xml"><span class="token prolog">&lt;?xml version="1.0" encoding="UTF-8"?></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>project</span> <span class="token attr-name">xmlns</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>http://maven.apache.org/POM/4.0.0<span class="token punctuation">"</span></span> <span class="token attr-name"><span class="token namespace">xmlns:</span>xsi</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>http://www.w3.org/2001/XMLSchema-instance<span class="token punctuation">"</span></span>
+    <span class="token attr-name"><span class="token namespace">xsi:</span>schemaLocation</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>modelVersion</span><span class="token punctuation">></span></span>4.0.0<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>modelVersion</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>com.atguigu.gulimall<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>gulimall<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>0.0.1-SNAPSHOT<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>gulimall<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>description</span><span class="token punctuation">></span></span>聚合服务<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>description</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>packaging</span><span class="token punctuation">></span></span>pom<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>packaging</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>modules</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>module</span><span class="token punctuation">></span></span>gulimall-coupon<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>module</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>module</span><span class="token punctuation">></span></span>gulimall-member<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>module</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>module</span><span class="token punctuation">></span></span>gulimall-order<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>module</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>module</span><span class="token punctuation">></span></span>gulimall-product<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>module</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>module</span><span class="token punctuation">></span></span>gulimall-ware<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>module</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>modules</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>project</span><span class="token punctuation">></span></span>
+</code></pre>
+</li>
 <li><p>设置忽略提交内容 .gitgnore</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">**/mvnw</span><br><span class="line">**/mvnw.cmd</span><br><span class="line"></span><br><span class="line">**/.mvn</span><br><span class="line">**/target/</span><br><span class="line"></span><br><span class="line">.idea</span><br><span class="line">**/.gitignore</span><br></pre></td></tr></table></figure>
+<pre class=" language-sh"><code class="language-sh">**/mvnw
+**/mvnw.cmd
 
+**/.mvn
+**/target/
+
+.idea
+**/.gitignore
+</code></pre>
 <p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202203232346905.png" alt="image-20220323234601504"> </p>
 </li>
 <li><p>提交并推送到仓库</p>
@@ -606,7 +709,7 @@
 <h2 id="人人开源快速开发"><a href="#人人开源快速开发" class="headerlink" title="人人开源快速开发"></a>人人开源快速开发</h2><h3 id="后端管理-renren-fast"><a href="#后端管理-renren-fast" class="headerlink" title="后端管理 renren-fast"></a>后端管理 renren-fast</h3><ol>
 <li><p>克隆项目</p>
 <blockquote>
-<p>git clone <a href="mailto:&#x67;&#105;&#x74;&#64;&#103;&#x69;&#116;&#101;&#x65;&#x2e;&#99;&#x6f;&#x6d;">&#x67;&#105;&#x74;&#64;&#103;&#x69;&#116;&#101;&#x65;&#x2e;&#99;&#x6f;&#x6d;</a>:renrenio/renren-fast.git</p>
+<p>git clone <a href="mailto:&#103;&#x69;&#x74;&#x40;&#x67;&#105;&#116;&#x65;&#101;&#46;&#99;&#111;&#x6d;">&#103;&#x69;&#x74;&#x40;&#x67;&#105;&#116;&#x65;&#101;&#46;&#99;&#111;&#x6d;</a>:renrenio/renren-fast.git</p>
 </blockquote>
 </li>
 <li><p>将renren-fast 放在gulimall项目pom中 module</p>
@@ -619,9 +722,21 @@
 <li><p>修改pom</p>
 <ol>
 <li><p>关联gulimall</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">parent</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-parent<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.3.7.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">relativePath</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">parent</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+<pre class=" language-xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>parent</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.springframework.boot<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>spring-boot-starter-parent<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>2.3.7.RELEASE<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>relativePath</span><span class="token punctuation">/></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>parent</span><span class="token punctuation">></span></span>
+</code></pre>
+</li>
 <li><p>解决@NotBlank 和 @Email 报错</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-validation<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+<pre class=" language-xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.springframework.boot<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>spring-boot-starter-validation<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+</code></pre>
+</li>
 </ol>
 </li>
 <li><p>修改数据库配置，连接到 gulimall_admin 的配置信息</p>
@@ -630,7 +745,7 @@
 <h3 id="前端管理-renren-fast-vue"><a href="#前端管理-renren-fast-vue" class="headerlink" title="前端管理 renren-fast-vue"></a>前端管理 renren-fast-vue</h3><ol>
 <li><p>克隆项目</p>
 <blockquote>
-<p>git clone <a href="mailto:&#103;&#105;&#x74;&#x40;&#103;&#x69;&#116;&#101;&#101;&#46;&#99;&#111;&#x6d;">&#103;&#105;&#x74;&#x40;&#103;&#x69;&#116;&#101;&#101;&#46;&#99;&#111;&#x6d;</a>:renrenio/renren-fast-vue.git</p>
+<p>git clone <a href="mailto:&#103;&#x69;&#116;&#x40;&#x67;&#105;&#116;&#x65;&#101;&#46;&#x63;&#111;&#109;">&#103;&#x69;&#116;&#x40;&#x67;&#105;&#116;&#x65;&#101;&#46;&#x63;&#111;&#109;</a>:renrenio/renren-fast-vue.git</p>
 </blockquote>
 </li>
 <li><p>将项目拖到VSCode中</p>
@@ -647,11 +762,17 @@
 <li><p>官网下载安装，node -v 检查版本</p>
 </li>
 <li><p>配置npm 淘宝镜像</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm config <span class="built_in">set</span> registry http://registry.npm.taobao.org/</span><br></pre></td></tr></table></figure></li>
+<pre class=" language-sh"><code class="language-sh">npm config set registry http://registry.npm.taobao.org/
+</code></pre>
+</li>
 <li><p>下载依赖包</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install</span><br></pre></td></tr></table></figure></li>
+<pre class=" language-sh"><code class="language-sh">npm install
+</code></pre>
+</li>
 <li><p>报错处理</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --save  -g core-js@^3</span><br></pre></td></tr></table></figure></li>
+<pre class=" language-sh"><code class="language-sh">npm install --save  -g core-js@^3
+</code></pre>
+</li>
 <li><p>node-sass报错 是由于版本的问题，在package.json中可以解决</p>
 </li>
 </ul>
@@ -664,7 +785,7 @@
 <h3 id="代码生成-renren-generator"><a href="#代码生成-renren-generator" class="headerlink" title="代码生成 renren-generator"></a>代码生成 renren-generator</h3><ol>
 <li><p>克隆项目</p>
 <blockquote>
-<p>git clone <a href="mailto:&#103;&#105;&#116;&#x40;&#x67;&#x69;&#x74;&#101;&#101;&#46;&#99;&#111;&#109;">&#103;&#105;&#116;&#x40;&#x67;&#x69;&#x74;&#101;&#101;&#46;&#99;&#111;&#109;</a>:renrenio/renren-generator.git</p>
+<p>git clone <a href="mailto:&#103;&#x69;&#x74;&#64;&#x67;&#105;&#x74;&#101;&#x65;&#46;&#99;&#111;&#109;">&#103;&#x69;&#x74;&#64;&#x67;&#105;&#x74;&#101;&#x65;&#46;&#99;&#111;&#109;</a>:renrenio/renren-generator.git</p>
 </blockquote>
 <ol start="2">
 <li><p>将项目拖到 idea 中</p>
@@ -674,11 +795,35 @@
 </ol>
 <ul>
 <li><p>修改 generator.properties</p>
-<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#代码生成器，配置信息</span></span><br><span class="line"><span class="attr">mainPath</span>=<span class="string">com.atguigu</span></span><br><span class="line"><span class="comment">#包名</span></span><br><span class="line"><span class="attr">package</span>=<span class="string">com.atguigu.gulimall</span></span><br><span class="line"><span class="attr">moduleName</span>=<span class="string">product</span></span><br><span class="line"><span class="comment">#作者</span></span><br><span class="line"><span class="attr">author</span>=<span class="string">Mr.Ling</span></span><br><span class="line"><span class="comment">#Email</span></span><br><span class="line"><span class="attr">email</span>=<span class="string">lingzhexi@163.com</span></span><br><span class="line"><span class="comment">#表前缀(类名不会包含表前缀)</span></span><br><span class="line"><span class="attr">tablePrefix</span>=<span class="string">pms_</span></span><br></pre></td></tr></table></figure></li>
+<pre class=" language-properties"><code class="language-properties"><span class="token comment" spellcheck="true">#代码生成器，配置信息</span>
+<span class="token attr-name">mainPath</span><span class="token punctuation">=</span><span class="token attr-value">com.atguigu</span>
+<span class="token comment" spellcheck="true">#包名</span>
+<span class="token attr-name">package</span><span class="token punctuation">=</span><span class="token attr-value">com.atguigu.gulimall</span>
+<span class="token attr-name">moduleName</span><span class="token punctuation">=</span><span class="token attr-value">product</span>
+<span class="token comment" spellcheck="true">#作者</span>
+<span class="token attr-name">author</span><span class="token punctuation">=</span><span class="token attr-value">Mr.Ling</span>
+<span class="token comment" spellcheck="true">#Email</span>
+<span class="token attr-name">email</span><span class="token punctuation">=</span><span class="token attr-value">lingzhexi@163.com</span>
+<span class="token comment" spellcheck="true">#表前缀(类名不会包含表前缀)</span>
+<span class="token attr-name">tablePrefix</span><span class="token punctuation">=</span><span class="token attr-value">pms_</span>
+</code></pre>
+</li>
 <li><p>修改 Controller.java.vm 模板</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">注释 <span class="meta">@RequeiresPermissions</span> 注解</span><br><span class="line"><span class="comment">//@RequiresPermissions(&quot;$&#123;moduleName&#125;:$&#123;pathName&#125;:list&quot;)</span></span><br></pre></td></tr></table></figure></li>
+<pre class=" language-java"><code class="language-java">注释 <span class="token annotation punctuation">@RequeiresPermissions</span> 注解
+<span class="token comment" spellcheck="true">//@RequiresPermissions("$&amp;#123;moduleName&amp;#125;:$&amp;#123;pathName&amp;#125;:list")</span>
+</code></pre>
+</li>
 <li><p>修改数据库配置( pms )</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">datasource:</span></span><br><span class="line">    <span class="attr">type:</span> <span class="string">com.alibaba.druid.pool.DruidDataSource</span></span><br><span class="line">    <span class="comment">#MySQL配置</span></span><br><span class="line">    <span class="attr">driverClassName:</span> <span class="string">com.mysql.cj.jdbc.Driver</span></span><br><span class="line">    <span class="attr">url:</span> <span class="string">jdbc:mysql://localhost:13306/gulimall_pms?useUnicode=true&amp;characterEncoding=UTF-8&amp;useSSL=false&amp;serverTimezone=Asia/Shanghai</span></span><br><span class="line">    <span class="attr">username:</span> <span class="string">root</span></span><br><span class="line">    <span class="attr">password:</span> <span class="string">root</span></span><br></pre></td></tr></table></figure></li>
+<pre class=" language-yml"><code class="language-yml">spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    #MySQL配置
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:13306/gulimall_pms?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=Asia/Shanghai
+    username: root
+    password: root
+</code></pre>
+</li>
 </ul>
 <ol start="4">
 <li>启动项目，生成代码</li>
@@ -694,20 +839,70 @@
 </ol>
 <h3 id="新增-gulimall-common"><a href="#新增-gulimall-common" class="headerlink" title="新增 gulimall-common"></a>新增 gulimall-common</h3><ul>
 <li><p>通用的依赖模块 ，product 模块引用该模块</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.baomidou<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mybatis-plus-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.3.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.projectlombok<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>lombok<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.18.22<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>commons-lang<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>commons-lang<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.6<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.httpcomponents<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>httpcore<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>4.4.14<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-validation<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.3.7.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+<pre class=" language-xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>com.baomidou<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>mybatis-plus-boot-starter<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>3.3.1<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.projectlombok<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>lombok<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>1.18.22<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>commons-lang<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>commons-lang<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>2.6<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.apache.httpcomponents<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>httpcore<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>4.4.14<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.springframework.boot<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>spring-boot-starter-validation<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>2.3.7.RELEASE<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+</code></pre>
+</li>
 </ul>
 <h2 id="整合Mybatis-pus"><a href="#整合Mybatis-pus" class="headerlink" title="整合Mybatis-pus"></a>整合Mybatis-pus</h2><ol>
 <li><p>导入依赖</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.baomidou<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mybatis-plus-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.3.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+<pre class=" language-xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>com.baomidou<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>mybatis-plus-boot-starter<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>3.3.1<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+</code></pre>
+</li>
 <li><p>配置</p>
 <ol>
 <li><p>配置数据源</p>
 <ol>
 <li><p>导入MySql 驱动</p>
 <p>推荐使用 8 版本的Mysql connector<img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202204100039304.png" alt="image-20220410002401508"></p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>mysql<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mysql-connector-java<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>8.0.28<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+<pre class=" language-xml"><code class="language-xml"><span class="token comment" spellcheck="true">&lt;!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java --></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>mysql<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>mysql-connector-java<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>8.0.28<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+</code></pre>
+</li>
 <li><p>整合 application.yml</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">server:</span></span><br><span class="line">    <span class="attr">port:</span> <span class="number">8080</span></span><br><span class="line"><span class="attr">spring:</span></span><br><span class="line">    <span class="attr">application:</span></span><br><span class="line">        <span class="attr">name:</span> <span class="string">gulimall-product</span></span><br><span class="line">    <span class="attr">datasource:</span></span><br><span class="line">        <span class="attr">username:</span> <span class="string">root</span></span><br><span class="line">        <span class="attr">password:</span> <span class="string">root</span></span><br><span class="line">        <span class="attr">url:</span> <span class="string">jdbc:mysql://localhost:13306/gulimall_pms</span></span><br><span class="line">        <span class="attr">driver-class-name:</span> <span class="string">com.mysql.cj.jdbc.Driver</span></span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<pre class=" language-yml"><code class="language-yml">server:
+    port: 8080
+spring:
+    application:
+        name: gulimall-product
+    datasource:
+        username: root
+        password: root
+        url: jdbc:mysql://localhost:13306/gulimall_pms
+        driver-class-name: com.mysql.cj.jdbc.Driver
+</code></pre>
+</li>
 </ol>
 </li>
 <li><p>配置 mybaits-plus</p>
@@ -718,9 +913,18 @@
 <li><p>告诉 MyBatis-Plus ， sql 映射文件位置</p>
 <p>默认位置类路径下的 classpath*:/mapper/**/*.xml</p>
 <p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202204100049256.png" alt="image-20220410004908204"> </p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">mybatis-plus:</span></span><br><span class="line">	<span class="attr">mapper-locations:</span> <span class="string">classpath:/mapper/**/*.xml</span></span><br></pre></td></tr></table></figure></li>
+<pre class=" language-yml"><code class="language-yml">mybatis-plus:
+    mapper-locations: classpath:/mapper/**/*.xml
+</code></pre>
+</li>
 <li><p>设置主键自增配置</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 填写 id 自动联想出来</span></span><br><span class="line"><span class="attr">mybatis-plus:</span> </span><br><span class="line"> <span class="attr">global-config:</span></span><br><span class="line">        <span class="attr">db-config:</span></span><br><span class="line">            <span class="attr">id-type:</span> <span class="string">auto</span></span><br></pre></td></tr></table></figure></li>
+<pre class=" language-yml"><code class="language-yml"># 填写 id 自动联想出来
+mybatis-plus: 
+ global-config:
+        db-config:
+            id-type: auto
+</code></pre>
+</li>
 </ol>
 </li>
 </ol>
@@ -745,18 +949,37 @@
 <p>SpringCloud Alibaba - SpringBoot 版本对比 （ <a target="_blank" rel="noopener" href="https://github.com/alibaba/spring-cloud-alibaba/blob/2021.x/README-zh.md">SpringCloud Alibaba Github</a>）</p>
 <p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202204112202930.png" alt="image-20220411220224816"> </p>
 <p>将 SpringCloud Alibaba 依赖 加入 gulimall-common 中  </p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependencyManagement</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.alibaba.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-alibaba-dependencies<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.1.0.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">type</span>&gt;</span>pom<span class="tag">&lt;/<span class="name">type</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">scope</span>&gt;</span>import<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependencyManagement</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
+<pre class=" language-xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependencyManagement</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependencies</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>com.alibaba.cloud<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>spring-cloud-alibaba-dependencies<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>2.1.0.RELEASE<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>type</span><span class="token punctuation">></span></span>pom<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>type</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>scope</span><span class="token punctuation">></span></span>import<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>scope</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependencies</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependencyManagement</span><span class="token punctuation">></span></span>
+</code></pre>
 <h2 id="注册中心"><a href="#注册中心" class="headerlink" title="注册中心"></a>注册中心</h2><p><a target="_blank" rel="noopener" href="https://github.com/alibaba/spring-cloud-alibaba/blob/2021.x/spring-cloud-alibaba-docs/src/main/asciidoc-zh/nacos-discovery.adoc">nacos 注册中心</a></p>
 <h3 id="服务注册-发现-Nacos-Discovery"><a href="#服务注册-发现-Nacos-Discovery" class="headerlink" title="服务注册/发现 Nacos Discovery"></a>服务注册/发现 Nacos Discovery</h3><ol>
 <li><p>引入依赖，加入gulimall-common</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.alibaba.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-alibaba-nacos-discovery<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
+<pre class=" language-xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>com.alibaba.cloud<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>spring-cloud-starter-alibaba-nacos-discovery<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+</code></pre>
 <p>优惠卷模块引入 nacos discovery 依赖</p>
 <p> <img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202204112222593.png" alt="image-20220411222218474"> </p>
 </li>
 <li><p>配置Nacos Server 地址</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">	<span class="attr">cloud:</span></span><br><span class="line">		<span class="attr">nacos:</span></span><br><span class="line">			<span class="attr">discovery:</span></span><br><span class="line">				<span class="attr">server-addr:</span> <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span><span class="string">:8848</span></span><br></pre></td></tr></table></figure></li>
+<pre class=" language-yml"><code class="language-yml">spring:
+    cloud:
+        nacos:
+            discovery:
+                server-addr: 127.0.0.1:8848
+</code></pre>
+</li>
 <li><p>使用 @EnableDiscoveryClient 注解开启服务注册和发现<br><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202204112228697.png" alt="image-20220411222803578"> </p>
 </li>
 <li><p>查看注册的服务</p>
@@ -775,18 +998,72 @@
 <li><p>新建一个feign 包</p>
 </li>
 <li><p>写一个接口</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@FeignClient(&quot;gulimall-coupon&quot;)</span> <span class="comment">//表示 nacos 注册中心中的找到服务名为 gulimall-coupon 的服务</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">CouponFeignService</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping(&quot;/coupon/coupon/member/coupon&quot;)</span> <span class="comment">// 找到优惠券服务中的该接口</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> R <span class="title">memberCoupons</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<pre class=" language-java"><code class="language-java"><span class="token annotation punctuation">@FeignClient</span><span class="token punctuation">(</span><span class="token string">"gulimall-coupon"</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">//表示 nacos 注册中心中的找到服务名为 gulimall-coupon 的服务</span>
+<span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">CouponFeignService</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+
+    <span class="token annotation punctuation">@RequestMapping</span><span class="token punctuation">(</span><span class="token string">"/coupon/coupon/member/coupon"</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// 找到优惠券服务中的该接口</span>
+    <span class="token keyword">public</span> R <span class="token function">memberCoupons</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+</code></pre>
+</li>
 </ul>
 </li>
 <li><p>开启远程调用功能 </p>
 <p>在主启动中添加 @EnableFeignClients(basePackages=”xx”) xx表示指定feign的接口包</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@EnableFeignClients(basePackages = &quot;com.atguigu.gulimall.member.feign&quot;)</span> <span class="comment">//此时的basePackages 可以省略</span></span><br><span class="line"><span class="meta">@EnableDiscoveryClient</span></span><br><span class="line"><span class="meta">@MapperScan(&quot;com.atguigu.gulimall.member.dao&quot;)</span></span><br><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GulimallMemberApplication</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        SpringApplication.run(GulimallMemberApplication.class, args);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure></li>
+<pre class=" language-java"><code class="language-java"><span class="token annotation punctuation">@EnableFeignClients</span><span class="token punctuation">(</span>basePackages <span class="token operator">=</span> <span class="token string">"com.atguigu.gulimall.member.feign"</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">//此时的basePackages 可以省略</span>
+<span class="token annotation punctuation">@EnableDiscoveryClient</span>
+<span class="token annotation punctuation">@MapperScan</span><span class="token punctuation">(</span><span class="token string">"com.atguigu.gulimall.member.dao"</span><span class="token punctuation">)</span>
+<span class="token annotation punctuation">@SpringBootApplication</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">GulimallMemberApplication</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+        SpringApplication<span class="token punctuation">.</span><span class="token function">run</span><span class="token punctuation">(</span>GulimallMemberApplication<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">,</span> args<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+
+<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span> 
+</code></pre>
+</li>
 <li><p>示例</p>
 <ul>
 <li><p>添加远程接口</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="meta">@RequestMapping(&quot;coupon/coupon&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CouponController</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> CouponService couponService;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 会员优惠券</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@RequestMapping(&quot;/member/coupon&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> R <span class="title">memberCoupons</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        CouponEntity couponEntity = <span class="keyword">new</span> CouponEntity();</span><br><span class="line">        couponEntity.setCouponName(<span class="string">&quot;满100减10&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> R.ok().put(<span class="string">&quot;coupons&quot;</span>, Arrays.asList(couponEntity));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<pre class=" language-java"><code class="language-java"><span class="token annotation punctuation">@RestController</span>
+<span class="token annotation punctuation">@RequestMapping</span><span class="token punctuation">(</span><span class="token string">"coupon/coupon"</span><span class="token punctuation">)</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">CouponController</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    <span class="token annotation punctuation">@Autowired</span>
+    <span class="token keyword">private</span> CouponService couponService<span class="token punctuation">;</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * 会员优惠券
+     */</span>
+    <span class="token annotation punctuation">@RequestMapping</span><span class="token punctuation">(</span><span class="token string">"/member/coupon"</span><span class="token punctuation">)</span>
+    <span class="token keyword">public</span> R <span class="token function">memberCoupons</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+        CouponEntity couponEntity <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">CouponEntity</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        couponEntity<span class="token punctuation">.</span><span class="token function">setCouponName</span><span class="token punctuation">(</span><span class="token string">"满100减10"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> R<span class="token punctuation">.</span><span class="token function">ok</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span><span class="token string">"coupons"</span><span class="token punctuation">,</span> Arrays<span class="token punctuation">.</span><span class="token function">asList</span><span class="token punctuation">(</span>couponEntity<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+</code></pre>
+</li>
 <li><p>添加调用接口</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="meta">@RequestMapping(&quot;member/member&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MemberController</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> MemberService memberService;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    CouponFeignService couponFeignService;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping(&quot;/coupons&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> R <span class="title">test</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        MemberEntity memberEntity = <span class="keyword">new</span> MemberEntity();</span><br><span class="line">        memberEntity.setNickname(<span class="string">&quot;张三&quot;</span>);</span><br><span class="line">        R r = couponFeignService.memberCoupons();</span><br><span class="line">        <span class="keyword">return</span> R.ok().put(<span class="string">&quot;member&quot;</span>, memberEntity).put(<span class="string">&quot;coupons&quot;</span>, r.get(<span class="string">&quot;coupons&quot;</span>));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<pre class=" language-java"><code class="language-java"><span class="token annotation punctuation">@RestController</span>
+<span class="token annotation punctuation">@RequestMapping</span><span class="token punctuation">(</span><span class="token string">"member/member"</span><span class="token punctuation">)</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">MemberController</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    <span class="token annotation punctuation">@Autowired</span>
+    <span class="token keyword">private</span> MemberService memberService<span class="token punctuation">;</span>
+
+    <span class="token annotation punctuation">@Autowired</span>
+    CouponFeignService couponFeignService<span class="token punctuation">;</span>
+
+    <span class="token annotation punctuation">@RequestMapping</span><span class="token punctuation">(</span><span class="token string">"/coupons"</span><span class="token punctuation">)</span>
+    <span class="token keyword">public</span> R <span class="token function">test</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+        MemberEntity memberEntity <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">MemberEntity</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        memberEntity<span class="token punctuation">.</span><span class="token function">setNickname</span><span class="token punctuation">(</span><span class="token string">"张三"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        R r <span class="token operator">=</span> couponFeignService<span class="token punctuation">.</span><span class="token function">memberCoupons</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> R<span class="token punctuation">.</span><span class="token function">ok</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span><span class="token string">"member"</span><span class="token punctuation">,</span> memberEntity<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span><span class="token string">"coupons"</span><span class="token punctuation">,</span> r<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string">"coupons"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+</code></pre>
+</li>
 <li><p>请求接口 localhost:8000/member/member/coupons</p>
 </li>
 </ul>
@@ -795,16 +1072,46 @@
 <h2 id="配置中心：动态管理配置"><a href="#配置中心：动态管理配置" class="headerlink" title="配置中心：动态管理配置"></a>配置中心：动态管理配置</h2><p><a target="_blank" rel="noopener" href="https://github.com/alibaba/spring-cloud-alibaba/blob/2021.x/spring-cloud-alibaba-examples/nacos-example/nacos-config-example/readme-zh.md">nacos 配置中心文档</a></p>
 <ol>
 <li><p>引入 Nacos Config  Starter</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.alibaba.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-alibaba-nacos-config<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+<pre class=" language-xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>com.alibaba.cloud<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>spring-cloud-starter-alibaba-nacos-config<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+</code></pre>
+</li>
 <li><p>创建 bootstrap.yml，配置 Nacos 元数据</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">	<span class="attr">application:</span></span><br><span class="line">		<span class="attr">name:</span> <span class="string">gulimall-coupon</span></span><br><span class="line">	<span class="attr">cloud:</span></span><br><span class="line">		<span class="attr">nacos:</span></span><br><span class="line">			<span class="attr">config:</span></span><br><span class="line">				<span class="attr">server-addr:</span> <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span><span class="string">:8848</span></span><br></pre></td></tr></table></figure></li>
+<pre class=" language-yml"><code class="language-yml">spring:
+    application:
+        name: gulimall-coupon
+    cloud:
+        nacos:
+            config:
+                server-addr: 127.0.0.1:8848
+</code></pre>
+</li>
 <li><p>配置中心 添加 数据集（Data Id） gulimall-coupon.properties ，默认规则，应用名.properties<br><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202204122135151.png" alt="image-20220412213509978"> </p>
 <p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202204122145876.png" alt="image-20220412214528762"> </p>
 </li>
 <li><p>动态获取配置<br> @RefreshScope ：动态获取并刷新配置</p>
 <p> @Value(“${配置项的名}”) ：获取到配置</p>
 <p>如果配置中心和当前应用都配置相同的项，优先使用配置中心的配置</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RefreshScope</span> <span class="comment">//动态刷新</span></span><br><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="meta">@RequestMapping(&quot;coupon/coupon&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CouponController</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> CouponService couponService;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Value(&quot;$&#123;coupon.user.name&#125;&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="meta">@Value(&quot;$&#123;coupon.user.age&#125;&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> Integer age;</span><br><span class="line">    <span class="meta">@GetMapping(&quot;/test&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> R <span class="title">test</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> R.ok().put(<span class="string">&quot;name&quot;</span>,name).put(<span class="string">&quot;age&quot;</span>,age);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<pre class=" language-java"><code class="language-java"><span class="token annotation punctuation">@RefreshScope</span> <span class="token comment" spellcheck="true">//动态刷新</span>
+<span class="token annotation punctuation">@RestController</span>
+<span class="token annotation punctuation">@RequestMapping</span><span class="token punctuation">(</span><span class="token string">"coupon/coupon"</span><span class="token punctuation">)</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">CouponController</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    <span class="token annotation punctuation">@Autowired</span>
+    <span class="token keyword">private</span> CouponService couponService<span class="token punctuation">;</span>
+
+    <span class="token annotation punctuation">@Value</span><span class="token punctuation">(</span><span class="token string">"$&amp;#123;coupon.user.name&amp;#125;"</span><span class="token punctuation">)</span>
+    <span class="token keyword">private</span> String name<span class="token punctuation">;</span>
+    <span class="token annotation punctuation">@Value</span><span class="token punctuation">(</span><span class="token string">"$&amp;#123;coupon.user.age&amp;#125;"</span><span class="token punctuation">)</span>
+    <span class="token keyword">private</span> Integer age<span class="token punctuation">;</span>
+    <span class="token annotation punctuation">@GetMapping</span><span class="token punctuation">(</span><span class="token string">"/test"</span><span class="token punctuation">)</span>
+    <span class="token keyword">public</span> R <span class="token function">test</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> R<span class="token punctuation">.</span><span class="token function">ok</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span><span class="token string">"name"</span><span class="token punctuation">,</span>name<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span><span class="token string">"age"</span><span class="token punctuation">,</span>age<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+</code></pre>
+</li>
 <li><p>核心概念</p>
 <p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202204122206664.png" alt="image-20220412220641506"></p>
 <ul>
@@ -813,8 +1120,8 @@
 <ol>
 <li><p>开发、测试、生产 ：利用命名空间来做环境隔离</p>
 <p>注意：在bootstrap.yml 配置中，需要使用那个命名空间下的配置</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">spring.cloud.nacos.config.namespace=cc749289-b027-486f-bb6a-3febcabecbdb</span></span><br></pre></td></tr></table></figure>
-
+<pre class=" language-yml"><code class="language-yml">spring.cloud.nacos.config.namespace=cc749289-b027-486f-bb6a-3febcabecbdb
+</code></pre>
 <p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202204122217795.png" alt="image-20220412220837375"> </p>
 </li>
 <li><p>每个服务应用之间相互隔离，管理微服务自己的配置<br><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202204122232120.png" alt="image-20220412223231969"></p>
@@ -832,7 +1139,9 @@
 <li><p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202204122240653.png" alt="image-20220412224056530"> </p>
 </li>
 <li><p>添加分组配置</p>
-<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">spring.cloud.nacos.config.group</span>=<span class="string">1111</span></span><br></pre></td></tr></table></figure></li>
+<pre class=" language-properties"><code class="language-properties"><span class="token attr-name">spring.cloud.nacos.config.group</span><span class="token punctuation">=</span><span class="token attr-value">1111</span>
+</code></pre>
+</li>
 </ul>
 </li>
 <li><p>每个微服务创建自己的命名空间，使用配置分组区分环境，dev、test、prod 环境</p>
@@ -845,8 +1154,27 @@
 <li><p>微服务任何配置信息，任何配置文件都可以放在配置中心中<br><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202204122337360.png" alt="image-20220412233717240"></p>
 </li>
 <li><p>只需要在 bootstrap.yml 说明 加载配置中心中的那些配置文件即可</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">appliation:</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">gulimall-coupon</span></span><br><span class="line">  <span class="attr">cloud:</span></span><br><span class="line">    <span class="attr">nacos:</span></span><br><span class="line">      <span class="attr">config:</span></span><br><span class="line">        <span class="attr">server-addr:</span> <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span><span class="string">:8848</span></span><br><span class="line">        <span class="attr">namespace:</span> <span class="string">d6545d08-333c-4806-bf43-6acc99acecc6</span></span><br><span class="line">        <span class="comment"># 数据库配置</span></span><br><span class="line">        <span class="string">ext-config[0].data-id:</span> <span class="string">datasource.yml</span></span><br><span class="line">        <span class="string">ext-config[0].group:</span> <span class="string">dev</span></span><br><span class="line">        <span class="string">ext-config[0].refresh:</span> <span class="literal">true</span></span><br><span class="line">        <span class="comment"># mybatis 配置</span></span><br><span class="line">        <span class="string">ext-config[1].data-id:</span> <span class="string">mybatis.yml</span></span><br><span class="line">        <span class="string">ext-config[1].group:</span> <span class="string">dev</span></span><br><span class="line">        <span class="string">ext-config[1].refresh:</span> <span class="literal">true</span></span><br><span class="line">        <span class="comment"># 其他配置</span></span><br><span class="line">        <span class="string">ext-config[2].data-id:</span> <span class="string">other.yml</span></span><br><span class="line">        <span class="string">ext-config[2].group:</span> <span class="string">dev</span></span><br><span class="line">        <span class="string">ext-config[2].refresh:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
-
+<pre class=" language-yml"><code class="language-yml">spring:
+  appliation:
+    name: gulimall-coupon
+  cloud:
+    nacos:
+      config:
+        server-addr: 127.0.0.1:8848
+        namespace: d6545d08-333c-4806-bf43-6acc99acecc6
+        # 数据库配置
+        ext-config[0].data-id: datasource.yml
+        ext-config[0].group: dev
+        ext-config[0].refresh: true
+        # mybatis 配置
+        ext-config[1].data-id: mybatis.yml
+        ext-config[1].group: dev
+        ext-config[1].refresh: true
+        # 其他配置
+        ext-config[2].data-id: other.yml
+        ext-config[2].group: dev
+        ext-config[2].refresh: true
+</code></pre>
 <p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202204122335376.png" alt="image-20220412233550198"></p>
 </li>
 <li><p>@Value，@ConfigurationProperties  以前SpringBoot 任何方法从配置文件中获取值，都能使用</p>
@@ -885,12 +1213,28 @@
 <h3 id="配置示例"><a href="#配置示例" class="headerlink" title="配置示例"></a>配置示例</h3><p><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-cloud-gateway/docs/2.2.9.RELEASE/reference/html/#gateway-request-predicates-factories">路由断言工厂</a></p>
 <h4 id="After-Route-Predicate-Factory：后路由断言工厂"><a href="#After-Route-Predicate-Factory：后路由断言工厂" class="headerlink" title="After Route Predicate Factory：后路由断言工厂"></a>After Route Predicate Factory：后路由断言工厂</h4><p>路由断言工厂采用一个参数 a（这是一个 java）。此断言匹配在指定日期时间之后发生的请求。以下示例配置路由之后断言：</p>
 <p>application.yml</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">cloud:</span></span><br><span class="line">    <span class="attr">gateway:</span></span><br><span class="line">      <span class="attr">routes:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">id:</span> <span class="string">after_route</span></span><br><span class="line">        <span class="attr">uri:</span> <span class="string">https://example.org</span></span><br><span class="line">        <span class="comment"># 断言（条件）：判断请求是在指定的时间后（After)发生的</span></span><br><span class="line">        <span class="attr">predicates:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="string">After=2017-01-20T17:42:47.789-07:00[America/Denver]</span></span><br></pre></td></tr></table></figure>
-
+<pre class=" language-yml"><code class="language-yml">spring:
+  cloud:
+    gateway:
+      routes:
+      - id: after_route
+        uri: https://example.org
+        # 断言（条件）：判断请求是在指定的时间后（After)发生的
+        predicates:
+        - After=2017-01-20T17:42:47.789-07:00[America/Denver]
+</code></pre>
 <p><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-cloud-gateway/docs/2.2.9.RELEASE/reference/html/#gatewayfilter-factories">网关过滤器工厂</a></p>
 <h4 id="AddRequestHeader-GatewayFilter-Factory：添加请求头网关过滤器工厂"><a href="#AddRequestHeader-GatewayFilter-Factory：添加请求头网关过滤器工厂" class="headerlink" title="AddRequestHeader GatewayFilter Factory：添加请求头网关过滤器工厂"></a>AddRequestHeader GatewayFilter Factory：添加请求头网关过滤器工厂</h4><p>application.yml</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">cloud:</span></span><br><span class="line">    <span class="attr">gateway:</span></span><br><span class="line">      <span class="attr">routes:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">id:</span> <span class="string">add_request_header_route</span></span><br><span class="line">      	<span class="comment"># 请求没有断言，任何请求直接跳转到这个链接</span></span><br><span class="line">        <span class="attr">uri:</span> <span class="string">https://example.org</span></span><br><span class="line">        <span class="attr">filters:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="string">AddRequestHeader=X-Request-red,</span> <span class="string">blue</span></span><br></pre></td></tr></table></figure>
-
+<pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">spring</span><span class="token punctuation">:</span>
+  <span class="token key atrule">cloud</span><span class="token punctuation">:</span>
+    <span class="token key atrule">gateway</span><span class="token punctuation">:</span>
+      <span class="token key atrule">routes</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token key atrule">id</span><span class="token punctuation">:</span> add_request_header_route
+          <span class="token comment" spellcheck="true"># 请求没有断言，任何请求直接跳转到这个链接</span>
+        <span class="token key atrule">uri</span><span class="token punctuation">:</span> https<span class="token punctuation">:</span>//example.org
+        <span class="token key atrule">filters</span><span class="token punctuation">:</span>
+        <span class="token punctuation">-</span> AddRequestHeader=X<span class="token punctuation">-</span>Request<span class="token punctuation">-</span>red<span class="token punctuation">,</span> blue
+</code></pre>
 <p>此列表将标头添加到所有匹配请求的下游请求头中<code>X-Request-red:blue</code></p>
 <p>AddRequestHeader<code>了解用于匹配路径或主机的 URI 变量。URI 变量可以在值中使用，并在运行时展开。下面的示例配置使用变量的 一个：</code>AddRequestHeader``GatewayFilter</p>
 <p><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-cloud-gateway/docs/2.2.9.RELEASE/reference/html/#global-filters">全局过滤器工厂</a></p>
@@ -898,7 +1242,31 @@
 <li><p>创建新 module gulimall-gateway</p>
 </li>
 <li><p>添加 gateway 依赖，<del>添加 gulimall-common 依赖</del>，添加nacos 配置中心和服务中心依赖</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"> <span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">java.version</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">java.version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">spring-boot.version</span>&gt;</span>2.1.8.RELEASE<span class="tag">&lt;/<span class="name">spring-boot.version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">spring-cloud.alibaba.version</span>&gt;</span>2.1.0.RELEASE<span class="tag">&lt;/<span class="name">spring-cloud.alibaba.version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">spring-cloud.version</span>&gt;</span>Greenwich.SR3<span class="tag">&lt;/<span class="name">spring-cloud.version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-gateway<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"> <span class="comment">&lt;!--nacos 服务注册/发现--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.alibaba.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-alibaba-nacos-discovery<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;spring-cloud.alibaba.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--naocs 配置中心--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.alibaba.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-alibaba-nacos-config<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;spring-cloud.alibaba.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+<pre class=" language-xml"><code class="language-xml"> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>properties</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>java.version</span><span class="token punctuation">></span></span>1.8<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>java.version</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>spring-boot.version</span><span class="token punctuation">></span></span>2.1.8.RELEASE<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>spring-boot.version</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>spring-cloud.alibaba.version</span><span class="token punctuation">></span></span>2.1.0.RELEASE<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>spring-cloud.alibaba.version</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>spring-cloud.version</span><span class="token punctuation">></span></span>Greenwich.SR3<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>spring-cloud.version</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>properties</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.springframework.cloud<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>spring-cloud-starter-gateway<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+ <span class="token comment" spellcheck="true">&lt;!--nacos 服务注册/发现--></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>com.alibaba.cloud<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>spring-cloud-starter-alibaba-nacos-discovery<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>$<span class="token entity" title="&#123;">&amp;#123;</span>spring-cloud.alibaba.version<span class="token entity" title="&#125;">&amp;#125;</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+        <span class="token comment" spellcheck="true">&lt;!--naocs 配置中心--></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>com.alibaba.cloud<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>spring-cloud-starter-alibaba-nacos-config<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>$<span class="token entity" title="&#123;">&amp;#123;</span>spring-cloud.alibaba.version<span class="token entity" title="&#125;">&amp;#125;</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+</code></pre>
+</li>
 <li><p>统一 Spring boot、Spring Cloud 版本</p>
 <ul>
 <li>boot：2.1.8.RELEASE</li>
@@ -906,26 +1274,55 @@
 </ul>
 </li>
 <li><p>项目新建 bootstrap.yml 填写 nacos 配置中心 </p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">    <span class="attr">application:</span></span><br><span class="line">        <span class="attr">name:</span> <span class="string">gulimall-gateway</span></span><br><span class="line">    <span class="attr">cloud:</span></span><br><span class="line">        <span class="attr">nacos:</span></span><br><span class="line">            <span class="attr">config:</span></span><br><span class="line">                <span class="attr">server-addr:</span> <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span><span class="string">:8848</span></span><br><span class="line">                <span class="attr">namespace:</span> <span class="string">4b9add0d-df21-4fc6-ad9c-35936b491b10s</span>	</span><br></pre></td></tr></table></figure></li>
+<pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">spring</span><span class="token punctuation">:</span>
+    <span class="token key atrule">application</span><span class="token punctuation">:</span>
+        <span class="token key atrule">name</span><span class="token punctuation">:</span> gulimall<span class="token punctuation">-</span>gateway
+    <span class="token key atrule">cloud</span><span class="token punctuation">:</span>
+        <span class="token key atrule">nacos</span><span class="token punctuation">:</span>
+            <span class="token key atrule">config</span><span class="token punctuation">:</span>
+                <span class="token key atrule">server-addr</span><span class="token punctuation">:</span> 127.0.0.1<span class="token punctuation">:</span><span class="token number">8848</span>
+                <span class="token key atrule">namespace</span><span class="token punctuation">:</span> 4b9add0d<span class="token punctuation">-</span>df21<span class="token punctuation">-</span>4fc6<span class="token punctuation">-</span>ad9c<span class="token punctuation">-</span>35936b491b10s    
+</code></pre>
+</li>
 <li><p>配置中心 新建网关配置命名空间</p>
 <ul>
 <li><p>新建命名空间 gateway</p>
 </li>
 <li><p>新建配置文件 gulimall-gateway.propertie </p>
-<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">spring.application.name</span>=<span class="string">gulimall-gateway</span></span><br></pre></td></tr></table></figure></li>
+<pre class=" language-properties"><code class="language-properties"><span class="token attr-name">spring.application.name</span><span class="token punctuation">=</span><span class="token attr-value">gulimall-gateway</span>
+</code></pre>
+</li>
 <li><p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202204212251449.png" alt="image-20220421225143278"></p>
 </li>
 </ul>
 </li>
 <li><p>application.properties 配置服务中心</p>
-<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">server.port</span>=<span class="string">88</span></span><br><span class="line"><span class="meta">spring.application.name</span>=<span class="string">gulimall-gateway</span></span><br><span class="line"><span class="meta">spring.cloud.nacos.discovery.server-addr</span>=<span class="string">127.0.0.1</span></span><br></pre></td></tr></table></figure></li>
+<pre class=" language-properties"><code class="language-properties"><span class="token attr-name">server.port</span><span class="token punctuation">=</span><span class="token attr-value">88</span>
+<span class="token attr-name">spring.application.name</span><span class="token punctuation">=</span><span class="token attr-value">gulimall-gateway</span>
+<span class="token attr-name">spring.cloud.nacos.discovery.server-addr</span><span class="token punctuation">=</span><span class="token attr-value">127.0.0.1</span>
+</code></pre>
+</li>
 <li><p>启动成功<br><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202204212301809.png" alt="image-20220421230109723"></p>
 </li>
 <li><p>配置路由断言</p>
 <p>新建一个application.yml</p>
 <p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202204212304803.png" alt="image-20220421230443693"></p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">	<span class="attr">cloud:</span></span><br><span class="line">		<span class="attr">gateway:</span></span><br><span class="line">			<span class="attr">routes:</span></span><br><span class="line">                <span class="string">-id:</span> <span class="string">bing_route</span></span><br><span class="line">                <span class="attr">uri:</span> <span class="string">https://www.bing.com</span></span><br><span class="line">                <span class="attr">predicates:</span></span><br><span class="line">					<span class="comment"># query 表示请求参数 ，参数 url ，参数值正则 baidu</span></span><br><span class="line">                	<span class="string">-Query=url,bing</span></span><br><span class="line">                 <span class="string">-id:</span> <span class="string">bing_route</span></span><br><span class="line">                <span class="attr">uri:</span> <span class="string">https://www.bing.com</span></span><br><span class="line">                <span class="attr">predicates:</span></span><br><span class="line">					<span class="comment"># query 表示请求参数 ，参数 url ，参数值正则 baidu</span></span><br><span class="line">                	<span class="string">-Query=url,bing</span></span><br><span class="line">			</span><br></pre></td></tr></table></figure>
-
+<pre class=" language-yml"><code class="language-yml">spring:
+    cloud:
+        gateway:
+            routes:
+                -id: bing_route
+                uri: https://www.bing.com
+                predicates:
+                    # query 表示请求参数 ，参数 url ，参数值正则 baidu
+                    -Query=url,bing
+                 -id: bing_route
+                uri: https://www.bing.com
+                predicates:
+                    # query 表示请求参数 ，参数 url ，参数值正则 baidu
+                    -Query=url,bing
+            
+</code></pre>
 <p>请求路径：</p>
 <ul>
 <li><p><del>百度地址：<a target="_blank" rel="noopener" href="http://127.0.0.1:88/hello?url=baidu~~~~%EF%BC%8C%E6%97%A0%E6%B3%95%E8%B7%B3%E8%BD%AC%E5%88%B0%E7%99%BE%E5%BA%A6">http://127.0.0.1:88/hello?url=baidu~~~~，无法跳转到百度</a></del></p>
@@ -1212,8 +1609,12 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E7%A9%BA%E9%9A%BE%E3%80%81%E5%93%80%E6%82%BC/">
-                        <span class="chip bg-color">空难、哀悼</span>
+                    <a href="/tags/%E7%A9%BA%E9%9A%BE/">
+                        <span class="chip bg-color">空难</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%93%80%E6%82%BC/">
+                        <span class="chip bg-color">哀悼</span>
                     </a>
                     
                 </div>
@@ -1231,9 +1632,9 @@
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="深入理解消息队列--未完结">
+                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="深入理解消息队列">
                         
-                        <span class="card-title">深入理解消息队列--未完结</span>
+                        <span class="card-title">深入理解消息队列</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1252,8 +1653,8 @@
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/MQ/" class="post-category">
-                                    MQ
+                            <a href="/categories/%E5%90%8E%E7%AB%AF/" class="post-category">
+                                    后端
                                 </a>
                             
                             
@@ -1263,8 +1664,12 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/MQ/">
-                        <span class="chip bg-color">MQ</span>
+                    <a href="/tags/%E5%90%8E%E7%AB%AF/">
+                        <span class="chip bg-color">后端</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/">
+                        <span class="chip bg-color">消息队列</span>
                     </a>
                     
                 </div>
@@ -1467,7 +1872,7 @@
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">105.3k</span>&nbsp;字
+                class="white-color">109.7k</span>&nbsp;字
             
             
             
@@ -1491,13 +1896,13 @@
             
         </div>
         <div class="col s12 m4 l4 social-link social-statis">
-    <a href="https://github.com/blinkfox" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+    <a href="https://github.com/lingzhexi" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
         <i class="fab fa-github"></i>
     </a>
 
 
 
-    <a href="mailto:1181062873@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+    <a href="mailto:lingzhexi@163.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
         <i class="fas fa-envelope-open"></i>
     </a>
 
@@ -1507,7 +1912,7 @@
 
 
 
-    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1181062873" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1181062873" data-position="top" data-delay="50">
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=501344802" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 501344802" data-position="top" data-delay="50">
         <i class="fab fa-qq"></i>
     </a>
 

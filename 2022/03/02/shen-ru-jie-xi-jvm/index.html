@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>深入解析JVM | Codeling&#39;s Blog</title>
+    <title>深入解析JVM | Codeling</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -41,9 +41,7 @@
             <div class="brand-logo">
                 <a href="/" class="waves-effect waves-light">
                     
-                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
-                    
-                    <span class="logo-span">Codeling&#39;s Blog</span>
+                    <span class="logo-span">Codeling</span>
                 </a>
             </div>
             
@@ -140,9 +138,7 @@
 
     <div class="mobile-head bg-color">
         
-        <img src="/medias/logo.png" class="logo-img circle responsive-img">
-        
-        <div class="logo-name">Codeling&#39;s Blog</div>
+        <div class="logo-name">Codeling</div>
         <div class="logo-desc">
             
             Never really desperate, only the lost of the soul.
@@ -443,8 +439,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/%E9%9D%A2%E8%AF%95/" class="post-category">
-                                面试
+                            <a href="/categories/%E5%90%8E%E7%AB%AF/" class="post-category">
+                                后端
                             </a>
                         
                     </div>
@@ -494,10 +490,12 @@
             <div id="articleContent">
                 <meta name="referrer" content="no-referrer"/>
 
-<img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202203021639302.jpg" alt="133132667002" style="zoom:150%;" />
-
+<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202203021639302.jpg" alt="题图"></p>
 <span id="more"></span>
 
+<blockquote>
+<p>JVM 是 JAVA 程序员必练的内功心法，虽说是一块难啃的骨头，但是收获的知识喜悦是无以言喻的</p>
+</blockquote>
 <blockquote>
 <p>本文由 <a target="_blank" rel="noopener" href="http://ksria.com/simpread/">简悦 SimpRead</a> 转码， 原文地址 <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/ERGdI-F8xa_pJQbpXLDG5g">mp.weixin.qq.com</a></p>
 </blockquote>
@@ -519,8 +517,8 @@
 <li><p><code>堆</code>：堆是线程共享的数据区，堆是 JVM 中最大的一块存储区域，所有的对象实例都会分配在堆上。JDK 1.7 后，字符串常量池从永久代中剥离出来，存放在堆中。</p>
 <p>堆空间的内存分配（默认情况下）：</p>
 <p>命令行上执行如下命令，会查看默认的 JVM 参数。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -XX:+PrintFlagsFinal -version</span><br></pre></td></tr></table></figure>
-
+<pre class=" language-java"><code class="language-java">java <span class="token operator">-</span>XX<span class="token operator">:</span><span class="token operator">+</span>PrintFlagsFinal <span class="token operator">-</span>version
+</code></pre>
 <p>输出的内容非常多，但是只有两行能够反映出上面的内存分配结果</p>
 <p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202203031032217.jpeg"><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202203031032772.jpeg"><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202203021542355.jpeg"></p>
 </li>
@@ -642,8 +640,8 @@
 <p>下面通常情况下的基本类型和引用类型的初始值</p>
 <p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202203021544012.jpeg"></p>
 <p>除了 “通常情况” 下，还有一些 “例外情况”，如果类字段属性中存在 <code>ConstantValue</code> 属性，那就这个变量值在初始阶段就会初始化为 ConstantValue 属性所指定的初始值，比如</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> value = <span class="string">&quot;666&quot;</span>;</span><br></pre></td></tr></table></figure>
-
+<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token keyword">int</span> value <span class="token operator">=</span> <span class="token string">"666"</span><span class="token punctuation">;</span>
+</code></pre>
 <p>编译时就会把 value 的值设置为 666。</p>
 <h3 id="解析"><a href="#解析" class="headerlink" title="解析"></a>解析</h3><p>解析阶段是 Java 虚拟机将常量池内的符号引用替换为直接引用的过程。</p>
 <ul>
@@ -848,8 +846,23 @@
 <p>判断的标准我在上面<strong>如何判断对象已经死亡</strong>的问题中描述了，有两种方式，一种是引用计数法，这种判断标准就是给对象添加一个引用计数器，引用这个对象会使计数器的值 + 1，引用失效后，计数器的值就会 -1。但是这种技术无法解决对象之间的循环引用问题。</p>
 <p>还有一种方式是 GC Roots，GC Roots 这种方式是以 Root 根节点为核心，逐步向下搜索每个对象的引用，搜索走过的路径被称为引用链，如果搜索过后这个对象不存在引用链，那么这个对象就是无用对象，可以被回收。GC Roots 可以解决循环引用问题，所以一般 JVM 都采用的是这种方式。</p>
 <p>解决循环引用代码描述：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">test</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[]args)</span></span>&#123;</span><br><span class="line">        A a = <span class="keyword">new</span> A();</span><br><span class="line">        B b = <span class="keyword">new</span> B();</span><br><span class="line">        a=<span class="keyword">null</span>;</span><br><span class="line">        b=<span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">public</span> B b;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">B</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> A a;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">test</span><span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span>args<span class="token punctuation">)</span><span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+        A a <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">A</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        B b <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">B</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        a<span class="token operator">=</span>null<span class="token punctuation">;</span>
+        b<span class="token operator">=</span>null<span class="token punctuation">;</span>
+    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+<span class="token keyword">class</span> <span class="token class-name">A</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+ 
+    <span class="token keyword">public</span> B b<span class="token punctuation">;</span>
+<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+<span class="token keyword">class</span> <span class="token class-name">B</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    <span class="token keyword">public</span> A a<span class="token punctuation">;</span>
+<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
 
+</code></pre>
 <p>基于 GC Roots 的这种思想，发展出了很多垃圾回收算法，下面我们就来聊一聊这些算法。</p>
 <h3 id="标记-清除算法"><a href="#标记-清除算法" class="headerlink" title="标记 - 清除算法"></a>标记 - 清除算法</h3><p>标记 - 清除 (Mark-Sweep) 这个算法可以说是最早最基础的算法了，标记 - 清除顾名思义分为两个阶段，即标记和清除阶段：首先标记出所有需要回收的对象，在标记完成后，统一回收掉所有被标记的对象。当然也可以标记存活的对象，回收未被标记的对象。这个标记的过程就是垃圾判定的过程。</p>
 <p>后续大部分垃圾回收算法都是基于标记 - 算法思想衍生的，只不过后续的算法弥补了标记 - 清除算法的缺点，那么它有什么缺点呢？主要有两个</p>
@@ -881,8 +894,8 @@
 </ul>
 <p>其中卡精度是使用了卡表作为记忆集的实现，关于记忆集和卡表的关系，大家可以想象成是 HashMap 和 Map 的关系。</p>
 <h2 id="什么是卡页？"><a href="#什么是卡页？" class="headerlink" title="什么是卡页？"></a>什么是卡页？</h2><p>卡表其实就是一个字节数组</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CARD_TABLE[<span class="keyword">this</span> address &gt;&gt; <span class="number">9</span>] = <span class="number">0</span>;</span><br></pre></td></tr></table></figure>
-
+<pre class=" language-java"><code class="language-java">CARD_TABLE<span class="token punctuation">[</span><span class="token keyword">this</span> address <span class="token operator">>></span> <span class="token number">9</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+</code></pre>
 <p>字节数组 CARD_TABLE 的每一个元素都对应着内存区域中一块特定大小的内存块，这个内存块就是<strong>卡页</strong>，一般来说，卡页都是 2 的 N 次幂字节数，通过上面的代码我们可以知道，卡页一般是 2 的 9 次幂，这也是 HotSpot 中使用的卡页，即 512 字节。</p>
 <p>一个卡页的内存通常包含不止一个对象，只要卡页中有一个对象的字段存在跨代指针，那就将对应卡表的数组元素的值设置为 1，称之为这个元素变<code>脏</code>了，没有标示则为 0 。在垃圾收集时，只要筛选出卡表中变脏的元素，就能轻易得出哪些卡页内存块中包含跨代指针，然后把他们加入 GC Roots 进行扫描。</p>
 <p>所以，卡页和卡表主要用来解决跨代引用问题的。</p>
@@ -901,8 +914,10 @@
 <p>一个简单的解决方案，就是不采用无条件的写屏障，而是先检查卡表标记，只有当该卡表项未被标记过才将其标记为脏的。</p>
 <p>这就是 JDK  7 中引入的解决方法，引入了一个新的 JVM 参数 _-XX:+UseCondCardMark_，在执行写屏障之前，先简单的做一下判断。如果卡页已被标识过，则不再进行标识。</p>
 <p>简单理解如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (CARD_TABLE [<span class="keyword">this</span> address &gt;&gt; <span class="number">9</span>] != <span class="number">0</span>)</span><br><span class="line">  CARD_TABLE [<span class="keyword">this</span> address &gt;&gt; <span class="number">9</span>] = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">if</span> <span class="token punctuation">(</span>CARD_TABLE <span class="token punctuation">[</span><span class="token keyword">this</span> address <span class="token operator">>></span> <span class="token number">9</span><span class="token punctuation">]</span> <span class="token operator">!=</span> <span class="token number">0</span><span class="token punctuation">)</span>
+  CARD_TABLE <span class="token punctuation">[</span><span class="token keyword">this</span> address <span class="token operator">>></span> <span class="token number">9</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
 
+</code></pre>
 <p>与原来的实现相比，只是简单的增加了一个判断操作。</p>
 <p>虽然开启 <em>-XX:+UseCondCardMark</em> 之后多了一些判断开销，但是却可以避免在高并发情况下可能发生的并发写卡表问题。通过减少并发写操作，进而避免出现伪共享问题（false sharing）。</p>
 <h2 id="什么是三色标记法？三色标记法会造成哪些问题？"><a href="#什么是三色标记法？三色标记法会造成哪些问题？" class="headerlink" title="什么是三色标记法？三色标记法会造成哪些问题？"></a>什么是三色标记法？三色标记法会造成哪些问题？</h2><p>根据可达性算法的分析可知，如果要找出存活对象，需要从 GC Roots 开始遍历，然后搜索每个对象是否可达，如果对象可达则为存活对象，在 GC Roots 的搜索过程中，按照<strong>对象和其引用是否被访问过</strong>这个条件会分成下面三种颜色：</p>
@@ -1601,7 +1616,7 @@
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">105.3k</span>&nbsp;字
+                class="white-color">109.7k</span>&nbsp;字
             
             
             
@@ -1625,13 +1640,13 @@
             
         </div>
         <div class="col s12 m4 l4 social-link social-statis">
-    <a href="https://github.com/blinkfox" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+    <a href="https://github.com/lingzhexi" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
         <i class="fab fa-github"></i>
     </a>
 
 
 
-    <a href="mailto:1181062873@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+    <a href="mailto:lingzhexi@163.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
         <i class="fas fa-envelope-open"></i>
     </a>
 
@@ -1641,7 +1656,7 @@
 
 
 
-    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1181062873" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1181062873" data-position="top" data-delay="50">
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=501344802" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 501344802" data-position="top" data-delay="50">
         <i class="fab fa-qq"></i>
     </a>
 
