@@ -62,55 +62,11 @@
   
   <li class="hide-on-med-and-down nav-item">
     
-    <a href="/tags" class="waves-effect waves-light">
-      
-      <i class="fas fa-tags" style="zoom: 0.6;"></i>
-      
-      <span>标签</span>
-    </a>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/categories" class="waves-effect waves-light">
-      
-      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
-      
-      <span>分类</span>
-    </a>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
     <a href="/archives" class="waves-effect waves-light">
       
       <i class="fas fa-archive" style="zoom: 0.6;"></i>
       
       <span>归档</span>
-    </a>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/about" class="waves-effect waves-light">
-      
-      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
-      
-      <span>关于</span>
-    </a>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/contact" class="waves-effect waves-light">
-      
-      <i class="fas fa-comments" style="zoom: 0.6;"></i>
-      
-      <span>留言板</span>
     </a>
     
   </li>
@@ -163,55 +119,11 @@
         
         <li class="m-nav-item">
 	  
-		<a href="/tags" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-tags"></i>
-			
-			标签
-		</a>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
-		<a href="/categories" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-bookmark"></i>
-			
-			分类
-		</a>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
 		<a href="/archives" class="waves-effect waves-light">
 			
 			    <i class="fa-fw fas fa-archive"></i>
 			
 			归档
-		</a>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
-		<a href="/about" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-user-circle"></i>
-			
-			关于
-		</a>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
-		<a href="/contact" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-comments"></i>
-			
-			留言板
 		</a>
           
         </li>
@@ -490,7 +402,7 @@
             <div id="articleContent">
                 <meta name="referrer" content="no-referrer"/>
 
-<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202203021639302.jpg" alt="题图"></p>
+<p><img src="https://raw.githubusercontent.com/lingzhexi/blogImage/master/img/2022/03/202203021639302.jpg" alt="题图"></p>
 <span id="more"></span>
 <blockquote>
 <p>本文由 <a target="_blank" rel="noopener" href="http://ksria.com/simpread/">简悦 SimpRead</a> 转码， 原文地址 <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/ERGdI-F8xa_pJQbpXLDG5g">mp.weixin.qq.com</a></p>
@@ -498,11 +410,11 @@
 <h2 id="JVM-的主要作用是什么？"><a href="#JVM-的主要作用是什么？" class="headerlink" title="JVM 的主要作用是什么？"></a>JVM 的主要作用是什么？</h2><p>JVM 就是 Java Virtual Machine（Java 虚拟机）的缩写，JVM 屏蔽了与具体操作系统平台相关的信息，使 Java 程序只需生成在 Java 虚拟机上运行的目标代码 （字节码），就可以在不同的平台上运行。</p>
 <!--more-->
 <h2 id="请你描述一下-Java-的内存区域？"><a href="#请你描述一下-Java-的内存区域？" class="headerlink" title="请你描述一下 Java 的内存区域？"></a>请你描述一下 Java 的内存区域？</h2><p>JVM 在执行 Java 程序的过程中会把它管理的内存分为若干个不同的区域，这些组成部分有些是线程私有的，有些则是线程共享的，Java 内存区域也叫做运行时数据区，它的具体划分如下：</p>
-<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202203021541641.jpeg"></p>
+<p><img src="https://raw.githubusercontent.com/lingzhexi/blogImage/master/img/2022/03/202203021541641.jpeg"></p>
 <ul>
 <li>  <code>虚拟机栈</code> : Java 虚拟机栈是线程私有的数据区，Java 虚拟机栈的生命周期与线程相同，虚拟机栈也是局部变量的存储位置。方法在执行过程中，会在虚拟机栈中创建一个 <code>栈帧(stack frame)</code>。每个方法执行的过程就对应了一个入栈和出栈的过程。</li>
 </ul>
-<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202203021542066.jpeg"></p>
+<p><img src="https://raw.githubusercontent.com/lingzhexi/blogImage/master/img/2022/03/202203021542066.jpeg"></p>
 <ul>
 <li><p><code>本地方法栈</code>: 本地方法栈也是线程私有的数据区，本地方法栈存储的区域主要是 Java 中使用 <code>native</code> 关键字修饰的方法所存储的区域。</p>
 </li>
@@ -516,7 +428,7 @@
 <pre class=" language-java"><code class="language-java">java <span class="token operator">-</span>XX<span class="token operator">:</span><span class="token operator">+</span>PrintFlagsFinal <span class="token operator">-</span>version
 </code></pre>
 <p>输出的内容非常多，但是只有两行能够反映出上面的内存分配结果</p>
-<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202203031032217.jpeg"><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202203031032772.jpeg"><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202203021542355.jpeg"></p>
+<p><img src="https://raw.githubusercontent.com/lingzhexi/blogImage/master/img/2022/03/202203031032217.jpeg"><img src="https://raw.githubusercontent.com/lingzhexi/blogImage/master/img/2022/03/202203031032772.jpeg"><img src="https://raw.githubusercontent.com/lingzhexi/blogImage/master/img/2022/03/202203021542355.jpeg"></p>
 </li>
 <li><p>eden 区：8/10 的年轻代空间</p>
 </li>
@@ -533,7 +445,7 @@
 </ul>
 <h2 id="请你描述一下-Java-中的类加载机制？"><a href="#请你描述一下-Java-中的类加载机制？" class="headerlink" title="请你描述一下 Java 中的类加载机制？"></a>请你描述一下 Java 中的类加载机制？</h2><p>Java 虚拟机负责把描述类的数据从 Class 文件加载到系统内存中，并对类的数据进行<strong>校验、转换解析和初始化</strong>，最终形成可以被虚拟机直接使用的 Java 类型，这个过程被称之为 Java 的<code>类加载机制</code>。</p>
 <p>一个类从被加载到虚拟机内存开始，到卸载出内存为止，一共会经历下面这些过程。</p>
-<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202203021544280.jpeg"></p>
+<p><img src="https://raw.githubusercontent.com/lingzhexi/blogImage/master/img/2022/03/202203021544280.jpeg"></p>
 <p>类加载机制一共有五个步骤，分别是<strong>加载、链接、初始化、使用和卸载</strong>阶段，这五个阶段的顺序是确定的。</p>
 <p>其中链接阶段会细分成三个阶段，分别是验证、准备、解析阶段，这三个阶段的顺序是不确定的，这三个阶段通常交互进行。解析阶段通常会在初始化之后再开始，这是为了支持 Java 语言的运行时绑定特性（也被称为<code>动态绑定</code>）。</p>
 <p>下面我们就来聊一下这几个过程。</p>
@@ -634,7 +546,7 @@
 <p>验证阶段对于虚拟机来说非常重要，如果能通过验证，就说明你的程序在运行时不会产生任何影响。</p>
 <h3 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h3><p>准备阶段是为类中的变量分配内存并设置其初始值的阶段，这些变量所使用的内存都应当在方法区中进行分配，在 JDK 7 之前，HotSpot 使用永久代来实现方法区，是符合这种逻辑概念的。而在 JDK 8 之后，变量则会随着 Class 对象一起存放在 Java 堆中。</p>
 <p>下面通常情况下的基本类型和引用类型的初始值</p>
-<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202203021544012.jpeg"></p>
+<p><img src="https://raw.githubusercontent.com/lingzhexi/blogImage/master/img/2022/03/202203021544012.jpeg"></p>
 <p>除了 “通常情况” 下，还有一些 “例外情况”，如果类字段属性中存在 <code>ConstantValue</code> 属性，那就这个变量值在初始阶段就会初始化为 ConstantValue 属性所指定的初始值，比如</p>
 <pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token keyword">int</span> value <span class="token operator">=</span> <span class="token string">"666"</span><span class="token punctuation">;</span>
 </code></pre>
@@ -713,16 +625,16 @@
 </li>
 </ul>
 <p>这三块区域的内存分布如下图所示</p>
-<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202203021544691.jpeg"></p>
+<p><img src="https://raw.githubusercontent.com/lingzhexi/blogImage/master/img/2022/03/202203021544691.jpeg"></p>
 <p>我们来详细介绍一下上面对象中的内容。</p>
 <h3 id="对象头-Header"><a href="#对象头-Header" class="headerlink" title="对象头 Header"></a>对象头 Header</h3><p>对象头 Header 主要包含 MarkWord 和对象指针 Klass Pointer，如果是数组的话，还要包含数组的长度。</p>
-<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202203021544746.jpeg"></p>
+<p><img src="https://raw.githubusercontent.com/lingzhexi/blogImage/master/img/2022/03/202203021544746.jpeg"></p>
 <p>在 32 位的虚拟机中 MarkWord ，Klass Pointer 和数组长度分别占用 32 位，也就是 4 字节。</p>
 <p>如果是 64 位虚拟机的话，MarkWord ，Klass Pointer 和数组长度分别占用 64 位，也就是 8 字节。</p>
 <p>在 32 位虚拟机和 64 位虚拟机的 Mark Word 所占用的字节大小不一样，32 位虚拟机的 Mark Word 和 Klass Pointer 分别占用 32 bits 的字节，而 64 位虚拟机的 Mark Word 和 Klass Pointer 占用了 64 bits 的字节，下面我们以 32 位虚拟机为例，来看一下其 Mark Word 的字节具体是如何分配的。</p>
-<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202203021544554.jpeg"></p>
+<p><img src="https://raw.githubusercontent.com/lingzhexi/blogImage/master/img/2022/03/202203021544554.jpeg"></p>
 <p>用中文翻译过来就是</p>
-<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202203021544702.jpeg"></p>
+<p><img src="https://raw.githubusercontent.com/lingzhexi/blogImage/master/img/2022/03/202203021544702.jpeg"></p>
 <ul>
 <li><p>  无状态也就是<code>无锁</code>的时候，对象头开辟 25 bit 的空间用来存储对象的 hashcode ，4 bit 用于存放分代年龄，1 bit 用来存放是否偏向锁的标识位，2 bit 用来存放锁标识位为 01。</p>
 </li>
@@ -737,7 +649,7 @@
 </ul>
 <p>其中无锁和偏向锁的锁标志位都是 01，只是在前面的 1 bit 区分了这是无锁状态还是偏向锁状态。</p>
 <p>关于为什么这么分配的内存，我们可以从 <code>OpenJDK</code> 中的 markOop.hpp 类中的枚举窥出端倪</p>
-<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202203021544018.jpeg"></p>
+<p><img src="https://raw.githubusercontent.com/lingzhexi/blogImage/master/img/2022/03/202203021544018.jpeg"></p>
 <p>来解释一下</p>
 <ul>
 <li><p>  age_bits 就是我们说的分代回收的标识，占用 4 字节</p>
@@ -757,30 +669,30 @@
 </ul>
 <p>在上面的虚拟机对象头分配表中，我们可以看到有几种锁的状态：无锁（无状态），偏向锁，轻量级锁，重量级锁，其中轻量级锁和偏向锁是 JDK1.6 中对 synchronized 锁进行优化后新增加的，其目的就是为了大大优化锁的性能，所以在 JDK 1.6 中，使用 synchronized 的开销也没那么大了。其实从锁有无锁定来讲，还是只有无锁和重量级锁，偏向锁和轻量级锁的出现就是增加了锁的获取性能而已，并没有出现新的锁。</p>
 <p>所以我们的重点放在对 synchronized 重量级锁的研究上，当 monitor 被某个线程持有后，它就会处于锁定状态。在 HotSpot 虚拟机中，monitor 的底层代码是由 <code>ObjectMonitor</code> 实现的，其主要数据结构如下（位于 HotSpot 虚拟机源码 ObjectMonitor.hpp 文件，C++ 实现的）</p>
-<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202203021544172.jpeg"></p>
+<p><img src="https://raw.githubusercontent.com/lingzhexi/blogImage/master/img/2022/03/202203021544172.jpeg"></p>
 <p>这段 C++ 中需要注意几个属性：_WaitSet 、 _EntryList 和 _Owner，每个等待获取锁的线程都会被封装称为 <code>ObjectWaiter</code> 对象。</p>
-<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202203021544929.jpeg"></p>
+<p><img src="https://raw.githubusercontent.com/lingzhexi/blogImage/master/img/2022/03/202203021544929.jpeg"></p>
 <p>_Owner 是指向了 ObjectMonitor 对象的线程，而 _WaitSet 和 _EntryList 就是用来保存每个线程的列表。</p>
 <blockquote>
 <p>那么这两个列表有什么区别呢？这个问题我和你聊一下锁的获取流程你就清楚了。</p>
 </blockquote>
 <p><strong>锁的两个列表</strong></p>
 <p>当多个线程同时访问某段同步代码时，首先会进入 _EntryList 集合，当线程获取到对象的 monitor 之后，就会进入 _Owner 区域，并把 ObjectMonitor 对象的 _Owner 指向为当前线程，并使 _count + 1，如果调用了释放锁（比如 wait）的操作，就会释放当前持有的 monitor ，owner = null， _count - 1，同时这个线程会进入到 _WaitSet 列表中等待被唤醒。如果当前线程执行完毕后也会释放 monitor 锁，只不过此时不会进入 _WaitSet 列表了，而是直接复位 _count 的值。</p>
-<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202203021544437.jpeg"></p>
+<p><img src="https://raw.githubusercontent.com/lingzhexi/blogImage/master/img/2022/03/202203021544437.jpeg"></p>
 <p>Klass Pointer 表示的是类型指针，也就是对象指向它的类元数据的指针，虚拟机通过这个指针来确定这个对象是哪个类的实例。</p>
 <blockquote>
 <p>你可能不是很理解指针是个什么概念，你可以简单理解为指针就是指向某个数据的地址。</p>
 </blockquote>
-<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202203021544199.jpeg"></p>
+<p><img src="https://raw.githubusercontent.com/lingzhexi/blogImage/master/img/2022/03/202203021544199.jpeg"></p>
 <h3 id="实例数据-Instance-Data"><a href="#实例数据-Instance-Data" class="headerlink" title="实例数据 Instance Data"></a>实例数据 Instance Data</h3><p>实例数据部分是对象真正存储的有效信息，也是代码中定义的各个字段的字节大小，比如一个 byte 占 1 个字节，一个 int 占用 4 个字节。</p>
 <h3 id="对齐-Padding"><a href="#对齐-Padding" class="headerlink" title="对齐 Padding"></a>对齐 Padding</h3><p>对齐不是必须存在的，它只起到了占位符 (%d, %c 等) 的作用。这就是 JVM 的要求了，因为 HotSpot JVM 要求对象的起始地址必须是 8 字节的整数倍，也就是说对象的字节大小是 8 的整数倍，不够的需要使用 Padding 补全。</p>
 <h2 id="对象访问定位的方式有哪些？"><a href="#对象访问定位的方式有哪些？" class="headerlink" title="对象访问定位的方式有哪些？"></a>对象访问定位的方式有哪些？</h2><p>我们创建一个对象的目的当然就是为了使用它，但是，一个对象被创建出来之后，在 JVM 中是如何访问这个对象的呢？一般有两种方式：<strong>通过句柄访问</strong>和 <strong>通过直接指针访问</strong>。</p>
 <ul>
 <li><p>如果使用句柄访问方式的话，Java 堆中可能会划分出一块内存作为句柄池，引用（reference）中存储的是对象的句柄地址，而句柄中包含了对象的实例数据与类型数据各自具体的地址信息。如下图所示。</p>
-<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202203021545142.jpeg"></p>
+<p><img src="https://raw.githubusercontent.com/lingzhexi/blogImage/master/img/2022/03/202203021545142.jpeg"></p>
 </li>
 <li><p>如果使用直接指针访问的话，Java 堆中对象的内存布局就会有所区别，栈区引用指示的是堆中的实例数据的地址，如果只是访问对象本身的话，就不会多一次直接访问的开销，而对象类型数据的指针是存在于方法区中，如果定位的话，需要多一次直接定位开销。如下图所示</p>
-<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202203021545927.jpeg"></p>
+<p><img src="https://raw.githubusercontent.com/lingzhexi/blogImage/master/img/2022/03/202203021545927.jpeg"></p>
 </li>
 </ul>
 <p>这两种对象访问方式各有各的优势，使用句柄最大的好处就是引用中存储的是句柄地址，对象移动时只需改变句柄的地址就可以，而无需改变对象本身。</p>
@@ -793,7 +705,7 @@
 <p>还有一种判断对象无用的方法就是<strong>可达性分析算法</strong>。</p>
 <p>当前主流的 JVM 都采用了可达性分析算法来进行判断，这个算法的基本思路就是通过一系列被称为<code>GC Roots</code>的根对象作为起始节点集，从这些节点开始，根据引用关系向下搜索，搜索过程走过的路径被称为<code>引用链</code>（Reference Chain），如果某个对象到 GC Roots 之间没有任何引用链相连接，或者说从 GC Roots 到这个对象不可达时，则证明此这个对象是无用对象，需要被垃圾回收。</p>
 <p>这种引用方式如下</p>
-<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202203021545756.jpeg"></p>
+<p><img src="https://raw.githubusercontent.com/lingzhexi/blogImage/master/img/2022/03/202203021545756.jpeg"></p>
 <p>如上图所示，从枚举根节点 GC Roots 开始进行遍历，object 1 、2、3、4 是存在引用关系的对象，而 object 5、6、7 之间虽然有关联，但是它们到 GC Roots 之间是不可达的，所以被认为是可以回收的对象。</p>
 <p>在 Java 技术体系中，可以作为 GC Roots 进行检索的对象主要有</p>
 <ul>
@@ -836,7 +748,7 @@
 <p>正常来说存在相互引用的两个对象应该是同生共死的，不过也会存在特例，如果一个新生代对象跨代引用了一个老年代的对象，那么垃圾回收的时候就不会回收这个新生代对象，更不会回收老年代对象，然后这个新生代对象熬过一次垃圾回收进入到老年代中，这时候跨代引用才会消除。</p>
 <p>根据跨代引用假说，我们不需要因为老年代中存在少量跨代引用就去直接扫描整个老年代，也不用在老年代中维护一个列表记录有哪些跨代引用，实际上，可以直接在新生代中维护一个**记忆集 (Remembered Set)**，由这个记忆集把老年代划分称为若干小块，标识出老年代的哪一块会存在跨代引用。</p>
 <p>记忆集的图示如下</p>
-<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202203021545443.jpeg"></p>
+<p><img src="https://raw.githubusercontent.com/lingzhexi/blogImage/master/img/2022/03/202203021545443.jpeg"></p>
 <p>从图中我们可以看到，记忆集中的每个元素分别对应内存中的一块连续区域是否有跨代引用对象，如果有，该区域会被标记为 “脏的”（dirty），否则就是 “干净的”（clean）。这样在垃圾回收时，只需要扫描记忆集就可以简单地确定跨代引用的位置，是个典型的空间换时间的思路。</p>
 <h2 id="聊一聊-JVM-中的垃圾回收算法？"><a href="#聊一聊-JVM-中的垃圾回收算法？" class="headerlink" title="聊一聊 JVM 中的垃圾回收算法？"></a>聊一聊 JVM 中的垃圾回收算法？</h2><p>在聊具体的垃圾回收算法之前，需要明确一点，哪些对象需要被垃圾收集器进行回收？也就是说需要先判断哪些对象是 “垃圾”？</p>
 <p>判断的标准我在上面<strong>如何判断对象已经死亡</strong>的问题中描述了，有两种方式，一种是引用计数法，这种判断标准就是给对象添加一个引用计数器，引用这个对象会使计数器的值 + 1，引用失效后，计数器的值就会 -1。但是这种技术无法解决对象之间的循环引用问题。</p>
@@ -869,15 +781,15 @@
 </li>
 </ul>
 <p>标记算法的示意图如下</p>
-<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202203021545881.jpeg"></p>
+<p><img src="https://raw.githubusercontent.com/lingzhexi/blogImage/master/img/2022/03/202203021545881.jpeg"></p>
 <h3 id="标记-复制算法"><a href="#标记-复制算法" class="headerlink" title="标记 - 复制算法"></a>标记 - 复制算法</h3><p>由于标记 - 清除算法极易产生内存碎片，研究人员提出了标记 - 复制算法，标记 - 复制算法也可以简称为复制算法，复制算法是一种<strong>半区复制</strong>，它会将内存大小划分为相等的两块，每次只使用其中的一块，用完一块再用另外一块，然后再把用过的一块进行清除。虽然解决了部分内存碎片的问题，但是复制算法也带来了新的问题，即<strong>复制开销</strong>，不过这种开销是可以降低的，如果内存中大多数对象是无用对象，那么就可以把少数的存活对象进行复制，再回收无用的对象。</p>
 <p>不过复制算法的缺陷也是显而易见的，那就是内存空间缩小为原来的一半，空间浪费太明显。标记 - 复制算法示意图如下</p>
-<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202203021545639.jpeg"></p>
+<p><img src="https://raw.githubusercontent.com/lingzhexi/blogImage/master/img/2022/03/202203021545639.jpeg"></p>
 <p>现在 Java 虚拟机大多数都是用了这种算法来回收新生代，因为经过研究表明，新生代对象 98% 都熬不过第一轮收集，因此不需要按照 1 ：1 的比例来划分新生代的内存空间。</p>
 <p>基于此，研究人员提出了一种 Appel 式回收，Appel 式回收的具体做法是把新生代分为一块较大的 <em>Eden</em> 空间和两块 <em>Survivor</em> 空间，每次分配内存都只使用 Eden 和其中的一块 Survivor 空间，发生垃圾收集时，将 Eden 和 Survivor 中仍然存活的对象一次性复制到另外一块 Survivor 空间上，然后直接清理掉 Eden 和已使用过的 Survivor 空间。</p>
 <p>在主流的 HotSpot 虚拟机中，默认的 Eden 和 Survivor 大小比例是 8：1，也就是每次新生代中可用内存空间为整个新生代容量的 90%，只有一个 Survivor 空间，所以会浪费掉 10% 的空间。这个 8：1 只是一个理论值，也就是说，不能保证每次都有不超过 10% 的对象存活，所以，当进行垃圾回收后如果 Survivor 容纳不了可存活的对象后，就需要其他内存空间来进行<strong>帮助</strong>，这种方式就叫做<strong>内存担保 (Handle Promotion)</strong> ，通常情况下，作为担保的是老年代。</p>
 <h3 id="标记-整理算法"><a href="#标记-整理算法" class="headerlink" title="标记 - 整理算法"></a>标记 - 整理算法</h3><p>标记 - 复制算法虽然解决了内存碎片问题，但是没有解决复制对象存在大量开销的问题。为了解决复制算法的缺陷，充分利用内存空间，提出了标记 - 整理算法。该算法标记阶段和标记 - 清除一样，但是在完成标记之后，它不是直接清理可回收对象，而是将存活对象都向一端移动，然后清理掉端边界以外的内存。具体过程如下图所示：</p>
-<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202203021545233.jpeg"></p>
+<p><img src="https://raw.githubusercontent.com/lingzhexi/blogImage/master/img/2022/03/202203021545233.jpeg"></p>
 <h2 id="什么是记忆集，什么是卡表？记忆集和卡表有什么关系？"><a href="#什么是记忆集，什么是卡表？记忆集和卡表有什么关系？" class="headerlink" title="什么是记忆集，什么是卡表？记忆集和卡表有什么关系？"></a>什么是记忆集，什么是卡表？记忆集和卡表有什么关系？</h2><p>为了解决跨代引用问题，提出了记忆集这个概念，记忆集是一个在新生代中使用的数据结构，它相当于是记录了一些指针的集合，指向了老年代中哪些对象存在跨代引用。</p>
 <p>记忆集的实现有不同的粒度</p>
 <ul>
@@ -939,22 +851,22 @@
 <p>老年代收集器：Serial Old、Parallel Old、CMS；</p>
 <p>整堆收集器：G1；</p>
 <h3 id="Serial-收集器"><a href="#Serial-收集器" class="headerlink" title="Serial 收集器"></a>Serial 收集器</h3><p>Serial 收集器是一种新生代的垃圾收集器，它是一个单线程工作的收集器，使用复制算法来进行回收，单线程工作不是说这个垃圾收集器只有一个，而是说这个收集器在工作时，必须暂停其他所有工作线程，这种暴力的暂停方式就是 <strong>Stop The World</strong>，Serial 就好像是寡头垄断一样，只要它一发话，其他所有的小弟（线程）都得给它让路。Serial 收集器的示意图如下：</p>
-<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202203021545313.jpeg"></p>
+<p><img src="https://raw.githubusercontent.com/lingzhexi/blogImage/master/img/2022/03/202203021545313.jpeg"></p>
 <blockquote>
 <p>SefePoint 全局安全点：它就是代码中的一段特殊的位置，在所有用户线程到达 SafePoint 之后，用户线程挂起，GC 线程会进行清理工作。</p>
 </blockquote>
 <p>虽然 Serial 有 STW 这种显而易见的缺点，不过，从其他角度来看，Serial 还是很讨喜的，它还有着优于其他收集器的地方，那就是简单而高效，对于内存资源首先的环境，它是所有收集器中额外内存消耗最小的，对于单核处理器或者处理器核心较少的环境来说，Serial 收集器由于没有线程交互开销，所以 Serial 专心做垃圾回收效率比较高。</p>
 <h3 id="ParNew-收集器"><a href="#ParNew-收集器" class="headerlink" title="ParNew 收集器"></a>ParNew 收集器</h3><p>ParNew 是 Serial 的多线程版本，除了同时使用多条线程外，其他参数和机制（STW、回收策略、对象分配规则）都和 Serial 完全一致，ParNew 收集器的示意图如下：</p>
-<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202203021545178.jpeg"></p>
+<p><img src="https://raw.githubusercontent.com/lingzhexi/blogImage/master/img/2022/03/202203021545178.jpeg"></p>
 <p>虽然 ParNew 使用了多条线程进行垃圾回收，但是在单线程环境下它绝对不会比 Serial 收集效率更高，因为多线程存在线程交互的开销，但是随着可用 CPU 核数的增加，ParNew 的处理效率会比 Serial 更高效。</p>
 <h3 id="Parallel-Scavenge-收集器"><a href="#Parallel-Scavenge-收集器" class="headerlink" title="Parallel Scavenge 收集器"></a>Parallel Scavenge 收集器</h3><p>Parallel Scavenge 收集器也是一款新生代收集器，它同样是基于标记 - 复制算法实现的，而且它也能够并行收集，这么看来，表面上 Parallel Scavenge 与 ParNew 非常相似，那么它们之间有什么区别呢？</p>
 <p>Parallel Scavenge 的关注点主要在<strong>达到一个可控制的吞吐量上面</strong>。吞吐量就是处理器用于运行用户代码的时间与处理器总消耗时间的比。也就是</p>
-<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202203021545539.jpeg"></p>
+<p><img src="https://raw.githubusercontent.com/lingzhexi/blogImage/master/img/2022/03/202203021545539.jpeg"></p>
 <p>这里给大家举一个吞吐量的例子，如果执行用户代码的时间 + 运行垃圾收集的时间总共耗费了 100 分钟，其中垃圾收集耗费掉了 1 分钟，那么吞吐量就是 99%。停顿时间越短就越适合需要与用户交互或需要保证服务响应质量，良好的响应速度可以提升用户体验，而高吞吐量可以最高效率利用处理器资源。</p>
 <h3 id="Serial-Old-收集器"><a href="#Serial-Old-收集器" class="headerlink" title="Serial Old 收集器"></a>Serial Old 收集器</h3><p>前面介绍了一下 Serial，我们知道它是一个新生代的垃圾收集，使用了标记 - 复制算法。而这个 Serial Old 收集器却是 Serial 的老年版本，它同样也是一个单线程收集器，使用的是<strong>标记 - 整理</strong>算法，Serial Old 收集器有两种用途：一种是在 JDK 5 和之前的版本与 Parallel Scavenge 收集器搭配使用，另外一种用法就是作为 <code>CMS</code> 收集器的备选，CMS 垃圾收集器我们下面说，Serial Old 的收集流程如下</p>
 <p><img src="https://mmbiz.qpic.cn/mmbiz_jpg/A3ibcic1Xe0iaTTaoE1HA8uE2z8agCUWibYmsr5qnsJKzjvNXjXNCrib8u5HbWlEUWwNPadXLAib7wYHnDL1QP9Gq7jg/640?wx_fmt=jpeg"></p>
 <h3 id="Parallel-Old-收集器"><a href="#Parallel-Old-收集器" class="headerlink" title="Parallel Old 收集器"></a>Parallel Old 收集器</h3><p>前面我们介绍了 Parallel Scavenge 收集器，现在来介绍一下 Parallel Old 收集器，它是 Parallel Scavenge 的老年版本，支持多线程并发收集，基于标记 - 整理算法实现，JDK 6 之后出现，吞吐量优先可以考虑 Parallel Scavenge + Parallel Old 的搭配</p>
-<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202203021545344.jpeg"></p>
+<p><img src="https://raw.githubusercontent.com/lingzhexi/blogImage/master/img/2022/03/202203021545344.jpeg"></p>
 <h3 id="CMS-收集器"><a href="#CMS-收集器" class="headerlink" title="CMS 收集器"></a>CMS 收集器</h3><p><code>CMS</code>收集器的主要目标是获取最短的回收停顿时间，它的全称是 _Concurrent Mark Sweep_，从这个名字就可以知道，这个收集器是基于标记 - 清除算法实现的，而且支持并发收集，它的运行过程要比上面我们提到的收集器复杂一些，它的工作流程如下：</p>
 <ul>
 <li><p>  初始标记（CMS initial mark）</p>
@@ -968,7 +880,7 @@
 </ul>
 <p>对于上面这四个步骤，初始标记和并发标记都需要 _Stop The World_，初始标记只是标记一下和 GC Roots 直接关联到的对象，速度较快；并发标记阶段就是从 GC Roots 的直接关联对象开始遍历整个对象图的过程。这个过程时间比较长但是不需要停顿用户线程，也就是说与垃圾收集线程一起并发运行。并发标记的过程中，可能会有错标或者漏标的情况，此时就需要在重新标记一下，最后是并发清除阶段，清理掉标记阶段中判断已经死亡的对象。</p>
 <p>CMS 的收集过程如下</p>
-<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202203021545859.jpeg"></p>
+<p><img src="https://raw.githubusercontent.com/lingzhexi/blogImage/master/img/2022/03/202203021545859.jpeg"></p>
 <p>CMS 是一款非常优秀的垃圾收集器，但是没有任何收集器能够做到完美的程度，CMS 也是一样，CMS 至少有三个缺点：</p>
 <ul>
 <li><p>CMS 对处理器资源非常敏感，在并发阶段，虽然不会造成用户线程停顿，但是却会因为占用一部分线程而导致应用程序变慢，降低总吞吐量。</p>
@@ -998,7 +910,7 @@
 </ul>
 <p>从上面这几个步骤可以看出，除了并发标记外，其余三个阶段都需要暂停用户线程，所以，这个 G1 收集器并非追求<strong>低延迟</strong>，官方给出的设计目标是<strong>在延迟可控的情况下尽可能的提高吞吐量</strong>，担任全功能收集器的重任。</p>
 <p>下面是 G1 回收的示意图</p>
-<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202203021545455.jpeg"></p>
+<p><img src="https://raw.githubusercontent.com/lingzhexi/blogImage/master/img/2022/03/202203021545455.jpeg"></p>
 <p>G1 收集器同样也有缺点和问题：</p>
 <ul>
 <li><p>  第一个问题就是 Region 中存在跨代引用的问题，我们之前知道可以用记忆集来解决跨代引用问题，不过 Region 中的跨代引用要复杂很多；</p>
@@ -1034,7 +946,7 @@
 </li>
 </ul>
 <p>所以，我们的 Java 应用程序都是由这三种类加载器来相互配合完成的，当然，用户也可以自己定义类加载器，即 _User Class Loader_，这几个类加载器的模型如下</p>
-<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202203021545247.jpeg"></p>
+<p><img src="https://raw.githubusercontent.com/lingzhexi/blogImage/master/img/2022/03/202203021545247.jpeg"></p>
 <p>上面这几类类加载器构成了不同的层次结构，当我们需要加载一个类时，子类加载器并不会马上去加载，而是依次去请求父类加载器加载，一直往上请求到最高类加载器：启动类加载器。当启动类加载器加载不了的时候，依次往下让子类加载器进行加载。这就是双亲委派模型。</p>
 <h2 id="双亲委派模型的缺陷？"><a href="#双亲委派模型的缺陷？" class="headerlink" title="双亲委派模型的缺陷？"></a>双亲委派模型的缺陷？</h2><p>在双亲委派模型中，子类加载器可以使用父类加载器已经加载的类，而父类加载器无法使用子类加载器已经加载的。这就导致了双亲委派模型并不能解决所有的类加载器问题。</p>
 <p>Java 提供了很多外部接口，这些接口统称为 _Service Provider Interface, SPI_，允许第三方实现这些接口，而这些接口却是 Java 核心类提供的，由 Bootstrap Class Loader 加载，而一般的扩展接口是由 Application Class Loader 加载的，Bootstrap Class Loader 是无法找到 SPI 的实现类的，因为它只加载 Java 的核心库。它也不能代理给 Application Class Loader，因为它是最顶层的类加载器。</p>
@@ -1338,7 +1250,7 @@
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-03-02
+                            <i class="far fa-clock fa-fw icon-date"></i>2022-03-17
                         </span>
                         <span class="publish-author">
                             
@@ -1608,7 +1520,7 @@
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">103.5k</span>&nbsp;字
+                class="white-color">106.7k</span>&nbsp;字
             
             
             

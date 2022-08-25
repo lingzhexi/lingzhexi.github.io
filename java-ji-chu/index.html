@@ -62,55 +62,11 @@
   
   <li class="hide-on-med-and-down nav-item">
     
-    <a href="/tags" class="waves-effect waves-light">
-      
-      <i class="fas fa-tags" style="zoom: 0.6;"></i>
-      
-      <span>标签</span>
-    </a>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/categories" class="waves-effect waves-light">
-      
-      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
-      
-      <span>分类</span>
-    </a>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
     <a href="/archives" class="waves-effect waves-light">
       
       <i class="fas fa-archive" style="zoom: 0.6;"></i>
       
       <span>归档</span>
-    </a>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/about" class="waves-effect waves-light">
-      
-      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
-      
-      <span>关于</span>
-    </a>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/contact" class="waves-effect waves-light">
-      
-      <i class="fas fa-comments" style="zoom: 0.6;"></i>
-      
-      <span>留言板</span>
     </a>
     
   </li>
@@ -163,55 +119,11 @@
         
         <li class="m-nav-item">
 	  
-		<a href="/tags" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-tags"></i>
-			
-			标签
-		</a>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
-		<a href="/categories" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-bookmark"></i>
-			
-			分类
-		</a>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
 		<a href="/archives" class="waves-effect waves-light">
 			
 			    <i class="fa-fw fas fa-archive"></i>
 			
 			归档
-		</a>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
-		<a href="/about" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-user-circle"></i>
-			
-			关于
-		</a>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
-		<a href="/contact" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-comments"></i>
-			
-			留言板
 		</a>
           
         </li>
@@ -498,14 +410,14 @@
             <div id="articleContent">
                 <meta name="referrer" content="no-referrer"/>
 
-<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202203021715489.jpg"></p>
+<p><img src="https://raw.githubusercontent.com/lingzhexi/blogImage/master/img/2022/03/202203021715489.jpg"></p>
 <blockquote>
 <p>本文由 <a target="_blank" rel="noopener" href="http://ksria.com/simpread/">简悦 SimpRead</a> 转码， 原文地址 <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/n5htpIz_LUIuursocOcfoQ">mp.weixin.qq.com</a></p>
 </blockquote>
 <p>今天让我们回到梦开始的地方——<strong>Java 基础</strong>，其实过了萌新阶段，面试问基础就问的不多，但是保不齐突然问一下。想一下，总不能张口高并发、闭口分布式，结果什么是面向对象，说不清，那多少有点魔幻。所以赶紧来看看，这些基础有没有你不会的！</p>
 <h1 id="Java-概述"><a href="#Java-概述" class="headerlink" title="Java 概述"></a>Java 概述</h1><h3 id="1-什么是-Java？"><a href="#1-什么是-Java？" class="headerlink" title="1. 什么是 Java？"></a>1. 什么是 Java？</h3><p>Java 是一门面向对象的编程语言，不仅吸收了 C++ 语言的各种优点，还摒弃了 C++ 里难以理解的多继承、指针等概念，因此 Java 语言具有功能强大和简单易用两个特征。Java 语言作为静态面向对象编程语言的优秀代表，极好地实现了面向对象理论，允许程序员以优雅的思维方式进行复杂的编程 。</p>
 <h3 id="2-Java-语言有哪些特点？"><a href="#2-Java-语言有哪些特点？" class="headerlink" title="2.Java 语言有哪些特点？"></a>2.Java 语言有哪些特点？</h3><p>Java 语言有很多优秀（可吹）的特点，以下几个是比较突出的：</p>
-<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202203031641482.png"><strong>Java 语言特点</strong></p>
+<p><img src="https://raw.githubusercontent.com/lingzhexi/blogImage/master/img/2022/03/202203031641482.png"><strong>Java 语言特点</strong></p>
 <ul>
 <li>面向对象（封装，继承，多态）；</li>
 <li>平台无关性，平台无关性的具体表现在于，Java 是 “一次编写，到处运行（Write Once，Run any Where）” 的语言，因此采用 Java 语言编写的程序具有很好的可移植性，而保证这一点的正是 Java 的虚拟机机制。在引入虚拟机之后，Java 语言在不同的平台上运行不需要重新编译。</li>
@@ -516,7 +428,7 @@
 <p><strong>JRE</strong>：Java 运⾏时环境。它是运⾏已编译 Java 程序所需的所有内容的集合，包括 Java 虚拟机（JVM），Java 类库，Java 命令和其他的⼀些基础构件。但是，它不能⽤于创建新程序。</p>
 <p><strong>JDK</strong>: Java Development Kit，它是功能⻬全的 Java SDK。它拥有 JRE 所拥有的⼀切，还有编译器（javac）和⼯具（如 javadoc 和 jdb）。它能够创建和编译程序。</p>
 <p>简单来说，JDK 包含 JRE，JRE 包含 JVM。</p>
-<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202203031641391.png" alt="JDK、JRE、JVM 关系"></p>
+<p><img src="https://raw.githubusercontent.com/lingzhexi/blogImage/master/img/2022/03/202203031641391.png" alt="JDK、JRE、JVM 关系"></p>
 <h3 id="4-说说什么是跨平台性？原理是什么"><a href="#4-说说什么是跨平台性？原理是什么" class="headerlink" title="4. 说说什么是跨平台性？原理是什么"></a>4. 说说什么是跨平台性？原理是什么</h3><p>所谓跨平台性，是指 Java 语言编写的程序，一次编译后，可以在多个系统平台上运行。</p>
 <p>实现原理：Java 程序是通过 Java 虚拟机在系统平台上运行的，只要该系统可以安装相应的 Java 虚拟机，该系统就可以运行 java 程序。</p>
 <h3 id="5-什么是字节码？采用字节码的好处是什么"><a href="#5-什么是字节码？采用字节码的好处是什么" class="headerlink" title="5. 什么是字节码？采用字节码的好处是什么?"></a>5. 什么是字节码？采用字节码的好处是什么?</h3><p>所谓的字节码，就是 Java 程序经过编译之类产生的. class 文件，字节码能够被虚拟机识别，从而实现 Java 程序的跨平台性。</p>
@@ -526,16 +438,16 @@
 <li><strong>解释</strong>：虚拟机执行 Java 字节码，将字节码翻译成机器能识别的机器码</li>
 <li><strong>执行</strong>：对应的机器执行二进制机器码</li>
 </ul>
-<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202203031641227.png" alt="Java 程序执行过程"> </p>
+<p><img src="https://raw.githubusercontent.com/lingzhexi/blogImage/master/img/2022/03/202203031641227.png" alt="Java 程序执行过程"> </p>
 <p>只需要把 Java 程序编译成 Java 虚拟机能识别的 Java 字节码，不同的平台安装对应的 Java 虚拟机，这样就可以可以实现 Java 语言的平台无关性。</p>
 <h3 id="6-为什么说-Java-语言-“编译与解释并存”？"><a href="#6-为什么说-Java-语言-“编译与解释并存”？" class="headerlink" title="6. 为什么说 Java 语言 “编译与解释并存”？"></a>6. 为什么说 Java 语言 “编译与解释并存”？</h3><p>高级编程语言按照程序的执行方式分为<strong>编译型</strong>和<strong>解释型</strong>两种。</p>
 <p>简单来说，编译型语言是指编译器针对特定的操作系统将源代码一次性翻译成可被该平台执行的机器码；解释型语言是指解释器对源程序逐行解释成特定平台的机器码并立即执行。</p>
 <p>比如，你想读一本外国的小说，你可以找一个翻译人员帮助你翻译，有两种选择方式，你可以先等翻译人员将全本的小说（也就是源码）都翻译成汉语，再去阅读，也可以让翻译人员翻译一段，你在旁边阅读一段，慢慢把书读完。</p>
 <p>Java 语言既具有编译型语言的特征，也具有解释型语言的特征，因为 Java 程序要经过先编译，后解释两个步骤，由 Java 编写的程序需要先经过编译步骤，生成字节码（<code>\*.class</code> 文件），这种字节码必须再经过 JVM，解释成操作系统能识别的机器码，在由操作系统执行。因此，我们可以认为 Java 语言<strong>编译</strong>与<strong>解释</strong>并存。</p>
-<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202203031641639.png" alt="编译与解释"></p>
+<p><img src="https://raw.githubusercontent.com/lingzhexi/blogImage/master/img/2022/03/202203031641639.png" alt="编译与解释"></p>
 <h1 id="基础语法"><a href="#基础语法" class="headerlink" title="基础语法"></a>基础语法</h1><h3 id="7-Java-有哪些数据类型？"><a href="#7-Java-有哪些数据类型？" class="headerlink" title="7.Java 有哪些数据类型？"></a>7.Java 有哪些数据类型？</h3><p><strong>定义：</strong>Java 语言是强类型语言，对于每一种数据都定义了明确的具体的数据类型，在内存中分配了不同大小的内存空间。</p>
 <p>Java 语言数据类型分为两种：<strong>基本数据类型</strong>和<strong>引用数据类型</strong>。</p>
-<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202203031641466.png" alt="Java 数据类型"></p>
+<p><img src="https://raw.githubusercontent.com/lingzhexi/blogImage/master/img/2022/03/202203031641466.png" alt="Java 数据类型"></p>
 <p><strong>基本数据类型：</strong></p>
 <ul>
 <li>数值型</li>
@@ -554,7 +466,7 @@
 <li>数组 ([])</li>
 </ul>
 <h3 id="8-自动类型转换、强制类型转换？看看这几行代码？"><a href="#8-自动类型转换、强制类型转换？看看这几行代码？" class="headerlink" title="8. 自动类型转换、强制类型转换？看看这几行代码？"></a>8. 自动类型转换、强制类型转换？看看这几行代码？</h3><p>Java 所有的数值型变量可以相互转换，当把一个表数范围小的数值或变量直接赋给另一个表数范围大的变量时，可以进行自动类型转换；反之，需要强制转换。</p>
-<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202203031641473.png" alt="Java 自动类型转换方向"></p>
+<p><img src="https://raw.githubusercontent.com/lingzhexi/blogImage/master/img/2022/03/202203031641473.png" alt="Java 自动类型转换方向"></p>
 <p>这就好像，小杯里的水倒进大杯没问题，但大杯的水倒进小杯就不行了，可能会溢出。</p>
 <blockquote>
 <p><code>float f=3.4</code>，对吗？</p>
@@ -570,7 +482,7 @@
 <li><strong>拆箱</strong>：将包装类型转换为基本数据类型；</li>
 </ul>
 <p>Java 可以自动对基本数据类型和它们的包装类进行装箱和拆箱。</p>
-<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202203031642042.png" alt="装箱和拆箱"></p>
+<p><img src="https://raw.githubusercontent.com/lingzhexi/blogImage/master/img/2022/03/202203031642042.png" alt="装箱和拆箱"></p>
 <p>举例：</p>
 <pre><code>Integer i = 10;  //装箱
 int n = i;   //拆箱
@@ -589,7 +501,7 @@ int n = i;   //拆箱
 <li>continue 跳出本次循环，继续执行下次循环 (<strong>结束正在执行的循环 进入下一个循环条件</strong>)</li>
 <li>return 程序返回，不再执行下面的代码 (<strong>结束当前的方法 直接返回</strong>)</li>
 </ul>
-<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202203031642283.png" alt="break 、continue 、return"></p>
+<p><img src="https://raw.githubusercontent.com/lingzhexi/blogImage/master/img/2022/03/202203031642283.png" alt="break 、continue 、return"></p>
 <h3 id="13-用最有效率的方法计算-2-乘以-8？"><a href="#13-用最有效率的方法计算-2-乘以-8？" class="headerlink" title="13. 用最有效率的方法计算 2 乘以 8？"></a>13. 用最有效率的方法计算 2 乘以 8？</h3><p>2 &lt;&lt; 3。<strong>位运算</strong>，数字的二进制位左移三位相当于乘以 2 的三次方。</p>
 <h3 id="14-说说自增自减运算？看下这几个代码运行结果？"><a href="#14-说说自增自减运算？看下这几个代码运行结果？" class="headerlink" title="14. 说说自增自减运算？看下这几个代码运行结果？"></a>14. 说说自增自减运算？看下这几个代码运行结果？</h3><p>在写代码的过程中，常见的一种情况是需要某个整数类型变量增加 1 或减少 1，Java 提供了一种特殊的运算符，用于这种表达式，叫做自增运算符（++) 和自减运算符（–）。</p>
 <p>++ 和 – 运算符可以放在变量之前，也可以放在变量之后。</p>
@@ -637,8 +549,8 @@ System<span class="token punctuation">.</span>out<span class="token punctuation"
 <li><strong>⾯向对象</strong> ：面向对象，把构成问题的事务分解成各个对象，而建立对象的目的也不是为了完成一个个步骤，而是为了描述某个事件在解决整个问题的过程所发生的行为。目的是为了写出通用的代码，加强代码的重用，屏蔽差异性。</li>
 </ul>
 <p>用一个比喻：面向过程是编年体；面向对象是纪传体。</p>
-<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202203031642679.png" alt="面向对象和面向过程的区别"></p>
-<h3 id="16-面向对象有哪些特性"><a href="#16-面向对象有哪些特性" class="headerlink" title="16. 面向对象有哪些特性"></a>16. 面向对象有哪些特性</h3><p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202203031642081.png" alt="面向对象三大特征"></p>
+<p><img src="https://raw.githubusercontent.com/lingzhexi/blogImage/master/img/2022/03/202203031642679.png" alt="面向对象和面向过程的区别"></p>
+<h3 id="16-面向对象有哪些特性"><a href="#16-面向对象有哪些特性" class="headerlink" title="16. 面向对象有哪些特性"></a>16. 面向对象有哪些特性</h3><p><img src="https://raw.githubusercontent.com/lingzhexi/blogImage/master/img/2022/03/202203031642081.png" alt="面向对象三大特征"></p>
 <ul>
 <li><strong>封装</strong>  封装把⼀个对象的属性私有化，同时提供⼀些可以被外界访问的属性的⽅法。</li>
 <li><strong>继承</strong>  继承是使⽤已存在的类的定义作为基础创建新的类，新类的定义可以增加新的属性或新的方法，也可以继承父类的属性和方法。通过继承可以很方便地进行代码复用。</li>
@@ -672,7 +584,7 @@ System<span class="token punctuation">.</span>out<span class="token punctuation"
 <li><strong>public</strong> : 对所有类可见。可以修饰类、接口、变量、方法</li>
 <li><strong>protected</strong> : 对同一包内的类和所有子类可见。可以修饰变量、方法。<strong>注意：不能修饰类（外部类）</strong>。</li>
 </ul>
-<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202203031642672.png" alt="访问修饰符和可见性"></p>
+<p><img src="https://raw.githubusercontent.com/lingzhexi/blogImage/master/img/2022/03/202203031642672.png" alt="访问修饰符和可见性"></p>
 <h3 id="19-this-关键字有什么作用？"><a href="#19-this-关键字有什么作用？" class="headerlink" title="19.this 关键字有什么作用？"></a>19.this 关键字有什么作用？</h3><p>this 是自身的一个对象，代表对象本身，可以理解为：<strong>指向对象本身的一个指针</strong>。</p>
 <p>this 的用法在 Java 中大体可以分为 3 种：</p>
 <ol>
@@ -733,7 +645,7 @@ System<span class="token punctuation">.</span>out<span class="token punctuation"
         sb<span class="token punctuation">.</span><span class="token function">append</span><span class="token punctuation">(</span><span class="token string">"d"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>sb<span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment" spellcheck="true">//abcd</span>
 </code></pre>
-  一张图说明：  <img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202203031643611.png">final 修饰变量</li>
+  一张图说明：  <img src="https://raw.githubusercontent.com/lingzhexi/blogImage/master/img/2022/03/202203031643611.png">final 修饰变量</li>
 </ul>
 <h3 id="25-final、finally、finalize-的区别？"><a href="#25-final、finally、finalize-的区别？" class="headerlink" title="25.final、finally、finalize 的区别？"></a>25.final、finally、finalize 的区别？</h3><ul>
 <li>final 用于修饰变量、方法和类：final 修饰的类不可被继承；修饰的方法不可被重写；修饰的变量不可变。</li>
@@ -792,13 +704,13 @@ System<span class="token punctuation">.</span>out<span class="token punctuation"
 <h3 id="28-Java-是值传递，还是引用传递？"><a href="#28-Java-是值传递，还是引用传递？" class="headerlink" title="28.Java 是值传递，还是引用传递？"></a>28.Java 是值传递，还是引用传递？</h3><p>Java 语言是<strong>值传递</strong>。Java 语言的方法调用只支持参数的值传递。当一个对象实例作为一个参数被传递到方法中时，参数的值就是对该对象的引用。对象的属性可以在被调用过程中被改变，但对对象引用的改变是不会影响到调用者的。</p>
 <p>JVM 的内存分为堆和栈，其中栈中存储了基本数据类型和引用数据类型实例的地址，也就是对象地址。</p>
 <p>而对象所占的空间是在堆中开辟的，所以传递的时候可以理解为把变量存储的对象地址给传递过去，因此引用类型也是值传递。</p>
-<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202203031643980.png">Java 引用数据值传递示意图</p>
+<p><img src="https://raw.githubusercontent.com/lingzhexi/blogImage/master/img/2022/03/202203031643980.png">Java 引用数据值传递示意图</p>
 <h3 id="29-深拷贝和浅拷贝"><a href="#29-深拷贝和浅拷贝" class="headerlink" title="29. 深拷贝和浅拷贝?"></a>29. 深拷贝和浅拷贝?</h3><ul>
 <li><strong>浅拷贝</strong>：仅拷贝被拷贝对象的成员变量的值，也就是基本数据类型变量的值，和引用数据类型变量的地址值，而对于引用类型变量指向的堆中的对象不会拷贝。</li>
 <li><strong>深拷贝</strong>：完全拷贝一个对象，拷贝被拷贝对象的成员变量的值，堆中的对象也会拷贝一份。</li>
 </ul>
 <p>例如现在有一个 order 对象，里面有一个 products 列表，它的浅拷贝和深拷贝的示意图：</p>
-<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202203031643003.png">浅拷贝和深拷贝示意图</p>
+<p><img src="https://raw.githubusercontent.com/lingzhexi/blogImage/master/img/2022/03/202203031643003.png">浅拷贝和深拷贝示意图</p>
 <p>因此深拷贝是安全的，浅拷贝的话如果有引用类型，那么拷贝后对象，引用类型变量修改，会影响原对象。</p>
 <blockquote>
 <p>浅拷贝如何实现呢？</p>
@@ -812,7 +724,7 @@ System<span class="token punctuation">.</span>out<span class="token punctuation"
 <li>序列化：可以先讲原对象序列化，再反序列化成拷贝对象。</li>
 </ul>
 <h3 id="30-Java-创建对象有哪几种方式？"><a href="#30-Java-创建对象有哪几种方式？" class="headerlink" title="30.Java 创建对象有哪几种方式？"></a>30.Java 创建对象有哪几种方式？</h3><p>Java 中有以下四种创建对象的方式:</p>
-<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202203031641345.png">Java 创建对象的四种方式</p>
+<p><img src="https://raw.githubusercontent.com/lingzhexi/blogImage/master/img/2022/03/202203031641345.png">Java 创建对象的四种方式</p>
 <ul>
 <li>new 创建新对象</li>
 <li>通过反射机制</li>
@@ -835,7 +747,7 @@ System<span class="token punctuation">.</span>out<span class="token punctuation"
 <li>StringBuilder：StringBuffer 的非线程安全版本，性能上更高一些。</li>
 </ul>
 <h3 id="33-String-str1-new-String-“abc”-和-String-str2-“abc”-和-区别？"><a href="#33-String-str1-new-String-“abc”-和-String-str2-“abc”-和-区别？" class="headerlink" title="33.String str1 = new String(“abc”) 和 String str2 = “abc” 和  区别？"></a>33.String str1 = new String(“abc”) 和 String str2 = “abc” 和  区别？</h3><p>两个语句都会去字符串常量池中检查是否已经存在 “abc”，如果有则直接使用，如果没有则会在常量池中创建 “abc” 对象。</p>
-<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202203031643815.png">堆与常量池中的 String</p>
+<p><img src="https://raw.githubusercontent.com/lingzhexi/blogImage/master/img/2022/03/202203031643815.png">堆与常量池中的 String</p>
 <p>但是不同的是，String str1 = new String(“abc”) 还会通过 new String() 在堆里创建一个 “abc” 字符串对象实例。所以后者可以理解为被前者包含。</p>
 <blockquote>
 <p>String s = new String(“abc”) 创建了几个对象？</p>
@@ -855,7 +767,7 @@ String ab = a + b;
 </code></pre>
 <p>在 <strong>jdk1.8 之前</strong>，a 和 b 初始化时位于字符串常量池，ab 拼接后的对象位于堆中。经过拼接新生成了 String 对象。如果拼接多次，那么会生成多个中间对象。</p>
 <p>内存如下：</p>
-<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202203031643474.png">jdk1.8 之前的字符串拼接</p>
+<p><img src="https://raw.githubusercontent.com/lingzhexi/blogImage/master/img/2022/03/202203031643474.png">jdk1.8 之前的字符串拼接</p>
 <p>在 <strong>Java8 时</strong> JDK 对 “+” 号拼接进行了优化，上面所写的拼接方式会被优化为基于 StringBuilder 的 append 方法进行处理。Java 会在编译期对 “+” 号进行处理。</p>
 <p>下面是通过 javap -verbose 命令反编译字节码的结果，很显然可以看到 StringBuilder 的创建和 append 方法的调用。</p>
 <pre class=" language-java"><code class="language-java">stack<span class="token operator">=</span><span class="token number">2</span><span class="token punctuation">,</span> locals<span class="token operator">=</span><span class="token number">4</span><span class="token punctuation">,</span> args_size<span class="token operator">=</span><span class="token number">1</span>
@@ -927,7 +839,7 @@ String ab <span class="token operator">=</span> sb<span class="token punctuation
 </blockquote>
 <p>因为根据实践发现大部分的数据操作都集中在值比较小的范围，因此 Integer 搞了个缓存池，默认范围是 -128 到 127，可以根据通过设置<code>JVM-XX:AutoBoxCacheMax=</code>来修改缓存的最大值，最小值改不了。</p>
 <p>实现的原理是 int 在自动装箱的时候会调用 Integer.valueOf，进而用到了 IntegerCache。</p>
-<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202203031643743.png">Integer.valueOf</p>
+<p><img src="https://raw.githubusercontent.com/lingzhexi/blogImage/master/img/2022/03/202203031643743.png">Integer.valueOf</p>
 <p>很简单，就是判断下值是否在缓存范围之内，如果是的话去 IntegerCache 中取，不是的话就创建一个新的 Integer 对象。</p>
 <p>IntegerCache 是一个静态内部类， 在静态块中会初始化好缓存值。</p>
 <pre class=" language-java"><code class="language-java"> <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">class</span> <span class="token class-name">IntegerCache</span> <span class="token punctuation">{</span>
@@ -979,9 +891,9 @@ String ab <span class="token operator">=</span> sb<span class="token punctuation
 
 </code></pre>
 <p>去掉枝枝蔓蔓（当然这些枝枝蔓蔓可以去看看，源码 cover 了很多情况），其实剩下的就是一个简单的字符串遍历计算，不过计算方式有点反常规，是用负的值累减。</p>
-<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202203031644037.png">parseInt 示意图</p>
+<p><img src="https://raw.githubusercontent.com/lingzhexi/blogImage/master/img/2022/03/202203031644037.png">parseInt 示意图</p>
 <h2 id="Object"><a href="#Object" class="headerlink" title="Object"></a>Object</h2><h3 id="38-Object-类的常见方法"><a href="#38-Object-类的常见方法" class="headerlink" title="38.Object 类的常见方法?"></a>38.Object 类的常见方法?</h3><p>Object 类是一个特殊的类，是所有类的父类，也就是说所有类都可以调用它的方法。它主要提供了以下 11 个方法，大概可以分为六类：</p>
-<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202203031644047.png">Object 类的方法</p>
+<p><img src="https://raw.githubusercontent.com/lingzhexi/blogImage/master/img/2022/03/202203031644047.png">Object 类的方法</p>
 <p><strong>对象比较</strong>：</p>
 <ul>
 <li>public native int hashCode() ：native 方法，用于返回对象的哈希码，主要使用在哈希表中，比如 JDK 中的 HashMap。</li>
@@ -1012,14 +924,14 @@ String ab <span class="token operator">=</span> sb<span class="token punctuation
 <li>protected void finalize() throws Throwable ：通知垃圾收集器回收对象。</li>
 </ul>
 <h1 id="异常处理"><a href="#异常处理" class="headerlink" title="异常处理"></a>异常处理</h1><h3 id="39-Java-中异常处理体系"><a href="#39-Java-中异常处理体系" class="headerlink" title="39.Java 中异常处理体系?"></a>39.Java 中异常处理体系?</h3><p>Java 的异常体系是分为多层的。</p>
-<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202203031644491.png">Java 异常体系</p>
+<p><img src="https://raw.githubusercontent.com/lingzhexi/blogImage/master/img/2022/03/202203031644491.png">Java 异常体系</p>
 <p><code>Throwable</code>是 Java 语言中所有错误或异常的基类。Throwable 又分为<code>Error</code>和<code>Exception</code>，其中 Error 是系统内部错误，比如虚拟机异常，是程序无法处理的。<code>Exception</code>是程序问题导致的异常，又分为两种：</p>
 <ul>
 <li>CheckedException 受检异常：编译器会强制检查并要求处理的异常。</li>
 <li>RuntimeException 运行时异常：程序运行中出现异常，比如我们熟悉的空指针、数组下标越界等等</li>
 </ul>
 <h3 id="40-异常的处理方式？"><a href="#40-异常的处理方式？" class="headerlink" title="40. 异常的处理方式？"></a>40. 异常的处理方式？</h3><p>针对异常的处理主要有两种方式：</p>
-<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202203031644904.png">异常处理</p>
+<p><img src="https://raw.githubusercontent.com/lingzhexi/blogImage/master/img/2022/03/202203031644904.png">异常处理</p>
 <ul>
 <li><strong>遇到异常不进行具体处理，而是继续抛给调用者 （throw，throws）</strong></li>
 </ul>
@@ -1113,25 +1025,25 @@ String ab <span class="token operator">=</span> sb<span class="token punctuation
 <li><strong>InputStream</strong>/<strong>Reader</strong>: 所有的输入流的基类，前者是字节输入流，后者是字符输入流。</li>
 <li><strong>OutputStream</strong>/<strong>Writer</strong>: 所有输出流的基类，前者是字节输出流，后者是字符输出流。</li>
 </ul>
-<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202203031644073.jpeg">IO - 操作方式分类 - 图片来源参考 [2]</p>
+<p><img src="https://raw.githubusercontent.com/lingzhexi/blogImage/master/img/2022/03/202203031644073.jpeg">IO - 操作方式分类 - 图片来源参考 [2]</p>
 <blockquote>
 <p>IO 流用到了什么设计模式？</p>
 </blockquote>
 <p>其实，Java 的 IO 流体系还用到了一个设计模式——<strong>装饰器模式</strong>。</p>
 <p>InputStream 相关的部分类图如下，篇幅有限，装饰器模式就不展开说了。</p>
-<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202203031644242.png">Java IO 流用到装饰器模式</p>
+<p><img src="https://raw.githubusercontent.com/lingzhexi/blogImage/master/img/2022/03/202203031644242.png">Java IO 流用到装饰器模式</p>
 <h3 id="43-既然有了字节流-为什么还要有字符流"><a href="#43-既然有了字节流-为什么还要有字符流" class="headerlink" title="43. 既然有了字节流, 为什么还要有字符流?"></a>43. 既然有了字节流, 为什么还要有字符流?</h3><p>其实字符流是由 Java 虚拟机将字节转换得到的，问题就出在这个过程还比较耗时，并且，如果我们不知道编码类型就很容易出现乱码问题。</p>
 <p>所以， I/O  流就干脆提供了一个直接操作字符的接口，方便我们平时对字符进行流操作。如果音频文件、图片等媒体文件用字节流比较好，如果涉及到字符的话使用字符流比较好。</p>
-<h3 id="44-BIO、NIO、AIO？"><a href="#44-BIO、NIO、AIO？" class="headerlink" title="44.BIO、NIO、AIO？"></a>44.BIO、NIO、AIO？</h3><p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202203031644132.png">BIO、NIO、AIO</p>
+<h3 id="44-BIO、NIO、AIO？"><a href="#44-BIO、NIO、AIO？" class="headerlink" title="44.BIO、NIO、AIO？"></a>44.BIO、NIO、AIO？</h3><p><img src="https://raw.githubusercontent.com/lingzhexi/blogImage/master/img/2022/03/202203031644132.png">BIO、NIO、AIO</p>
 <p><strong>BIO</strong>(blocking I/O) ：就是传统的 IO，同步阻塞，服务器实现模式为一个连接一个线程，即<strong>客户端有连接请求时服务器端就需要启动一个线程进行处理</strong>，如果这个连接不做任何事情会造成不必要的线程开销，可以通过连接池机制改善 (实现多个客户连接服务器)。</p>
-<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202203031644898.png">BIO、NIO、AIO</p>
+<p><img src="https://raw.githubusercontent.com/lingzhexi/blogImage/master/img/2022/03/202203031644898.png">BIO、NIO、AIO</p>
 <p>BIO 方式适用于连接数目比较小且固定的架构，这种方式对服务器资源要求比较高，并发局限于应用中，JDK1.4 以前的唯一选择，程序简单易理解。</p>
 <p><strong>NIO</strong> ：全称 java non-blocking IO，是指 JDK 提供的新 API。从 JDK1.4 开始，Java 提供了一系列改进的输入 / 输出的新特性，被统称为 NIO(即 New IO)。</p>
 <p>NIO 是<strong>同步非阻塞</strong>的，服务器端用一个线程处理多个连接，客户端发送的连接请求会注册到多路复用器上，多路复用器轮询到连接有 IO 请求就进行处理：</p>
-<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202203031644133.png">NIO 线程</p>
+<p><img src="https://raw.githubusercontent.com/lingzhexi/blogImage/master/img/2022/03/202203031644133.png">NIO 线程</p>
 <p>NIO 的数据是面向<strong>缓冲区 Buffer</strong> 的，必须从 Buffer 中读取或写入。</p>
 <p>所以完整的 NIO 示意图：</p>
-<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202203031644272.png">NIO 完整示意图</p>
+<p><img src="https://raw.githubusercontent.com/lingzhexi/blogImage/master/img/2022/03/202203031644272.png">NIO 完整示意图</p>
 <p>可以看出，NIO 的运行机制：</p>
 <ul>
 <li>每个 Channel 对应一个 Buffer。</li>
@@ -1143,7 +1055,7 @@ String ab <span class="token operator">=</span> sb<span class="token punctuation
 <p>PS：关于同步阻塞 IO、同步不阻塞 IO、异步不阻塞 IO 的相关概念可以查看：<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzkwODE5ODM0Ng==&mid=2247488406&idx=1&sn=93e2435b319c42497a4efa966ddc9237&scene=21#wechat_redirect">面试字节，被操作系统问挂了</a></p>
 <h1 id="序列化"><a href="#序列化" class="headerlink" title="序列化"></a>序列化</h1><h3 id="45-什么是序列化？什么是反序列化？"><a href="#45-什么是序列化？什么是反序列化？" class="headerlink" title="45. 什么是序列化？什么是反序列化？"></a>45. 什么是序列化？什么是反序列化？</h3><p>什么是序列化，序列化就是<strong>把 Java 对象转为二进制流</strong>，方便存储和传输。</p>
 <p>所以<strong>反序列化就是把二进制流恢复成对象</strong>。</p>
-<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202203031641251.png">序列化和反序列化</p>
+<p><img src="https://raw.githubusercontent.com/lingzhexi/blogImage/master/img/2022/03/202203031641251.png">序列化和反序列化</p>
 <p>类比我们生活中一些大件物品的运输，运输的时候把它拆了打包，用的时候再拆包组装。</p>
 <blockquote>
 <p>Serializable 接口有什么用？</p>
@@ -1171,7 +1083,7 @@ String ab <span class="token operator">=</span> sb<span class="token punctuation
 <p>对于不想进行序列化的变量，使用<code>transient</code>关键字修饰。</p>
 <p><code>transient</code> 关键字的作用是：阻止实例中那些用此关键字修饰的的变量序列化；当对象被反序列化时，被 <code>transient</code> 修饰的变量值不会被持久化和恢复。<code>transient</code> 只能修饰变量，不能修饰类和方法。</p>
 <h3 id="46-说说有几种序列化方式？"><a href="#46-说说有几种序列化方式？" class="headerlink" title="46. 说说有几种序列化方式？"></a>46. 说说有几种序列化方式？</h3><p>Java 序列化方式有很多，常见的有三种：</p>
-<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202203031644610.png">Java 常见序列化方式</p>
+<p><img src="https://raw.githubusercontent.com/lingzhexi/blogImage/master/img/2022/03/202203031644610.png">Java 常见序列化方式</p>
 <ul>
 <li>Java 对象流列化 ：Java 原生序列化方法即通过 Java 原生流 (InputStream 和 OutputStream 之间的转化) 的方式进行转化，一般是对象输出流 <code>ObjectOutputStream</code>和对象输入流<code>ObjectI叩utStream</code>。</li>
 <li>Json 序列化：这个可能是我们最常用的序列化方式，Json 序列化的选择很多，一般会使用 jackson 包，通过 ObjectMapper 类来进行一些操作，比如将对象转化为 byte 数组或者将 json 串转化为对象。</li>
@@ -1195,7 +1107,7 @@ System.out.println(list);
 
 </code></pre>
 <p>泛型一般有三种使用方式: <strong>泛型类</strong>、<strong>泛型接口</strong>、<strong>泛型方法</strong>。</p>
-<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202203031644473.png">泛型类、泛型接口、泛型方法</p>
+<p><img src="https://raw.githubusercontent.com/lingzhexi/blogImage/master/img/2022/03/202203031644473.png">泛型类、泛型接口、泛型方法</p>
 <p><strong>1. 泛型类</strong>：</p>
 <pre><code>//此处T可以随便写为任意标识，常见的如T、E、K、V等形式的参数常用于表示泛型
 //在实例化泛型类时，必须指定T的具体类型
@@ -1284,7 +1196,7 @@ list.add(new Dog());
 <p>为什么要类型擦除呢？</p>
 <p>主要是为了向下兼容，因为 JDK5 之前是没有泛型的，为了让 JVM 保持向下兼容，就出了类型擦除这个策略。</p>
 <h1 id="注解"><a href="#注解" class="headerlink" title="注解"></a>注解</h1><h3 id="48-说一下你对注解的理解？"><a href="#48-说一下你对注解的理解？" class="headerlink" title="48. 说一下你对注解的理解？"></a>48. 说一下你对注解的理解？</h3><p><strong>Java 注解本质上是一个标记</strong>，可以理解成生活中的一个人的一些小装扮，比如戴什么什么帽子，戴什么眼镜。</p>
-<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202203031644374.png">Java 注解和帽子</p>
+<p><img src="https://raw.githubusercontent.com/lingzhexi/blogImage/master/img/2022/03/202203031644374.png">Java 注解和帽子</p>
 <p>注解可以标记在类上、方法上、属性上等，标记自身也可以设置一些值，比如帽子颜色是绿色。</p>
 <p>有了标记之后，我们就可以在编译或者运行阶段去识别这些标记，然后搞一些事情，这就是注解的用处。</p>
 <p>例如我们常见的 AOP，使用注解作为切点就是运行期注解的应用；比如 lombok，就是注解在编译期的运行。</p>
@@ -1296,10 +1208,10 @@ list.add(new Dog());
 </ul>
 <p>所以我上文写的是解析的时候，没写具体是解析啥，因为不同的生命周期的解析动作是不同的。</p>
 <p>像常见的：</p>
-<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202203031641804.png">Override 注解</p>
+<p><img src="https://raw.githubusercontent.com/lingzhexi/blogImage/master/img/2022/03/202203031641804.png">Override 注解</p>
 <p>就是给编译器用的，编译器编译的时候检查没问题就 over 了，class 文件里面不会有 Override 这个标记。</p>
 <p>再比如 Spring 常见的 Autowired ，就是 RUNTIME 的，所以<strong>在运行的时候可以通过反射得到注解的信息</strong>，还能拿到标记的值 required 。</p>
-<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202203031644704.png">Autowired 注解</p>
+<p><img src="https://raw.githubusercontent.com/lingzhexi/blogImage/master/img/2022/03/202203031644704.png">Autowired 注解</p>
 <h1 id="反射"><a href="#反射" class="headerlink" title="反射"></a>反射</h1><h3 id="49-什么是反射？应用？原理？"><a href="#49-什么是反射？应用？原理？" class="headerlink" title="49. 什么是反射？应用？原理？"></a>49. 什么是反射？应用？原理？</h3><blockquote>
 <p>什么是反射？</p>
 </blockquote>
@@ -1307,7 +1219,7 @@ list.add(new Dog());
 <p>而如果，我们想在时候动态地获取类信息、创建类实例、调用类方法这时候就要用到<strong>反射</strong>。</p>
 <p>通过反射你可以获取任意一个类的所有属性和方法，你还可以调用这些方法和属性。</p>
 <p>反射最核心的四个类：</p>
-<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202203031641099.png">Java 反射相关类</p>
+<p><img src="https://raw.githubusercontent.com/lingzhexi/blogImage/master/img/2022/03/202203031641099.png">Java 反射相关类</p>
 <blockquote>
 <p>反射的应用场景？</p>
 </blockquote>
@@ -1322,7 +1234,7 @@ list.add(new Dog());
 <p>我们都知道 Java 程序的执行分为编译和运行两步，编译之后会生成字节码 (.class) 文件，JVM 进行类加载的时候，会加载字节码文件，将类型相关的所有信息加载进方法区，反射就是去获取这些信息，然后进行各种操作。</p>
 <h1 id="JDK1-8-新特性"><a href="#JDK1-8-新特性" class="headerlink" title="JDK1.8 新特性"></a>JDK1.8 新特性</h1><p>JDK 已经出到 17 了，但是你迭代你的版本，我用我的 8。JDK1.8 的一些新特性，当然现在也不新了，其实在工作中已经很常用了。</p>
 <h3 id="50-JDK1-8-都有哪些新特性？"><a href="#50-JDK1-8-都有哪些新特性？" class="headerlink" title="50.JDK1.8 都有哪些新特性？"></a>50.JDK1.8 都有哪些新特性？</h3><p>JDK1.8 有不少新特性，我们经常接触到的新特性如下：</p>
-<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202203031645536.png">JDK1.8 主要新特性</p>
+<p><img src="https://raw.githubusercontent.com/lingzhexi/blogImage/master/img/2022/03/202203031645536.png">JDK1.8 主要新特性</p>
 <ul>
 <li>接口默认方法：Java 8 允许我们给接口添加一个非抽象的方法实现，只需要使用 default 关键字修饰即可</li>
 <li>Lambda 表达式和函数式接口：Lambda 表达式本质上是一段匿名内部类，也可以是一段可以传递的代码。Lambda 允许把函数作为一个方法的参数（函数作为参数传递到方法中），使用 Lambda 表达式使代码更加简洁，但是也不要滥用，否则会有可读性等问题，《Effective Java》作者 Josh Bloch 建议使用 Lambda 表达式最好不要超过 3 行。</li>
@@ -1468,7 +1380,7 @@ reduced.ifPresent(System.out::println);
 
 </code></pre>
 <p>以上是常见的几种流式操作，还有其它的一些流式操作，可以帮助我们更便捷地处理集合数据。</p>
-<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202203031645480.png">Java Stream 流</p>
+<p><img src="https://raw.githubusercontent.com/lingzhexi/blogImage/master/img/2022/03/202203031645480.png">Java Stream 流</p>
 <blockquote>
 <p>简单事情重复做，重复事情认真做，认真事情有创造性地做。</p>
 <p>我是<strong>三分恶</strong>，一个能文能武的程序员，<strong>点赞</strong>、<strong>关注</strong>不迷路，咱们下期见！</p>
@@ -1495,7 +1407,7 @@ reduced.ifPresent(System.out::println);
 <p>公众号</p>
 <p>专属面试小册 / 一对一交流 / 简历修改 / 专属求职指南，欢迎加入 <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=Mzg2OTA0Njk0OA==&mid=2247517286&idx=1&sn=5d6a6e0f82ce6cb7b3164a48d5f95e71&chksm=cea1cbadf9d642bb74c69d6b8e7ecea879d440587d561563cfdcfadb87cfe7014e4caf6b388b&token=1647609083&lang=zh_CN&scene=21#wechat_redirect"><strong>JavaGuide 知识星球</strong></a>。这是星球的详细介绍以及加入方法：<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=Mzg2OTA0Njk0OA==&mid=2247517286&idx=1&sn=5d6a6e0f82ce6cb7b3164a48d5f95e71&chksm=cea1cbadf9d642bb74c69d6b8e7ecea879d440587d561563cfdcfadb87cfe7014e4caf6b388b&token=1647609083&lang=zh_CN&scene=21#wechat_redirect"><strong>JavaGuide 知识星球详细介绍</strong></a> （一定一定一定确定自己真的需要再加入，一定一定要看完详细介绍之后再加我）。</p>
 <p>如果本文对你有帮助的话，欢迎<strong>点赞</strong> &amp; <strong>在看</strong> &amp; <strong>分享</strong>，这对我继续分享 &amp; 创作优质文章非常重要。感谢🙏🏻</p>
-<p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=Mzg2OTA0Njk0OA==&mid=2247517286&idx=1&sn=5d6a6e0f82ce6cb7b3164a48d5f95e71&chksm=cea1cbadf9d642bb74c69d6b8e7ecea879d440587d561563cfdcfadb87cfe7014e4caf6b388b&scene=21#wechat_redirect"><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202203031641283.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=Mzg2OTA0Njk0OA==&mid=2247517286&idx=1&sn=5d6a6e0f82ce6cb7b3164a48d5f95e71&chksm=cea1cbadf9d642bb74c69d6b8e7ecea879d440587d561563cfdcfadb87cfe7014e4caf6b388b&scene=21#wechat_redirect"><img src="https://raw.githubusercontent.com/lingzhexi/blogImage/master/img/2022/03/202203031641283.png"></a></p>
 
                 
             </div>
@@ -1743,26 +1655,24 @@ reduced.ifPresent(System.out::println);
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/hexo-gitpage-bu-shu/">
+                <a href="/hexo-wen-zhang-zhi-ding/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/11.jpg" class="responsive-img" alt="Hexo x GitPage 部署">
+                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="Hexo 文章置顶">
                         
-                        <span class="card-title">Hexo x GitPage 部署</span>
+                        <span class="card-title">Hexo 文章置顶</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            
-
-
+                            hexo 配置
                         
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-09-22
+                            <i class="far fa-clock fa-fw icon-date"></i>2021-09-24
                         </span>
                         <span class="publish-author">
                             
@@ -1778,10 +1688,6 @@ reduced.ifPresent(System.out::println);
                 </div>
                 
                 <div class="card-action article-tags">
-                    
-                    <a href="/tags/GitPage/">
-                        <span class="chip bg-color">GitPage</span>
-                    </a>
                     
                     <a href="/tags/Hexo/">
                         <span class="chip bg-color">Hexo</span>
@@ -2045,7 +1951,7 @@ reduced.ifPresent(System.out::println);
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">103.5k</span>&nbsp;字
+                class="white-color">106.7k</span>&nbsp;字
             
             
             

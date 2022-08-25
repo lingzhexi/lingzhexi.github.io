@@ -62,55 +62,11 @@
   
   <li class="hide-on-med-and-down nav-item">
     
-    <a href="/tags" class="waves-effect waves-light">
-      
-      <i class="fas fa-tags" style="zoom: 0.6;"></i>
-      
-      <span>标签</span>
-    </a>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/categories" class="waves-effect waves-light">
-      
-      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
-      
-      <span>分类</span>
-    </a>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
     <a href="/archives" class="waves-effect waves-light">
       
       <i class="fas fa-archive" style="zoom: 0.6;"></i>
       
       <span>归档</span>
-    </a>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/about" class="waves-effect waves-light">
-      
-      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
-      
-      <span>关于</span>
-    </a>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/contact" class="waves-effect waves-light">
-      
-      <i class="fas fa-comments" style="zoom: 0.6;"></i>
-      
-      <span>留言板</span>
     </a>
     
   </li>
@@ -163,55 +119,11 @@
         
         <li class="m-nav-item">
 	  
-		<a href="/tags" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-tags"></i>
-			
-			标签
-		</a>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
-		<a href="/categories" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-bookmark"></i>
-			
-			分类
-		</a>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
 		<a href="/archives" class="waves-effect waves-light">
 			
 			    <i class="fa-fw fas fa-archive"></i>
 			
 			归档
-		</a>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
-		<a href="/about" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-user-circle"></i>
-			
-			关于
-		</a>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
-		<a href="/contact" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-comments"></i>
-			
-			留言板
 		</a>
           
         </li>
@@ -460,7 +372,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2022-03-08
+                    2022-04-20
                 </div>
                 
 
@@ -498,7 +410,7 @@
             <div id="articleContent">
                 <meta name="referrer" content="no-referrer"/>
 
-<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202203080043295.jpg"></p>
+<p><img src="https://raw.githubusercontent.com/lingzhexi/blogImage/master/img/2022/03/202203080043295.jpg"></p>
 <span id="more"></span>
 
 <blockquote>
@@ -506,21 +418,21 @@
 </blockquote>
 <h2 id="1-为什么使用MQ"><a href="#1-为什么使用MQ" class="headerlink" title="1.为什么使用MQ"></a>1.为什么使用MQ</h2><p>​    公司业务场景，核心：解耦、异步、削峰</p>
 <h3 id="解耦："><a href="#解耦：" class="headerlink" title="解耦："></a>解耦：</h3><p>​    A系统发数据给到BCD系统，如果E系统需要接入？C系统不需要了？A系统的负责人就需要来回修改接口对接其他系统。</p>
-<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202203061747025.png" alt="解耦-1"></p>
+<p><img src="https://raw.githubusercontent.com/lingzhexi/blogImage/master/img/2022/03/202203061747025.png" alt="解耦-1"></p>
 <p>​    如果使用MQ，A系统产生一条数据，发送到MQ中，那个系统需要数据自己去MQ消费。如果新的系统需要数据，直接从MQ中消费；某个系统不需要数据的话，取消消费这个MQ即可。这样A系统不需要考虑谁发送数据给谁，不需要考虑是否调用成功、失败超时等问题。</p>
-<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202203062104532.png" alt="解耦-2"></p>
+<p><img src="https://raw.githubusercontent.com/lingzhexi/blogImage/master/img/2022/03/202203062104532.png" alt="解耦-2"></p>
 <p><strong>总结</strong>：通过一个MQ，Pub/Sub发布订阅消息模型，A系统就和其他系统彻底耦合了。</p>
 <h4 id="项目应用："><a href="#项目应用：" class="headerlink" title="项目应用："></a>项目应用：</h4><p>​    车站系统通过控制命令下发给各个设备，其中车站的设备通常包含：闸机、半自动售票机、自动售票机、手持机等设备。如果按照常规的同步方式来对接不同的设备，这将使得系统冗余的代码很多，当车站增减一个设备就可能需要重新对接接口，造成系统耦合性很高，这样的效率不高且不优雅。所以当系统需要发送命令（生产一个数据），将数据放到MQ中，不需要知道那个设备收到成功或者失败，其中需要消费的设备自己去订阅并且获取相应的消息即可。这样就可以达到，系统下发设备控制命令，不同设备响应。</p>
 <h3 id="异步："><a href="#异步：" class="headerlink" title="异步："></a>异步：</h3><p>​    A系统接收请求，需要本地入库，还需要BCD三个系统入库，本地入库（3ms），BCD（300ms+400ms+500ms），用户体验很差等待时间太长。业内请求需要做到 200ms 以内，对用户几乎无感。</p>
-<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202203062204267.png" alt="异步-1"></p>
+<p><img src="https://raw.githubusercontent.com/lingzhexi/blogImage/master/img/2022/03/202203062204267.png" alt="异步-1"></p>
 <p>​    使用MQ，A系统连续发送3条消息到消息队列，假如消耗5ms，请求花了 5 + 3 = 8ms ，对于用户来说就是点了一个按钮返回很快。</p>
-<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202203062210072.png" alt="异步-2"></p>
+<p><img src="https://raw.githubusercontent.com/lingzhexi/blogImage/master/img/2022/03/202203062210072.png" alt="异步-2"></p>
 <h3 id="削峰："><a href="#削峰：" class="headerlink" title="削峰："></a>削峰：</h3><p>​    每天一段时间，A系统风平浪静，每秒请求数量就50个。结果每次一到 12:00~13:00，每秒并发请求数量突然暴增到5k+条。但是系统是直接基于MySQL，大量请求涌入MySQL，每秒执行约5k条SQL，</p>
 <p>​    一般情况下MySQL 每秒可抗 2k请求，5k的请求可能打死MySQL，导致无法使用。</p>
 <p>​    一旦过了高峰，到了下午就到了低峰期，每秒请求数量 50 左右，对整个系统没有多少压力了。</p>
-<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202203062301225.png" alt="削峰-1"></p>
+<p><img src="https://raw.githubusercontent.com/lingzhexi/blogImage/master/img/2022/03/202203062301225.png" alt="削峰-1"></p>
 <p>如果使用MQ，每秒 5k 请求写入 MQ , A系统每秒最多处理 2k 个请求，因为 MySQL每秒最多请求 2k 个请求。A系统从MQ中慢慢拉取请求，每秒2k个请求，不超过自己每秒最大的请求数量即可。所以再高峰期，A系统不会挂掉。而MQ每秒进 5k ，出 2k，请求就会在高峰期积压可能多大十几万甚至百万的消息再 MQ中。</p>
-<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202203062328446.png" alt="削峰-2"></p>
+<p><img src="https://raw.githubusercontent.com/lingzhexi/blogImage/master/img/2022/03/202203062328446.png" alt="削峰-2"></p>
 <p>​    短暂的挤压后是可允许的，等到高峰期过后，每秒进入MQ的消息降低很多，但是系统依然按照 2k 的请求取消费，A系统很快的就会把挤压解决掉了。</p>
 <h2 id="2-MQ的优缺点"><a href="#2-MQ的优缺点" class="headerlink" title="2.MQ的优缺点"></a>2.MQ的优缺点</h2><ul>
 <li>降低系统可用性，引出如何保证消息高可用</li>
@@ -590,21 +502,21 @@
 <p>​    三种模式：单机模式、普通集群模式、镜像集群模式</p>
 <h4 id="单机模式："><a href="#单机模式：" class="headerlink" title="单机模式："></a>单机模式：</h4><p>​    Demo级别，没有生产使用这个</p>
 <h4 id="普通集群模式：-lt-无高可用-gt"><a href="#普通集群模式：-lt-无高可用-gt" class="headerlink" title="普通集群模式：&lt;无高可用&gt;"></a>普通集群模式：&lt;无高可用&gt;</h4><p>​    多台机器启动多个RabbitMQ实例，每台机器启动一个。<strong>创建的queue，只会放在一个RabbitMQ实例上</strong>，  但每个实例同步 queue 元数据（queue的配置，可通过这个找到queue实例）。实际消费的时候连接到另一个实例，这个实例从queue所在的实例拉取数据。</p>
-<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202203070951779.png" alt="普通集群"></p>
+<p><img src="https://raw.githubusercontent.com/lingzhexi/blogImage/master/img/2022/03/202203070951779.png" alt="普通集群"></p>
 <p>​    <strong>没有做到分布式</strong>，只是普通的集群。导致消费者每次随机获取一个实例然后拉取数据，要么是固定连接 queue 的那个实例，前者有<strong>数据拉取的开销</strong>，后者有<strong>单实例性能开销</strong>。</p>
 <p>​    这样只是<strong>提高了吞吐量</strong>，集群多个节点服务某个 queue 的读写操作。</p>
 <h4 id="镜像集群模式：-lt-高可用-gt"><a href="#镜像集群模式：-lt-高可用-gt" class="headerlink" title="镜像集群模式：&lt;高可用&gt;"></a>镜像集群模式：&lt;高可用&gt;</h4><p>​    RabbitMQ 的高可用模式。和普通集群模型不一样，该模式下，创建的 queue，无论是元数据还是 queue 里的消息都会存在多个实例中，每个节点都有 queue 的<strong>完整镜像</strong>。每次写消息到 queue 时，都会自动<strong>消息同步</strong>到多个实例上 queue 。</p>
-<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202203071023085.png" alt="RabbitMQ-高可用-镜像集群"></p>
+<p><img src="https://raw.githubusercontent.com/lingzhexi/blogImage/master/img/2022/03/202203071023085.png" alt="RabbitMQ-高可用-镜像集群"></p>
 <h5 id="如何开启镜像集群模式？"><a href="#如何开启镜像集群模式？" class="headerlink" title="如何开启镜像集群模式？"></a><strong>如何开启镜像集群模式</strong>？</h5><p>​    在后台<strong>新增一个策略</strong>，这个策略就是镜像集群模式的策略。可以指定数据<strong>同步到所有</strong>节点，也可同步到<strong>指定数量</strong>的节点，再次创建queue 的时候，应用这个策略，就会自动同步到其他节点上去了。<strong>好处在于</strong>，你任何一个机器宕机了，没事，其他节点有完整的数据，别的消费者都可以到其他的节点消费。<strong>坏处是</strong>，第一，<strong>同步性能开销大</strong>，网络带宽压力和消耗很重。第二，不<strong>是分布式，没有扩展性</strong>，某个queue 负载很重，加机器，新增的机器包含这个 queue 的所有数据，并<strong>没有办法线性扩展</strong>。如果 queue 的数量很大，大到这个机器上的容量无法容纳该怎么办？</p>
 <h3 id="Kafka-的高可用性"><a href="#Kafka-的高可用性" class="headerlink" title="Kafka 的高可用性"></a>Kafka 的高可用性</h3><p>​    Kafka 基本架构认识：由多个broker组成，每个broker是一个节点；你创建一个topic ，这个topic可以划分多个partition，每个 partition 可以存在不同的 broker 上，每个partition 就放一部分的数据。</p>
 <p>​    天然的分布式消息队列，一个topic 的数据，<strong>分散到多个机器上，每个机器放一部分</strong>。</p>
 <p>​    RabbitMQ 之类的并不是什么分布式消息队列，传统的消息队列，只不过提供了集群、HA的机制，无论如何操作，RabbitMQ 一个 queue 的数据都是放在一个节点里的，镜像集群模式下，也是每个节点都放 queue 的完整数据。</p>
 <p>​    Kafka 0.8 之前没有 HA 机制，任何的 broker 挂了，那个 broker 上的 partition 就废了，就没有办法读写，无法保证高可用。</p>
 <p>​    我们假如创建一个 topic ，指定了其 partition 数量是 3 个 ，分别在三台机器上。但是，如果第二台宕机了，会导致1/3的数据丢失，做不到高可用了。</p>
-<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202203071341869.png" alt="Kafka-高可用"></p>
+<p><img src="https://raw.githubusercontent.com/lingzhexi/blogImage/master/img/2022/03/202203071341869.png" alt="Kafka-高可用"></p>
 <p>Kafka 0.8 后提供了 HA 机制，就是 <strong>replica 副本机制</strong>。每个 partition 的数据都会同步到其他机器上，形成多个 replica 副本。所有 replica 中选举一个 leader 出来，那么生产者和消费者都跟这个 <strong>leader 打交道</strong>，其他的 replica 就是 follower (从属）。<br>写的时候，leader 负责将<strong>数据同步到其他的 follower</strong> 上，读的时候，直接读取 leader 上的数据。</p>
 <h4 id="为什么只能读写leader"><a href="#为什么只能读写leader" class="headerlink" title="为什么只能读写leader?"></a>为什么只能读写leader?</h4><p>​    如果可以随意读取的每个 follower ，那么就要关系数据的一致性问题了，系统复杂度势必增加。Kafka 会将一个 partition 的所有 replica 分布在不同的机器中，可以提高容错性。</p>
-<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202203071428565.png" alt="broker"></p>
+<p><img src="https://raw.githubusercontent.com/lingzhexi/blogImage/master/img/2022/03/202203071428565.png" alt="broker"></p>
 <p>​    这就是所谓的<strong>高可用</strong>，因为如果某个 broker 宕机了，没事，那么 broker 上面的 partition 在其他机器上都有副本的。如果这个宕机的 broker 上面由某个 partition 的 leader ，那么此时会从 follower 中<strong>重新选举</strong>一个新的 leader 出来，继续读写这个 leader 即可。</p>
 <p>​    <strong>写数据</strong>的时候，生产者就写 leader ,然后 leader 将数据落地到写本地磁盘，接着其他 follower 自己主动从 leader 来 pull 数据。一旦所有 follower 同步好数据，就会发送 ack 给 leader，leader 收到所有 follower 的 ack 之后，就会返回写成功消息给生产者（一种模式之一）。</p>
 <p>​    <strong>消费的时候</strong>，只会从 leader 去读，但是只有当一个消费已经被所有 follower 都同步成功返回 ack 后，这个消息才会被消费者读到。 </p>
@@ -615,7 +527,7 @@
 <p>​    举个例子。</p>
 <p>​    场景带入，数据 1/2/3 依次进入 Kafka，Kafka 会给这三条数据每条分配一个 offset ，代表这条数据的序号，我们就假设分配的 offset 依次是 152/ 153 /154 。消费从 Kafka 去消费的时候也是按照这个顺序。假如消费者消费了 offset= 153 这个数据，刚准备提交 offset 到 Zookeeper ，此时消费者进程被重启。此时消费过的数据 1/2 的offset 没有提交，Kafka 也就不知道你消费 offset = 153 这条数据。重启之后，消费者找 Kafka 说，哥们，你给我把上次我消费的的地方后面的数据继续传给我。由于没有提交 1/2 数据再次传过来，如果消费者没有去重的话，那么就会导致消费重复。</p>
 <p>注意：新版本的 Kafka 已经将 <code>offset</code> 存储到 Zookeeper 转移到 <code>Kafka brokers</code>，并使用内部位移注意 <code>__consumer_offsets</code> 进行存储。</p>
-<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202203071509099.png"></p>
+<p><img src="https://raw.githubusercontent.com/lingzhexi/blogImage/master/img/2022/03/202203071509099.png"></p>
 <p>结果就会导致数据 1/2 往数据插入2 次，那么数据就错了。重复消费不可怕，可怕没有考虑重复消费之后，<strong>怎么保证幂等性。</strong></p>
 <p>​    举例说明。假如有个系统，消费一条消息就是往数据库插入一条数据，要是你消息重复两次，就插入了两条，数据就是错了。但是你消费到第二次的时候，<strong>判断是否消费过了</strong>，若是就直接丢了，这样就保证了一条数据了。</p>
 <p>​    一条数据重复出现两次，数据库只有一条数据，这就保证了系统的幂等性。</p>
@@ -629,12 +541,12 @@
 <li><p>复杂一点，生产者发送每条消息数据的时候，里面假如一个<strong>全局的唯一id</strong>，类似订单id，然后消费之后，先根据这个 id 去比如 Redis 里去查，之前的消费过吗？如果没有消费过，你就处理，然后这个id写 Redis。如果消费，那就别处理，保重别重复处理相同的消息即可。</p>
 </li>
 <li><p>基于数据库的<strong>唯一键</strong>来保证重复数据不会重复插入多条。因为有唯一键约束，重复数据插入只会报错，不会导致数据库中出现脏数据。</p>
-<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202203071555682.png" alt="幂等性"></p>
+<p><img src="https://raw.githubusercontent.com/lingzhexi/blogImage/master/img/2022/03/202203071555682.png" alt="幂等性"></p>
 </li>
 </ul>
 <h2 id="6-保证消息的可靠性传输？保证消费不丢失"><a href="#6-保证消息的可靠性传输？保证消费不丢失" class="headerlink" title="6.保证消息的可靠性传输？保证消费不丢失"></a>6.保证消息的可靠性传输？保证消费不丢失</h2><p>​    MQ的基本原则，<strong>数据不能多一条，也不能少一条</strong>，不能多，就是上面说的 重复消费和幂等性的问题。不能少。就是数据别弄丢。</p>
 <p>​    如果用MQ来传递非常核心的肖，如计费、扣费，就需要保证 MQ <strong>绝对不会把计费消息给弄丢</strong></p>
-<h3 id="RabbitMQ"><a href="#RabbitMQ" class="headerlink" title="RabbitMQ"></a>RabbitMQ</h3><p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202203071602457.png" alt="消息可靠性"></p>
+<h3 id="RabbitMQ"><a href="#RabbitMQ" class="headerlink" title="RabbitMQ"></a>RabbitMQ</h3><p><img src="https://raw.githubusercontent.com/lingzhexi/blogImage/master/img/2022/03/202203071602457.png" alt="消息可靠性"></p>
 <h4 id="生产者弄丢了数据"><a href="#生产者弄丢了数据" class="headerlink" title="生产者弄丢了数据"></a>生产者弄丢了数据</h4><p>​    生产者将数据发送到 RabbitMQ ，可能在半路弄丢了，因为网络获取其他问题。</p>
 <h5 id="事务机制–消耗性能："><a href="#事务机制–消耗性能：" class="headerlink" title="事务机制–消耗性能："></a>事务机制–消耗性能：</h5><p>​    选择 RabbitMQ 提供的<strong>事务功能</strong>，就是生产者<strong>发送数据之前</strong>开启 RabbitMQ事务 <code>channel.txSelect()</code> ，然后发送消息，如果消息没有成功被 RabbitMQ 接收，那么生产者会收到异常报错的消息，此时可以回滚事务 <code>channel.txRollback()</code>，然后重试发送消息；如果收到消息，那么就可以提交事务了 <code>channel.txCommit()</code></p>
 <pre class=" language-java"><code class="language-java"><span class="token keyword">try</span> <span class="token punctuation">{</span>
@@ -726,7 +638,7 @@ channel<span class="token punctuation">.</span><span class="token function">addC
 <blockquote>
 <p>RMQ  为了保证消息可靠不丢失提供消息确认机制。消费者在声明队列时，可以指定noAck 参数，当noAck = false, RMQ 会等待消费者显示的发送 ack 信号后，才从内存（和磁盘，如果持久化）移除消息。否则消息一旦被消费者消费，RMQ 会立即删除它。</p>
 </blockquote>
-<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202203080926472.png" alt="RMQ-持久化"></p>
+<p><img src="https://raw.githubusercontent.com/lingzhexi/blogImage/master/img/2022/03/202203080926472.png" alt="RMQ-持久化"></p>
 <h3 id="Kafka"><a href="#Kafka" class="headerlink" title="Kafka"></a>Kafka</h3><h4 id="消费端弄丢了数据"><a href="#消费端弄丢了数据" class="headerlink" title="消费端弄丢了数据"></a>消费端弄丢了数据</h4><p>唯一可能导致消费者弄丢数据的情况，就是说，你消费到了这个消息，然后消费者那边<strong>自动提交了 offset</strong>，让 Kafka 以为你已经消费好了这个消息，但其实你才刚准备处理这个消息，你还<strong>没处理，你自己就挂了</strong>，此时这条消息就丢咯。</p>
 <p>这不是跟 RabbitMQ 差不多吗，大家都知道 Kafka 会自动提交 offset，那么只要<strong>关闭自动提交</strong> offset，在处理完之后自己手动提交 offset，就可以保证数据不会丢。但是此时确实还是<strong>可能会有重复消费</strong>，比如你刚处理完，还没提交 offset，结果自己挂了，此时肯定会重复消费一次，自己保证幂等性就好了。</p>
 <p>生产环境碰到的一个问题，就是说我们的 Kafka 消费者消费到了数据之后是写到一个内存的 queue 里先缓冲一下，结果有的时候，你刚把消息写入内存 queue，然后消费者会自动提交 offset。然后此时我们重启了系统，就会导致内存 queue 里还没来得及处理的数据就丢失了。</p>
@@ -748,18 +660,18 @@ channel<span class="token punctuation">.</span><span class="token function">addC
 <ul>
 <li><strong>RabbitMQ</strong>：一个 queue，多个 consumer。比如，生产者向 RabbitMQ 里发送了三条数据，顺序依次是 data1/data2/data3，压入的是 RabbitMQ 的一个内存队列。有三个消费者分别从 MQ 中消费这三条数据中的一条，结果消费者 2 先执行完操作，把 data2 存入数据库，然后是 data1/data3。这不明显乱了。</li>
 </ul>
-<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202203080945298.png" alt="RMQ-消息顺序"></p>
+<p><img src="https://raw.githubusercontent.com/lingzhexi/blogImage/master/img/2022/03/202203080945298.png" alt="RMQ-消息顺序"></p>
 <ul>
 <li><strong>Kafka</strong>：比如说我们建了一个 topic，有三个 partition。生产者在写的时候，其实可以指定一个 key，比如说我们指定了某个订单 id 作为 key，那么这个订单相关的数据，一定会被分发到同一个 partition 中去，而且这个 partition 中的数据一定是有顺序的。<br>消费者从 partition 中取出来数据的时候，也一定是有顺序的。到这里，顺序还是 ok 的，没有错乱。接着，我们在消费者里可能会搞<strong>多个线程来并发处理消息</strong>。因为如果消费者是单线程消费处理，而处理比较耗时的话，比如处理一条消息耗时几十 ms，那么 1 秒钟只能处理几十条消息，这吞吐量太低了。而多个线程并发跑的话，顺序可能就乱掉了。</li>
 </ul>
-<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202203080946857.png" alt="Kafka-消息顺序"></p>
+<p><img src="https://raw.githubusercontent.com/lingzhexi/blogImage/master/img/2022/03/202203080946857.png" alt="Kafka-消息顺序"></p>
 <h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><h4 id="RabbitMQ-1"><a href="#RabbitMQ-1" class="headerlink" title="RabbitMQ"></a>RabbitMQ</h4><p>拆分多个 queue，每个 queue 一个 consumer，就是多一些 queue 而已，确实是麻烦点；或者就一个 queue 但是对应一个 consumer，然后这个 consumer 内部用内存队列做排队，然后分发给底层不同的 worker 来处理。</p>
-<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202203080946242.png" alt="消息顺序"></p>
+<p><img src="https://raw.githubusercontent.com/lingzhexi/blogImage/master/img/2022/03/202203080946242.png" alt="消息顺序"></p>
 <h4 id="Kafka-1"><a href="#Kafka-1" class="headerlink" title="Kafka"></a>Kafka</h4><ul>
 <li>一个 topic，一个 partition，一个 consumer，内部单线程消费，单线程吞吐量太低，一般不会用这个。</li>
 <li>写 N 个内存 queue，具有相同 key 的数据都到同一个内存 queue；然后对于 N 个线程，每个线程分别消费一个内存 queue 即可，这样就能保证顺序性。</li>
 </ul>
-<p><img src="https://gitee.com/lingzhexi/blogImage/raw/master/img/2022/03/202203080946970.png" alt="消息顺序"></p>
+<p><img src="https://raw.githubusercontent.com/lingzhexi/blogImage/master/img/2022/03/202203080946970.png" alt="消息顺序"></p>
 
                 
             </div>
@@ -1007,31 +919,31 @@ channel<span class="token punctuation">.</span><span class="token function">addC
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/gu-li-shang-cheng-xue-xi/">
+                <a href="/tcp-jian-jie/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="谷粒商城学习">
+                        <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="TCP 简介">
                         
-                        <span class="card-title">谷粒商城学习</span>
+                        <span class="card-title">TCP 简介</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            谷粒商城项目搭建、开发部署上线运维全流程
+                            TCP相关原理、包组成和保证不丢包
                         
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-03-18
+                            <i class="far fa-clock fa-fw icon-date"></i>2022-05-10
                         </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E9%A1%B9%E7%9B%AE/" class="post-category">
-                                    项目
+                            <a href="/categories/%E7%BD%91%E7%BB%9C/" class="post-category">
+                                    网络
                                 </a>
                             
                             
@@ -1041,12 +953,8 @@ channel<span class="token punctuation">.</span><span class="token function">addC
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/JAVA/">
-                        <span class="chip bg-color">JAVA</span>
-                    </a>
-                    
-                    <a href="/tags/%E9%A1%B9%E7%9B%AE/">
-                        <span class="chip bg-color">项目</span>
+                    <a href="/tags/%E7%BD%91%E7%BB%9C/">
+                        <span class="chip bg-color">网络</span>
                     </a>
                     
                 </div>
@@ -1077,7 +985,7 @@ channel<span class="token punctuation">.</span><span class="token function">addC
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-03-04
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-04-04
                             </span>
                         <span class="publish-author">
                             
@@ -1298,7 +1206,7 @@ channel<span class="token punctuation">.</span><span class="token function">addC
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">103.5k</span>&nbsp;字
+                class="white-color">106.7k</span>&nbsp;字
             
             
             
