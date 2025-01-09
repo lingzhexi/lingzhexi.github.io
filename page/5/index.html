@@ -1,0 +1,333 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>码农Stormling - 学无止境</title><meta name="author" content="stormling"><meta name="copyright" content="stormling"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="ffffff"><meta property="og:type" content="website">
+<meta property="og:title" content="码农Stormling">
+<meta property="og:url" content="http://www.stormling.top/page/5/index.html">
+<meta property="og:site_name" content="码农Stormling">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://www.stormling.top/images/avatar.jpg">
+<meta property="article:author" content="stormling">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://www.stormling.top/images/avatar.jpg"><link rel="shortcut icon" href="/images/favicon.ico"><link rel="canonical" href="http://www.stormling.top/page/5/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"prismjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":true,"highlightMacStyle":true},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '码农Stormling',
+  isPost: false,
+  isHome: true,
+  isHighlightShrink: false,
+  isToc: false,
+  isShuoshuo: false
+}</script><meta name="generator" content="Hexo 5.4.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+  window.addEventListener('load', preloader.endLoading)
+
+  if (true) {
+    btf.addGlobalFn('pjaxSend', preloader.initLoading, 'preloader_init')
+    btf.addGlobalFn('pjaxComplete', preloader.endLoading, 'preloader_end')
+  }
+})()</script><div id="web_bg" style="background-color: #efefef;"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/avatar.jpg" onerror="onerror=null;src='/images/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">41</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">26</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">22</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/categories/Java"><i class="fa-fw fas fa-coffee"></i><span> Java</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-spring"></i><span> Spring全家桶</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/Spring"><i class="fa-fw fas fa-spring"></i><span> Spring</span></a></li><li><a class="site-page child" href="/categories/SpringBoot"><i class="fa-fw fas fa-spring-boot"></i><span> SpringBoot</span></a></li><li><a class="site-page child" href="/categories/SpringCloud"><i class="fa-fw fas fa-spring-cloud"></i><span> SpringCloud</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/categories/JVM"><i class="fa-fw fas fa-cogs"></i><span> JVM</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 源码</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/Mybatis"><span> Mybatis</span></a></li><li><a class="site-page child" href="/categories/HashMap"><span> HashMap</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 其他</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/books/"><i class="fa-fw fas fa-book-open"></i><span> 互联网电子书汇总</span></a></li><li><a class="site-page child" href="/compass/"><i class="fa-fw fas fa-compass"></i><span> JAVA八股文指南</span></a></li><li><a class="site-page child" href="/history/"><i class="fa-fw fas fa-book-open"></i><span> 历史</span></a></li><li><a class="site-page child" href="/gallery/"><i class="fa-fw fas fa-image"></i><span> 相册</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div></div></div></div><div class="page" id="body-wrap"><header class="full_page" id="page-header" style="background-image: url(/images/bg/bg.webp);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/avatar.jpg" alt="Logo"><span class="site-name">码农Stormling</span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/categories/Java"><i class="fa-fw fas fa-coffee"></i><span> Java</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-spring"></i><span> Spring全家桶</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/Spring"><i class="fa-fw fas fa-spring"></i><span> Spring</span></a></li><li><a class="site-page child" href="/categories/SpringBoot"><i class="fa-fw fas fa-spring-boot"></i><span> SpringBoot</span></a></li><li><a class="site-page child" href="/categories/SpringCloud"><i class="fa-fw fas fa-spring-cloud"></i><span> SpringCloud</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/categories/JVM"><i class="fa-fw fas fa-cogs"></i><span> JVM</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 源码</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/Mybatis"><span> Mybatis</span></a></li><li><a class="site-page child" href="/categories/HashMap"><span> HashMap</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 其他</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/books/"><i class="fa-fw fas fa-book-open"></i><span> 互联网电子书汇总</span></a></li><li><a class="site-page child" href="/compass/"><i class="fa-fw fas fa-compass"></i><span> JAVA八股文指南</span></a></li><li><a class="site-page child" href="/history/"><i class="fa-fw fas fa-book-open"></i><span> 历史</span></a></li><li><a class="site-page child" href="/gallery/"><i class="fa-fw fas fa-image"></i><span> 相册</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="site-info"><h1 id="site-title">码农Stormling</h1><div id="site-subtitle"><span id="subtitle"></span></div><div id="site_social_icons"><a class="social-icon" href="https://gitee.com/lingzhexi" target="_blank" title="Gitee"><i class="fab fa-gitee" style="color: #e94f11;"></i></a><a class="social-icon" href="https://github.com/lingzhexi" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:lingzhexi@126.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div id="scroll-down"><i class="fas fa-angle-down scroll-down-effects"></i></div></header><main class="layout" id="content-inner"><div class="recent-posts nc" id="recent-posts"><div class="recent-post-items"><div class="recent-post-item"><div class="post_cover left"><a href="/posts/49988.html" title="Java系列（三）| 常用类"><img class="post-bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/12/18/1xTSIkzMsFhC5qa.jpg" onerror="this.onerror=null;this.src='/images/404.jpg'" alt="Java系列（三）| 常用类"></a></div><div class="recent-post-info"><a class="article-title" href="/posts/49988.html" title="Java系列（三）| 常用类">Java系列（三）| 常用类</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2021-09-18T01:29:39.000Z" title="发表于 2021-09-18 09:29:39">2021-09-18</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Java/">Java</a></span></div><div class="content">StringString 是 Java 基本数据类型吗？可以被继承吗？ String 是 Java 基本数据类型吗？  不是。Java 中的基本数据类型只有 8 个：byte、short、int、long、float、double、char、boolean；除了基本类型（primitive type），剩下的都是引用类型（reference type）。 String 是一个比较特殊的引用数据类型。  String 类可以继承吗？  不行。String 类使用 final 修饰，是所谓的不可变类，无法被继承。 String 和 StringBuilder、StringBuffer 的区别？ String：String 的值被创建后不能修改，任何对 String 的修改都会引发新的 String 对象的生成。 StringBuffer：跟 String 类似，但是值可以被修改，使用 synchronized 来保证线程安全。 StringBuilder：StringBuffer 的非线程安全版本，性能上更高一些。  String str1 = new String(“abc”)...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/posts/56665.html" title="Java系列（二）| 面向对象"><img class="post-bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/12/18/MqZvzwQmFOUKj71.jpg" onerror="this.onerror=null;this.src='/images/404.jpg'" alt="Java系列（二）| 面向对象"></a></div><div class="recent-post-info"><a class="article-title" href="/posts/56665.html" title="Java系列（二）| 面向对象">Java系列（二）| 面向对象</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2021-09-17T02:29:39.000Z" title="发表于 2021-09-17 10:29:39">2021-09-17</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Java/">Java</a></span></div><div class="content">面向对象和面向过程的区别? 面向过程 ：面向过程就是分析出解决问题所需要的步骤，然后用函数把这些步骤一步一步实现，使用的时候再一个一个的一次调用就可以。 面向对象 ：面向对象，把构成问题的事务分解成各个对象，而建立对象的目的也不是为了完成一个个步骤，而是为了描述某个事件在解决整个问题的过程所发生的行为。目的是为了写出通用的代码，加强代码的重用，屏蔽差异性。  用一个比喻：面向过程是编年体；面向对象是纪传体。   面向对象有哪些特性...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/posts/42528.html" title="Java系列（一）| 基础语法"><img class="post-bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/12/19/M9jPRDbhmQduJXW.jpg" onerror="this.onerror=null;this.src='/images/404.jpg'" alt="Java系列（一）| 基础语法"></a></div><div class="recent-post-info"><a class="article-title" href="/posts/42528.html" title="Java系列（一）| 基础语法">Java系列（一）| 基础语法</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2021-09-16T00:00:00.000Z" title="发表于 2021-09-16 08:00:00">2021-09-16</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Java/">Java</a></span></div><div class="content">Java 概述什么是 Java？Java 是一门面向对象的编程语言，不仅吸收了 C++ 语言的各种优点，还摒弃了 C++ 里难以理解的多继承、指针等概念，因此 Java 语言具有功能强大和简单易用两个特征。Java 语言作为静态面向对象编程语言的优秀代表，极好地实现了面向对象理论，允许程序员以优雅的思维方式进行复杂的编程 。 Java 语言有哪些特点？Java 语言有很多优秀（可吹）的特点，以下几个是比较突出的： Java 语言特点  面向对象（封装，继承，多态）； 平台无关性：Java 是 “【一次编写，到处运行（Write Once，Run any Where）】” 的语言，因此采用 Java 语言编写的程序具有很好的可移植性，而保证这一点的正是 Java 的虚拟机机制。在引入虚拟机之后，Java 语言在不同的平台上运行不需要重新编译。 支持多线程：C++ 语言没有内置的多线程机制，因此必须调用操作系统的多线程功能来进行多线程程序设计 编译与解释并存；  JVM、JDK 和 JRE 有什么区别？JVM：Java Virtual Machine，Java 虚拟机，Java...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/posts/29807.html" title="Hexo 系列（二）| GitHub 部署"><img class="post-bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://gcore.jsdelivr.net/gh/lingzhexi/blogImage/img/2022/03/202203021718325.jpg" onerror="this.onerror=null;this.src='/images/404.jpg'" alt="Hexo 系列（二）| GitHub 部署"></a></div><div class="recent-post-info"><a class="article-title" href="/posts/29807.html" title="Hexo 系列（二）| GitHub 部署">Hexo 系列（二）| GitHub 部署</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2021-09-06T02:15:39.000Z" title="发表于 2021-09-06 10:15:39">2021-09-06</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Hexo/">Hexo</a></span></div><div class="content">前言 本文转载：使用 Hexo+GitHub 搭建个人免费博客教程（小白向）本文只介绍如何部署到GitPage，默认Hexo已搭建  简介GitHub Pages 是什么？ What is GitHub Pages? - GitHub Help  GitHub Pages 是由 GitHub 官方提供的一种免费的静态站点托管服务，让我们可以在 GitHub 仓库里托管和发布自己的静态网站页面。 Hexo 是什么？ 官网：hexo.io  Hexo 是一个快速、简洁且高效的静态博客框架，它基于 Node.js 运行，可以将我们撰写的 Markdown 文档解析渲染成静态的 HTML 网页。 Hexo + GitHub 文章发布原理在本地撰写 Markdown 格式文章后，通过 Hexo 解析文档，渲染生成具有主题样式的 HTML 静态网页，再推送到 GitHub 上完成博文的发布。  部署连接Github设置Github 信息设置 git 配置的用户名邮箱 (将lingzhexi / lingzhexi@gmail.com 分别替换成自己的用户名和邮箱) git config...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/posts/2889.html" title="Hexo系列（一）|基础配置"><img class="post-bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/12/19/B7VuKfa6soRIhiq.jpg" onerror="this.onerror=null;this.src='/images/404.jpg'" alt="Hexo系列（一）|基础配置"></a></div><div class="recent-post-info"><a class="article-title" href="/posts/2889.html" title="Hexo系列（一）|基础配置">Hexo系列（一）|基础配置</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2021-09-05T05:47:10.000Z" title="发表于 2021-09-05 13:47:10">2021-09-05</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Hexo/">Hexo</a></span></div><div class="content">文章摘要开始 Hexo 中有两种形式添加摘要：  文章开头配置 description 在文章中直接添加 &lt;!-- more --&gt;   添加 descriptionHexo 每篇文章的开头可以表示文章的信息,其中可以添加 descrption 来表示正篇文章的摘要 --- title: Hexo 显示文章摘要 date: 2021-09-24 13:47:10 tags: Hexo categories: Hexo description: 显示文章摘要 # 这里表示添加文章摘要 ---  添加 more在文章的适当处直接添加 --- # 前言 > Hexo 默认的文章是全部展示，对于阅读的体验感很差，所以就需要对文章进行摘要显示部分文章内容  # Start > Hexo 中有两种形式添加摘要： >   - 文章开头配置 `description`   >   - 在文章中直接添加 `&lt;!-- more -->`  &lt;!-- more -->  效果 文章置顶🔝卸载默认的置顶方式$ npm uninstall...</div></div></div></div><nav id="pagination"><div class="pagination"><a class="extend prev" rel="prev" href="/page/4/#content-inner"><i class="fas fa-chevron-left fa-fw"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/#content-inner">4</a><span class="page-number current">5</span></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/avatar.jpg" onerror="this.onerror=null;this.src='/images/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">stormling</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">41</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">26</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">22</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/lingzhexi"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://gitee.com/lingzhexi" target="_blank" title="Gitee"><i class="fab fa-gitee" style="color: #e94f11;"></i></a><a class="social-icon" href="https://github.com/lingzhexi" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:lingzhexi@126.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">欢迎大家来到Stormling博客</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/32250.html" title="【每日早报】-2025-01-09 - 星期四"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://file.alapi.cn/60s/202501091736361902_head.png" onerror="this.onerror=null;this.src='/images/404.jpg'" alt="【每日早报】-2025-01-09 - 星期四"/></a><div class="content"><a class="title" href="/posts/32250.html" title="【每日早报】-2025-01-09 - 星期四">【每日早报】-2025-01-09 - 星期四</a><time datetime="2025-01-08T16:00:00.000Z" title="发表于 2025-01-09 00:00:00">2025-01-09</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/19819.html" title="规则引擎 Drools 8+ 快速入门"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/12/22/4ei1fqHM3RKSUr2.webp" onerror="this.onerror=null;this.src='/images/404.jpg'" alt="规则引擎 Drools 8+ 快速入门"/></a><div class="content"><a class="title" href="/posts/19819.html" title="规则引擎 Drools 8+ 快速入门">规则引擎 Drools 8+ 快速入门</a><time datetime="2024-12-11T00:00:00.000Z" title="发表于 2024-12-11 08:00:00">2024-12-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/60908.html" title="数据库系列（二） | Mybatis Plus 3.0+快速入门"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/lingzhexi/blogImage/post/image-20240927101721314.png" onerror="this.onerror=null;this.src='/images/404.jpg'" alt="数据库系列（二） | Mybatis Plus 3.0+快速入门"/></a><div class="content"><a class="title" href="/posts/60908.html" title="数据库系列（二） | Mybatis Plus 3.0+快速入门">数据库系列（二） | Mybatis Plus 3.0+快速入门</a><time datetime="2024-12-09T06:22:03.000Z" title="发表于 2024-12-09 14:22:03">2024-12-09</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/50356.html" title="分布式系列（二） | Redisson分布式锁"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/12/22/Q6z8bLIciZ9TuFS.jpg" onerror="this.onerror=null;this.src='/images/404.jpg'" alt="分布式系列（二） | Redisson分布式锁"/></a><div class="content"><a class="title" href="/posts/50356.html" title="分布式系列（二） | Redisson分布式锁">分布式系列（二） | Redisson分布式锁</a><time datetime="2024-12-05T06:22:03.000Z" title="发表于 2024-12-05 14:22:03">2024-12-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/28724.html" title="分布式系列（一） | Redis分布式锁"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/12/22/n4qy9zw1Pj5r8Nv.jpg" onerror="this.onerror=null;this.src='/images/404.jpg'" alt="分布式系列（一） | Redis分布式锁"/></a><div class="content"><a class="title" href="/posts/28724.html" title="分布式系列（一） | Redis分布式锁">分布式系列（一） | Redis分布式锁</a><time datetime="2024-12-03T06:22:03.000Z" title="发表于 2024-12-03 14:22:03">2024-12-03</time></div></div></div></div><div class="card-widget card-categories"><div class="item-headline">
+            <i class="fas fa-folder-open"></i>
+            <span>分类</span>
+            <a class="card-more-btn" href="/categories/" title="查看更多">
+      <i class="fas fa-angle-right"></i></a>
+          </div>
+          <ul class="card-category-list" id="aside-cat-list">
+            <li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Hexo/"><span class="card-category-list-name">Hexo</span><span class="card-category-list-count">3</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/JAVA/"><span class="card-category-list-name">JAVA</span><span class="card-category-list-count">1</span></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/JAVA/%E5%A4%9A%E7%BA%BF%E7%A8%8B/"><span class="card-category-list-name">多线程</span><span class="card-category-list-count">1</span></a></li></ul></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Java/"><span class="card-category-list-name">Java</span><span class="card-category-list-count">7</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Java-%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF/"><span class="card-category-list-name">Java 核心技术</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Redis/"><span class="card-category-list-name">Redis</span><span class="card-category-list-count">2</span></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Redis/%E5%88%86%E5%B8%83%E5%BC%8F/"><span class="card-category-list-name">分布式</span><span class="card-category-list-count">1</span></a></li></ul></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Redisson/"><span class="card-category-list-name">Redisson</span><span class="card-category-list-count">1</span></a></li>
+          </ul></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/%E5%B9%82%E7%AD%89%E6%80%A7/" style="font-size: 1.1em; color: #999">幂等性</a> <a href="/tags/SpringBoot/" style="font-size: 1.1em; color: #999">SpringBoot</a> <a href="/tags/Java%E5%9F%BA%E7%A1%80%E6%A0%B8%E5%BF%83/" style="font-size: 1.4em; color: #99a5b6">Java基础核心</a> <a href="/tags/Hexo/" style="font-size: 1.3em; color: #99a1ac">Hexo</a> <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" style="font-size: 1.1em; color: #999">多线程</a> <a href="/tags/%E8%A7%84%E5%88%99%E5%BC%95%E6%93%8E/" style="font-size: 1.1em; color: #999">规则引擎</a> <a href="/tags/TCP/" style="font-size: 1.1em; color: #999">TCP</a> <a href="/tags/MonogDB/" style="font-size: 1.1em; color: #999">MonogDB</a> <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F/" style="font-size: 1.2em; color: #999da3">分布式</a> <a href="/tags/Java%E9%9B%86%E5%90%88/" style="font-size: 1.1em; color: #999">Java集合</a> <a href="/tags/SpringCloud/" style="font-size: 1.1em; color: #999">SpringCloud</a> <a href="/tags/Redisson/" style="font-size: 1.1em; color: #999">Redisson</a> <a href="/tags/%E5%9C%B0%E9%93%81%E7%B3%BB%E7%BB%9F/" style="font-size: 1.1em; color: #999">地铁系统</a> <a href="/tags/%E8%B0%B7%E7%B2%92%E5%95%86%E5%9F%8E/" style="font-size: 1.3em; color: #99a1ac">谷粒商城</a> <a href="/tags/Mybatis-Plus/" style="font-size: 1.1em; color: #999">Mybatis Plus</a> <a href="/tags/JAVA/" style="font-size: 1.1em; color: #999">JAVA</a> <a href="/tags/%E5%8F%8C%E4%BA%B2%E5%A7%94%E6%B4%BE/" style="font-size: 1.1em; color: #999">双亲委派</a> <a href="/tags/JVM/" style="font-size: 1.3em; color: #99a1ac">JVM</a> <a href="/tags/Redis/" style="font-size: 1.2em; color: #999da3">Redis</a> <a href="/tags/Vue/" style="font-size: 1.1em; color: #999">Vue</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 1.2em; color: #999da3">数据库</a> <a href="/tags/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/" style="font-size: 1.5em; color: #99a9bf">消息队列</a> <a href="/tags/%E6%9E%B6%E6%9E%84/" style="font-size: 1.5em; color: #99a9bf">架构</a> <a href="/tags/%E6%97%A5%E5%BF%97%E7%B3%BB%E7%BB%9F/" style="font-size: 1.1em; color: #999">日志系统</a> <a href="/tags/JDK8/" style="font-size: 1.1em; color: #999">JDK8</a> <a href="/tags/%E6%AF%8F%E6%97%A5%E6%97%A9%E6%8A%A5/" style="font-size: 1.1em; color: #999">每日早报</a></div></div><div class="card-widget card-archives">
+    <div class="item-headline">
+      <i class="fas fa-archive"></i>
+      <span>归档</span>
+      
+    </div>
+    <ul class="card-archive-list">
+  
+      <li class="card-archive-list-item">
+        <a class="card-archive-list-link" href="/archives/2025/01/">
+          <span class="card-archive-list-date">一月 2025</span>
+          <span class="card-archive-list-count">1</span>
+        </a>
+      </li>
+    
+      <li class="card-archive-list-item">
+        <a class="card-archive-list-link" href="/archives/2024/12/">
+          <span class="card-archive-list-date">十二月 2024</span>
+          <span class="card-archive-list-count">5</span>
+        </a>
+      </li>
+    
+      <li class="card-archive-list-item">
+        <a class="card-archive-list-link" href="/archives/2024/11/">
+          <span class="card-archive-list-date">十一月 2024</span>
+          <span class="card-archive-list-count">7</span>
+        </a>
+      </li>
+    
+      <li class="card-archive-list-item">
+        <a class="card-archive-list-link" href="/archives/2022/01/">
+          <span class="card-archive-list-date">一月 2022</span>
+          <span class="card-archive-list-count">3</span>
+        </a>
+      </li>
+    
+      <li class="card-archive-list-item">
+        <a class="card-archive-list-link" href="/archives/2021/12/">
+          <span class="card-archive-list-date">十二月 2021</span>
+          <span class="card-archive-list-count">2</span>
+        </a>
+      </li>
+    
+      <li class="card-archive-list-item">
+        <a class="card-archive-list-link" href="/archives/2021/11/">
+          <span class="card-archive-list-date">十一月 2021</span>
+          <span class="card-archive-list-count">5</span>
+        </a>
+      </li>
+    
+      <li class="card-archive-list-item">
+        <a class="card-archive-list-link" href="/archives/2021/10/">
+          <span class="card-archive-list-date">十月 2021</span>
+          <span class="card-archive-list-count">9</span>
+        </a>
+      </li>
+    
+      <li class="card-archive-list-item">
+        <a class="card-archive-list-link" href="/archives/2021/09/">
+          <span class="card-archive-list-date">九月 2021</span>
+          <span class="card-archive-list-count">9</span>
+        </a>
+      </li>
+    </ul></div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站信息</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">41</div></div><div class="webinfo-item"><div class="item-name">本站总字数 :</div><div class="item-count">105.2k</div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站总浏览量 :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2025-01-09T11:37:24.551Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer" style="background-image: url(/images/bg/bg.webp);"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2025 By stormling</div><div class="footer_custom_text">码农Stormling程序员,关注公众号【码农Stormling】回复【面试】获取最全面试pdf</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><div class="js-pjax"><script>window.typedJSFn = {
+  init: str => {
+    window.typed = new Typed('#subtitle', Object.assign({
+      strings: str,
+      startDelay: 300,
+      typeSpeed: 150,
+      loop: true,
+      backSpeed: 50,
+    }, null))
+  },
+  run: subtitleType => {
+    if (true) {
+      if (typeof Typed === 'function') {
+        subtitleType()
+      } else {
+        btf.getScript('https://cdn.jsdelivr.net/npm/typed.js/dist/typed.umd.min.js').then(subtitleType)
+      }
+    } else {
+      subtitleType()
+    }
+  }
+}
+btf.addGlobalFn('pjaxSendOnce', () => { typed.destroy() }, 'typedDestroy')
+</script><script>function subtitleType () {
+  if (true) {
+    typedJSFn.init(["纸上得来终觉浅，绝知此事要躬行"])
+  } else {
+    document.getElementById("subtitle").textContent = "纸上得来终觉浅，绝知此事要躬行"
+  }
+}
+typedJSFn.run(subtitleType)</script></div><div class="aplayer no-destroy" data-id="2426530028" data-server="netease" data-type="playlist" data-fixed="true" data-autoplay="true"> </div><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/fireworks.min.js"></script><script defer="defer" id="fluttering_ribbon" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-fluttering-ribbon.min.js"></script><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-nest.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = true;
+document.body.addEventListener('input', POWERMODE);
+</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/metingjs/dist/Meting.min.js"></script><script>(() => {
+  const destroyAplayer = () => {
+    if (window.aplayers) {
+      for (let i = 0; i < window.aplayers.length; i++) {
+        if (!window.aplayers[i].options.fixed) {
+          window.aplayers[i].destroy()
+        }
+      }
+    }
+  }
+
+  const runMetingJS = () => {
+    typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+  }
+
+  btf.addGlobalFn('pjaxSend', destroyAplayer, 'destroyAplayer')
+  btf.addGlobalFn('pjaxComplete', loadMeting, 'runMetingJS')
+})()</script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>(() => {
+  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => fn())
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      pjax.loadUrl('/404.html')
+    }
+  })
+})()</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false,"tagMode":false});</script></body></html>

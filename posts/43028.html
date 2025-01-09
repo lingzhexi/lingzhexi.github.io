@@ -1,0 +1,603 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>面试系列（八）| 消息队列 | 码农Stormling</title><meta name="author" content="stormling"><meta name="copyright" content="stormling"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="ffffff"><meta name="description" content="消息队列 消息队列解决的核心场景：解构、异步、削峰  1.为什么使用MQ​    公司业务场景，核心：解耦、异步、削峰 解耦：​    A系统发数据给到BCD系统，如果E系统需要接入？C系统不需要了？A系统的负责人就需要来回修改接口对接其他系统。  ​    如果使用MQ，A系统产生一条数据，发送到MQ中，那个系统需要数据自己去MQ消费。如果新的系统需要数据，直接从MQ中消费；某个系统不需要数据的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="面试系列（八）| 消息队列">
+<meta property="og:url" content="http://www.stormling.top/posts/43028.html">
+<meta property="og:site_name" content="码农Stormling">
+<meta property="og:description" content="消息队列 消息队列解决的核心场景：解构、异步、削峰  1.为什么使用MQ​    公司业务场景，核心：解耦、异步、削峰 解耦：​    A系统发数据给到BCD系统，如果E系统需要接入？C系统不需要了？A系统的负责人就需要来回修改接口对接其他系统。  ​    如果使用MQ，A系统产生一条数据，发送到MQ中，那个系统需要数据自己去MQ消费。如果新的系统需要数据，直接从MQ中消费；某个系统不需要数据的">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2024/12/20/J8towxiYd1AVWLF.jpg">
+<meta property="article:published_time" content="2021-10-21T00:00:00.000Z">
+<meta property="article:modified_time" content="2025-01-07T14:44:06.421Z">
+<meta property="article:author" content="stormling">
+<meta property="article:tag" content="消息队列">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2024/12/20/J8towxiYd1AVWLF.jpg"><link rel="shortcut icon" href="/images/favicon.ico"><link rel="canonical" href="http://www.stormling.top/posts/43028.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"prismjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":true,"highlightMacStyle":true},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '面试系列（八）| 消息队列',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  isShuoshuo: false
+}</script><meta name="generator" content="Hexo 5.4.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+  window.addEventListener('load', preloader.endLoading)
+
+  if (true) {
+    btf.addGlobalFn('pjaxSend', preloader.initLoading, 'preloader_init')
+    btf.addGlobalFn('pjaxComplete', preloader.endLoading, 'preloader_end')
+  }
+})()</script><div id="web_bg" style="background-color: #efefef;"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/avatar.jpg" onerror="onerror=null;src='/images/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">41</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">26</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">22</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/categories/Java"><i class="fa-fw fas fa-coffee"></i><span> Java</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-spring"></i><span> Spring全家桶</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/Spring"><i class="fa-fw fas fa-spring"></i><span> Spring</span></a></li><li><a class="site-page child" href="/categories/SpringBoot"><i class="fa-fw fas fa-spring-boot"></i><span> SpringBoot</span></a></li><li><a class="site-page child" href="/categories/SpringCloud"><i class="fa-fw fas fa-spring-cloud"></i><span> SpringCloud</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/categories/JVM"><i class="fa-fw fas fa-cogs"></i><span> JVM</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 源码</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/Mybatis"><span> Mybatis</span></a></li><li><a class="site-page child" href="/categories/HashMap"><span> HashMap</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 其他</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/books/"><i class="fa-fw fas fa-book-open"></i><span> 互联网电子书汇总</span></a></li><li><a class="site-page child" href="/compass/"><i class="fa-fw fas fa-compass"></i><span> JAVA八股文指南</span></a></li><li><a class="site-page child" href="/history/"><i class="fa-fw fas fa-book-open"></i><span> 历史</span></a></li><li><a class="site-page child" href="/gallery/"><i class="fa-fw fas fa-image"></i><span> 相册</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://s2.loli.net/2024/12/20/J8towxiYd1AVWLF.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/avatar.jpg" alt="Logo"><span class="site-name">码农Stormling</span></a><a class="nav-page-title" href="/"><span class="site-name">面试系列（八）| 消息队列</span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/categories/Java"><i class="fa-fw fas fa-coffee"></i><span> Java</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-spring"></i><span> Spring全家桶</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/Spring"><i class="fa-fw fas fa-spring"></i><span> Spring</span></a></li><li><a class="site-page child" href="/categories/SpringBoot"><i class="fa-fw fas fa-spring-boot"></i><span> SpringBoot</span></a></li><li><a class="site-page child" href="/categories/SpringCloud"><i class="fa-fw fas fa-spring-cloud"></i><span> SpringCloud</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/categories/JVM"><i class="fa-fw fas fa-cogs"></i><span> JVM</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 源码</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/Mybatis"><span> Mybatis</span></a></li><li><a class="site-page child" href="/categories/HashMap"><span> HashMap</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 其他</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/books/"><i class="fa-fw fas fa-book-open"></i><span> 互联网电子书汇总</span></a></li><li><a class="site-page child" href="/compass/"><i class="fa-fw fas fa-compass"></i><span> JAVA八股文指南</span></a></li><li><a class="site-page child" href="/history/"><i class="fa-fw fas fa-book-open"></i><span> 历史</span></a></li><li><a class="site-page child" href="/gallery/"><i class="fa-fw fas fa-image"></i><span> 相册</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">面试系列（八）| 消息队列</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-10-21T00:00:00.000Z" title="发表于 2021-10-21 08:00:00">2021-10-21</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-01-07T14:44:06.421Z" title="更新于 2025-01-07 22:44:06">2025-01-07</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E9%9D%A2%E8%AF%95/">面试</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">6.6k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>21分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div id="post-outdate-notice" data="{&quot;limitDay&quot;:365,&quot;messagePrev&quot;:&quot;距离上次更新已经&quot;,&quot;messageNext&quot;:&quot;天了，文章内容可能已经过时。&quot;,&quot;postUpdate&quot;:&quot;2025-01-07 22:44:06&quot;}" hidden></div><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/lightgallery.js/1.0.1/css/lightgallery.min.css" /><div class=".article-gallery"><h1 id="消息队列"><a href="#消息队列" class="headerlink" title="消息队列"></a>消息队列</h1><blockquote>
+<p>消息队列解决的核心场景：解构、异步、削峰</p>
+</blockquote>
+<h2 id="1-为什么使用MQ"><a href="#1-为什么使用MQ" class="headerlink" title="1.为什么使用MQ"></a>1.为什么使用MQ</h2><p>​    公司业务场景，核心：解耦、异步、削峰</p>
+<h3 id="解耦："><a href="#解耦：" class="headerlink" title="解耦："></a>解耦：</h3><p>​    A系统发数据给到BCD系统，如果E系统需要接入？C系统不需要了？A系统的负责人就需要来回修改接口对接其他系统。</p>
+<p><a target="_blank" rel="noopener" href="https://s2.loli.net/2024/12/20/MJBsElgtxwnzc1i.png" title="解耦-1" class="gallery-item"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/12/20/MJBsElgtxwnzc1i.png" alt="解耦-1"></a></p>
+<p>​    如果使用MQ，A系统产生一条数据，发送到MQ中，那个系统需要数据自己去MQ消费。如果新的系统需要数据，直接从MQ中消费；某个系统不需要数据的话，取消消费这个MQ即可。这样A系统不需要考虑谁发送数据给谁，不需要考虑是否调用成功、失败超时等问题。</p>
+<p><a target="_blank" rel="noopener" href="https://s2.loli.net/2024/12/20/xGc1uptaSZyEN3I.png" title="解耦-2" class="gallery-item"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/12/20/xGc1uptaSZyEN3I.png" alt="解耦-2"></a></p>
+<p><strong>总结</strong>：通过一个MQ，Pub/Sub发布订阅消息模型，A系统就和其他系统彻底耦合了。</p>
+<h4 id="项目应用："><a href="#项目应用：" class="headerlink" title="项目应用："></a>项目应用：</h4><p>​    车站系统通过控制命令下发给各个设备，其中车站的设备通常包含：闸机、半自动售票机、自动售票机、手持机等设备。如果按照常规的同步方式来对接不同的设备，这将使得系统冗余的代码很多，当车站增减一个设备就可能需要重新对接接口，造成系统耦合性很高，这样的效率不高且不优雅。所以当系统需要发送命令（生产一个数据），将数据放到MQ中，不需要知道那个设备收到成功或者失败，其中需要消费的设备自己去订阅并且获取相应的消息即可。这样就可以达到，系统下发设备控制命令，不同设备响应。</p>
+<h3 id="异步："><a href="#异步：" class="headerlink" title="异步："></a>异步：</h3><p>​    A系统接收请求，需要本地入库，还需要BCD三个系统入库，本地入库（3ms），BCD（300ms+400ms+500ms），用户体验很差等待时间太长。业内请求需要做到 200ms 以内，对用户几乎无感。</p>
+<p><a target="_blank" rel="noopener" href="https://s2.loli.net/2024/12/20/MsQuDc6RBeNX9bA.png" title="异步-1" class="gallery-item"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/12/20/MsQuDc6RBeNX9bA.png" alt="异步-1"></a></p>
+<p>​    使用MQ，A系统连续发送3条消息到消息队列，假如消耗5ms，请求花了 5 + 3 = 8ms ，对于用户来说就是点了一个按钮返回很快。</p>
+<p><a target="_blank" rel="noopener" href="https://s2.loli.net/2024/12/20/uXJyG6mpRbg1TPQ.png" title="异步-2" class="gallery-item"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/12/20/uXJyG6mpRbg1TPQ.png" alt="异步-2"></a></p>
+<h3 id="削峰："><a href="#削峰：" class="headerlink" title="削峰："></a>削峰：</h3><p>​    每天一段时间，A系统风平浪静，每秒请求数量就50个。结果每次一到 12:00~13:00，每秒并发请求数量突然暴增到5k+条。但是系统是直接基于MySQL，大量请求涌入MySQL，每秒执行约5k条SQL，</p>
+<p>​    一般情况下MySQL 每秒可抗 2k请求，5k的请求可能打死MySQL，导致无法使用。</p>
+<p>​    一旦过了高峰，到了下午就到了低峰期，每秒请求数量 50 左右，对整个系统没有多少压力了。</p>
+<p><a target="_blank" rel="noopener" href="https://s2.loli.net/2024/12/20/g73yPmI2ANQtGTv.png" title="削峰-1" class="gallery-item"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/12/20/g73yPmI2ANQtGTv.png" alt="削峰-1"></a></p>
+<p>如果使用MQ，每秒 5k 请求写入 MQ , A系统每秒最多处理 2k 个请求，因为 MySQL每秒最多请求 2k 个请求。A系统从MQ中慢慢拉取请求，每秒2k个请求，不超过自己每秒最大的请求数量即可。所以再高峰期，A系统不会挂掉。而MQ每秒进 5k ，出 2k，请求就会在高峰期积压可能多大十几万甚至百万的消息再 MQ中。</p>
+<p><a target="_blank" rel="noopener" href="https://s2.loli.net/2024/12/20/LR5tQUckPYBvDxO.png" title="削峰-2" class="gallery-item"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/12/20/LR5tQUckPYBvDxO.png" alt="削峰-2"></a></p>
+<p>​    短暂的挤压后是可允许的，等到高峰期过后，每秒进入MQ的消息降低很多，但是系统依然按照 2k 的请求取消费，A系统很快的就会把挤压解决掉了。</p>
+<h2 id="2-MQ的优缺点"><a href="#2-MQ的优缺点" class="headerlink" title="2.MQ的优缺点"></a>2.MQ的优缺点</h2><ul>
+<li>降低系统可用性，引出如何保证消息高可用</li>
+<li>系统复杂度提高，引出如何保证消息没有重复消费、处理消息丢失、保证消息传递顺序性</li>
+<li>一致性问题：A系统处理完返回成功，BC处理完写库成功，D写库失败了，数据不能一致了。</li>
+</ul>
+<h2 id="3-不同MQ的区别（kafka、RabbitMQ、RocketMQ）"><a href="#3-不同MQ的区别（kafka、RabbitMQ、RocketMQ）" class="headerlink" title="3.不同MQ的区别（kafka、RabbitMQ、RocketMQ）"></a>3.不同MQ的区别（kafka、RabbitMQ、RocketMQ）</h2><table>
+<thead>
+<tr>
+<th>特性</th>
+<th>ActiveMQ</th>
+<th>RabbitMQ</th>
+<th>RocketMQ</th>
+<th>Kafka</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>单机吞吐量</td>
+<td>万级，比 RocketMQ、Kafka 低一个数量级</td>
+<td>万级别</td>
+<td>10 万级，支撑高吞吐</td>
+<td>10 万级，高吞吐，一般配合大数据类的系统来进行实时数据计算、日志采集等场景</td>
+</tr>
+<tr>
+<td>topic 数量对吞吐量的影响</td>
+<td></td>
+<td></td>
+<td><strong>topic 可以达到几百/几千的级别，吞吐量会有较小幅度的下降，这是 RocketMQ 的一大优势，在同等机器下，可以支撑大量的 topic</strong></td>
+<td>topic 从几十到几百个时候，吞吐量会大幅度下降，在同等机器下，Kafka 尽量保证 topic 数量不要过多，如果要支撑大规模的 topic，需要增加更多的机器资源</td>
+</tr>
+<tr>
+<td>时效性</td>
+<td>ms 级</td>
+<td><strong>微秒级，这是 RabbitMQ 的一大特点，延迟最低</strong></td>
+<td>ms 级</td>
+<td>延迟在 ms 级以内</td>
+</tr>
+<tr>
+<td>可用性</td>
+<td>高，基于主从架构实现高可用</td>
+<td>基于主从架构实现高可用</td>
+<td><strong>非常高，分布式架构</strong></td>
+<td>非常高，分布式，一个数据多个副本，少数机器宕机，不会丢失数据，不会导致不可用</td>
+</tr>
+<tr>
+<td>消息可靠性</td>
+<td>有较低的概率丢失数据</td>
+<td>基本不丢</td>
+<td><strong>经过参数优化配置，可以做到 0 丢失</strong></td>
+<td>同 RocketMQ</td>
+</tr>
+<tr>
+<td>功能支持</td>
+<td>MQ 领域的功能极其完备</td>
+<td>基于 erlang 开发，并发能力很强，性能极好，延时很低</td>
+<td>MQ 功能较为完善，还是分布式的，扩展性好</td>
+<td>功能较为简单，主要支持简单的 MQ 功能，在大数据领域的实时计算以及日志采集被大规模使用</td>
+</tr>
+</tbody></table>
+<ul>
+<li>单机吞吐量：<strong>RocketMQ</strong> <strong>10万级</strong></li>
+<li>时效性：<strong>RabbitMQ</strong> <strong>微秒级</strong></li>
+<li>可用性：<strong>RocketMQ</strong> <strong>非常高，分布式架构</strong></li>
+<li>消息可靠性：<strong>RocketMQ</strong> <strong>参数优化，可以做到0丢失</strong></li>
+</ul>
+<h2 id="4-保证MQ的高可用"><a href="#4-保证MQ的高可用" class="headerlink" title="4.保证MQ的高可用"></a>4.保证MQ的高可用</h2><h3 id="RabbitMQ高可性"><a href="#RabbitMQ高可性" class="headerlink" title="RabbitMQ高可性"></a>RabbitMQ高可性</h3><p>​    RabbitMQ是典型的基于主从（非分布式）做高可用。</p>
+<p>​    三种模式：单机模式、普通集群模式、镜像集群模式</p>
+<h4 id="单机模式："><a href="#单机模式：" class="headerlink" title="单机模式："></a>单机模式：</h4><p>​    Demo级别，没有生产使用这个</p>
+<h4 id="普通集群模式：-lt-无高可用-gt"><a href="#普通集群模式：-lt-无高可用-gt" class="headerlink" title="普通集群模式：&lt;无高可用&gt;"></a>普通集群模式：&lt;无高可用&gt;</h4><p>​    多台机器启动多个RabbitMQ实例，每台机器启动一个。<strong>创建的queue，只会放在一个RabbitMQ实例上</strong>，  但每个实例同步 queue 元数据（queue的配置，可通过这个找到queue实例）。实际消费的时候连接到另一个实例，这个实例从queue所在的实例拉取数据。</p>
+<p><a target="_blank" rel="noopener" href="https://s2.loli.net/2024/12/20/WaQZHls739OMVhx.png" title="普通集群" class="gallery-item"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/12/20/WaQZHls739OMVhx.png" alt="普通集群"></a></p>
+<p>​    <strong>没有做到分布式</strong>，只是普通的集群。导致消费者每次随机获取一个实例然后拉取数据，要么是固定连接 queue 的那个实例，前者有<strong>数据拉取的开销</strong>，后者有<strong>单实例性能开销</strong>。</p>
+<p>​    这样只是<strong>提高了吞吐量</strong>，集群多个节点服务某个 queue 的读写操作。</p>
+<h4 id="镜像集群模式：-lt-高可用-gt"><a href="#镜像集群模式：-lt-高可用-gt" class="headerlink" title="镜像集群模式：&lt;高可用&gt;"></a>镜像集群模式：&lt;高可用&gt;</h4><p>​    RabbitMQ 的高可用模式。和普通集群模型不一样，该模式下，创建的 queue，无论是元数据还是 queue 里的消息都会存在多个实例中，每个节点都有 queue 的<strong>完整镜像</strong>。每次写消息到 queue 时，都会自动<strong>消息同步</strong>到多个实例上 queue 。</p>
+<p><a target="_blank" rel="noopener" href="https://s2.loli.net/2024/12/20/ZjqFkB1QHfmIg8R.png" title="RabbitMQ-高可用-镜像集群" class="gallery-item"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/12/20/ZjqFkB1QHfmIg8R.png" alt="RabbitMQ-高可用-镜像集群"></a></p>
+<h5 id="如何开启镜像集群模式？"><a href="#如何开启镜像集群模式？" class="headerlink" title="如何开启镜像集群模式？"></a><strong>如何开启镜像集群模式</strong>？</h5><p>​    在后台<strong>新增一个策略</strong>，这个策略就是镜像集群模式的策略。可以指定数据<strong>同步到所有</strong>节点，也可同步到<strong>指定数量</strong>的节点，再次创建queue 的时候，应用这个策略，就会自动同步到其他节点上去了。<strong>好处在于</strong>，你任何一个机器宕机了，没事，其他节点有完整的数据，别的消费者都可以到其他的节点消费。<strong>坏处是</strong>，第一，<strong>同步性能开销大</strong>，网络带宽压力和消耗很重。第二，不<strong>是分布式，没有扩展性</strong>，某个queue 负载很重，加机器，新增的机器包含这个 queue 的所有数据，并<strong>没有办法线性扩展</strong>。如果 queue 的数量很大，大到这个机器上的容量无法容纳该怎么办？</p>
+<h3 id="Kafka-的高可用性"><a href="#Kafka-的高可用性" class="headerlink" title="Kafka 的高可用性"></a>Kafka 的高可用性</h3><p>​    Kafka 基本架构认识：由多个broker组成，每个broker是一个节点；你创建一个topic ，这个topic可以划分多个partition，每个 partition 可以存在不同的 broker 上，每个partition 就放一部分的数据。</p>
+<p>​    天然的分布式消息队列，一个topic 的数据，<strong>分散到多个机器上，每个机器放一部分</strong>。</p>
+<p>​    RabbitMQ 之类的并不是什么分布式消息队列，传统的消息队列，只不过提供了集群、HA的机制，无论如何操作，RabbitMQ 一个 queue 的数据都是放在一个节点里的，镜像集群模式下，也是每个节点都放 queue 的完整数据。</p>
+<p>​    Kafka 0.8 之前没有 HA 机制，任何的 broker 挂了，那个 broker 上的 partition 就废了，就没有办法读写，无法保证高可用。</p>
+<p>​    我们假如创建一个 topic ，指定了其 partition 数量是 3 个 ，分别在三台机器上。但是，如果第二台宕机了，会导致1/3的数据丢失，做不到高可用了。</p>
+<p><a target="_blank" rel="noopener" href="https://s2.loli.net/2024/12/20/UznQuRP8tSAhKCa.png" title="Kafka-高可用" class="gallery-item"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/12/20/UznQuRP8tSAhKCa.png" alt="Kafka-高可用"></a></p>
+<p>Kafka 0.8 后提供了 HA 机制，就是 <strong>replica 副本机制</strong>。每个 partition 的数据都会同步到其他机器上，形成多个 replica 副本。所有 replica 中选举一个 leader 出来，那么生产者和消费者都跟这个 <strong>leader 打交道</strong>，其他的 replica 就是 follower (从属）。<br>写的时候，leader 负责将<strong>数据同步到其他的 follower</strong> 上，读的时候，直接读取 leader 上的数据。</p>
+<h4 id="为什么只能读写leader"><a href="#为什么只能读写leader" class="headerlink" title="为什么只能读写leader?"></a>为什么只能读写leader?</h4><p>​    如果可以随意读取的每个 follower ，那么就要关系数据的一致性问题了，系统复杂度势必增加。Kafka 会将一个 partition 的所有 replica 分布在不同的机器中，可以提高容错性。</p>
+<p><a target="_blank" rel="noopener" href="https://s2.loli.net/2024/12/20/VhoSM2is9LQFeUE.png" title="broker" class="gallery-item"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/12/20/VhoSM2is9LQFeUE.png" alt="broker"></a></p>
+<p>​    这就是所谓的<strong>高可用</strong>，因为如果某个 broker 宕机了，没事，那么 broker 上面的 partition 在其他机器上都有副本的。如果这个宕机的 broker 上面由某个 partition 的 leader ，那么此时会从 follower 中<strong>重新选举</strong>一个新的 leader 出来，继续读写这个 leader 即可。</p>
+<p>​    <strong>写数据</strong>的时候，生产者就写 leader ,然后 leader 将数据落地到写本地磁盘，接着其他 follower 自己主动从 leader 来 pull 数据。一旦所有 follower 同步好数据，就会发送 ack 给 leader，leader 收到所有 follower 的 ack 之后，就会返回写成功消息给生产者（一种模式之一）。</p>
+<p>​    <strong>消费的时候</strong>，只会从 leader 去读，但是只有当一个消费已经被所有 follower 都同步成功返回 ack 后，这个消息才会被消费者读到。 </p>
+<h2 id="5-保证消息不被重复消费（消费队列保证幂等性）"><a href="#5-保证消息不被重复消费（消费队列保证幂等性）" class="headerlink" title="5.保证消息不被重复消费（消费队列保证幂等性）"></a>5.保证消息不被重复消费（消费队列保证幂等性）</h2><p><strong>大概说一说可能哪些重复消息的问题</strong></p>
+<p>RabbitMQ、RocketMQ、Kafka 都可能出现消息重复消费的问题。</p>
+<p>​    Kafka 实际上有个 <strong>offset</strong> 的概念，每个消息写进去，都有一个 offset ，代表<strong>消息的序号</strong>，然后 consumer 消费了数据之后，每隔一段时间（<strong>定时定期</strong>），会把自己消费过的消<strong>息的 offset 提交</strong>一下，表示 “我消费过来，下次我要重启，就让我继续从上次消费的 offset 来继续消费吧”。</p>
+<p>​    如果生产重启系统，紧急情况直接 kill 进程，可能导致 consumer 由消息处理，但是没有来的及提交 offset 。重启之后少数消费会再次消费一次。</p>
+<p>​    举个例子。</p>
+<p>​    场景带入，数据 1/2/3 依次进入 Kafka，Kafka 会给这三条数据每条分配一个 offset ，代表这条数据的序号，我们就假设分配的 offset 依次是 152/ 153 /154 。消费从 Kafka 去消费的时候也是按照这个顺序。假如消费者消费了 offset= 153 这个数据，刚准备提交 offset 到 Zookeeper ，此时消费者进程被重启。此时消费过的数据 1/2 的offset 没有提交，Kafka 也就不知道你消费 offset = 153 这条数据。重启之后，消费者找 Kafka 说，哥们，你给我把上次我消费的的地方后面的数据继续传给我。由于没有提交 1/2 数据再次传过来，如果消费者没有去重的话，那么就会导致消费重复。</p>
+<p>注意：新版本的 Kafka 已经将 <code>offset</code> 存储到 Zookeeper 转移到 <code>Kafka brokers</code>，并使用内部位移注意 <code>__consumer_offsets</code> 进行存储。</p>
+<p><a target="_blank" rel="noopener" href="https://s2.loli.net/2024/12/20/rqz6MyBsH1jE2UR.png" class="gallery-item"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/12/20/rqz6MyBsH1jE2UR.png"></a></p>
+<p>结果就会导致数据 1/2 往数据插入2 次，那么数据就错了。重复消费不可怕，可怕没有考虑重复消费之后，<strong>怎么保证幂等性。</strong></p>
+<p>​    举例说明。假如有个系统，消费一条消息就是往数据库插入一条数据，要是你消息重复两次，就插入了两条，数据就是错了。但是你消费到第二次的时候，<strong>判断是否消费过了</strong>，若是就直接丢了，这样就保证了一条数据了。</p>
+<p>​    一条数据重复出现两次，数据库只有一条数据，这就保证了系统的幂等性。</p>
+<p>​    幂等性：就是一个数据，或者一个请求，给你重复来多次，你的确保对应的数据是不会改变的，<strong>不能出错。</strong></p>
+<h4 id="如何保证消息的幂等性？"><a href="#如何保证消息的幂等性？" class="headerlink" title="如何保证消息的幂等性？"></a>如何保证消息的幂等性？</h4><p>​    结合业务思考，思路：</p>
+<ul>
+<li><p>如果是写库，根据<strong>主键查一下</strong>，如果这个数据有了，就update </p>
+</li>
+<li><p><strong>写 Redis</strong>，每次都是 set ，天然幂等性 。当数据1 消费之后，存入Redis ，再次消费后将修改数据1的值</p>
+</li>
+<li><p>复杂一点，生产者发送每条消息数据的时候，里面假如一个<strong>全局的唯一id</strong>，类似订单id，然后消费之后，先根据这个 id 去比如 Redis 里去查，之前的消费过吗？如果没有消费过，你就处理，然后这个id写 Redis。如果消费，那就别处理，保重别重复处理相同的消息即可。</p>
+</li>
+<li><p>基于数据库的<strong>唯一键</strong>来保证重复数据不会重复插入多条。因为有唯一键约束，重复数据插入只会报错，不会导致数据库中出现脏数据。</p>
+<p><a target="_blank" rel="noopener" href="https://s2.loli.net/2024/12/20/y4BC9rMukdGE7cQ.png" title="幂等性" class="gallery-item"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/12/20/y4BC9rMukdGE7cQ.png" alt="幂等性"></a></p>
+</li>
+</ul>
+<h2 id="6-保证消息的可靠性传输？保证消费不丢失"><a href="#6-保证消息的可靠性传输？保证消费不丢失" class="headerlink" title="6.保证消息的可靠性传输？保证消费不丢失"></a>6.保证消息的可靠性传输？保证消费不丢失</h2><p>​    MQ的基本原则，<strong>数据不能多一条，也不能少一条</strong>，不能多，就是上面说的 重复消费和幂等性的问题。不能少。就是数据别弄丢。</p>
+<p>​    如果用MQ来传递非常核心的肖，如计费、扣费，就需要保证 MQ <strong>绝对不会把计费消息给弄丢</strong></p>
+<h3 id="RabbitMQ"><a href="#RabbitMQ" class="headerlink" title="RabbitMQ"></a>RabbitMQ</h3><p><a target="_blank" rel="noopener" href="https://s2.loli.net/2024/12/20/b5TLjxft9I3dQs8.png" title="消息可靠性" class="gallery-item"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/12/20/b5TLjxft9I3dQs8.png" alt="消息可靠性"></a></p>
+<h4 id="生产者弄丢了数据"><a href="#生产者弄丢了数据" class="headerlink" title="生产者弄丢了数据"></a>生产者弄丢了数据</h4><p>​    生产者将数据发送到 RabbitMQ ，可能在半路弄丢了，因为网络获取其他问题。</p>
+<h5 id="事务机制–消耗性能："><a href="#事务机制–消耗性能：" class="headerlink" title="事务机制–消耗性能："></a>事务机制–消耗性能：</h5><p>​    选择 RabbitMQ 提供的<strong>事务功能</strong>，就是生产者<strong>发送数据之前</strong>开启 RabbitMQ事务 <code>channel.txSelect()</code> ，然后发送消息，如果消息没有成功被 RabbitMQ 接收，那么生产者会收到异常报错的消息，此时可以回滚事务 <code>channel.txRollback()</code>，然后重试发送消息；如果收到消息，那么就可以提交事务了 <code>channel.txCommit()</code></p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">try</span> <span class="token punctuation">&#123;</span>
+    <span class="token comment">// 通过工厂创建连接</span>
+    connection <span class="token operator">=</span> factory<span class="token punctuation">.</span><span class="token function">newConnection</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// 获取通道</span>
+    channel <span class="token operator">=</span> connection<span class="token punctuation">.</span><span class="token function">createChannel</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// 开启事务</span>
+    channel<span class="token punctuation">.</span><span class="token function">txSelect</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// 这里发送消息</span>
+    channel<span class="token punctuation">.</span><span class="token function">basicPublish</span><span class="token punctuation">(</span>exchange<span class="token punctuation">,</span> routingKey<span class="token punctuation">,</span> <span class="token class-name">MessageProperties</span><span class="token punctuation">.</span><span class="token constant">PERSISTENT_TEXT_PLAIN</span><span class="token punctuation">,</span> msg<span class="token punctuation">.</span><span class="token function">getBytes</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// 模拟出现异常</span>
+    <span class="token keyword">int</span> result <span class="token operator">=</span> <span class="token number">1</span> <span class="token operator">/</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token comment">// 提交事务</span>
+    channel<span class="token punctuation">.</span><span class="token function">txCommit</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">IOException</span> <span class="token operator">|</span> <span class="token class-name">TimeoutException</span> e<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token comment">// 捕捉异常，回滚事务</span>
+    channel<span class="token punctuation">.</span><span class="token function">txRollback</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>问题是，RabbitMQ 事务机制，导致吞吐量下来，因为消耗性能。</p>
+<h5 id="confirm-模式："><a href="#confirm-模式：" class="headerlink" title="confirm 模式："></a>confirm 模式：</h5><p>​    如果要保证 RabbitMQ 消息不丢，可以开启 <code>confirm</code> 模式，你每次些的<strong>消息都会分配一个唯一的id</strong>。<br>​    如果写入了 RabbitMQ 中，RabbitMQ 会给你回传一个 <code>ack</code> 消息，告诉你这个消息 ok 了。如果 RabbitMQ 没能处理这个消息，会回调你一个 <code>nack</code> 接口，告诉你这个消息接收失败了，你可以重试。而且你可以结合这个机制自己在<strong>内存里维护每个消息 id 状态</strong>，如果超过一定时间还没有接收这个消息的回调，那个可以重发。</p>
+<p>​    事务机制和 <code>confirm</code> 机制最大不同在于，<strong>事务机制是同步的</strong>，你提交一个事务之后会<strong>阻塞</strong>，但是 <code>confirm</code> 机制是<strong>异步</strong>的，发送消息之后就可以发送下一个消息，然后那个消息 RabbitMQ 接收了之后会<strong>异步回调</strong>一个接口通知你这个消息接收到了。</p>
+<p>​    所以生产者 <strong>避免丢失数据</strong>，都是用 <code>confirm</code> 机制的</p>
+<blockquote>
+<p>在 transaction 事务模式的channel 不能设置成 confirm 模式的，这两种不共存</p>
+</blockquote>
+<p>客户端实现生产者 <code>confirm</code> 三种方式：</p>
+<ol>
+<li><p><strong>普通 confirm 模式</strong>：每发送一条消息后，调用 <code>waitForConfirms()</code> 方法，等待服务器端 confirm，如果服务端返回 false 或者在一段时间内都没返回，客户端可以进行消息重发。</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java">channel<span class="token punctuation">.</span><span class="token function">basicPublish</span><span class="token punctuation">(</span><span class="token class-name">ConfirmConfig</span><span class="token punctuation">.</span>exchangeName<span class="token punctuation">,</span> <span class="token class-name">ConfirmConfig</span><span class="token punctuation">.</span>routingKey<span class="token punctuation">,</span> <span class="token class-name">MessageProperties</span><span class="token punctuation">.</span><span class="token constant">PERSISTENT_TEXT_PLAIN</span><span class="token punctuation">,</span> <span class="token class-name">ConfirmConfig</span><span class="token punctuation">.</span>msg_10B<span class="token punctuation">.</span><span class="token function">getBytes</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>channel<span class="token punctuation">.</span><span class="token function">waitForConfirms</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token comment">// 消息发送失败</span>
+    <span class="token comment">// ...</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<li><p><strong>批量 confirm 模式</strong>：每发送一批消息后，调用 <code>waitForConfirms()</code> 方法，等待服务端 confirm。</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java">channel<span class="token punctuation">.</span><span class="token function">confirmSelect</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> batchCount<span class="token punctuation">;</span> <span class="token operator">++</span>i<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    channel<span class="token punctuation">.</span><span class="token function">basicPublish</span><span class="token punctuation">(</span><span class="token class-name">ConfirmConfig</span><span class="token punctuation">.</span>exchangeName<span class="token punctuation">,</span> <span class="token class-name">ConfirmConfig</span><span class="token punctuation">.</span>routingKey<span class="token punctuation">,</span> <span class="token class-name">MessageProperties</span><span class="token punctuation">.</span><span class="token constant">PERSISTENT_TEXT_PLAIN</span><span class="token punctuation">,</span> <span class="token class-name">ConfirmConfig</span><span class="token punctuation">.</span>msg_10B<span class="token punctuation">.</span><span class="token function">getBytes</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>channel<span class="token punctuation">.</span><span class="token function">waitForConfirms</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token comment">// 消息发送失败</span>
+    <span class="token comment">// ...</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<li><p><strong>异步 confirm 模式</strong>：提供一个回调方法，服务端 confirm 了一条或者多条消息后客户端会回调这个方法。</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">SortedSet</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Long</span><span class="token punctuation">></span></span> confirmSet <span class="token operator">=</span> <span class="token class-name">Collections</span><span class="token punctuation">.</span><span class="token function">synchronizedSortedSet</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">TreeSet</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Long</span><span class="token punctuation">></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+channel<span class="token punctuation">.</span><span class="token function">confirmSelect</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+channel<span class="token punctuation">.</span><span class="token function">addConfirmListener</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">ConfirmListener</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">handleAck</span><span class="token punctuation">(</span><span class="token keyword">long</span> deliveryTag<span class="token punctuation">,</span> <span class="token keyword">boolean</span> multiple<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">IOException</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>multiple<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            confirmSet<span class="token punctuation">.</span><span class="token function">headSet</span><span class="token punctuation">(</span>deliveryTag <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">clear</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
+            confirmSet<span class="token punctuation">.</span><span class="token function">remove</span><span class="token punctuation">(</span>deliveryTag<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">handleNack</span><span class="token punctuation">(</span><span class="token keyword">long</span> deliveryTag<span class="token punctuation">,</span> <span class="token keyword">boolean</span> multiple<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">IOException</span> <span class="token punctuation">&#123;</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"Nack, SeqNo: "</span> <span class="token operator">+</span> deliveryTag <span class="token operator">+</span> <span class="token string">", multiple: "</span> <span class="token operator">+</span> multiple<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>multiple<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            confirmSet<span class="token punctuation">.</span><span class="token function">headSet</span><span class="token punctuation">(</span>deliveryTag <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">clear</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
+            confirmSet<span class="token punctuation">.</span><span class="token function">remove</span><span class="token punctuation">(</span>deliveryTag<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">long</span> nextSeqNo <span class="token operator">=</span> channel<span class="token punctuation">.</span><span class="token function">getNextPublishSeqNo</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    channel<span class="token punctuation">.</span><span class="token function">basicPublish</span><span class="token punctuation">(</span><span class="token class-name">ConfirmConfig</span><span class="token punctuation">.</span>exchangeName<span class="token punctuation">,</span> <span class="token class-name">ConfirmConfig</span><span class="token punctuation">.</span>routingKey<span class="token punctuation">,</span> <span class="token class-name">MessageProperties</span><span class="token punctuation">.</span><span class="token constant">PERSISTENT_TEXT_PLAIN</span><span class="token punctuation">,</span> <span class="token class-name">ConfirmConfig</span><span class="token punctuation">.</span>msg_10B<span class="token punctuation">.</span><span class="token function">getBytes</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    confirmSet<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>nextSeqNo<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+</ol>
+<h4 id="RabbitMQ-弄丢了数据"><a href="#RabbitMQ-弄丢了数据" class="headerlink" title="RabbitMQ 弄丢了数据"></a>RabbitMQ 弄丢了数据</h4><p><strong>开启 RabbitMQ的持久化</strong>，消息写入之后会持久化到磁盘，挂后恢复会<strong>自动读取之前存储的数据</strong>，一般数据不会丢。小概率情况，RabbitMQ还没有持久化，就挂了，<strong>可能导致少量数据丢失</strong>。</p>
+<h5 id="设置持久化："><a href="#设置持久化：" class="headerlink" title="设置持久化："></a>设置持久化：</h5><ul>
+<li><strong>创建 queue 时候设置为持久化</strong>。可以保证 RabbitMQ <strong>持久化 queue 的元数据</strong>，但是它是不会持久化 queue 里的数据的</li>
+<li>第二个是发送消息的时候将消息的 <strong><code>deliveryMode</code> 设置为2</strong>。就是<strong>将消息设置为持久化的</strong>，此时RMQ 就会将消息持久化到磁盘上了。</li>
+</ul>
+<p>必须同时设置这个两个持久化才行，RMQ 哪怕挂了，再次重启，也会磁盘上重启恢复 queue，恢复这个 queue 里的数据。</p>
+<p>注意，哪怕是开启持久化机制了，也有可能，在消息写到 RMQ中，还没有来的机持久化到磁盘上，结果不巧，此时的 RMQ 挂了，就会导致内存里的的一点点数据丢失。</p>
+<p>所以，持久化可以跟生产者那边的 <code>confirm</code> 机制配合，只有消息被持久化到磁盘后，才会通知生产者 <code>ack</code> 了，哪怕 持久化到磁盘之前，RMQ 挂了，数据丢了，生产者收不到 <code>ack</code> ，自己也可以重发。</p>
+<h4 id="消费者弄丢了数据：-lt-关闭自动-ack，声明队列，指定noAck-false-gt"><a href="#消费者弄丢了数据：-lt-关闭自动-ack，声明队列，指定noAck-false-gt" class="headerlink" title="消费者弄丢了数据：&lt;关闭自动 ack，声明队列，指定noAck = false&gt;"></a>消费者弄丢了数据：&lt;关闭自动 ack，声明队列，指定noAck = false&gt;</h4><p>RabbitMQ 如果丢失消息，主要是因为你消费的时候，刚消费，还没去处理，结果进程挂了。重启完后，RMQ认为你都消费了，这数据就丢了。</p>
+<p>这时候的用RabbitMQ提供的 <code>ack</code> 机制。就是必须<strong>关闭RMQ自动 <code>ack</code><strong>，可以通过 api 来调用就行，然后每次再代码</strong>处理完后</strong>，再**主动的 <code>ack</code>**。这样没有处理的话，RMQ 就收不到 <code>ack</code>，RMQ 就会认为你没有处理完，这时候RMQ 会把消息分给别的消费者处理，消息就不会丢。 </p>
+<blockquote>
+<p>RMQ  为了保证消息可靠不丢失提供消息确认机制。消费者在声明队列时，可以指定noAck 参数，当noAck = false, RMQ 会等待消费者显示的发送 ack 信号后，才从内存（和磁盘，如果持久化）移除消息。否则消息一旦被消费者消费，RMQ 会立即删除它。</p>
+</blockquote>
+<p><a target="_blank" rel="noopener" href="https://s2.loli.net/2024/12/20/FGJmvXY75HkIxyZ.png" title="RMQ-持久化" class="gallery-item"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/12/20/FGJmvXY75HkIxyZ.png" alt="RMQ-持久化"></a></p>
+<h3 id="Kafka"><a href="#Kafka" class="headerlink" title="Kafka"></a>Kafka</h3><h4 id="消费端弄丢了数据"><a href="#消费端弄丢了数据" class="headerlink" title="消费端弄丢了数据"></a>消费端弄丢了数据</h4><p>唯一可能导致消费者弄丢数据的情况，就是说，你消费到了这个消息，然后消费者那边<strong>自动提交了 offset</strong>，让 Kafka 以为你已经消费好了这个消息，但其实你才刚准备处理这个消息，你还<strong>没处理，你自己就挂了</strong>，此时这条消息就丢咯。</p>
+<p>这不是跟 RabbitMQ 差不多吗，大家都知道 Kafka 会自动提交 offset，那么只要<strong>关闭自动提交</strong> offset，在处理完之后自己手动提交 offset，就可以保证数据不会丢。但是此时确实还是<strong>可能会有重复消费</strong>，比如你刚处理完，还没提交 offset，结果自己挂了，此时肯定会重复消费一次，自己保证幂等性就好了。</p>
+<p>生产环境碰到的一个问题，就是说我们的 Kafka 消费者消费到了数据之后是写到一个内存的 queue 里先缓冲一下，结果有的时候，你刚把消息写入内存 queue，然后消费者会自动提交 offset。然后此时我们重启了系统，就会导致内存 queue 里还没来得及处理的数据就丢失了。</p>
+<h4 id="Kafka-弄丢了数据"><a href="#Kafka-弄丢了数据" class="headerlink" title="Kafka 弄丢了数据"></a>Kafka 弄丢了数据</h4><p>这块比较常见的一个场景，就是 Kafka <strong>某个 broker 宕机</strong>，然后重新选举 partition 的 leader。大家想想，要是此时其他的 <strong>follower 刚好还有些数据没有同步</strong>，结果此时 leader 挂了，然后选举某个 follower 成 leader 之后，不就少了一些数据？这就丢了一些数据啊。</p>
+<p>生产环境也遇到过，我们也是，之前 Kafka 的 leader 机器宕机了，将 follower 切换为 leader 之后，就会发现说这个数据就丢了。</p>
+<p>所以此时一般是要求起码设置如下 4 个参数：</p>
+<ul>
+<li>给 topic 设置 <code>replication.factor</code> 参数：这个值必须大于 1，要求每个 <strong>partition 必须有至少 2 个副本。</strong></li>
+<li>在 Kafka 服务端设置 <code>min.insync.replicas</code> 参数：这个值必须大于 1，这个是要求一个 <strong>leader 至少感知到有至少一个 follower</strong> 还跟自己保持联系，没掉队，这样才能确保 leader 挂了还有一个 follower 吧。</li>
+<li>在 producer 端设置 <code>acks=all</code> ：这个是要求每条数据，必须是<strong>写入所有 replica 之后，才能认为是写成功了</strong>。</li>
+<li>在 producer 端设置 <code>retries=MAX</code> （很大很大很大的一个值，无限次重试的意思）：这个是<strong>要求一旦写入失败，就无限重试</strong>，卡在这里了。</li>
+</ul>
+<p>我们生产环境就是按照上述要求配置的，这样配置之后，至少在 Kafka broker 端就可以保证在 leader 所在 broker 发生故障，进行 leader 切换时，数据不会丢失。</p>
+<h4 id="生产者会不会弄丢数据？"><a href="#生产者会不会弄丢数据？" class="headerlink" title="生产者会不会弄丢数据？"></a>生产者会不会弄丢数据？</h4><p>如果按照上述的思路设置了 <code>acks=all</code> ，一定不会丢，要求是，你的 leader 接收到消息，所有的 follower 都同步到了消息之后，才认为本次写成功了。如果没满足这个条件，生产者会自动不断的重试，重试无限次。</p>
+<h2 id="7-保证消费顺序"><a href="#7-保证消费顺序" class="headerlink" title="7.保证消费顺序"></a>7.保证消费顺序</h2><p>我举个例子，我们以前做过一个 mysql <code>binlog</code> 同步的系统，压力还是非常大的，日同步数据要达到上亿，就是说数据从一个 mysql 库原封不动地同步到另一个 mysql 库里面去（mysql -&gt; mysql）。常见的一点在于说比如大数据 team，就需要同步一个 mysql 库过来，对公司的业务系统的数据做各种复杂的操作。</p>
+<p>你在 mysql 里增删改一条数据，对应出来了增删改 3 条 <code>binlog</code> 日志，接着这三条 <code>binlog</code> 发送到 MQ 里面，再消费出来依次执行，起码得保证人家是按照顺序来的吧？不然本来是：增加、修改、删除；你愣是换了顺序给执行成删除、修改、增加，不全错了么。</p>
+<p>本来这个数据同步过来，应该最后这个数据被删除了；结果你搞错了这个顺序，最后这个数据保留下来了，数据同步就出错了。</p>
+<p>先看看顺序会错乱的俩场景：</p>
+<ul>
+<li><strong>RabbitMQ</strong>：一个 queue，多个 consumer。比如，生产者向 RabbitMQ 里发送了三条数据，顺序依次是 data1/data2/data3，压入的是 RabbitMQ 的一个内存队列。有三个消费者分别从 MQ 中消费这三条数据中的一条，结果消费者 2 先执行完操作，把 data2 存入数据库，然后是 data1/data3。这不明显乱了。</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://s2.loli.net/2024/12/20/iJCFHkzR7pA3XjQ.png" title="RMQ-消息顺序" class="gallery-item"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/12/20/iJCFHkzR7pA3XjQ.png" alt="RMQ-消息顺序"></a></p>
+<ul>
+<li><strong>Kafka</strong>：比如说我们建了一个 topic，有三个 partition。生产者在写的时候，其实可以指定一个 key，比如说我们指定了某个订单 id 作为 key，那么这个订单相关的数据，一定会被分发到同一个 partition 中去，而且这个 partition 中的数据一定是有顺序的。<br>消费者从 partition 中取出来数据的时候，也一定是有顺序的。到这里，顺序还是 ok 的，没有错乱。接着，我们在消费者里可能会搞<strong>多个线程来并发处理消息</strong>。因为如果消费者是单线程消费处理，而处理比较耗时的话，比如处理一条消息耗时几十 ms，那么 1 秒钟只能处理几十条消息，这吞吐量太低了。而多个线程并发跑的话，顺序可能就乱掉了。</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://s2.loli.net/2024/12/20/NWU3Eitf4jzJ8vr.png" title="Kafka-消息顺序" class="gallery-item"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/12/20/NWU3Eitf4jzJ8vr.png" alt="Kafka-消息顺序"></a></p>
+<h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><h4 id="RabbitMQ-1"><a href="#RabbitMQ-1" class="headerlink" title="RabbitMQ"></a>RabbitMQ</h4><p>拆分多个 queue，每个 queue 一个 consumer，就是多一些 queue 而已，确实是麻烦点；或者就一个 queue 但是对应一个 consumer，然后这个 consumer 内部用内存队列做排队，然后分发给底层不同的 worker 来处理。</p>
+<p><a target="_blank" rel="noopener" href="https://s2.loli.net/2024/12/20/jUswEhVe1XM2DoA.png" title="消息顺序" class="gallery-item"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/12/20/jUswEhVe1XM2DoA.png" alt="消息顺序"></a></p>
+<h4 id="Kafka-1"><a href="#Kafka-1" class="headerlink" title="Kafka"></a>Kafka</h4><ul>
+<li>一个 topic，一个 partition，一个 consumer，内部单线程消费，单线程吞吐量太低，一般不会用这个。</li>
+<li>写 N 个内存 queue，具有相同 key 的数据都到同一个内存 queue；然后对于 N 个线程，每个线程分别消费一个内存 queue 即可，这样就能保证顺序性。</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://s2.loli.net/2024/12/20/xwb7rRE6Lm2ka1C.png" title="消息顺序" class="gallery-item"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/12/20/xwb7rRE6Lm2ka1C.png" alt="消息顺序"></a></p>
+</div><script src="https://cdn.jsdelivr.net/lightgallery.js/1.0.1/js/lightgallery.min.js"></script><script>if (typeof lightGallery !== 'undefined') {
+        var options = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options);
+        }</script></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://www.stormling.top">stormling</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://www.stormling.top/posts/43028.html">http://www.stormling.top/posts/43028.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="http://www.stormling.top" target="_blank">码农Stormling</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/">消息队列</a></div><div class="post-share"><div class="social-share" data-image="https://s2.loli.net/2024/12/20/J8towxiYd1AVWLF.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/posts/30078.html" title="城市地铁AFC系统"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/12/20/l1u8jr4AOwSJMhd.jpg" onerror="onerror=null;src='/images/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">城市地铁AFC系统</div></div><div class="info-2"><div class="info-item-1">城市地铁 AFC 系统简析一、概述1.1 定义AFC 系统的全称是 Automatic Fare Collection System（城市轨道交通自动售检票系统），是基于计算机、通信、网络、自动控制等技术，实现轨道交通售票、检票、计费、收费、统计、清分、管理等全过程的自动化系统。 1.2 主要工作内容1、实现中央系统、车站系统和终端设备之间的数据传输和处理; 2、完成车 票制作、售票、检票、票务统计分析等工作; 3、及时、准确地进行客流、票务数据的收集、整理、汇总和分析; 4、实现轨道交通收益方得清分结算以及与关联系统等外部接口之间的清分结算，同时可通过银行或金融机构实现账务划拨。 1.3...</div></div></div></a><a class="pagination-related" href="/posts/45688.html" title="面试系列（七）| JVM常见命令"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/12/20/bmwuCVrIBpY3ftS.jpg" onerror="onerror=null;src='/images/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">面试系列（七）| JVM常见命令</div></div><div class="info-2"><div class="info-item-1">JVM 常用命令介绍下面介绍一下  JVM 中常用的调优、故障处理等工具。  jps ：虚拟机进程工具，全称是 **JVM Process Status Tool**，它的功能和 Linux 中的 ps 类似，可以列出正在运行的虚拟机进程，并显示虚拟机执行主类 Main Class 所在的本地虚拟机唯一ID，虽然功能比较单一，但是这个命令绝对是使用最高频的一个命令。 _jstat_：虚拟机统计信息工具，用于监视虚拟机各种运行状态的信息的命令行工具，它可以显示本地或者远程虚拟机进程中的类加载、内存、垃圾收集、即时编译等运行时数据。 jinfo：Java 配置信息工具，全称是 _Configuration Info for Java_，它的作用是可以实时调整虚拟机各项参数。 _jmap_：Java 内存映像工具，全称是 _Memory Map For Java_，它用于生成转储快照，用来排查内存占用情况 jhat：虚拟机堆转储快照分析工具，全称是 _JVM Heap Analysis Tool_，这个指令通常和 jmap 一起搭配使用，jhat 内置了一个 HTTP/Web...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/posts/56299.html" title="MQ系列（七）| RocketMQ 为什么性能不如Kafka?"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/12/18/tF4vDjQonRkZdch.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-11-30</div><div class="info-item-2">MQ系列（七）| RocketMQ 为什么性能不如Kafka?</div></div><div class="info-2"><div class="info-item-1">RocketMQ 为什么性能不如 Kafka？ RocketMQ 使用的是 mmap 零拷贝技术，而 kafka 使用的是 sendfile (硬件设备技术 SG-DMA，不影响（不占用）CPU工作) mmap   内核缓冲区-&gt;映射用户缓冲区-&gt;内核缓冲区-&gt;网卡sendfile 内核缓冲区-&gt; SG-DMA -&gt; 网卡  在上篇文章《rocketmq 是什么》中，我们了解到 RocketMQ 的架构其实参考了 kafka 的设计思想，同时又在 kafka 的基础上做了一些调整。看起来，RocketMQ 好像各方面都比 kafka 更能打。  但 kafka 却一直没被淘汰，说明 RocketMQ 必然是有着不如 kafka 的地方。是啥呢？性能，严格来说是吞吐量。阿里中间件团队对它们做过压测，同样条件下，kafka 比 RocketMQ 快 **50%**左右。但即使这样，RocketMQ 依然能每秒处理 10w 量级的数据，依旧非常能打。你不能说 RocketMQ 弱，只能说 Kafka 性能太强了。 不过这就很奇怪了，为什么...</div></div></div></a><a class="pagination-related" href="/posts/15036.html" title="MQ系列（六）| RocketMQ 快速入门"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/12/18/kY2ahrc1TAMPZ7S.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-11-28</div><div class="info-item-2">MQ系列（六）| RocketMQ 快速入门</div></div><div class="info-2"><div class="info-item-1">RocketMQ 快速入门  本参考链接：RocketMQ 是什么？原作者：小白debug  前言  作为一个程序员，假设你有 A、B 两个服务，A 服务发出消息后，不想让 B 服务立马处理到。而是要过半小时才让 B 服务处理到，该怎么实现？ 这类延迟处理消息的场景非常常见，举个例子，比如我每天早上到公司后都会点个外卖，我希望外卖能在中午送过来，而不是立马送过来，这就需要将外卖消息经过延时后，再投递到商家侧。   延时消息场景那么问题就来了，有没有优雅的解决方案？当然有，没有什么是加一层中间层不能解决的，如果有，那就再加一层。这次我们要加的中间层是消息队列 **RocketMQ**。  RocketMQ 是什么？RocketMQ 是阿里自研的国产消息队列，目前已经是 Apache 的顶级项目。和其他消息队列一样，它接受来自生产者的消息，将消息分类，每一类是一个 topic，消费者根据需要订阅 topic，获取里面的消息。  是不是很像我们上篇文章里提到的消息队 Kafka，那么问题很自然就来了，既然都是消息队列，那它们之间有什么区别呢？ RocketMQ 和 Kafka...</div></div></div></a><a class="pagination-related" href="/posts/24869.html" title="MQ系列（五）| Kafka 快速入门"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/12/18/tsPhp4fmEXZkano.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-11-27</div><div class="info-item-2">MQ系列（五）| Kafka 快速入门</div></div><div class="info-2"><div class="info-item-1">Kafka 快速入门介绍 参考：Kafka 是什么？  架构一个高性能，高扩展性，高可用，支持持久化的超强消息队列，它就是我们常说的消息队列 KafkaZookeeper 协调管理多个 broker 组成，内部有多个 topic 分类，每个 topic 又分成多个 partition ，每个 partition 有多个副本 replia，不同的partition 会分布在不同 broker 上，提升性能同时，还增加了系统可用性和可扩展性  高性能 对消息进行分类，每个类是一个 topic  单个 topic 的消息可能过多，可将单个队列拆分成多个段，每段就是一个分区 partition ，每个消费者负责一个 partition  高扩展性可将 partition 分部在多台设备，每台设备代表一个 broker  高可用存在一个问题，如果其中一个partition所在的 broker 挂了，那么这部分的消息不久丢失了吗？ 可以给partition 多加几个副本 replica，从中分为 Leader 和 Follower，Leader 负责生产者和消费者的读写，Follower...</div></div></div></a><a class="pagination-related" href="/posts/40901.html" title="MQ系列（四）| RabbitMQ 死信队列和延迟队列"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/12/18/bENsgfpKC4dyTiG.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-11-24</div><div class="info-item-2">MQ系列（四）| RabbitMQ 死信队列和延迟队列</div></div><div class="info-2"><div class="info-item-1">死信队列死信是什么死信：无法被消费的消息。由于特定的原因导致队列中的某些消息无法被消费，这些消息没有后续的处理，就会变成死信。当消息在队列中无法被正常消费时，会被发送到死信队列中。 死信来源消息 TTL队列达到最大长度消息拒签(basicNack 或 basicReject)且重入队列为false(requeue=false) 死信架构  消息TTL   名称 交换机 路由键 类型 特征 参数    普通交换机 normal_exchange zhangsan direct / /   普通队列 normal_queue zhangsan / TTL DLX DLK x-dead-letter-exchange：dead_exchangex-dead-letter-routing-key：lisix-message-ttl: 10 * 1000   死信交换机 dead_exchange lisi direct / /   死信队列 dead_queue lisi / / /   生产者发送消息10条消息到队列...</div></div></div></a><a class="pagination-related" href="/posts/38624.html" title="MQ系列（三）| RabbitMQ 消息确认机制"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/12/18/dSrsLijuqOReo1X.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-11-20</div><div class="info-item-2">MQ系列（三）| RabbitMQ 消息确认机制</div></div><div class="info-2"><div class="info-item-1">RabbitMQ 消息确认机制 :heavy_exclamation_mark::heavy_exclamation_mark::heavy_exclamation_mark:温馨提示：基于JDK17、SpringBoot 2.1.8.RELEASE 版本，由于RabbitMQ 在 SpringBoot3+ 的配置项有所不同， 所以请严格按照该本版来使用，挖一坑：【后续会出一个SpringBoot3+版本的配置相关教程】  架构  概念保证消息不丢失，可靠抵达，可以使用事务消息，性能下降250倍 为此引入确认机制  生产者确认回调：publisher confirmCallback 生产者退回回调：publisher returnCallback未投递到queue退回模式 消费者确认：consumer ack确认机制  ComfirmCallback【生产者确认回调】 概念：ComfirmCallback是生产者消息确认机制的一部分。当生产者发送消息到 RabbitMQ 的交换器（Exchange）后，RabbitMQ 会返回一个确认消息给生产者，这个确认过程可以通过...</div></div></div></a><a class="pagination-related" href="/posts/41545.html" title="MQ系列（二）| RabbitMQ 整合 SpringBoot"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/12/18/SwBIEotR8Kd3Dbq.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-11-14</div><div class="info-item-2">MQ系列（二）| RabbitMQ 整合 SpringBoot</div></div><div class="info-2"><div class="info-item-1">RabbitMQ 整合 SpringBoot概述 大多应用中，可通过消息服务中间件来提升系统异步通信、扩展解耦能力、流量削峰    消息服务中两个重要概念：消息代理（`message broker`）和目的地（`destination`） 当消息发送者发送消息以后，将由消息代理接管，消息代理保证消息传递到指定目的地。    消息队列主要有两种形式的目的地1.     队列（`queue`）：点对点消息通信（`point-to-point`） 2.     主题（`topic`）：发布（`publish`）/订阅（`subscribe`）消息通信    RabbitMQ 架构图 概念生产者 Producer生产者是消息的发送方，它将消息发送到 RabbitMQ 的交换器中。  ✨消息 Message 消息=消息头+消息体，根据routekey发送到指定的交换机 Exchange 消息头：含有各种属性 routing-key（路由键）、priority（优先级）、delivery-mode（指出该消息可能需要持久性存储）等。  ✨消息代理...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div><div class="comment-switch"><span class="first-comment">Valine</span><span id="switch-btn"></span><span class="second-comment">Gitalk</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div><div><div id="gitalk-container"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/avatar.jpg" onerror="this.onerror=null;this.src='/images/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">stormling</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">41</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">26</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">22</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/lingzhexi"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://gitee.com/lingzhexi" target="_blank" title="Gitee"><i class="fab fa-gitee" style="color: #e94f11;"></i></a><a class="social-icon" href="https://github.com/lingzhexi" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:lingzhexi@126.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">欢迎大家来到Stormling博客</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97"><span class="toc-number">1.</span> <span class="toc-text">消息队列</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BD%BF%E7%94%A8MQ"><span class="toc-number">1.1.</span> <span class="toc-text">1.为什么使用MQ</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%A3%E8%80%A6%EF%BC%9A"><span class="toc-number">1.1.1.</span> <span class="toc-text">解耦：</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE%E5%BA%94%E7%94%A8%EF%BC%9A"><span class="toc-number">1.1.1.1.</span> <span class="toc-text">项目应用：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%82%E6%AD%A5%EF%BC%9A"><span class="toc-number">1.1.2.</span> <span class="toc-text">异步：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%89%8A%E5%B3%B0%EF%BC%9A"><span class="toc-number">1.1.3.</span> <span class="toc-text">削峰：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-MQ%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9"><span class="toc-number">1.2.</span> <span class="toc-text">2.MQ的优缺点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E4%B8%8D%E5%90%8CMQ%E7%9A%84%E5%8C%BA%E5%88%AB%EF%BC%88kafka%E3%80%81RabbitMQ%E3%80%81RocketMQ%EF%BC%89"><span class="toc-number">1.3.</span> <span class="toc-text">3.不同MQ的区别（kafka、RabbitMQ、RocketMQ）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E4%BF%9D%E8%AF%81MQ%E7%9A%84%E9%AB%98%E5%8F%AF%E7%94%A8"><span class="toc-number">1.4.</span> <span class="toc-text">4.保证MQ的高可用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#RabbitMQ%E9%AB%98%E5%8F%AF%E6%80%A7"><span class="toc-number">1.4.1.</span> <span class="toc-text">RabbitMQ高可性</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8D%95%E6%9C%BA%E6%A8%A1%E5%BC%8F%EF%BC%9A"><span class="toc-number">1.4.1.1.</span> <span class="toc-text">单机模式：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%99%AE%E9%80%9A%E9%9B%86%E7%BE%A4%E6%A8%A1%E5%BC%8F%EF%BC%9A-lt-%E6%97%A0%E9%AB%98%E5%8F%AF%E7%94%A8-gt"><span class="toc-number">1.4.1.2.</span> <span class="toc-text">普通集群模式：&lt;无高可用&gt;</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%95%9C%E5%83%8F%E9%9B%86%E7%BE%A4%E6%A8%A1%E5%BC%8F%EF%BC%9A-lt-%E9%AB%98%E5%8F%AF%E7%94%A8-gt"><span class="toc-number">1.4.1.3.</span> <span class="toc-text">镜像集群模式：&lt;高可用&gt;</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E5%BC%80%E5%90%AF%E9%95%9C%E5%83%8F%E9%9B%86%E7%BE%A4%E6%A8%A1%E5%BC%8F%EF%BC%9F"><span class="toc-number">1.4.1.3.1.</span> <span class="toc-text">如何开启镜像集群模式？</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Kafka-%E7%9A%84%E9%AB%98%E5%8F%AF%E7%94%A8%E6%80%A7"><span class="toc-number">1.4.2.</span> <span class="toc-text">Kafka 的高可用性</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E5%8F%AA%E8%83%BD%E8%AF%BB%E5%86%99leader"><span class="toc-number">1.4.2.1.</span> <span class="toc-text">为什么只能读写leader?</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E4%BF%9D%E8%AF%81%E6%B6%88%E6%81%AF%E4%B8%8D%E8%A2%AB%E9%87%8D%E5%A4%8D%E6%B6%88%E8%B4%B9%EF%BC%88%E6%B6%88%E8%B4%B9%E9%98%9F%E5%88%97%E4%BF%9D%E8%AF%81%E5%B9%82%E7%AD%89%E6%80%A7%EF%BC%89"><span class="toc-number">1.5.</span> <span class="toc-text">5.保证消息不被重复消费（消费队列保证幂等性）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E6%B6%88%E6%81%AF%E7%9A%84%E5%B9%82%E7%AD%89%E6%80%A7%EF%BC%9F"><span class="toc-number">1.5.0.1.</span> <span class="toc-text">如何保证消息的幂等性？</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-%E4%BF%9D%E8%AF%81%E6%B6%88%E6%81%AF%E7%9A%84%E5%8F%AF%E9%9D%A0%E6%80%A7%E4%BC%A0%E8%BE%93%EF%BC%9F%E4%BF%9D%E8%AF%81%E6%B6%88%E8%B4%B9%E4%B8%8D%E4%B8%A2%E5%A4%B1"><span class="toc-number">1.6.</span> <span class="toc-text">6.保证消息的可靠性传输？保证消费不丢失</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#RabbitMQ"><span class="toc-number">1.6.1.</span> <span class="toc-text">RabbitMQ</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%94%9F%E4%BA%A7%E8%80%85%E5%BC%84%E4%B8%A2%E4%BA%86%E6%95%B0%E6%8D%AE"><span class="toc-number">1.6.1.1.</span> <span class="toc-text">生产者弄丢了数据</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BA%8B%E5%8A%A1%E6%9C%BA%E5%88%B6%E2%80%93%E6%B6%88%E8%80%97%E6%80%A7%E8%83%BD%EF%BC%9A"><span class="toc-number">1.6.1.1.1.</span> <span class="toc-text">事务机制–消耗性能：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#confirm-%E6%A8%A1%E5%BC%8F%EF%BC%9A"><span class="toc-number">1.6.1.1.2.</span> <span class="toc-text">confirm 模式：</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#RabbitMQ-%E5%BC%84%E4%B8%A2%E4%BA%86%E6%95%B0%E6%8D%AE"><span class="toc-number">1.6.1.2.</span> <span class="toc-text">RabbitMQ 弄丢了数据</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE%E6%8C%81%E4%B9%85%E5%8C%96%EF%BC%9A"><span class="toc-number">1.6.1.2.1.</span> <span class="toc-text">设置持久化：</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B6%88%E8%B4%B9%E8%80%85%E5%BC%84%E4%B8%A2%E4%BA%86%E6%95%B0%E6%8D%AE%EF%BC%9A-lt-%E5%85%B3%E9%97%AD%E8%87%AA%E5%8A%A8-ack%EF%BC%8C%E5%A3%B0%E6%98%8E%E9%98%9F%E5%88%97%EF%BC%8C%E6%8C%87%E5%AE%9AnoAck-false-gt"><span class="toc-number">1.6.1.3.</span> <span class="toc-text">消费者弄丢了数据：&lt;关闭自动 ack，声明队列，指定noAck &#x3D; false&gt;</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Kafka"><span class="toc-number">1.6.2.</span> <span class="toc-text">Kafka</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B6%88%E8%B4%B9%E7%AB%AF%E5%BC%84%E4%B8%A2%E4%BA%86%E6%95%B0%E6%8D%AE"><span class="toc-number">1.6.2.1.</span> <span class="toc-text">消费端弄丢了数据</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Kafka-%E5%BC%84%E4%B8%A2%E4%BA%86%E6%95%B0%E6%8D%AE"><span class="toc-number">1.6.2.2.</span> <span class="toc-text">Kafka 弄丢了数据</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%94%9F%E4%BA%A7%E8%80%85%E4%BC%9A%E4%B8%8D%E4%BC%9A%E5%BC%84%E4%B8%A2%E6%95%B0%E6%8D%AE%EF%BC%9F"><span class="toc-number">1.6.2.3.</span> <span class="toc-text">生产者会不会弄丢数据？</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-%E4%BF%9D%E8%AF%81%E6%B6%88%E8%B4%B9%E9%A1%BA%E5%BA%8F"><span class="toc-number">1.7.</span> <span class="toc-text">7.保证消费顺序</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="toc-number">1.7.1.</span> <span class="toc-text">解决方案</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#RabbitMQ-1"><span class="toc-number">1.7.1.1.</span> <span class="toc-text">RabbitMQ</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Kafka-1"><span class="toc-number">1.7.1.2.</span> <span class="toc-text">Kafka</span></a></li></ol></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/32250.html" title="【每日早报】-2025-01-09 - 星期四"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://file.alapi.cn/60s/202501091736361902_head.png" onerror="this.onerror=null;this.src='/images/404.jpg'" alt="【每日早报】-2025-01-09 - 星期四"/></a><div class="content"><a class="title" href="/posts/32250.html" title="【每日早报】-2025-01-09 - 星期四">【每日早报】-2025-01-09 - 星期四</a><time datetime="2025-01-08T16:00:00.000Z" title="发表于 2025-01-09 00:00:00">2025-01-09</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/19819.html" title="规则引擎 Drools 8+ 快速入门"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/12/22/4ei1fqHM3RKSUr2.webp" onerror="this.onerror=null;this.src='/images/404.jpg'" alt="规则引擎 Drools 8+ 快速入门"/></a><div class="content"><a class="title" href="/posts/19819.html" title="规则引擎 Drools 8+ 快速入门">规则引擎 Drools 8+ 快速入门</a><time datetime="2024-12-11T00:00:00.000Z" title="发表于 2024-12-11 08:00:00">2024-12-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/60908.html" title="数据库系列（二） | Mybatis Plus 3.0+快速入门"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/lingzhexi/blogImage/post/image-20240927101721314.png" onerror="this.onerror=null;this.src='/images/404.jpg'" alt="数据库系列（二） | Mybatis Plus 3.0+快速入门"/></a><div class="content"><a class="title" href="/posts/60908.html" title="数据库系列（二） | Mybatis Plus 3.0+快速入门">数据库系列（二） | Mybatis Plus 3.0+快速入门</a><time datetime="2024-12-09T06:22:03.000Z" title="发表于 2024-12-09 14:22:03">2024-12-09</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/50356.html" title="分布式系列（二） | Redisson分布式锁"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/12/22/Q6z8bLIciZ9TuFS.jpg" onerror="this.onerror=null;this.src='/images/404.jpg'" alt="分布式系列（二） | Redisson分布式锁"/></a><div class="content"><a class="title" href="/posts/50356.html" title="分布式系列（二） | Redisson分布式锁">分布式系列（二） | Redisson分布式锁</a><time datetime="2024-12-05T06:22:03.000Z" title="发表于 2024-12-05 14:22:03">2024-12-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/28724.html" title="分布式系列（一） | Redis分布式锁"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/12/22/n4qy9zw1Pj5r8Nv.jpg" onerror="this.onerror=null;this.src='/images/404.jpg'" alt="分布式系列（一） | Redis分布式锁"/></a><div class="content"><a class="title" href="/posts/28724.html" title="分布式系列（一） | Redis分布式锁">分布式系列（一） | Redis分布式锁</a><time datetime="2024-12-03T06:22:03.000Z" title="发表于 2024-12-03 14:22:03">2024-12-03</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url(https://s2.loli.net/2024/12/20/J8towxiYd1AVWLF.jpg);"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2025 By stormling</div><div class="footer_custom_text">码农Stormling程序员,关注公众号【码农Stormling】回复【面试】获取最全面试pdf</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><div class="js-pjax"><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.isShuoshuo
+  const option = null
+
+  const initValine = (el, path) => {
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyValine = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+
+    const valineConfig = {
+      el: '#vcomment',
+      appId: '',
+      appKey: '',
+      avatar: 'monsterid',
+      serverURLs: '',
+      emojiMaps: "",
+      visitor: false,
+      ...option,
+      path: isShuoshuo ? path : (option && option.path) || window.location.pathname
+    }
+
+    new Valine(valineConfig)
+  }
+
+  const loadValine = async (el, path) => {
+    if (typeof Valine === 'function') {
+      initValine(el, path)
+    } else {
+      await btf.getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js')
+      initValine(el, path)
+    }
+  }
+
+  if (isShuoshuo) {
+    'Valine' === 'Valine'
+      ? window.shuoshuoComment = { loadComment: loadValine }
+      : window.loadOtherComment = loadValine
+    return
+  }
+
+  if ('Valine' === 'Valine' || !false) {
+    if (false) btf.loadComment(document.getElementById('vcomment'),loadValine)
+    else setTimeout(loadValine, 0)
+  } else {
+    window.loadOtherComment = loadValine
+  }
+})()</script><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.isShuoshuo
+  const option = null
+
+  const commentCount = n => {
+    const isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+    if (isCommentCount) {
+      isCommentCount.textContent= n
+    }
+  }
+
+  const initGitalk = (el, path) => {
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyGitalk = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+
+    const gitalk = new Gitalk({
+      clientID: '',
+      clientSecret: '',
+      repo: '',
+      owner: '',
+      admin: [''],
+      updateCountCallback: commentCount,
+      ...option,
+      id: isShuoshuo ? path : (option && option.id) || '896b6b853b82c241345181d9a9d06a2e'
+    })
+
+    gitalk.render('gitalk-container')
+  }
+
+  const loadGitalk = async(el, path) => {
+    if (typeof Gitalk === 'function') initGitalk(el, path)
+    else {
+      await btf.getCSS('https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css')
+      await btf.getScript('https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js')
+      initGitalk(el, path)
+    }
+  }
+
+  if (isShuoshuo) {
+    'Valine' === 'Gitalk'
+      ? window.shuoshuoComment = { loadComment: loadGitalk }
+      : window.loadOtherComment = loadGitalk
+    return
+  }
+
+  if ('Valine' === 'Gitalk' || !false) {
+    if (false) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+    else loadGitalk()
+  } else {
+    window.loadOtherComment = loadGitalk
+  }
+})()</script></div><div class="aplayer no-destroy" data-id="2426530028" data-server="netease" data-type="playlist" data-fixed="true" data-autoplay="true"> </div><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/fireworks.min.js"></script><script defer="defer" id="fluttering_ribbon" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-fluttering-ribbon.min.js"></script><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-nest.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = true;
+document.body.addEventListener('input', POWERMODE);
+</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/metingjs/dist/Meting.min.js"></script><script>(() => {
+  const destroyAplayer = () => {
+    if (window.aplayers) {
+      for (let i = 0; i < window.aplayers.length; i++) {
+        if (!window.aplayers[i].options.fixed) {
+          window.aplayers[i].destroy()
+        }
+      }
+    }
+  }
+
+  const runMetingJS = () => {
+    typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+  }
+
+  btf.addGlobalFn('pjaxSend', destroyAplayer, 'destroyAplayer')
+  btf.addGlobalFn('pjaxComplete', loadMeting, 'runMetingJS')
+})()</script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>(() => {
+  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => fn())
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      pjax.loadUrl('/404.html')
+    }
+  })
+})()</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false,"tagMode":false});</script></body></html>

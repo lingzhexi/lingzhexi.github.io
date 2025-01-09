@@ -1,0 +1,378 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Hexo系列（三）| 整合全局音乐 | 码农Stormling</title><meta name="author" content="stormling"><meta name="copyright" content="stormling"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="ffffff"><meta name="description" content="Hexo系列（三）| 整合全局音乐1、hexo 目录下安装npm install –save hexo-tag-aplayer 2、修改 hexo 目录下 Hexo 配置文件_config.ymlaplayer:   enable: true   asset_inject: false  3、修改 hexo 目录下主题配置文件_config.butterfly.yml找到： aplayerInje">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo系列（三）| 整合全局音乐">
+<meta property="og:url" content="http://www.stormling.top/posts/9338.html">
+<meta property="og:site_name" content="码农Stormling">
+<meta property="og:description" content="Hexo系列（三）| 整合全局音乐1、hexo 目录下安装npm install –save hexo-tag-aplayer 2、修改 hexo 目录下 Hexo 配置文件_config.ymlaplayer:   enable: true   asset_inject: false  3、修改 hexo 目录下主题配置文件_config.butterfly.yml找到： aplayerInje">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://www.stormling.top/images/bg.jpg">
+<meta property="article:published_time" content="2022-01-06T05:47:10.000Z">
+<meta property="article:modified_time" content="2025-01-07T13:48:32.083Z">
+<meta property="article:author" content="stormling">
+<meta property="article:tag" content="Hexo">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://www.stormling.top/images/bg.jpg"><link rel="shortcut icon" href="/images/favicon.ico"><link rel="canonical" href="http://www.stormling.top/posts/9338.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"prismjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":true,"highlightMacStyle":true},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Hexo系列（三）| 整合全局音乐',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  isShuoshuo: false
+}</script><meta name="generator" content="Hexo 5.4.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+  window.addEventListener('load', preloader.endLoading)
+
+  if (true) {
+    btf.addGlobalFn('pjaxSend', preloader.initLoading, 'preloader_init')
+    btf.addGlobalFn('pjaxComplete', preloader.endLoading, 'preloader_end')
+  }
+})()</script><div id="web_bg" style="background-color: #efefef;"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/avatar.jpg" onerror="onerror=null;src='/images/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">41</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">26</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">22</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/categories/Java"><i class="fa-fw fas fa-coffee"></i><span> Java</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-spring"></i><span> Spring全家桶</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/Spring"><i class="fa-fw fas fa-spring"></i><span> Spring</span></a></li><li><a class="site-page child" href="/categories/SpringBoot"><i class="fa-fw fas fa-spring-boot"></i><span> SpringBoot</span></a></li><li><a class="site-page child" href="/categories/SpringCloud"><i class="fa-fw fas fa-spring-cloud"></i><span> SpringCloud</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/categories/JVM"><i class="fa-fw fas fa-cogs"></i><span> JVM</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 源码</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/Mybatis"><span> Mybatis</span></a></li><li><a class="site-page child" href="/categories/HashMap"><span> HashMap</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 其他</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/books/"><i class="fa-fw fas fa-book-open"></i><span> 互联网电子书汇总</span></a></li><li><a class="site-page child" href="/compass/"><i class="fa-fw fas fa-compass"></i><span> JAVA八股文指南</span></a></li><li><a class="site-page child" href="/history/"><i class="fa-fw fas fa-book-open"></i><span> 历史</span></a></li><li><a class="site-page child" href="/gallery/"><i class="fa-fw fas fa-image"></i><span> 相册</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/images/bg.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/avatar.jpg" alt="Logo"><span class="site-name">码农Stormling</span></a><a class="nav-page-title" href="/"><span class="site-name">Hexo系列（三）| 整合全局音乐</span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/categories/Java"><i class="fa-fw fas fa-coffee"></i><span> Java</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-spring"></i><span> Spring全家桶</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/Spring"><i class="fa-fw fas fa-spring"></i><span> Spring</span></a></li><li><a class="site-page child" href="/categories/SpringBoot"><i class="fa-fw fas fa-spring-boot"></i><span> SpringBoot</span></a></li><li><a class="site-page child" href="/categories/SpringCloud"><i class="fa-fw fas fa-spring-cloud"></i><span> SpringCloud</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/categories/JVM"><i class="fa-fw fas fa-cogs"></i><span> JVM</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 源码</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/Mybatis"><span> Mybatis</span></a></li><li><a class="site-page child" href="/categories/HashMap"><span> HashMap</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 其他</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/books/"><i class="fa-fw fas fa-book-open"></i><span> 互联网电子书汇总</span></a></li><li><a class="site-page child" href="/compass/"><i class="fa-fw fas fa-compass"></i><span> JAVA八股文指南</span></a></li><li><a class="site-page child" href="/history/"><i class="fa-fw fas fa-book-open"></i><span> 历史</span></a></li><li><a class="site-page child" href="/gallery/"><i class="fa-fw fas fa-image"></i><span> 相册</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">Hexo系列（三）| 整合全局音乐</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-01-06T05:47:10.000Z" title="发表于 2022-01-06 13:47:10">2022-01-06</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-01-07T13:48:32.083Z" title="更新于 2025-01-07 21:48:32">2025-01-07</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Hexo/">Hexo</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">474</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>2分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div id="post-outdate-notice" data="{&quot;limitDay&quot;:365,&quot;messagePrev&quot;:&quot;距离上次更新已经&quot;,&quot;messageNext&quot;:&quot;天了，文章内容可能已经过时。&quot;,&quot;postUpdate&quot;:&quot;2025-01-07 21:48:32&quot;}" hidden></div><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/lightgallery.js/1.0.1/css/lightgallery.min.css" /><div class=".article-gallery"><h1 id="Hexo系列（三）-整合全局音乐"><a href="#Hexo系列（三）-整合全局音乐" class="headerlink" title="Hexo系列（三）| 整合全局音乐"></a>Hexo系列（三）| 整合全局音乐</h1><h2 id="1、hexo-目录下安装"><a href="#1、hexo-目录下安装" class="headerlink" title="1、hexo 目录下安装"></a>1、hexo 目录下安装</h2><p><code>npm install –save hexo-tag-aplayer</code></p>
+<h2 id="2、修改-hexo-目录下-Hexo-配置文件-config-yml"><a href="#2、修改-hexo-目录下-Hexo-配置文件-config-yml" class="headerlink" title="2、修改 hexo 目录下 Hexo 配置文件_config.yml"></a>2、修改 hexo 目录下 Hexo 配置文件_config.yml</h2><pre class="line-numbers language-yml" data-language="yml"><code class="language-yml"><span class="token key atrule">aplayer</span><span class="token punctuation">:</span>
+  <span class="token key atrule">enable</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+  <span class="token key atrule">asset_inject</span><span class="token punctuation">:</span> <span class="token boolean important">false</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="3、修改-hexo-目录下主题配置文件-config-butterfly-yml"><a href="#3、修改-hexo-目录下主题配置文件-config-butterfly-yml" class="headerlink" title="3、修改 hexo 目录下主题配置文件_config.butterfly.yml"></a>3、修改 hexo 目录下主题配置文件_config.butterfly.yml</h2><p>找到： <code>aplayerInject</code></p>
+<pre class="line-numbers language-yml" data-language="yml"><code class="language-yml"><span class="token key atrule">aplayerInject</span><span class="token punctuation">:</span>
+  <span class="token key atrule">enable</span><span class="token punctuation">:</span> <span class="token boolean important">true</span> 
+  <span class="token key atrule">per_page</span><span class="token punctuation">:</span> <span class="token boolean important">true</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>找到：<code>pjax</code></p>
+<pre class="line-numbers language-yml" data-language="yml"><code class="language-yml"><span class="token key atrule">pjax</span><span class="token punctuation">:</span>
+  <span class="token key atrule">enable</span><span class="token punctuation">:</span> <span class="token boolean important">true</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>找到：<code>inject</code> 在 <code>bottom</code> 里添加</p>
+<pre class="line-numbers language-yml" data-language="yml"><code class="language-yml"><span class="token key atrule">inject</span><span class="token punctuation">:</span>
+  <span class="token key atrule">head</span><span class="token punctuation">:</span>
+  <span class="token key atrule">bottom</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> <span class="token string">'&lt;div data-id="60198" data-server="netease" data-type="song" data-fixed="true" data-autoplay="true"> &lt;/div>'</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>以上修改后，既可实现全局播放器，不会因为页面切换中断</strong></p>
+<h2 id="以下是添加音乐的方法：修改以上bottom内的代码"><a href="#以下是添加音乐的方法：修改以上bottom内的代码" class="headerlink" title="以下是添加音乐的方法：修改以上bottom内的代码"></a>以下是添加音乐的方法：修改以上bottom内的代码</h2><p>引用自 <a target="_blank" rel="noopener" href="https://butterfly.js.org/posts/507c070f/#%E9%97%9C%E9%96%89-asset-inject">butterfly 主题文档说明</a>，加了翻译</p>
+<pre class="line-numbers language-yml" data-language="yml"><code class="language-yml">&lt;div data<span class="token punctuation">-</span>id="60198" data<span class="token punctuation">-</span>server="netease" data<span class="token punctuation">-</span>type="playlist" data<span class="token punctuation">-</span>fixed="true" data<span class="token punctuation">-</span>autoplay="`false`"<span class="token punctuation">></span> &lt;/div<span class="token punctuation">></span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+
+
+<table><thead><tr><th>option</th><th>default</th><th>description</th></tr></thead><tbody><tr><td>data-id</td><td><strong>require</strong></td><td>song id / playlist id / album id / search keyword</td></tr><tr><td>data-server</td><td><strong>require</strong></td><td>music platform: <code>netease</code>, <code>tencent</code>, <code>kugou</code>, <code>xiami</code>, <code>baidu</code></td></tr><tr><td>data-type</td><td><strong>require</strong></td><td><code>song</code>, <code>playlist</code>, <code>album</code>, <code>search</code>, <code>artist</code></td></tr><tr><td>data-fixed</td><td><code>false</code></td><td>enable fixed mode 【开启固定模式】</td></tr><tr><td>data-mini</td><td><code>false</code></td><td>enable mini mode 【开启迷你模式】</td></tr><tr><td>data-autoplay</td><td><code>false</code></td><td>audio autoplay 【自动播放，移动端浏览器暂时不支持此功能】</td></tr><tr><td>data-theme</td><td><code>#2980b9</code></td><td>main color 【主题颜色】</td></tr><tr><td>data-loop</td><td><code>all</code></td><td>player loop play, values: ‘all’, ‘one’, ‘none’ 【列表循环模式：<code>all</code>, <code>one</code>,<code>none</code>】</td></tr><tr><td>data-order</td><td><code>list</code></td><td>player play order, values: ‘list’, ‘random’ 【列表播放模式： <code>list</code>, <code>random</code>】</td></tr><tr><td>data-preload</td><td><code>auto</code></td><td>values: ‘none’, ‘metadata’, ‘auto’ 【音乐文件预载入模式，可选项： <code>none</code>, <code>metadata</code>, <code>auto</code>】</td></tr><tr><td>data-volume</td><td><code>0.7</code></td><td>default volume, notice that player will remember user setting, default volume will not work after user set volume themselves 【默认音量，注意播放器会记住用户的设置，用户自己设置音量后，默认音量将不起作用】</td></tr><tr><td>data-mutex</td><td><code>true</code></td><td>prevent to play multiple player at the same time, pause other players when this player start play 【防止同时播放多个播放器，在该播放器开始播放时暂停其他播放器】</td></tr><tr><td>data-lrctype</td><td><code>0</code></td><td>lyric type 【歌词格式类型】</td></tr><tr><td>data-listfolded</td><td><code>false</code></td><td>indicate whether list should folded at first 【表示列表是否应首先折叠】</td></tr><tr><td>data-listmaxheight</td><td><code>340px</code></td><td>list max height 【列表最大高度】</td></tr><tr><td>data-storagename</td><td><code>metingjs</code></td><td>localStorage key that store player setting【存储播放器设置的本地存储键】</td></tr></tbody></table>
+
+</div><script src="https://cdn.jsdelivr.net/lightgallery.js/1.0.1/js/lightgallery.min.js"></script><script>if (typeof lightGallery !== 'undefined') {
+        var options = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options);
+        }</script></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://www.stormling.top">stormling</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://www.stormling.top/posts/9338.html">http://www.stormling.top/posts/9338.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="http://www.stormling.top" target="_blank">码农Stormling</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Hexo/">Hexo</a></div><div class="post-share"><div class="social-share" data-image="/images/bg.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/posts/12892.html" title="Redis系列（一）| 单机集群搭建3主3从"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/12/22/4ei1fqHM3RKSUr2.webp" onerror="onerror=null;src='/images/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">Redis系列（一）| 单机集群搭建3主3从</div></div><div class="info-2"><div class="info-item-1">Redis集群部署-单主机 6节点 3M+3S下载docker redis 镜像docker pull redis:4.0 # 或者直接下载最新版redis镜像 docker pull redis  !!! 注意 redis 5.0以上创建集群不在使用ruby，因此如果使用最新版的redis 一下ruby部分内容直接跳过 在 /data下新建 redis-cluster 文件夹，然后创建 redis-cluster.tmpl 文件# bind 127.0.0.1 protected-mode no port $&#123;PORT&#125; daemonize no dir &#x2F;data&#x2F;redis appendonly yes cluster-enabled yes cluster-config-file nodes.conf cluster-node-timeout 15000 cluster-announce-port $&#123;PORT&#125; cluster-announce-bus-port...</div></div></div></a><a class="pagination-related" href="/posts/19057.html" title="Java系列（九）| Java多线程"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/12/18/ipgJehsTy7L38fV.webp" onerror="onerror=null;src='/images/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">Java系列（九）| Java多线程</div></div><div class="info-2"><div class="info-item-1">多线程java 多线程及线程池原理讲解 1. 线程是什么？多线程是什么？​    线程： 是最小的调度单位，包含在进程中。​    多线程： 多个线程并发执行的技术。 2. 守护线程和用户线程守护线程： jvm 给的线程。比如：GC 守护线程。  用户线程： 用户自己定义的线程。比如：main() 线程。 拓展：  Thread.setDaemon(false) 设置为用户线程   Thread.setDaemon(true) 设置为守护线程  3. 线程的各个状态 新建 (New): 新建一个线程。 就绪 (Runnable): 抢夺 cpu 的使用权。   运行 (Running): 开始执行任务。   阻塞 (Blocked)： 让线程等待，等待结束进入就绪队列。   死亡 (Dead)： 线程正常结束或异常结束。  4. 线程相关的基本方法有 wait，notify，notifyAll，sleep，join，yield 等 wait()： 线程等待，会释放锁，用于同步代码块或同步方法中，进入等待状态   sleep()： 线程睡眠，不会释放锁，进入超时等待状态 ...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/posts/29807.html" title="Hexo 系列（二）| GitHub 部署"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://gcore.jsdelivr.net/gh/lingzhexi/blogImage/img/2022/03/202203021718325.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2021-09-06</div><div class="info-item-2">Hexo 系列（二）| GitHub 部署</div></div><div class="info-2"><div class="info-item-1">前言 本文转载：使用 Hexo+GitHub 搭建个人免费博客教程（小白向）本文只介绍如何部署到GitPage，默认Hexo已搭建  简介GitHub Pages 是什么？ What is GitHub Pages? - GitHub Help  GitHub Pages 是由 GitHub 官方提供的一种免费的静态站点托管服务，让我们可以在 GitHub 仓库里托管和发布自己的静态网站页面。 Hexo 是什么？ 官网：hexo.io  Hexo 是一个快速、简洁且高效的静态博客框架，它基于 Node.js 运行，可以将我们撰写的 Markdown 文档解析渲染成静态的 HTML 网页。 Hexo + GitHub 文章发布原理在本地撰写 Markdown 格式文章后，通过 Hexo 解析文档，渲染生成具有主题样式的 HTML 静态网页，再推送到 GitHub 上完成博文的发布。  部署连接Github设置Github 信息设置 git 配置的用户名邮箱 (将lingzhexi / lingzhexi@gmail.com 分别替换成自己的用户名和邮箱) git config...</div></div></div></a><a class="pagination-related" href="/posts/2889.html" title="Hexo系列（一）|基础配置"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/12/19/B7VuKfa6soRIhiq.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2021-09-05</div><div class="info-item-2">Hexo系列（一）|基础配置</div></div><div class="info-2"><div class="info-item-1">文章摘要开始 Hexo 中有两种形式添加摘要：  文章开头配置 description 在文章中直接添加 &lt;!-- more --&gt;   添加 descriptionHexo 每篇文章的开头可以表示文章的信息,其中可以添加 descrption 来表示正篇文章的摘要 --- title: Hexo 显示文章摘要 date: 2021-09-24 13:47:10 tags: Hexo categories: Hexo description: 显示文章摘要 # 这里表示添加文章摘要 ---  添加 more在文章的适当处直接添加 --- # 前言 > Hexo 默认的文章是全部展示，对于阅读的体验感很差，所以就需要对文章进行摘要显示部分文章内容  # Start > Hexo 中有两种形式添加摘要： >   - 文章开头配置 `description`   >   - 在文章中直接添加 `&lt;!-- more -->`  &lt;!-- more -->  效果 文章置顶🔝卸载默认的置顶方式$ npm uninstall...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div><div class="comment-switch"><span class="first-comment">Valine</span><span id="switch-btn"></span><span class="second-comment">Gitalk</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div><div><div id="gitalk-container"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/avatar.jpg" onerror="this.onerror=null;this.src='/images/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">stormling</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">41</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">26</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">22</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/lingzhexi"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://gitee.com/lingzhexi" target="_blank" title="Gitee"><i class="fab fa-gitee" style="color: #e94f11;"></i></a><a class="social-icon" href="https://github.com/lingzhexi" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:lingzhexi@126.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">欢迎大家来到Stormling博客</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Hexo%E7%B3%BB%E5%88%97%EF%BC%88%E4%B8%89%EF%BC%89-%E6%95%B4%E5%90%88%E5%85%A8%E5%B1%80%E9%9F%B3%E4%B9%90"><span class="toc-number">1.</span> <span class="toc-text">Hexo系列（三）| 整合全局音乐</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1%E3%80%81hexo-%E7%9B%AE%E5%BD%95%E4%B8%8B%E5%AE%89%E8%A3%85"><span class="toc-number">1.1.</span> <span class="toc-text">1、hexo 目录下安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2%E3%80%81%E4%BF%AE%E6%94%B9-hexo-%E7%9B%AE%E5%BD%95%E4%B8%8B-Hexo-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6-config-yml"><span class="toc-number">1.2.</span> <span class="toc-text">2、修改 hexo 目录下 Hexo 配置文件_config.yml</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3%E3%80%81%E4%BF%AE%E6%94%B9-hexo-%E7%9B%AE%E5%BD%95%E4%B8%8B%E4%B8%BB%E9%A2%98%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6-config-butterfly-yml"><span class="toc-number">1.3.</span> <span class="toc-text">3、修改 hexo 目录下主题配置文件_config.butterfly.yml</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A5%E4%B8%8B%E6%98%AF%E6%B7%BB%E5%8A%A0%E9%9F%B3%E4%B9%90%E7%9A%84%E6%96%B9%E6%B3%95%EF%BC%9A%E4%BF%AE%E6%94%B9%E4%BB%A5%E4%B8%8Abottom%E5%86%85%E7%9A%84%E4%BB%A3%E7%A0%81"><span class="toc-number">1.4.</span> <span class="toc-text">以下是添加音乐的方法：修改以上bottom内的代码</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/32250.html" title="【每日早报】-2025-01-09 - 星期四"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://file.alapi.cn/60s/202501091736361902_head.png" onerror="this.onerror=null;this.src='/images/404.jpg'" alt="【每日早报】-2025-01-09 - 星期四"/></a><div class="content"><a class="title" href="/posts/32250.html" title="【每日早报】-2025-01-09 - 星期四">【每日早报】-2025-01-09 - 星期四</a><time datetime="2025-01-08T16:00:00.000Z" title="发表于 2025-01-09 00:00:00">2025-01-09</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/19819.html" title="规则引擎 Drools 8+ 快速入门"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/12/22/4ei1fqHM3RKSUr2.webp" onerror="this.onerror=null;this.src='/images/404.jpg'" alt="规则引擎 Drools 8+ 快速入门"/></a><div class="content"><a class="title" href="/posts/19819.html" title="规则引擎 Drools 8+ 快速入门">规则引擎 Drools 8+ 快速入门</a><time datetime="2024-12-11T00:00:00.000Z" title="发表于 2024-12-11 08:00:00">2024-12-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/60908.html" title="数据库系列（二） | Mybatis Plus 3.0+快速入门"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/lingzhexi/blogImage/post/image-20240927101721314.png" onerror="this.onerror=null;this.src='/images/404.jpg'" alt="数据库系列（二） | Mybatis Plus 3.0+快速入门"/></a><div class="content"><a class="title" href="/posts/60908.html" title="数据库系列（二） | Mybatis Plus 3.0+快速入门">数据库系列（二） | Mybatis Plus 3.0+快速入门</a><time datetime="2024-12-09T06:22:03.000Z" title="发表于 2024-12-09 14:22:03">2024-12-09</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/50356.html" title="分布式系列（二） | Redisson分布式锁"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/12/22/Q6z8bLIciZ9TuFS.jpg" onerror="this.onerror=null;this.src='/images/404.jpg'" alt="分布式系列（二） | Redisson分布式锁"/></a><div class="content"><a class="title" href="/posts/50356.html" title="分布式系列（二） | Redisson分布式锁">分布式系列（二） | Redisson分布式锁</a><time datetime="2024-12-05T06:22:03.000Z" title="发表于 2024-12-05 14:22:03">2024-12-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/28724.html" title="分布式系列（一） | Redis分布式锁"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/12/22/n4qy9zw1Pj5r8Nv.jpg" onerror="this.onerror=null;this.src='/images/404.jpg'" alt="分布式系列（一） | Redis分布式锁"/></a><div class="content"><a class="title" href="/posts/28724.html" title="分布式系列（一） | Redis分布式锁">分布式系列（一） | Redis分布式锁</a><time datetime="2024-12-03T06:22:03.000Z" title="发表于 2024-12-03 14:22:03">2024-12-03</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url(/images/bg.jpg);"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2025 By stormling</div><div class="footer_custom_text">码农Stormling程序员,关注公众号【码农Stormling】回复【面试】获取最全面试pdf</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><div class="js-pjax"><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.isShuoshuo
+  const option = null
+
+  const initValine = (el, path) => {
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyValine = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+
+    const valineConfig = {
+      el: '#vcomment',
+      appId: '',
+      appKey: '',
+      avatar: 'monsterid',
+      serverURLs: '',
+      emojiMaps: "",
+      visitor: false,
+      ...option,
+      path: isShuoshuo ? path : (option && option.path) || window.location.pathname
+    }
+
+    new Valine(valineConfig)
+  }
+
+  const loadValine = async (el, path) => {
+    if (typeof Valine === 'function') {
+      initValine(el, path)
+    } else {
+      await btf.getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js')
+      initValine(el, path)
+    }
+  }
+
+  if (isShuoshuo) {
+    'Valine' === 'Valine'
+      ? window.shuoshuoComment = { loadComment: loadValine }
+      : window.loadOtherComment = loadValine
+    return
+  }
+
+  if ('Valine' === 'Valine' || !false) {
+    if (false) btf.loadComment(document.getElementById('vcomment'),loadValine)
+    else setTimeout(loadValine, 0)
+  } else {
+    window.loadOtherComment = loadValine
+  }
+})()</script><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.isShuoshuo
+  const option = null
+
+  const commentCount = n => {
+    const isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+    if (isCommentCount) {
+      isCommentCount.textContent= n
+    }
+  }
+
+  const initGitalk = (el, path) => {
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyGitalk = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+
+    const gitalk = new Gitalk({
+      clientID: '',
+      clientSecret: '',
+      repo: '',
+      owner: '',
+      admin: [''],
+      updateCountCallback: commentCount,
+      ...option,
+      id: isShuoshuo ? path : (option && option.id) || '7920ba4cb5a84f913010ec4cf88e5eae'
+    })
+
+    gitalk.render('gitalk-container')
+  }
+
+  const loadGitalk = async(el, path) => {
+    if (typeof Gitalk === 'function') initGitalk(el, path)
+    else {
+      await btf.getCSS('https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css')
+      await btf.getScript('https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js')
+      initGitalk(el, path)
+    }
+  }
+
+  if (isShuoshuo) {
+    'Valine' === 'Gitalk'
+      ? window.shuoshuoComment = { loadComment: loadGitalk }
+      : window.loadOtherComment = loadGitalk
+    return
+  }
+
+  if ('Valine' === 'Gitalk' || !false) {
+    if (false) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+    else loadGitalk()
+  } else {
+    window.loadOtherComment = loadGitalk
+  }
+})()</script></div><div class="aplayer no-destroy" data-id="2426530028" data-server="netease" data-type="playlist" data-fixed="true" data-autoplay="true"> </div><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/fireworks.min.js"></script><script defer="defer" id="fluttering_ribbon" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-fluttering-ribbon.min.js"></script><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-nest.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = true;
+document.body.addEventListener('input', POWERMODE);
+</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/metingjs/dist/Meting.min.js"></script><script>(() => {
+  const destroyAplayer = () => {
+    if (window.aplayers) {
+      for (let i = 0; i < window.aplayers.length; i++) {
+        if (!window.aplayers[i].options.fixed) {
+          window.aplayers[i].destroy()
+        }
+      }
+    }
+  }
+
+  const runMetingJS = () => {
+    typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+  }
+
+  btf.addGlobalFn('pjaxSend', destroyAplayer, 'destroyAplayer')
+  btf.addGlobalFn('pjaxComplete', loadMeting, 'runMetingJS')
+})()</script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>(() => {
+  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => fn())
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      pjax.loadUrl('/404.html')
+    }
+  })
+})()</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false,"tagMode":false});</script></body></html>

@@ -1,0 +1,1106 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>规则引擎 Drools 8+ 快速入门 | 码农Stormling</title><meta name="author" content="stormling"><meta name="copyright" content="stormling"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="ffffff"><meta name="description" content="规则引擎 Drools 8+快速入门 官网：https:&#x2F;&#x2F;drools.org&#x2F;参考教程：https:&#x2F;&#x2F;docs.drools.org&#x2F;8.44.0.Final&#x2F;drools-docs&#x2F;drools&#x2F;introduction&#x2F;index.html项目源码：https:&#x2F;&#x2F;github.com&#x2F;kiegroup&#x2F;drools最新版本：8.44.0.Final版本参考：Drools 8.41.0.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="规则引擎 Drools 8+ 快速入门">
+<meta property="og:url" content="http://www.stormling.top/posts/19819.html">
+<meta property="og:site_name" content="码农Stormling">
+<meta property="og:description" content="规则引擎 Drools 8+快速入门 官网：https:&#x2F;&#x2F;drools.org&#x2F;参考教程：https:&#x2F;&#x2F;docs.drools.org&#x2F;8.44.0.Final&#x2F;drools-docs&#x2F;drools&#x2F;introduction&#x2F;index.html项目源码：https:&#x2F;&#x2F;github.com&#x2F;kiegroup&#x2F;drools最新版本：8.44.0.Final版本参考：Drools 8.41.0.">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2024/12/22/4ei1fqHM3RKSUr2.webp">
+<meta property="article:published_time" content="2024-12-11T00:00:00.000Z">
+<meta property="article:modified_time" content="2024-12-29T16:12:30.227Z">
+<meta property="article:author" content="stormling">
+<meta property="article:tag" content="规则引擎">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2024/12/22/4ei1fqHM3RKSUr2.webp"><link rel="shortcut icon" href="/images/favicon.ico"><link rel="canonical" href="http://www.stormling.top/posts/19819.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"prismjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":true,"highlightMacStyle":true},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '规则引擎 Drools 8+ 快速入门',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  isShuoshuo: false
+}</script><meta name="generator" content="Hexo 5.4.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+  window.addEventListener('load', preloader.endLoading)
+
+  if (true) {
+    btf.addGlobalFn('pjaxSend', preloader.initLoading, 'preloader_init')
+    btf.addGlobalFn('pjaxComplete', preloader.endLoading, 'preloader_end')
+  }
+})()</script><div id="web_bg" style="background-color: #efefef;"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/avatar.jpg" onerror="onerror=null;src='/images/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">41</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">26</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">22</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/categories/Java"><i class="fa-fw fas fa-coffee"></i><span> Java</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-spring"></i><span> Spring全家桶</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/Spring"><i class="fa-fw fas fa-spring"></i><span> Spring</span></a></li><li><a class="site-page child" href="/categories/SpringBoot"><i class="fa-fw fas fa-spring-boot"></i><span> SpringBoot</span></a></li><li><a class="site-page child" href="/categories/SpringCloud"><i class="fa-fw fas fa-spring-cloud"></i><span> SpringCloud</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/categories/JVM"><i class="fa-fw fas fa-cogs"></i><span> JVM</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 源码</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/Mybatis"><span> Mybatis</span></a></li><li><a class="site-page child" href="/categories/HashMap"><span> HashMap</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 其他</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/books/"><i class="fa-fw fas fa-book-open"></i><span> 互联网电子书汇总</span></a></li><li><a class="site-page child" href="/compass/"><i class="fa-fw fas fa-compass"></i><span> JAVA八股文指南</span></a></li><li><a class="site-page child" href="/history/"><i class="fa-fw fas fa-book-open"></i><span> 历史</span></a></li><li><a class="site-page child" href="/gallery/"><i class="fa-fw fas fa-image"></i><span> 相册</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://s2.loli.net/2024/12/22/4ei1fqHM3RKSUr2.webp);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/avatar.jpg" alt="Logo"><span class="site-name">码农Stormling</span></a><a class="nav-page-title" href="/"><span class="site-name">规则引擎 Drools 8+ 快速入门</span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/categories/Java"><i class="fa-fw fas fa-coffee"></i><span> Java</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-spring"></i><span> Spring全家桶</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/Spring"><i class="fa-fw fas fa-spring"></i><span> Spring</span></a></li><li><a class="site-page child" href="/categories/SpringBoot"><i class="fa-fw fas fa-spring-boot"></i><span> SpringBoot</span></a></li><li><a class="site-page child" href="/categories/SpringCloud"><i class="fa-fw fas fa-spring-cloud"></i><span> SpringCloud</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/categories/JVM"><i class="fa-fw fas fa-cogs"></i><span> JVM</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 源码</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/Mybatis"><span> Mybatis</span></a></li><li><a class="site-page child" href="/categories/HashMap"><span> HashMap</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 其他</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/books/"><i class="fa-fw fas fa-book-open"></i><span> 互联网电子书汇总</span></a></li><li><a class="site-page child" href="/compass/"><i class="fa-fw fas fa-compass"></i><span> JAVA八股文指南</span></a></li><li><a class="site-page child" href="/history/"><i class="fa-fw fas fa-book-open"></i><span> 历史</span></a></li><li><a class="site-page child" href="/gallery/"><i class="fa-fw fas fa-image"></i><span> 相册</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">规则引擎 Drools 8+ 快速入门</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-12-11T00:00:00.000Z" title="发表于 2024-12-11 08:00:00">2024-12-11</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-12-29T16:12:30.227Z" title="更新于 2024-12-30 00:12:30">2024-12-30</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%A7%84%E5%88%99%E5%BC%95%E6%93%8E/">规则引擎</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">5.9k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>21分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div id="post-outdate-notice" data="{&quot;limitDay&quot;:365,&quot;messagePrev&quot;:&quot;距离上次更新已经&quot;,&quot;messageNext&quot;:&quot;天了，文章内容可能已经过时。&quot;,&quot;postUpdate&quot;:&quot;2024-12-30 00:12:30&quot;}" hidden></div><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/lightgallery.js/1.0.1/css/lightgallery.min.css" /><div class=".article-gallery"><h2 id="规则引擎-Drools-8-快速入门"><a href="#规则引擎-Drools-8-快速入门" class="headerlink" title="规则引擎 Drools 8+快速入门"></a>规则引擎 Drools 8+快速入门</h2><blockquote>
+<p>官网：<a target="_blank" rel="noopener" href="https://drools.org/">https://drools.org/</a><br>参考教程：<a target="_blank" rel="noopener" href="https://docs.drools.org/8.44.0.Final/drools-docs/drools/introduction/index.html">https://docs.drools.org/8.44.0.Final/drools-docs/drools/introduction/index.html</a><br>项目源码：<a target="_blank" rel="noopener" href="https://github.com/kiegroup/drools">https://github.com/kiegroup/drools</a><br>最新版本：<code>8.44.0.Final</code><br>版本参考：<code>Drools 8.41.0.Final</code>、<code>JDK 17</code> 、<code>Maven 3.6.3</code>、<code>SpringBoot 3.3.4</code><br>案例源码：<a target="_blank" rel="noopener" href="http://github.com/lingzhexi/drools_demo">案例源码</a></p>
+</blockquote>
+<h3 id="1、简介"><a href="#1、简介" class="headerlink" title="1、简介"></a>1、简介</h3><p><a target="_blank" rel="noopener" href="https://www.drools.org/">Drools</a>是一款由<code>JBoss</code>组织提供的基于<code>Java</code>语言开发的开源规则引擎，可以将复杂且多变的业务规则从硬编码中解放出来，以<strong>规则脚本</strong>的形式存放在文件或特定的存储介质中（例如存放在数据库中），使得业务规则的变更不需要修改项目代码、重启服务器就可以在线上环境立即生效。</p>
+<p><a target="_blank" rel="noopener" href="https://s2.loli.net/2024/12/24/3fpThEiVN5CWYbx.png" title="drools" class="gallery-item"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/12/24/3fpThEiVN5CWYbx.png" alt="drools"></a></p>
+<h3 id="2、场景"><a href="#2、场景" class="headerlink" title="2、场景"></a>2、场景</h3><h4 id="2-1、需求"><a href="#2-1、需求" class="headerlink" title="2.1、需求"></a>2.1、需求</h4><p>某电商平台的促销活动，活动规则是根据⽤户购买订单的⾦额给⽤户送相应的积分，购买的越多送的积分越多用户购买的金额和对应送多少积分的规则如下：</p>
+<table>
+<thead>
+<tr>
+<th>规则编号</th>
+<th>订单金额</th>
+<th>奖励积分</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>100元以下</td>
+<td>不加分</td>
+</tr>
+<tr>
+<td>2</td>
+<td>100元 - 500元</td>
+<td>加100分</td>
+</tr>
+<tr>
+<td>3</td>
+<td>500元 - 1000元</td>
+<td>加500分</td>
+</tr>
+<tr>
+<td>4</td>
+<td>1000元以上</td>
+<td>加1000分</td>
+</tr>
+<tr>
+<td>5</td>
+<td>…</td>
+<td>…</td>
+</tr>
+</tbody></table>
+<h4 id="2-2、传统方式-if…else"><a href="#2-2、传统方式-if…else" class="headerlink" title="2.2、传统方式 if…else"></a>2.2、传统方式 if…else</h4><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setOrderPoint</span><span class="token punctuation">(</span><span class="token class-name">Order</span> order<span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>order<span class="token punctuation">.</span><span class="token function">getamount</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&lt;=</span> <span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+        order<span class="token punctuation">.</span><span class="token function">setScore</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span><span class="token keyword">else</span> <span class="token keyword">if</span><span class="token punctuation">(</span>order<span class="token punctuation">.</span><span class="token function">getamount</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">></span> <span class="token number">100</span> <span class="token operator">&amp;&amp;</span> order<span class="token punctuation">.</span><span class="token function">getamount</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&lt;=</span> <span class="token number">500</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+        order<span class="token punctuation">.</span><span class="token function">setScore</span><span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span><span class="token keyword">else</span> <span class="token keyword">if</span><span class="token punctuation">(</span>order<span class="token punctuation">.</span><span class="token function">getamount</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">></span> <span class="token number">500</span> <span class="token operator">&amp;&amp;</span> order<span class="token punctuation">.</span><span class="token function">getamount</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&lt;=</span> <span class="token number">1000</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+        order<span class="token punctuation">.</span><span class="token function">setScore</span><span class="token punctuation">(</span><span class="token number">500</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span><span class="token keyword">else</span><span class="token punctuation">&#123;</span>
+        order<span class="token punctuation">.</span><span class="token function">setScore</span><span class="token punctuation">(</span><span class="token number">1000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>存在硬编码问题：</p>
+<p>1、硬编码实现业务规则难以维护</p>
+<p>2、硬编码实现业务规则难以应对变化</p>
+<p>3、业务规则发生变化需要修改代码，重启服务后才能生效</p>
+<h4 id="2-3、策略模式-Strategy"><a href="#2-3、策略模式-Strategy" class="headerlink" title="2.3、策略模式 Strategy"></a>2.3、策略模式 Strategy</h4><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">interface</span> <span class="token class-name">Strategy</span> <span class="token punctuation">&#123;</span>
+    <span class="token function">addScore</span><span class="token punctuation">(</span><span class="token keyword">int</span> num1<span class="token punctuation">,</span><span class="token keyword">int</span> num2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">class</span> <span class="token class-name">Strategy1</span> <span class="token punctuation">&#123;</span>
+    <span class="token function">addScore</span><span class="token punctuation">(</span><span class="token keyword">int</span> num1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+<span class="token keyword">interface</span> <span class="token class-name">StrategyN</span> <span class="token punctuation">&#123;</span>
+    <span class="token function">addScore</span><span class="token punctuation">(</span><span class="token keyword">int</span> num1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">class</span> <span class="token class-name">Environment</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">private</span> <span class="token class-name">Strategy</span> strategy<span class="token punctuation">;</span>
+
+    <span class="token keyword">public</span> <span class="token class-name">Environment</span><span class="token punctuation">(</span><span class="token class-name">Strategy</span> strategy<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>strategy <span class="token operator">=</span> strategy<span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">addScore</span><span class="token punctuation">(</span><span class="token keyword">int</span> num1<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">return</span> strategy<span class="token punctuation">.</span><span class="token function">addScore</span><span class="token punctuation">(</span>num1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>如果需求改变，积分层次增加，比例调整？如何分离业务规则，不修改源码的基础上动态实现调整？</p>
+<p>此时我们需要引入<strong>规则引擎</strong>来帮助我们将规则从代码中分离出去，让开发人员从规则的代码逻辑中解放出来，把规则的维护和设置交由业务人员去管理。</p>
+<h3 id="3、规则引擎概述"><a href="#3、规则引擎概述" class="headerlink" title="3、规则引擎概述"></a>3、规则引擎概述</h3><h4 id="3-1、是什么"><a href="#3-1、是什么" class="headerlink" title="3.1、是什么"></a>3.1、是什么</h4><p><strong>规则引擎</strong>，全称为<strong>业务规则管理系统</strong>，英文名为<code>BRMS</code>(即<code>Business Rule Management System</code>)。规则引擎的主要思想是将应用程序中的<strong>业务决策部分分离</strong>出来，并使用预定义的语义模块编写业务决策（<strong>业务规则</strong>），由用户或开发者在需要时进行配置、管理。</p>
+<p>需要注意的是规则引擎并不是一个具体的技术框架，而是指的一类系统，即业务规则管理系统。目前市面上具体的规则引擎产品有：<code>drools、VisualRules、iLog</code>等。</p>
+<p>规则引擎实现了将业务决策从应用程序代码中分离出来，接收数据输入，解释业务规则，并根据业务规则做出业务决策。规则引擎其实就是一个输入输出平台。</p>
+<p>系统中引入规则引擎后，业务规则不再以程序代码的形式驻留在系统中，取而代之的是处理规则的<strong>规则引擎</strong>，业务规则存储在<strong>规则库</strong>中，完全独立于程序。业务人员可以像管理数据一样对业务规则进行管理，比如查询、添加、更新、统计、提交业务规则等。业务规则被加载到规则引擎中供应用系统调用。</p>
+<h4 id="3-2、优势"><a href="#3-2、优势" class="headerlink" title="3.2、优势"></a>3.2、优势</h4><p>使用规则引擎的优势如下：</p>
+<p>1、业务规则与系统代码分离，实现业务规则的集中管理</p>
+<p>2、在不重启服务的情况下可随时对业务规则进行扩展和维护</p>
+<p>3、可以动态修改业务规则，从而快速响应需求变更</p>
+<p>4、规则引擎是相对独立的，只关心业务规则，使得业务分析人员也可以参与编辑、维护系统的业务规则</p>
+<p>5、减少了硬编码业务规则的成本和风险</p>
+<p>6、使用规则引擎提供的规则编辑工具，使复杂的业务规则实现变得的简单</p>
+<h4 id="3-3、应用场景"><a href="#3-3、应用场景" class="headerlink" title="3.3、应用场景"></a>3.3、应用场景</h4><p>对于一些存在比较复杂的业务规则并且业务规则会频繁变动的系统比较适合使用规则引擎，如下：</p>
+<p>1、风险控制系统—-风险贷款、风险评估</p>
+<p>2、反欺诈项目—-银行贷款、征信验证</p>
+<p>3、决策平台系统—-财务计算</p>
+<p>4、促销平台系统—-满减、打折、加价购</p>
+<h3 id="4、Drools入门案例"><a href="#4、Drools入门案例" class="headerlink" title="4、Drools入门案例"></a>4、Drools入门案例</h3><h4 id="4-1、创建springboot项目"><a href="#4-1、创建springboot项目" class="headerlink" title="4.1、创建springboot项目"></a>4.1、创建springboot项目</h4><pre class="line-numbers language-none"><code class="language-none">drools_demo<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p><code>GroupId：com.stormling</code><br><a target="_blank" rel="noopener" href="https://s2.loli.net/2024/12/24/emR2vgKh6QHFUSo.png" title="创建项目" class="gallery-item"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/12/24/emR2vgKh6QHFUSo.png" alt="创建项目"></a></p>
+<h4 id="4-2、SpringBoot版本"><a href="#4-2、SpringBoot版本" class="headerlink" title="4.2、SpringBoot版本"></a>4.2、<code>SpringBoot</code>版本</h4><pre class="line-numbers language-xml" data-language="xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>3.3.4<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h4 id="4-3、引入依赖"><a href="#4-3、引入依赖" class="headerlink" title="4.3、引入依赖"></a>4.3、引入依赖</h4><pre class="line-numbers language-xml" data-language="xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>parent</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.springframework.boot<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>spring-boot-starter-parent<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>3.0.5<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>relativePath</span><span class="token punctuation">/></span></span> <span class="token comment">&lt;!-- lookup parent from repository --></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>parent</span><span class="token punctuation">></span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>properties</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>java.version</span><span class="token punctuation">></span></span>17<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>java.version</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>drools.version</span><span class="token punctuation">></span></span>8.41.0.Final<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>drools.version</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>properties</span><span class="token punctuation">></span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependencies</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.springframework.boot<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>spring-boot-starter<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+	<span class="token comment">&lt;!--test--></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.springframework.boot<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>spring-boot-starter-test<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>scope</span><span class="token punctuation">></span></span>test<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>scope</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+	<span class="token comment">&lt;!--drools 规则引擎--></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.drools<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>drools-core<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>$&#123;drools.version&#125;<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.drools<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>drools-compiler<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>$&#123;drools.version&#125;<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.drools<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>drools-decisiontables<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>$&#123;drools.version&#125;<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.drools<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>drools-mvel<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>$&#123;drools.version&#125;<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+    <span class="token comment">&lt;!--lombok用来简化实体类--></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.projectlombok<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>lombok<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependencies</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="4-4、Idea中安装Drools插件"><a href="#4-4、Idea中安装Drools插件" class="headerlink" title="4.4、Idea中安装Drools插件"></a>4.4、Idea中安装Drools插件</h4><p><a target="_blank" rel="noopener" href="https://s2.loli.net/2024/12/24/45wytksZNTrl9ja.png" title="Drools插件" class="gallery-item"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/12/24/45wytksZNTrl9ja.png" alt="Drools插件"></a></p>
+<h3 id="5、编写代码"><a href="#5、编写代码" class="headerlink" title="5、编写代码"></a>5、编写代码</h3><h4 id="5-1、添加Drools配置类"><a href="#5-1、添加Drools配置类" class="headerlink" title="5.1、添加Drools配置类"></a>5.1、添加Drools配置类</h4><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">package</span> <span class="token namespace">com<span class="token punctuation">.</span>stormling<span class="token punctuation">.</span>config</span><span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">org<span class="token punctuation">.</span>kie<span class="token punctuation">.</span>api<span class="token punctuation">.</span></span><span class="token class-name">KieServices</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">org<span class="token punctuation">.</span>kie<span class="token punctuation">.</span>api<span class="token punctuation">.</span>builder<span class="token punctuation">.</span></span><span class="token operator">*</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">org<span class="token punctuation">.</span>kie<span class="token punctuation">.</span>api<span class="token punctuation">.</span>runtime<span class="token punctuation">.</span></span><span class="token class-name">KieContainer</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">org<span class="token punctuation">.</span>kie<span class="token punctuation">.</span>api<span class="token punctuation">.</span>runtime<span class="token punctuation">.</span></span><span class="token class-name">KieSession</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">org<span class="token punctuation">.</span>kie<span class="token punctuation">.</span>internal<span class="token punctuation">.</span>io<span class="token punctuation">.</span></span><span class="token class-name">ResourceFactory</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>context<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span></span><span class="token class-name">Bean</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>context<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span></span><span class="token class-name">Configuration</span></span><span class="token punctuation">;</span>
+
+<span class="token comment">/**
+ * 规则引擎配置类
+ */</span>
+<span class="token annotation punctuation">@Configuration</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">DroolsConfig</span> <span class="token punctuation">&#123;</span>
+
+    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token class-name">KieServices</span> kieServices <span class="token operator">=</span> <span class="token class-name">KieServices<span class="token punctuation">.</span>Factory</span><span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">//制定规则文件的路径</span>
+    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token class-name">String</span> <span class="token constant">RULES_CUSTOMER_RULES_DRL</span> <span class="token operator">=</span> <span class="token string">"rules/order.drl"</span><span class="token punctuation">;</span>
+
+    <span class="token annotation punctuation">@Bean</span>
+    <span class="token keyword">public</span> <span class="token class-name">KieContainer</span> <span class="token function">kieContainer</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token comment">//获得Kie容器对象</span>
+        <span class="token class-name">KieFileSystem</span> kieFileSystem <span class="token operator">=</span> kieServices<span class="token punctuation">.</span><span class="token function">newKieFileSystem</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        kieFileSystem<span class="token punctuation">.</span><span class="token function">write</span><span class="token punctuation">(</span><span class="token class-name">ResourceFactory</span><span class="token punctuation">.</span><span class="token function">newClassPathResource</span><span class="token punctuation">(</span><span class="token constant">RULES_CUSTOMER_RULES_DRL</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token class-name">KieBuilder</span> kieBuilder <span class="token operator">=</span> kieServices<span class="token punctuation">.</span><span class="token function">newKieBuilder</span><span class="token punctuation">(</span>kieFileSystem<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        kieBuilder<span class="token punctuation">.</span><span class="token function">buildAll</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token class-name">KieModule</span> kieModule <span class="token operator">=</span> kieBuilder<span class="token punctuation">.</span><span class="token function">getKieModule</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">KieContainer</span> kieContainer <span class="token operator">=</span> kieServices<span class="token punctuation">.</span><span class="token function">newKieContainer</span><span class="token punctuation">(</span>kieModule<span class="token punctuation">.</span><span class="token function">getReleaseId</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">return</span> kieContainer<span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>说明：</strong></p>
+<ul>
+<li>定义了一个 <code>KieContainer</code>的<code>Spring Bean</code> ，<code>KieContainer</code>用于通过加载应用程序的<code>/resources</code>文件夹下的规则文件来构建规则引擎。</li>
+<li>创建<code>KieFileSystem</code>实例并配置规则引擎并从应用程序的资源目录加载规则的 <code>DRL</code> 文件。</li>
+<li>使用<code>KieBuilder</code>实例来构建 <code>drools</code> 模块。我们可以使用KieSerive单例实例来创建 <code>KieBuilder</code> 实例。</li>
+<li>最后，使用 <code>KieService</code> 创建一个 <code>KieContainer</code> 并将其配置为 <code>spring bean</code></li>
+</ul>
+<h4 id="5-2、创建实体类Order"><a href="#5-2、创建实体类Order" class="headerlink" title="5.2、创建实体类Order"></a>5.2、创建实体类Order</h4><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">package</span> <span class="token namespace">com<span class="token punctuation">.</span>stormling<span class="token punctuation">.</span>model</span><span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">lombok<span class="token punctuation">.</span></span><span class="token class-name">Data</span></span><span class="token punctuation">;</span>
+<span class="token annotation punctuation">@Data</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Order</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">private</span> <span class="token keyword">double</span> amount<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token keyword">double</span> score<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="5-3、order-drl"><a href="#5-3、order-drl" class="headerlink" title="5.3、order.drl"></a>5.3、order.drl</h4><p>创建规则文件<code>resources/rules/order.drl</code></p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">//订单积分规则</span>
+<span class="token keyword">package</span> <span class="token namespace">com<span class="token punctuation">.</span>order</span>
+<span class="token keyword">import</span> <span class="token namespace">com<span class="token punctuation">.</span>stormling<span class="token punctuation">.</span>model<span class="token punctuation">.</span></span><span class="token class-name">Order</span>
+
+<span class="token comment">//规则一：100元以下 不加分</span>
+rule <span class="token string">"order_rule_1"</span>
+    when
+        $order<span class="token operator">:</span><span class="token class-name">Order</span><span class="token punctuation">(</span>amount <span class="token operator">&lt;</span> <span class="token number">100</span><span class="token punctuation">)</span>
+    then
+        $order<span class="token punctuation">.</span><span class="token function">setScore</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"成功匹配到规则一：100元以下 不加分"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+end
+
+<span class="token comment">//规则二：100元 - 500元 加100分</span>
+rule <span class="token string">"order_rule_2"</span>
+    when
+        $order<span class="token operator">:</span><span class="token class-name">Order</span><span class="token punctuation">(</span>amount <span class="token operator">>=</span> <span class="token number">100</span> <span class="token operator">&amp;&amp;</span> amount <span class="token operator">&lt;</span> <span class="token number">500</span><span class="token punctuation">)</span>
+    then
+         $order<span class="token punctuation">.</span><span class="token function">setScore</span><span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+         <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"成功匹配到规则二：100元 - 500元 加100分"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+end
+
+<span class="token comment">//规则三：500元 - 1000元 加500分</span>
+rule <span class="token string">"order_rule_3"</span>
+    when
+        $order<span class="token operator">:</span><span class="token class-name">Order</span><span class="token punctuation">(</span>amount <span class="token operator">>=</span> <span class="token number">500</span> <span class="token operator">&amp;&amp;</span> amount <span class="token operator">&lt;</span> <span class="token number">1000</span><span class="token punctuation">)</span>
+    then
+         $order<span class="token punctuation">.</span><span class="token function">setScore</span><span class="token punctuation">(</span><span class="token number">500</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+         <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"成功匹配到规则三：500元 - 1000元 加500分"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+end
+
+<span class="token comment">//规则四：1000元以上 加1000分</span>
+rule <span class="token string">"order_rule_4"</span>
+    when
+        $order<span class="token operator">:</span><span class="token class-name">Order</span><span class="token punctuation">(</span>amount <span class="token operator">>=</span> <span class="token number">1000</span><span class="token punctuation">)</span>
+    then
+         $order<span class="token punctuation">.</span><span class="token function">setScore</span><span class="token punctuation">(</span><span class="token number">1000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+         <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"成功匹配到规则四：1000元以上 加1000分"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+end<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="5-4、编写测试类"><a href="#5-4、编写测试类" class="headerlink" title="5.4、编写测试类"></a>5.4、编写测试类</h4><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">package</span> <span class="token namespace">com<span class="token punctuation">.</span>stormling</span><span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">org<span class="token punctuation">.</span>junit<span class="token punctuation">.</span>jupiter<span class="token punctuation">.</span>api<span class="token punctuation">.</span></span><span class="token class-name">Test</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">com<span class="token punctuation">.</span>stormling<span class="token punctuation">.</span>drools<span class="token punctuation">.</span>model<span class="token punctuation">.</span></span><span class="token class-name">Order</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">org<span class="token punctuation">.</span>kie<span class="token punctuation">.</span>api<span class="token punctuation">.</span>runtime<span class="token punctuation">.</span></span><span class="token class-name">KieContainer</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">org<span class="token punctuation">.</span>kie<span class="token punctuation">.</span>api<span class="token punctuation">.</span>runtime<span class="token punctuation">.</span></span><span class="token class-name">KieSession</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>beans<span class="token punctuation">.</span>factory<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span></span><span class="token class-name">Autowired</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>boot<span class="token punctuation">.</span>test<span class="token punctuation">.</span>context<span class="token punctuation">.</span></span><span class="token class-name">SpringBootTest</span></span><span class="token punctuation">;</span>
+
+<span class="token annotation punctuation">@SpringBootTest</span>
+<span class="token keyword">class</span> <span class="token class-name">DroolsDemosApplicationTests</span> <span class="token punctuation">&#123;</span>
+
+    <span class="token annotation punctuation">@Autowired</span>
+    <span class="token keyword">private</span> <span class="token class-name">KieContainer</span> kieContainer<span class="token punctuation">;</span>
+
+    <span class="token annotation punctuation">@Test</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">test</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+        <span class="token comment">//从Kie容器对象中获取会话对象</span>
+        <span class="token class-name">KieSession</span> session <span class="token operator">=</span> kieContainer<span class="token punctuation">.</span><span class="token function">newKieSession</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token comment">//Fact对象，事实对象</span>
+        <span class="token class-name">Order</span> order <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Order</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        order<span class="token punctuation">.</span><span class="token function">setamount</span><span class="token punctuation">(</span><span class="token number">1300</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token comment">//将Order对象插入到工作内存中</span>
+        session<span class="token punctuation">.</span><span class="token function">insert</span><span class="token punctuation">(</span>order<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token comment">//激活规则，由Drools框架自动进行规则匹配，如果规则匹配成功，则执行当前规则</span>
+        session<span class="token punctuation">.</span><span class="token function">fireAllRules</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">//关闭会话</span>
+        session<span class="token punctuation">.</span><span class="token function">dispose</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"订单金额："</span> <span class="token operator">+</span> order<span class="token punctuation">.</span><span class="token function">getamount</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span>
+                <span class="token string">"，添加积分："</span> <span class="token operator">+</span> order<span class="token punctuation">.</span><span class="token function">getScore</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>输出结果：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">匹配规则4：1000
+订单金额：1300.0积分：1000.0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>通过上面的入门案例我们可以发现，使用<code>drools</code>规则引擎主要工作就是编写规则文件，在规则文件中定义跟业务相关的业务规则。规则定义好后就需要调用<code>drools</code>提供的<code>API</code>将数据提供给规则引擎进行规则模式匹配，规则引擎会执行匹配成功的规则并将计算的结果返回给我们。</p>
+<p>可能大家会有疑问，就是我们虽然没有在代码中编写规则的判断逻辑，但是我们还是在规则文件中编写了业务规则，这跟在代码中编写规则有什么本质的区别呢？</p>
+<p>我们前面其实已经提到，使用规则引擎时业务规则可以做到<strong>动态管理</strong>。业务人员可以像管理数据一样对业务规则进行管理，比如查询、添加、更新、统计、提交业务规则等。这样就可以做到在<strong>不重启服务</strong>的情况下<strong>调整业务规则</strong>。</p>
+<h3 id="6、小结"><a href="#6、小结" class="headerlink" title="6、小结"></a>6、小结</h3><h4 id="6-1、规则引擎构成"><a href="#6-1、规则引擎构成" class="headerlink" title="6.1、规则引擎构成"></a>6.1、规则引擎构成</h4><p><code>drools</code>规则引擎由以下三部分构成：</p>
+<ul>
+<li>Working Memory（工作内存）</li>
+<li>Rule Base（规则库）</li>
+<li>Inference Engine（推理引擎）<ul>
+<li>Pattern Matcher（匹配器） 具体匹配哪一个规则，由这个完成</li>
+<li>Agenda(议程)</li>
+<li>Execution Engine（执行引擎）</li>
+</ul>
+</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://s2.loli.net/2024/12/24/JRLKoSUflkhIZ9Y.jpg" title="Drools构成" class="gallery-item"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/12/24/JRLKoSUflkhIZ9Y.jpg" alt="Drools构成"></a></p>
+<h4 id="6-2、相关概念说明"><a href="#6-2、相关概念说明" class="headerlink" title="6.2、相关概念说明"></a>6.2、相关概念说明</h4><p><strong>Working Memory</strong>：工作内存，<code>drools</code>规则引擎会从<code>Working Memory中</code>获取数据并和规则文件中定义的规则进行模式匹配，所以我们开发的应用程序只需要将我们的<strong>数据插入</strong>到<code>Working Memory</code>中即可，例如本案例中我们调用<code>kieSession.insert(order)</code>就是将<code>order</code>对象插入到了<strong>工作内存</strong>中。</p>
+<p><strong>Fact</strong>：事实，是指在<code>drools</code> 规则应用当中，将一个<strong>普通的<code>JavaBean</code>插入到<code>Working Memory后</code>的对象</strong>就是<strong>Fact对象</strong>，例如本案例中的<code>Order</code>对象就属于<code>Fact</code>对象。<code>Fact</code>对象是我们的应用和规则引擎进行<strong>数据交互</strong>的桥梁或通道。</p>
+<p><strong>Rule Base</strong>：规则库，我们在规则文件中定义的规则都会被加载到规则库中。</p>
+<p><strong>Pattern Matcher</strong>：匹配器，将<code>Rule Base</code>中的所有规则与<code>Working Memory</code>中的<code>Fact</code>对象进行<strong>模式匹配</strong>，匹配成功的规则将被<strong>激活</strong>并放入<code>Agenda</code>（议程）中。</p>
+<p><strong>Agenda</strong>：议程，用于存放通过匹配器进行模式匹配后被激活的规则。</p>
+<p><strong>Execution Engine</strong>：执行引擎，执行<code>Agenda</code>中被激活的规则。<br><a target="_blank" rel="noopener" href="https://i-blog.csdnimg.cn/direct/95588868b5c94f048eb01475714c08e7.png#pic_center" title="案例" class="gallery-item"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://i-blog.csdnimg.cn/direct/95588868b5c94f048eb01475714c08e7.png#pic_center" alt="案例"></a></p>
+<h4 id="6-3、规则引擎执行过程"><a href="#6-3、规则引擎执行过程" class="headerlink" title="6.3、规则引擎执行过程"></a>6.3、规则引擎执行过程</h4><p><a target="_blank" rel="noopener" href="https://s2.loli.net/2024/12/24/osJML3OFG9XkuWU.png" title="执行流程" class="gallery-item"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/12/24/osJML3OFG9XkuWU.png" alt="执行流程"></a></p>
+<h4 id="6-4、KIE介绍"><a href="#6-4、KIE介绍" class="headerlink" title="6.4、KIE介绍"></a>6.4、KIE介绍</h4><p>我们在操作<code>Drools</code>时经常使用的<code>API</code>以及它们之间的关系如下图：<br><a target="_blank" rel="noopener" href="https://s2.loli.net/2024/12/24/jr7Llc3tOw1dUCo.png" title="核心类关系" class="gallery-item"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/12/24/jr7Llc3tOw1dUCo.png" alt="核心类关系"></a></p>
+<p>通过上面的核心<code>API</code>可以发现，大部分类名都是以<code>Kie</code>开头。<strong>Kie全称为Knowledge Is Everything</strong>，即”知识就是一切”的缩写，是<code>Jboss</code>一系列项目的总称。如下图所示，<code>Kie</code>的主要模块有<code>OptaPlanner</code>、<code>Drools</code>、<code>UberFire</code>、<code>jBPM</code>。</p>
+<p><a target="_blank" rel="noopener" href="https://s2.loli.net/2024/12/24/2UgIRiof4G9eEVy.png" title="Kie" class="gallery-item"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/12/24/2UgIRiof4G9eEVy.png" alt="Kie"></a></p>
+<p>通过上图可以看到，<code>Drools</code>是整个<code>KIE</code>项目中的一个组件，<code>Drools</code>中还包括一个<code>Drools-WB</code>的模块，它是一个可视化的规则编辑器。</p>
+<h3 id="7、Drools基础语法"><a href="#7、Drools基础语法" class="headerlink" title="7、Drools基础语法"></a>7、Drools基础语法</h3><h4 id="7-1、规则文件构成"><a href="#7-1、规则文件构成" class="headerlink" title="7.1、规则文件构成"></a>7.1、规则文件构成</h4><p>在使用<code>Drools</code>时非常重要的一个工作就是编写规则文件，通常规则文件的后缀为<code>.drl</code></p>
+<p><strong>drl是Drools Rule Language的缩写</strong>。在规则文件中编写具体的规则内容。</p>
+<p>一套完整的规则文件内容构成如下：</p>
+<table>
+<thead>
+<tr>
+<th>关键字</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>package</td>
+<td>包名，只限于逻辑上的管理，同一个包名下的查询或者函数可以直接调用</td>
+</tr>
+<tr>
+<td>import</td>
+<td>用于导入类或者静态方法</td>
+</tr>
+<tr>
+<td>global</td>
+<td>全局变量</td>
+</tr>
+<tr>
+<td>function</td>
+<td>自定义函数</td>
+</tr>
+<tr>
+<td>query</td>
+<td>查询</td>
+</tr>
+<tr>
+<td>rule end</td>
+<td>规则体</td>
+</tr>
+</tbody></table>
+<p><code>Drools</code>支持的规则文件，除了<code>drl</code>形式，还有<code>Excel</code>文件类型的。</p>
+<h4 id="7-2、规则体语法结构"><a href="#7-2、规则体语法结构" class="headerlink" title="7.2、规则体语法结构"></a>7.2、规则体语法结构</h4><p>规则体是规则文件内容中的重要组成部分，是进行业务规则判断、处理业务结果的部分。</p>
+<p>规则体语法结构如下：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java">rule <span class="token string">"ruleName"</span>
+    attributes
+    when
+        <span class="token constant">LHS</span> 
+    then
+        <span class="token constant">RHS</span>
+end<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>**<code>rule</code>**：关键字，表示规则开始，参数为规则的唯一名称。</p>
+<p>**<code>attributes</code>**：规则属性，是<code>rule</code>与<code>when</code>之间的参数，为可选项。</p>
+<p>**<code>when</code>**：关键字，后面跟规则的条件部分。</p>
+<p><strong><code>LHS</code></strong>(<code>Left Hand Side</code>)：是规则的条件部分的通用名称。它由零个或多个条件元素组成。<strong>如果<code>LHS</code>为空，则它将被视为始终为true的条件元素</strong>。 （左手边）</p>
+<p>**<code>then</code>**：关键字，后面跟规则的结果部分。</p>
+<p><strong><code>RHS</code></strong>(<code>Right Hand Side</code>)：是规则的后果或行动部分的通用名称。 （右手边）</p>
+<p>**<code>end</code>**：关键字，表示一个规则结束。</p>
+<h4 id="7-3、注释"><a href="#7-3、注释" class="headerlink" title="7.3、注释"></a>7.3、注释</h4><p>在<code>drl</code>形式的规则文件中使用注释和<code>Java</code>类中使用注释一致，分为单行注释和多行注释。</p>
+<p>单行注释用<code>&quot;//&quot;</code>进行标记，多行注释以<code>&quot;/*&quot;</code>开始，以”*/“结束。如下示例：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">//规则rule1的注释，这是一个单行注释</span>
+rule <span class="token string">"rule1"</span>
+    when
+    then
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"rule1触发"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+end
+
+<span class="token comment">/*
+规则rule2的注释，
+这是一个多行注释
+*/</span>
+rule <span class="token string">"rule2"</span>
+    when
+    then
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"rule2触发"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+end<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="7-4、Pattern模式匹配"><a href="#7-4、Pattern模式匹配" class="headerlink" title="7.4、Pattern模式匹配"></a>7.4、Pattern模式匹配</h4><p>前面我们已经知道了<code>Drools</code>中的匹配器可以将<code>Rule Base</code>中的所有规则与<code>Working Memory</code>中的<code>Fact</code>对象进行模式匹配，那么我们就需要在规则体的<code>LHS</code>部分定义规则并进行模式匹配。<code>LHS</code>部分由一个或者多个条件组成，条件又称为<code>pattern</code>。</p>
+<p><strong>pattern的语法结构为：绑定变量名:Object(Field约束)</strong></p>
+<p>其中绑定变量名可以省略，通常绑定变量名的命名一般建议以<code>$</code>开始。如果定义了绑定变量名，就可以在规则体的<code>RHS</code>部分使用此绑定变量名来操作相应的<code>Fact</code>对象。<code>Field</code>约束部分是需要返回<code>true</code>或者<code>false</code>的0个或多个表达式。</p>
+<p>例如我们的入门案例中：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">//规则二：100元 - 500元 加100分</span>
+rule <span class="token string">"order_rule_2"</span>
+    when
+        $order<span class="token operator">:</span><span class="token class-name">Order</span><span class="token punctuation">(</span>amount <span class="token operator">>=</span> <span class="token number">100</span> <span class="token operator">&amp;&amp;</span> amount <span class="token operator">&lt;</span> <span class="token number">500</span><span class="token punctuation">)</span>
+    then
+         $order<span class="token punctuation">.</span><span class="token function">setScore</span><span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+         <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"成功匹配到规则二：100元 - 500元 加100分"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+end<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>通过上面的例子我们可以知道，匹配的条件为：</p>
+<p>1、工作内存中必须存在<code>Order</code>这种类型的<code>Fact</code>对象—–类型约束</p>
+<p>2、<code>Fact</code>对象的<code>amount</code>属性值必须大于等于100——属性约束</p>
+<p>3、<code>Fact</code>对象的<code>amount</code>属性值必须小于500——属性约束</p>
+<p>以上条件必须同时满足当前规则才有可能被激活。</p>
+<h4 id="7-5、比较操作符"><a href="#7-5、比较操作符" class="headerlink" title="7.5、比较操作符"></a>7.5、比较操作符</h4><p><code>Drools</code>提供的比较操作符，如下表：</p>
+<table>
+<thead>
+<tr>
+<th>符号</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>&lt;</code></td>
+<td>小于</td>
+</tr>
+<tr>
+<td><code>&gt;</code></td>
+<td>大于</td>
+</tr>
+<tr>
+<td><code>&gt;=</code></td>
+<td>大于等于</td>
+</tr>
+<tr>
+<td><code>&lt;=</code></td>
+<td>小于等于</td>
+</tr>
+<tr>
+<td><code>==</code></td>
+<td>等于</td>
+</tr>
+<tr>
+<td><code>!=</code></td>
+<td>不等于</td>
+</tr>
+<tr>
+<td><code>contains</code></td>
+<td>检查一个Fact对象的某个属性值是否包含一个指定的对象值</td>
+</tr>
+<tr>
+<td><code>not contains</code></td>
+<td>检查一个Fact对象的某个属性值是否不包含一个指定的对象值</td>
+</tr>
+<tr>
+<td><code>memberOf</code></td>
+<td>判断一个Fact对象的某个属性是否在一个或多个集合中</td>
+</tr>
+<tr>
+<td><code>not memberOf</code></td>
+<td>判断一个Fact对象的某个属性是否不在一个或多个集合中</td>
+</tr>
+<tr>
+<td><code>matches</code></td>
+<td>判断一个Fact对象的属性是否与提供的标准的Java正则表达式进行匹配</td>
+</tr>
+<tr>
+<td><code>not matches</code></td>
+<td>判断一个Fact对象的属性是否不与提供的标准的Java正则表达式进行匹配</td>
+</tr>
+</tbody></table>
+<p>前6个比较操作符和Java中的完全相同。</p>
+<h4 id="7-6、Drools内置方法"><a href="#7-6、Drools内置方法" class="headerlink" title="7.6、Drools内置方法"></a>7.6、Drools内置方法</h4><p>规则文件的<code>RHS</code>部分的主要作用是通过<strong>插入，删除或修改工作内存中的Fact数据</strong>，来达到控制规则引擎执行的目的。<code>Drools</code>提供了一些方法可以用来操作工作内存中的数据，<strong>操作完成后规则引擎会重新进行相关规则的匹配，</strong>原来没有匹配成功的规则在我们修改数据完成后有可能就会匹配成功了。</p>
+<h5 id="7-6-1、update方法"><a href="#7-6-1、update方法" class="headerlink" title="7.6.1、update方法"></a>7.6.1、update方法</h5><p><strong>update方法的作用是更新工作内存中的数据，并让相关的规则重新匹配。</strong> （要避免死循环）</p>
+<p>参数：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">//Fact对象，事实对象</span>
+<span class="token class-name">Order</span> order <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Order</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+order<span class="token punctuation">.</span><span class="token function">setamount</span><span class="token punctuation">(</span><span class="token number">30</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>规则：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">//规则一：100元以下 不加分</span>
+rule <span class="token string">"order_rule_1"</span>
+    when
+        $order<span class="token operator">:</span><span class="token class-name">Order</span><span class="token punctuation">(</span>amount <span class="token operator">&lt;</span> <span class="token number">100</span><span class="token punctuation">)</span>
+    then
+        $order<span class="token punctuation">.</span><span class="token function">setamount</span><span class="token punctuation">(</span><span class="token number">150</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">update</span><span class="token punctuation">(</span>$order<span class="token punctuation">)</span> <span class="token comment">//update方法用于更新Fact对象，会导致相关规则重新匹配</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"成功匹配到规则一：100元以下 不加分"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+end
+
+<span class="token comment">//规则二：100元 - 500元 加100分</span>
+rule <span class="token string">"order_rule_2"</span>
+    when
+        $order<span class="token operator">:</span><span class="token class-name">Order</span><span class="token punctuation">(</span>amount <span class="token operator">>=</span> <span class="token number">100</span> <span class="token operator">&amp;&amp;</span> amount <span class="token operator">&lt;</span> <span class="token number">500</span><span class="token punctuation">)</span>
+    then
+         $order<span class="token punctuation">.</span><span class="token function">setScore</span><span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+         <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"成功匹配到规则二：100元 - 500元 加100分"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+end<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>在更新数据时需要注意防止发生死循环。</strong></p>
+<h5 id="7-6-2、insert方法"><a href="#7-6-2、insert方法" class="headerlink" title="7.6.2、insert方法"></a>7.6.2、insert方法</h5><p><strong>insert</strong>方法的作用是向工作内存中插入数据，并让相关的规则重新匹配。</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">//规则一：100元以下 不加分</span>
+rule <span class="token string">"order_rule_1"</span>
+    when
+        $order<span class="token operator">:</span><span class="token class-name">Order</span><span class="token punctuation">(</span>amount <span class="token operator">&lt;</span> <span class="token number">100</span><span class="token punctuation">)</span>
+    then
+        <span class="token class-name">Order</span> order <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Order</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        order<span class="token punctuation">.</span><span class="token function">setamount</span><span class="token punctuation">(</span><span class="token number">130</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">insert</span><span class="token punctuation">(</span>order<span class="token punctuation">)</span><span class="token punctuation">;</span>      <span class="token comment">//insert方法的作用是向工作内存中插入Fact对象，会导致相关规则重新匹配</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"成功匹配到规则一：100元以下 不加分"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+end
+
+<span class="token comment">//规则二：100元 - 500元 加100分</span>
+rule <span class="token string">"order_rule_2"</span>
+    when
+        $order<span class="token operator">:</span><span class="token class-name">Order</span><span class="token punctuation">(</span>amount <span class="token operator">>=</span> <span class="token number">100</span> <span class="token operator">&amp;&amp;</span> amount <span class="token operator">&lt;</span> <span class="token number">500</span><span class="token punctuation">)</span>
+    then
+         $order<span class="token punctuation">.</span><span class="token function">setScore</span><span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+         <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"成功匹配到规则二：100元 - 500元 加100分"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+end<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h5 id="7-6-3、retract方法"><a href="#7-6-3、retract方法" class="headerlink" title="7.6.3、retract方法"></a>7.6.3、retract方法</h5><p><strong>retract方法的作用是删除工作内存中的数据，并让相关的规则重新匹配。</strong></p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">//规则一：100元以下 不加分</span>
+rule <span class="token string">"order_rule_1"</span>
+    when
+        $order<span class="token operator">:</span><span class="token class-name">Order</span><span class="token punctuation">(</span>amount <span class="token operator">&lt;</span> <span class="token number">100</span><span class="token punctuation">)</span>
+    then
+        <span class="token function">retract</span><span class="token punctuation">(</span>$order<span class="token punctuation">)</span>      <span class="token comment">//retract方法的作用是删除工作内存中的Fact对象，会导致相关规则重新匹配</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"成功匹配到规则一：100元以下 不加分"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+end<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="8、规则属性-attributes"><a href="#8、规则属性-attributes" class="headerlink" title="8、规则属性 attributes"></a>8、规则属性 attributes</h3><p>前面我们已经知道了规则体的构成如下：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java">rule <span class="token string">"ruleName"</span>
+    attributes
+    when
+        <span class="token constant">LHS</span>
+    then
+        <span class="token constant">RHS</span>
+end<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>本章节就是针对规则体的<strong>attributes</strong>属性部分进行讲解。Drools中提供的属性如下表(部分属性)：</p>
+<table>
+<thead>
+<tr>
+<th>属性名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>salience</td>
+<td>指定规则执行优先级</td>
+</tr>
+<tr>
+<td>dialect</td>
+<td>指定规则使用的语言类型，取值为java和mvel</td>
+</tr>
+<tr>
+<td>enabled</td>
+<td>指定规则是否启用</td>
+</tr>
+<tr>
+<td>date-effective</td>
+<td>指定规则生效时间</td>
+</tr>
+<tr>
+<td>date-expires</td>
+<td>指定规则失效时间</td>
+</tr>
+<tr>
+<td>activation-group</td>
+<td>激活分组，具有相同分组名称的规则只能有一个规则触发</td>
+</tr>
+<tr>
+<td>agenda-group</td>
+<td>议程分组，只有获取焦点的组中的规则才有可能触发</td>
+</tr>
+<tr>
+<td>timer</td>
+<td>定时器，指定规则触发的时间</td>
+</tr>
+<tr>
+<td>auto-focus</td>
+<td>自动获取焦点，一般结合agenda-group一起使用</td>
+</tr>
+<tr>
+<td>no-loop</td>
+<td>防止死循环</td>
+</tr>
+</tbody></table>
+<p>重点说一下我们项目需要使用的属性</p>
+<h4 id="8-1、salience属性"><a href="#8-1、salience属性" class="headerlink" title="8.1、salience属性"></a>8.1、salience属性</h4><p>salience属性用于指定规则的执行优先级，<strong>取值类型为Integer</strong>。<strong>数值越大越优先执行</strong>。每个规则都有一个默认的执行顺序，如果不设置salience属性，规则体的执行顺序为由上到下。</p>
+<p>可以通过创建规则文件salience.drl来测试salience属性，内容如下：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">package</span> <span class="token namespace">com<span class="token punctuation">.</span>order</span>
+
+rule <span class="token string">"rule_1"</span>
+    when
+        <span class="token function">eval</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span>
+    then
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"规则rule_1触发"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+end
+    
+rule <span class="token string">"rule_2"</span>
+    when
+        <span class="token function">eval</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span>
+    then
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"规则rule_2触发"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+end
+
+rule <span class="token string">"rule_3"</span>
+    when
+        <span class="token function">eval</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span>
+    then
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"规则rule_3触发"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+end<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>通过控制台可以看到，由于以上三个规则没有设置salience属性，所以执行的顺序是按照规则文件中规则的顺序由上到下执行的。接下来我们修改一下文件内容：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">package</span> <span class="token namespace">com<span class="token punctuation">.</span>order</span>
+
+rule <span class="token string">"rule_1"</span>
+    salience <span class="token number">9</span>
+    when
+        <span class="token function">eval</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span>
+    then
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"规则rule_1触发"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+end
+
+rule <span class="token string">"rule_2"</span>
+    salience <span class="token number">10</span>
+    when
+        <span class="token function">eval</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span>
+    then
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"规则rule_2触发"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+end
+
+rule <span class="token string">"rule_3"</span>
+    salience <span class="token number">8</span>
+    when
+        <span class="token function">eval</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span>
+    then
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"规则rule_3触发"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+end<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>通过控制台可以看到，规则文件执行的顺序是按照我们设置的salience值由大到小顺序执行的。</p>
+<p>建议在编写规则时使用salience属性明确指定执行优先级。</p>
+<h4 id="8-2、no-loop属性"><a href="#8-2、no-loop属性" class="headerlink" title="8.2、no-loop属性"></a>8.2、no-loop属性</h4><p><strong>no-loop</strong>属性用于防止死循环，当规则通过<code>update</code>之类的函数修改了<code>Fact</code>对象时，可能使当前规则再次被激活从而导致死循环。取值类型为<code>Boolean</code>，默认值为<code>false</code>，测试步骤如下：</p>
+<p>编写规则文件<code>/resources/rules/activationgroup.drl</code></p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">//订单积分规则</span>
+<span class="token keyword">package</span> <span class="token namespace">com<span class="token punctuation">.</span>order</span>
+<span class="token keyword">import</span> <span class="token namespace">com<span class="token punctuation">.</span>stormling<span class="token punctuation">.</span>drools<span class="token punctuation">.</span>model<span class="token punctuation">.</span></span><span class="token class-name">Order</span>
+
+<span class="token comment">//规则一：100元以下 不加分</span>
+rule <span class="token string">"order_rule_1"</span>
+    no<span class="token operator">-</span>loop <span class="token boolean">true</span>         <span class="token comment">//防止陷入死循环</span>
+    when
+        $order<span class="token operator">:</span><span class="token class-name">Order</span><span class="token punctuation">(</span>amount <span class="token operator">&lt;</span> <span class="token number">100</span><span class="token punctuation">)</span>
+    then
+        $order<span class="token punctuation">.</span><span class="token function">setScore</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">update</span><span class="token punctuation">(</span>$order<span class="token punctuation">)</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"成功匹配到规则一：100元以下 不加分"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+end<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>通过控制台可以看到，由于我们没有设置<code>no-loop</code>属性的值，所以发生了死循环。接下来设置<code>no-loop</code>的值为<code>true</code>再次测试则不会发生死循环。</p>
+<h3 id="9、Drools高级语法"><a href="#9、Drools高级语法" class="headerlink" title="9、Drools高级语法"></a>9、Drools高级语法</h3><p>前面章节我们已经知道了一套完整的规则文件内容构成如下：</p>
+<table>
+<thead>
+<tr>
+<th>关键字</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>package</td>
+<td>包名，只限于逻辑上的管理，同一个包名下的查询或者函数可以直接调用</td>
+</tr>
+<tr>
+<td>import</td>
+<td>用于导入类或者静态方法</td>
+</tr>
+<tr>
+<td>global</td>
+<td>全局变量</td>
+</tr>
+<tr>
+<td>function</td>
+<td>自定义函数</td>
+</tr>
+<tr>
+<td>query</td>
+<td>查询</td>
+</tr>
+<tr>
+<td>rule end</td>
+<td>规则体</td>
+</tr>
+</tbody></table>
+<h4 id="9-1、global全局变量"><a href="#9-1、global全局变量" class="headerlink" title="9.1、global全局变量"></a>9.1、global全局变量</h4><p><code>global</code>关键字用于在规则文件中<strong>定义全局变量</strong>，它可以让应用程序的对象在规则文件中能够被访问。可以用来为规则文件提供数据或服务。</p>
+<p>语法结构为：<strong>global 对象类型 对象名称</strong></p>
+<p>在使用<code>global</code>定义的全局变量时有两点需要注意：</p>
+<p>1、如果对象类型为<strong>包装类型</strong>时，在一个规则中改变了<code>global</code>的值，那么<strong>只针对当前规则有效</strong>，对其他规则中的<code>global</code>不会有影响。可以理解为它是当前规则代码中的global副本，规则内部修改不会影响全局的使用。</p>
+<p>2、如果对象类型为**集合类型或<code>JavaBean</code>**时，在一个规则中改变了<code>global</code>的值，对<code>java</code>代码和所有规则都有效。</p>
+<p>订单<code>Order</code>：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">package</span> <span class="token namespace">com<span class="token punctuation">.</span>stormling<span class="token punctuation">.</span>drools<span class="token punctuation">.</span>model</span><span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">lombok<span class="token punctuation">.</span></span><span class="token class-name">Data</span></span><span class="token punctuation">;</span>
+<span class="token annotation punctuation">@Data</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Order</span> <span class="token punctuation">&#123;</span>
+
+    <span class="token keyword">private</span> <span class="token keyword">double</span> amount<span class="token punctuation">;</span>
+
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>积分<code>Integral</code>：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">package</span> <span class="token namespace">com<span class="token punctuation">.</span>stormling<span class="token punctuation">.</span>drools<span class="token punctuation">.</span>model</span><span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">lombok<span class="token punctuation">.</span></span><span class="token class-name">Data</span></span><span class="token punctuation">;</span>
+<span class="token annotation punctuation">@Data</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Integral</span> <span class="token punctuation">&#123;</span>
+    
+    <span class="token keyword">private</span> <span class="token keyword">double</span> score<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>规则文件：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">//订单积分规则</span>
+<span class="token keyword">package</span> <span class="token namespace">com<span class="token punctuation">.</span>order</span>
+<span class="token keyword">import</span> <span class="token namespace">com<span class="token punctuation">.</span>stormling<span class="token punctuation">.</span>drools<span class="token punctuation">.</span>model<span class="token punctuation">.</span></span><span class="token class-name">Order</span>
+
+global <span class="token class-name"><span class="token namespace">com<span class="token punctuation">.</span>stormling<span class="token punctuation">.</span>drools<span class="token punctuation">.</span>model<span class="token punctuation">.</span></span>Integral</span> integral<span class="token punctuation">;</span>
+
+<span class="token comment">//规则一：100元以下 不加分</span>
+rule <span class="token string">"order_rule_1"</span>
+    no<span class="token operator">-</span>loop <span class="token boolean">true</span>         <span class="token comment">//防止陷入死循环</span>
+    when
+        $order<span class="token operator">:</span><span class="token class-name">Order</span><span class="token punctuation">(</span>amount <span class="token operator">&lt;</span> <span class="token number">100</span><span class="token punctuation">)</span>
+    then
+        integral<span class="token punctuation">.</span><span class="token function">setScore</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">update</span><span class="token punctuation">(</span>$order<span class="token punctuation">)</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"成功匹配到规则一：100元以下 不加分"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+end<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>测试：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@Test</span>
+<span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">test1</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+    <span class="token comment">//从Kie容器对象中获取会话对象</span>
+    <span class="token class-name">KieSession</span> session <span class="token operator">=</span> kieContainer<span class="token punctuation">.</span><span class="token function">newKieSession</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">//Fact对象，事实对象</span>
+    <span class="token class-name">Order</span> order <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Order</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    order<span class="token punctuation">.</span><span class="token function">setamount</span><span class="token punctuation">(</span><span class="token number">30</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">//全局变量</span>
+    <span class="token class-name">Integral</span> integral <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Integral</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    session<span class="token punctuation">.</span><span class="token function">setGlobal</span><span class="token punctuation">(</span><span class="token string">"integral"</span><span class="token punctuation">,</span> integral<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">//将Order对象插入到工作内存中</span>
+    session<span class="token punctuation">.</span><span class="token function">insert</span><span class="token punctuation">(</span>order<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">//激活规则，由Drools框架自动进行规则匹配，如果规则匹配成功，则执行当前规则</span>
+    session<span class="token punctuation">.</span><span class="token function">fireAllRules</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">//关闭会话</span>
+    session<span class="token punctuation">.</span><span class="token function">dispose</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"订单金额："</span> <span class="token operator">+</span> order<span class="token punctuation">.</span><span class="token function">getamount</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"添加积分："</span> <span class="token operator">+</span> integral<span class="token punctuation">.</span><span class="token function">getScore</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div><script src="https://cdn.jsdelivr.net/lightgallery.js/1.0.1/js/lightgallery.min.js"></script><script>if (typeof lightGallery !== 'undefined') {
+        var options = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options);
+        }</script></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://www.stormling.top">stormling</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://www.stormling.top/posts/19819.html">http://www.stormling.top/posts/19819.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="http://www.stormling.top" target="_blank">码农Stormling</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E8%A7%84%E5%88%99%E5%BC%95%E6%93%8E/">规则引擎</a></div><div class="post-share"><div class="social-share" data-image="https://s2.loli.net/2024/12/22/4ei1fqHM3RKSUr2.webp" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/posts/32250.html" title="【每日早报】-2025-01-09 - 星期四"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://file.alapi.cn/60s/202501091736361902_head.png" onerror="onerror=null;src='/images/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">【每日早报】-2025-01-09 - 星期四</div></div><div class="info-2"><div class="info-item-1">                       每日早报               if (typeof lightGallery !== 'undefined') {         var options = {             selector: '.gallery-item'         };         lightGallery(document.getElementsByClassName('.article-gallery')[0], options);         }</div></div></div></a><a class="pagination-related" href="/posts/60908.html" title="数据库系列（二） | Mybatis Plus 3.0+快速入门"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/lingzhexi/blogImage/post/image-20240927101721314.png" onerror="onerror=null;src='/images/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">数据库系列（二） | Mybatis Plus 3.0+快速入门</div></div><div class="info-2"><div class="info-item-1">Mybatis Plus 3.0+快速入门 官网：https://baomidou.com/ 参考教程：快速开始 最新版本：3.5.7  对应版本参考：JDK 8+ 、Maven or Gradle  1、简介MyBatis-Plus （简称 MP）是一个 MyBatis 的增强工具，在 MyBatis 的基础上只做增强不做改变，为简化开发、提高效率而生。   2、创建并初始化数据库2.1、创建数据库mybatis_plus 2.2、创建 User...</div></div></div></a></nav><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div><div class="comment-switch"><span class="first-comment">Valine</span><span id="switch-btn"></span><span class="second-comment">Gitalk</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div><div><div id="gitalk-container"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/avatar.jpg" onerror="this.onerror=null;this.src='/images/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">stormling</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">41</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">26</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">22</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/lingzhexi"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://gitee.com/lingzhexi" target="_blank" title="Gitee"><i class="fab fa-gitee" style="color: #e94f11;"></i></a><a class="social-icon" href="https://github.com/lingzhexi" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:lingzhexi@126.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">欢迎大家来到Stormling博客</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%84%E5%88%99%E5%BC%95%E6%93%8E-Drools-8-%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8"><span class="toc-number">1.</span> <span class="toc-text">规则引擎 Drools 8+快速入门</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1%E3%80%81%E7%AE%80%E4%BB%8B"><span class="toc-number">1.1.</span> <span class="toc-text">1、简介</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2%E3%80%81%E5%9C%BA%E6%99%AF"><span class="toc-number">1.2.</span> <span class="toc-text">2、场景</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1%E3%80%81%E9%9C%80%E6%B1%82"><span class="toc-number">1.2.1.</span> <span class="toc-text">2.1、需求</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2%E3%80%81%E4%BC%A0%E7%BB%9F%E6%96%B9%E5%BC%8F-if%E2%80%A6else"><span class="toc-number">1.2.2.</span> <span class="toc-text">2.2、传统方式 if…else</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3%E3%80%81%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F-Strategy"><span class="toc-number">1.2.3.</span> <span class="toc-text">2.3、策略模式 Strategy</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3%E3%80%81%E8%A7%84%E5%88%99%E5%BC%95%E6%93%8E%E6%A6%82%E8%BF%B0"><span class="toc-number">1.3.</span> <span class="toc-text">3、规则引擎概述</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1%E3%80%81%E6%98%AF%E4%BB%80%E4%B9%88"><span class="toc-number">1.3.1.</span> <span class="toc-text">3.1、是什么</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2%E3%80%81%E4%BC%98%E5%8A%BF"><span class="toc-number">1.3.2.</span> <span class="toc-text">3.2、优势</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-3%E3%80%81%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-number">1.3.3.</span> <span class="toc-text">3.3、应用场景</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4%E3%80%81Drools%E5%85%A5%E9%97%A8%E6%A1%88%E4%BE%8B"><span class="toc-number">1.4.</span> <span class="toc-text">4、Drools入门案例</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4-1%E3%80%81%E5%88%9B%E5%BB%BAspringboot%E9%A1%B9%E7%9B%AE"><span class="toc-number">1.4.1.</span> <span class="toc-text">4.1、创建springboot项目</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-2%E3%80%81SpringBoot%E7%89%88%E6%9C%AC"><span class="toc-number">1.4.2.</span> <span class="toc-text">4.2、SpringBoot版本</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-3%E3%80%81%E5%BC%95%E5%85%A5%E4%BE%9D%E8%B5%96"><span class="toc-number">1.4.3.</span> <span class="toc-text">4.3、引入依赖</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-4%E3%80%81Idea%E4%B8%AD%E5%AE%89%E8%A3%85Drools%E6%8F%92%E4%BB%B6"><span class="toc-number">1.4.4.</span> <span class="toc-text">4.4、Idea中安装Drools插件</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5%E3%80%81%E7%BC%96%E5%86%99%E4%BB%A3%E7%A0%81"><span class="toc-number">1.5.</span> <span class="toc-text">5、编写代码</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#5-1%E3%80%81%E6%B7%BB%E5%8A%A0Drools%E9%85%8D%E7%BD%AE%E7%B1%BB"><span class="toc-number">1.5.1.</span> <span class="toc-text">5.1、添加Drools配置类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-2%E3%80%81%E5%88%9B%E5%BB%BA%E5%AE%9E%E4%BD%93%E7%B1%BBOrder"><span class="toc-number">1.5.2.</span> <span class="toc-text">5.2、创建实体类Order</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-3%E3%80%81order-drl"><span class="toc-number">1.5.3.</span> <span class="toc-text">5.3、order.drl</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-4%E3%80%81%E7%BC%96%E5%86%99%E6%B5%8B%E8%AF%95%E7%B1%BB"><span class="toc-number">1.5.4.</span> <span class="toc-text">5.4、编写测试类</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6%E3%80%81%E5%B0%8F%E7%BB%93"><span class="toc-number">1.6.</span> <span class="toc-text">6、小结</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#6-1%E3%80%81%E8%A7%84%E5%88%99%E5%BC%95%E6%93%8E%E6%9E%84%E6%88%90"><span class="toc-number">1.6.1.</span> <span class="toc-text">6.1、规则引擎构成</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-2%E3%80%81%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5%E8%AF%B4%E6%98%8E"><span class="toc-number">1.6.2.</span> <span class="toc-text">6.2、相关概念说明</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-3%E3%80%81%E8%A7%84%E5%88%99%E5%BC%95%E6%93%8E%E6%89%A7%E8%A1%8C%E8%BF%87%E7%A8%8B"><span class="toc-number">1.6.3.</span> <span class="toc-text">6.3、规则引擎执行过程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-4%E3%80%81KIE%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.6.4.</span> <span class="toc-text">6.4、KIE介绍</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7%E3%80%81Drools%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95"><span class="toc-number">1.7.</span> <span class="toc-text">7、Drools基础语法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#7-1%E3%80%81%E8%A7%84%E5%88%99%E6%96%87%E4%BB%B6%E6%9E%84%E6%88%90"><span class="toc-number">1.7.1.</span> <span class="toc-text">7.1、规则文件构成</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-2%E3%80%81%E8%A7%84%E5%88%99%E4%BD%93%E8%AF%AD%E6%B3%95%E7%BB%93%E6%9E%84"><span class="toc-number">1.7.2.</span> <span class="toc-text">7.2、规则体语法结构</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-3%E3%80%81%E6%B3%A8%E9%87%8A"><span class="toc-number">1.7.3.</span> <span class="toc-text">7.3、注释</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-4%E3%80%81Pattern%E6%A8%A1%E5%BC%8F%E5%8C%B9%E9%85%8D"><span class="toc-number">1.7.4.</span> <span class="toc-text">7.4、Pattern模式匹配</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-5%E3%80%81%E6%AF%94%E8%BE%83%E6%93%8D%E4%BD%9C%E7%AC%A6"><span class="toc-number">1.7.5.</span> <span class="toc-text">7.5、比较操作符</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-6%E3%80%81Drools%E5%86%85%E7%BD%AE%E6%96%B9%E6%B3%95"><span class="toc-number">1.7.6.</span> <span class="toc-text">7.6、Drools内置方法</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#7-6-1%E3%80%81update%E6%96%B9%E6%B3%95"><span class="toc-number">1.7.6.1.</span> <span class="toc-text">7.6.1、update方法</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#7-6-2%E3%80%81insert%E6%96%B9%E6%B3%95"><span class="toc-number">1.7.6.2.</span> <span class="toc-text">7.6.2、insert方法</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#7-6-3%E3%80%81retract%E6%96%B9%E6%B3%95"><span class="toc-number">1.7.6.3.</span> <span class="toc-text">7.6.3、retract方法</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8%E3%80%81%E8%A7%84%E5%88%99%E5%B1%9E%E6%80%A7-attributes"><span class="toc-number">1.8.</span> <span class="toc-text">8、规则属性 attributes</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#8-1%E3%80%81salience%E5%B1%9E%E6%80%A7"><span class="toc-number">1.8.1.</span> <span class="toc-text">8.1、salience属性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8-2%E3%80%81no-loop%E5%B1%9E%E6%80%A7"><span class="toc-number">1.8.2.</span> <span class="toc-text">8.2、no-loop属性</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9%E3%80%81Drools%E9%AB%98%E7%BA%A7%E8%AF%AD%E6%B3%95"><span class="toc-number">1.9.</span> <span class="toc-text">9、Drools高级语法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#9-1%E3%80%81global%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F"><span class="toc-number">1.9.1.</span> <span class="toc-text">9.1、global全局变量</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/32250.html" title="【每日早报】-2025-01-09 - 星期四"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://file.alapi.cn/60s/202501091736361902_head.png" onerror="this.onerror=null;this.src='/images/404.jpg'" alt="【每日早报】-2025-01-09 - 星期四"/></a><div class="content"><a class="title" href="/posts/32250.html" title="【每日早报】-2025-01-09 - 星期四">【每日早报】-2025-01-09 - 星期四</a><time datetime="2025-01-08T16:00:00.000Z" title="发表于 2025-01-09 00:00:00">2025-01-09</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/19819.html" title="规则引擎 Drools 8+ 快速入门"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/12/22/4ei1fqHM3RKSUr2.webp" onerror="this.onerror=null;this.src='/images/404.jpg'" alt="规则引擎 Drools 8+ 快速入门"/></a><div class="content"><a class="title" href="/posts/19819.html" title="规则引擎 Drools 8+ 快速入门">规则引擎 Drools 8+ 快速入门</a><time datetime="2024-12-11T00:00:00.000Z" title="发表于 2024-12-11 08:00:00">2024-12-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/60908.html" title="数据库系列（二） | Mybatis Plus 3.0+快速入门"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/lingzhexi/blogImage/post/image-20240927101721314.png" onerror="this.onerror=null;this.src='/images/404.jpg'" alt="数据库系列（二） | Mybatis Plus 3.0+快速入门"/></a><div class="content"><a class="title" href="/posts/60908.html" title="数据库系列（二） | Mybatis Plus 3.0+快速入门">数据库系列（二） | Mybatis Plus 3.0+快速入门</a><time datetime="2024-12-09T06:22:03.000Z" title="发表于 2024-12-09 14:22:03">2024-12-09</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/50356.html" title="分布式系列（二） | Redisson分布式锁"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/12/22/Q6z8bLIciZ9TuFS.jpg" onerror="this.onerror=null;this.src='/images/404.jpg'" alt="分布式系列（二） | Redisson分布式锁"/></a><div class="content"><a class="title" href="/posts/50356.html" title="分布式系列（二） | Redisson分布式锁">分布式系列（二） | Redisson分布式锁</a><time datetime="2024-12-05T06:22:03.000Z" title="发表于 2024-12-05 14:22:03">2024-12-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/28724.html" title="分布式系列（一） | Redis分布式锁"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/12/22/n4qy9zw1Pj5r8Nv.jpg" onerror="this.onerror=null;this.src='/images/404.jpg'" alt="分布式系列（一） | Redis分布式锁"/></a><div class="content"><a class="title" href="/posts/28724.html" title="分布式系列（一） | Redis分布式锁">分布式系列（一） | Redis分布式锁</a><time datetime="2024-12-03T06:22:03.000Z" title="发表于 2024-12-03 14:22:03">2024-12-03</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url(https://s2.loli.net/2024/12/22/4ei1fqHM3RKSUr2.webp);"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2025 By stormling</div><div class="footer_custom_text">码农Stormling程序员,关注公众号【码农Stormling】回复【面试】获取最全面试pdf</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><div class="js-pjax"><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.isShuoshuo
+  const option = null
+
+  const initValine = (el, path) => {
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyValine = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+
+    const valineConfig = {
+      el: '#vcomment',
+      appId: '',
+      appKey: '',
+      avatar: 'monsterid',
+      serverURLs: '',
+      emojiMaps: "",
+      visitor: false,
+      ...option,
+      path: isShuoshuo ? path : (option && option.path) || window.location.pathname
+    }
+
+    new Valine(valineConfig)
+  }
+
+  const loadValine = async (el, path) => {
+    if (typeof Valine === 'function') {
+      initValine(el, path)
+    } else {
+      await btf.getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js')
+      initValine(el, path)
+    }
+  }
+
+  if (isShuoshuo) {
+    'Valine' === 'Valine'
+      ? window.shuoshuoComment = { loadComment: loadValine }
+      : window.loadOtherComment = loadValine
+    return
+  }
+
+  if ('Valine' === 'Valine' || !false) {
+    if (false) btf.loadComment(document.getElementById('vcomment'),loadValine)
+    else setTimeout(loadValine, 0)
+  } else {
+    window.loadOtherComment = loadValine
+  }
+})()</script><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.isShuoshuo
+  const option = null
+
+  const commentCount = n => {
+    const isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+    if (isCommentCount) {
+      isCommentCount.textContent= n
+    }
+  }
+
+  const initGitalk = (el, path) => {
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyGitalk = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+
+    const gitalk = new Gitalk({
+      clientID: '',
+      clientSecret: '',
+      repo: '',
+      owner: '',
+      admin: [''],
+      updateCountCallback: commentCount,
+      ...option,
+      id: isShuoshuo ? path : (option && option.id) || '5450129e994e43fd6a7323b2147ee24c'
+    })
+
+    gitalk.render('gitalk-container')
+  }
+
+  const loadGitalk = async(el, path) => {
+    if (typeof Gitalk === 'function') initGitalk(el, path)
+    else {
+      await btf.getCSS('https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css')
+      await btf.getScript('https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js')
+      initGitalk(el, path)
+    }
+  }
+
+  if (isShuoshuo) {
+    'Valine' === 'Gitalk'
+      ? window.shuoshuoComment = { loadComment: loadGitalk }
+      : window.loadOtherComment = loadGitalk
+    return
+  }
+
+  if ('Valine' === 'Gitalk' || !false) {
+    if (false) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+    else loadGitalk()
+  } else {
+    window.loadOtherComment = loadGitalk
+  }
+})()</script></div><div class="aplayer no-destroy" data-id="2426530028" data-server="netease" data-type="playlist" data-fixed="true" data-autoplay="true"> </div><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/fireworks.min.js"></script><script defer="defer" id="fluttering_ribbon" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-fluttering-ribbon.min.js"></script><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-nest.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = true;
+document.body.addEventListener('input', POWERMODE);
+</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/metingjs/dist/Meting.min.js"></script><script>(() => {
+  const destroyAplayer = () => {
+    if (window.aplayers) {
+      for (let i = 0; i < window.aplayers.length; i++) {
+        if (!window.aplayers[i].options.fixed) {
+          window.aplayers[i].destroy()
+        }
+      }
+    }
+  }
+
+  const runMetingJS = () => {
+    typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+  }
+
+  btf.addGlobalFn('pjaxSend', destroyAplayer, 'destroyAplayer')
+  btf.addGlobalFn('pjaxComplete', loadMeting, 'runMetingJS')
+})()</script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>(() => {
+  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => fn())
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      pjax.loadUrl('/404.html')
+    }
+  })
+})()</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false,"tagMode":false});</script></body></html>

@@ -1,0 +1,401 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>城市地铁AFC系统 | 码农Stormling</title><meta name="author" content="stormling"><meta name="copyright" content="stormling"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="ffffff"><meta name="description" content="城市地铁 AFC 系统简析一、概述1.1 定义AFC 系统的全称是 Automatic Fare Collection System（城市轨道交通自动售检票系统），是基于计算机、通信、网络、自动控制等技术，实现轨道交通售票、检票、计费、收费、统计、清分、管理等全过程的自动化系统。 1.2 主要工作内容1、实现中央系统、车站系统和终端设备之间的数据传输和处理; 2、完成车 票制作、售票、检票、票务统">
+<meta property="og:type" content="article">
+<meta property="og:title" content="城市地铁AFC系统">
+<meta property="og:url" content="http://www.stormling.top/posts/30078.html">
+<meta property="og:site_name" content="码农Stormling">
+<meta property="og:description" content="城市地铁 AFC 系统简析一、概述1.1 定义AFC 系统的全称是 Automatic Fare Collection System（城市轨道交通自动售检票系统），是基于计算机、通信、网络、自动控制等技术，实现轨道交通售票、检票、计费、收费、统计、清分、管理等全过程的自动化系统。 1.2 主要工作内容1、实现中央系统、车站系统和终端设备之间的数据传输和处理; 2、完成车 票制作、售票、检票、票务统">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2024/12/20/l1u8jr4AOwSJMhd.jpg">
+<meta property="article:published_time" content="2021-11-05T02:00:30.000Z">
+<meta property="article:modified_time" content="2025-01-07T14:44:14.836Z">
+<meta property="article:author" content="stormling">
+<meta property="article:tag" content="地铁系统">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2024/12/20/l1u8jr4AOwSJMhd.jpg"><link rel="shortcut icon" href="/images/favicon.ico"><link rel="canonical" href="http://www.stormling.top/posts/30078.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"prismjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":true,"highlightMacStyle":true},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '城市地铁AFC系统',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  isShuoshuo: false
+}</script><meta name="generator" content="Hexo 5.4.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+  window.addEventListener('load', preloader.endLoading)
+
+  if (true) {
+    btf.addGlobalFn('pjaxSend', preloader.initLoading, 'preloader_init')
+    btf.addGlobalFn('pjaxComplete', preloader.endLoading, 'preloader_end')
+  }
+})()</script><div id="web_bg" style="background-color: #efefef;"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/avatar.jpg" onerror="onerror=null;src='/images/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">41</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">26</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">22</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/categories/Java"><i class="fa-fw fas fa-coffee"></i><span> Java</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-spring"></i><span> Spring全家桶</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/Spring"><i class="fa-fw fas fa-spring"></i><span> Spring</span></a></li><li><a class="site-page child" href="/categories/SpringBoot"><i class="fa-fw fas fa-spring-boot"></i><span> SpringBoot</span></a></li><li><a class="site-page child" href="/categories/SpringCloud"><i class="fa-fw fas fa-spring-cloud"></i><span> SpringCloud</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/categories/JVM"><i class="fa-fw fas fa-cogs"></i><span> JVM</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 源码</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/Mybatis"><span> Mybatis</span></a></li><li><a class="site-page child" href="/categories/HashMap"><span> HashMap</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 其他</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/books/"><i class="fa-fw fas fa-book-open"></i><span> 互联网电子书汇总</span></a></li><li><a class="site-page child" href="/compass/"><i class="fa-fw fas fa-compass"></i><span> JAVA八股文指南</span></a></li><li><a class="site-page child" href="/history/"><i class="fa-fw fas fa-book-open"></i><span> 历史</span></a></li><li><a class="site-page child" href="/gallery/"><i class="fa-fw fas fa-image"></i><span> 相册</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://s2.loli.net/2024/12/20/l1u8jr4AOwSJMhd.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/avatar.jpg" alt="Logo"><span class="site-name">码农Stormling</span></a><a class="nav-page-title" href="/"><span class="site-name">城市地铁AFC系统</span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/categories/Java"><i class="fa-fw fas fa-coffee"></i><span> Java</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-spring"></i><span> Spring全家桶</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/Spring"><i class="fa-fw fas fa-spring"></i><span> Spring</span></a></li><li><a class="site-page child" href="/categories/SpringBoot"><i class="fa-fw fas fa-spring-boot"></i><span> SpringBoot</span></a></li><li><a class="site-page child" href="/categories/SpringCloud"><i class="fa-fw fas fa-spring-cloud"></i><span> SpringCloud</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/categories/JVM"><i class="fa-fw fas fa-cogs"></i><span> JVM</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 源码</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/Mybatis"><span> Mybatis</span></a></li><li><a class="site-page child" href="/categories/HashMap"><span> HashMap</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 其他</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/books/"><i class="fa-fw fas fa-book-open"></i><span> 互联网电子书汇总</span></a></li><li><a class="site-page child" href="/compass/"><i class="fa-fw fas fa-compass"></i><span> JAVA八股文指南</span></a></li><li><a class="site-page child" href="/history/"><i class="fa-fw fas fa-book-open"></i><span> 历史</span></a></li><li><a class="site-page child" href="/gallery/"><i class="fa-fw fas fa-image"></i><span> 相册</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">城市地铁AFC系统</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-11-05T02:00:30.000Z" title="发表于 2021-11-05 10:00:30">2021-11-05</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-01-07T14:44:14.836Z" title="更新于 2025-01-07 22:44:14">2025-01-07</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%9C%B0%E9%93%81%E7%B3%BB%E7%BB%9F/">地铁系统</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">2k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>5分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div id="post-outdate-notice" data="{&quot;limitDay&quot;:365,&quot;messagePrev&quot;:&quot;距离上次更新已经&quot;,&quot;messageNext&quot;:&quot;天了，文章内容可能已经过时。&quot;,&quot;postUpdate&quot;:&quot;2025-01-07 22:44:14&quot;}" hidden></div><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/lightgallery.js/1.0.1/css/lightgallery.min.css" /><div class=".article-gallery"><h1 id="城市地铁-AFC-系统简析"><a href="#城市地铁-AFC-系统简析" class="headerlink" title="城市地铁 AFC 系统简析"></a><strong>城市地铁 AFC 系统简析</strong></h1><h2 id="一、概述"><a href="#一、概述" class="headerlink" title="一、概述"></a><strong>一、概述</strong></h2><h3 id="1-1-定义"><a href="#1-1-定义" class="headerlink" title="1.1 定义"></a><strong>1.1 定义</strong></h3><p>AFC 系统的全称是 <code>Automatic Fare Collection System</code>（城市轨道交通自动售检票系统），是基于计算机、通信、网络、自动控制等技术，实现轨道交通售票、检票、计费、收费、统计、清分、管理等全过程的自动化系统。</p>
+<h3 id="1-2-主要工作内容"><a href="#1-2-主要工作内容" class="headerlink" title="1.2 主要工作内容"></a><strong>1.2 主要工作内容</strong></h3><p>1、实现中央系统、车站系统和终端设备之间的数据传输和处理;</p>
+<p>2、完成车 票制作、售票、检票、票务统计分析等工作;</p>
+<p>3、及时、准确地进行客流、票务数据的收集、整理、汇总和分析;</p>
+<p>4、实现轨道交通收益方得清分结算以及与关联系统等外部接口之间的清分结算，同时可通过银行或金融机构实现账务划拨。</p>
+<h3 id="1-3-优点"><a href="#1-3-优点" class="headerlink" title="1.3 优点"></a><strong>1.3 优点</strong></h3><p>1）人性化</p>
+<p>自动售检票系统为乘客设置符合人体工程学的售票机和检票机，方便乘客的购票和检票过程，同时提供符合地方特色的操作方式。</p>
+<p>2）客流导向</p>
+<p>自动售检票系统可方便地实现乘车路径和优惠票价管理，可以通过票价设定来为乘客提供导向性服务，实现柔性的乘客自主对出行路径或时段的选择，合理调整客流分布。</p>
+<p>3）社会效益</p>
+<p>一方面可通过自动售检票系统形成对区域交通客流状况的调整，对设备生活产生影响；另一方面可通过自动化的设施影响人们的行为模式，规范管理模式，客服票务工作中的舞弊行为。</p>
+<p>4）提供信息支持</p>
+<p>自动售检票系统能够提供客流量、票务收入等统计信息，为轨道交通的运营、规划和管理决策提供信息支持。</p>
+<p>5）提高运行效率</p>
+<p>轨道交通运营单位可根据自动售检票系统的客流信息及时调整运行组织，合理安排运能，提高运行效率。</p>
+<p>6）强化安全管理</p>
+<p>借助自动售检票系统付费区的封闭条件，可对乘客在车站内的行为进行管理。在紧急情况下，可通过闸机的禁止和方形措施疏导人群，实现安全管理。</p>
+<p>7）提升形象</p>
+<p>通过自动售检票系统，增加了轨道交通与乘客的操作交互性和乘客的主动性，良好的应用效果可以提升运营企业和所在地的形象。</p>
+<h2 id="二、结构及功能"><a href="#二、结构及功能" class="headerlink" title="二、结构及功能"></a><strong>二、结构及功能</strong></h2><p>AFC 的结构按层次划分一般分为车票、车站终端设备（SLE）、车站计算机系统（SC）、线路中央计算机系统（LC/LCC）、清分系统（CC）五个层次。</p>
+<p><a target="_blank" rel="noopener" href="https://s2.loli.net/2024/12/20/uPUb5AzcRrkJVIK.jpg" title="清分、线路、车站、设备、票卡" class="gallery-item"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/12/20/uPUb5AzcRrkJVIK.jpg" alt="清分、线路、车站、设备、票卡"></a></p>
+<p><a target="_blank" rel="noopener" href="https://s2.loli.net/2024/12/20/uaciEpHKy71zCvo.jpg" title="整体结构图" class="gallery-item"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/12/20/uaciEpHKy71zCvo.jpg" alt="整体结构图"></a></p>
+<h3 id="2-1-清分结算管理中心-ACC"><a href="#2-1-清分结算管理中心-ACC" class="headerlink" title="2.1 清分结算管理中心 (ACC)"></a><strong>2.1 清分结算管理中心 (ACC)</strong></h3><p>清分结算中心作为整个 AFC 系统的顶层，主要是负责对地铁线路之间、地铁与城市一卡通系统之间的清分结算，对不同运营实体 (或线路) 进行管理，制定业务规程和票务规则，制作发行票卡全面协调不同线路间的日常运营。</p>
+<h3 id="2-2-线路中心-LC"><a href="#2-2-线路中心-LC" class="headerlink" title="2.2 线路中心 (LC)"></a><strong>2.2 线路中心 (LC)</strong></h3><p>线路中心管理线路内交易、客流、设备、票务等数据, 负责本线路系统的 AFC 收费数据、设备状态数据、客流量数据的采集，生成报表以及对账等。LC 将收集的本线路数据上传到清结算管理中心，接受清结算管理中心的命令与参数，并将其下发到各车站系统; 同时，LC 也管理和下发线路级的命令及系统参数，完成本线路的票务管理，具备票卡的库存管理和调配等功能。</p>
+<p><a target="_blank" rel="noopener" href="https://s2.loli.net/2024/12/20/eAZI2KjF8nPr9uX.jpg" title="LC 物理结构图" class="gallery-item"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/12/20/eAZI2KjF8nPr9uX.jpg" alt="LC 物理结构图"></a></p>
+<h3 id="2-3-车站中心-SC"><a href="#2-3-车站中心-SC" class="headerlink" title="2.3 车站中心 (SC)"></a><strong>2.3 车站中心 (SC)</strong></h3><p>车站中心用来监控和配置车站本地设备，采集本地车站设备数据, 对车站的每一台设备实施监督、控制、参数化、数据采集和审计。SC 接收 LC 的指令和参数, 并下发到相应的设备。同时，SC 采集设备的交易、事件和审计数据，上传到 LC。</p>
+<p><a target="_blank" rel="noopener" href="https://s2.loli.net/2024/12/20/yGOxvIPpZaQroNf.jpg" title="车站中心" class="gallery-item"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/12/20/yGOxvIPpZaQroNf.jpg" alt="车站中心"></a></p>
+<h3 id="2-4-AFC-车站终端设备-SLE"><a href="#2-4-AFC-车站终端设备-SLE" class="headerlink" title="2.4 AFC 车站终端设备 (SLE)"></a><strong>2.4 AFC 车站终端设备 (SLE)</strong></h3><p>AFC 设备层包括闸机、半自动售票机、自动售票机、自动充值机、银行圈存机、自助查询机、移动支付设备和其他设备等。</p>
+<h3 id="2-4-1-自动检票机-AGM"><a href="#2-4-1-自动检票机-AGM" class="headerlink" title="2.4.1 自动检票机 (AGM)"></a><strong>2.4.1 自动检票机 (AGM)</strong></h3><p>自动检票机设置在付费区与非付费区的交界处，起着分割付费区与非付费区的作用，实现票卡有效性验证、检票、通行控制、车票回收等功能。</p>
+<p><a target="_blank" rel="noopener" href="https://s2.loli.net/2024/12/20/ZrGCOTpvwDV9Ys3.jpg" title="闸机AGM（也有称 GATE）" class="gallery-item"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/12/20/ZrGCOTpvwDV9Ys3.jpg" alt="闸机AGM（也有称 GATE）"></a></p>
+<p>自动检票机主要由进站用乘客显示器、出站用乘客显示器、进站用读写器、出站用读写器、车票回收模块、站员操作部、通道显示部、闸门、主控单元、电源模块、人体检测部、外部接口等构成。</p>
+<h3 id="2-4-2-半自动售票机-BOM"><a href="#2-4-2-半自动售票机-BOM" class="headerlink" title="2.4.2 半自动售票机 (BOM)"></a><strong>2.4.2 半自动售票机 (BOM)</strong></h3><p>设于车站服务中心，具有售票、补票和售补票功能，对于一卡通车票的处理可以按照一卡通系统的规则进行。</p>
+<p>同时可发行各种类型的车票，兼有对车票进行查验和票据打印等功能，所能实现的功能可由系统参数灵活设置。</p>
+<p><a target="_blank" rel="noopener" href="https://s2.loli.net/2024/12/20/kxGnaP92EIjHbBN.jpg" title="半自动售票机 BOM" class="gallery-item"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/12/20/kxGnaP92EIjHbBN.jpg" alt="半自动售票机 BOM"></a></p>
+<p>当与 SC 通信中断时，具有离线工作和数据保存能力。BOM 可以保存 30 天的运营数据。在通信恢复时，能将保存的交易数据及时上传给 SC。</p>
+<p>我方提供半自动售票机上电启动后一分钟之内即可进入正常服务状态。</p>
+<h3 id="2-4-3-自动查询机-TCM"><a href="#2-4-3-自动查询机-TCM" class="headerlink" title="2.4.3 自动查询机 (TCM)"></a><strong>2.4.3 自动查询机 (TCM)</strong></h3><p>自动查询机安装在地铁车站非付费区, 供在轨道交通内使用的地铁专用票及城市 “一卡通 “ 的自助查询验票及发布地铁通知信息等服务。自动查询机操作界面采用触摸屏操作方式，由 LC 下载乘客服务信息，可以回溯车票内记录的使用历史，包括票种、购票时间、进站时间、出站时间、进站地点、出站地点、扣费金额、剩余金额、有效期等。每笔交易信息应逐条显示。对有问题的交易记录应可以醒目的提示。自动查询机在进行车票查询时，能对车票的有效性进行检查，如有问题能显示原因，并提示乘客去半自动售票机处处理。</p>
+<p><a target="_blank" rel="noopener" href="https://s2.loli.net/2024/12/20/KT87wpZHt2QURFz.jpg" title="自动售票机 TCM (又称TVM)" class="gallery-item"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/12/20/KT87wpZHt2QURFz.jpg" alt="自动售票机 TCM (又称TVM)"></a></p>
+<p>自动查询机具有如下功能:</p>
+<ol>
+<li>所有车票均可查询；可以自动播放预先录制的影音片断，可以向乘客介绍系统使. 用方法、显示公司通告及操作指南动画短片等信息；</li>
+<li>可以回溯车票内记录的使用历史 (包括票种、购票时间、进站时间、出站时间、进站地点、出站地点、扣费金额、剩余金额、有效期等) ;</li>
+<li>交易信息逐条显示;</li>
+<li>问题的交易记录可以醒目的提示;</li>
+<li>车票有效性进行检查，如有问题显示原因并提示。</li>
+</ol>
+<h3 id="2-5-票卡-Ticket）"><a href="#2-5-票卡-Ticket）" class="headerlink" title="2.5 票卡 (Ticket）"></a><strong>2.5 票卡 (Ticket）</strong></h3><p>五层架构体系的底层为票卡层，它是乘客所持的车费支付媒介，包括计次票、储值票、单程票、员工票和其他车票等。</p>
+<h2 id="三、AFC-系统主要业务流程"><a href="#三、AFC-系统主要业务流程" class="headerlink" title="三、AFC 系统主要业务流程"></a><strong>三、AFC 系统主要业务流程</strong></h2><p>AFC 系统运营管理的业务流程是一体三面，面向信息流，物流和责任链，主要包括三大业务流程：</p>
+<h3 id="（1）票务管理流程"><a href="#（1）票务管理流程" class="headerlink" title="（1）票务管理流程"></a>（1）票务管理流程</h3><p><a target="_blank" rel="noopener" href="https://s2.loli.net/2024/12/20/L8ezRji1sp2ToYD.jpg" title="管理流程" class="gallery-item"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/12/20/L8ezRji1sp2ToYD.jpg" alt="管理流程"></a></p>
+<h3 id="（2）收益管理流程"><a href="#（2）收益管理流程" class="headerlink" title="（2）收益管理流程"></a>（2）收益管理流程</h3><p><a target="_blank" rel="noopener" href="https://s2.loli.net/2024/12/20/3ndgfcEh9bsSZHj.jpg" title="收益管理" class="gallery-item"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/12/20/3ndgfcEh9bsSZHj.jpg" alt="收益管理"></a></p>
+<h3 id="（3）运营维护流程"><a href="#（3）运营维护流程" class="headerlink" title="（3）运营维护流程"></a>（3）运营维护流程</h3><p><a target="_blank" rel="noopener" href="https://s2.loli.net/2024/12/20/5ea3zI61jmgrGfW.jpg" title="运营维护" class="gallery-item"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/12/20/5ea3zI61jmgrGfW.jpg" alt="运营维护"></a></p>
+</div><script src="https://cdn.jsdelivr.net/lightgallery.js/1.0.1/js/lightgallery.min.js"></script><script>if (typeof lightGallery !== 'undefined') {
+        var options = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options);
+        }</script></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://www.stormling.top">stormling</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://www.stormling.top/posts/30078.html">http://www.stormling.top/posts/30078.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="http://www.stormling.top" target="_blank">码农Stormling</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%9C%B0%E9%93%81%E7%B3%BB%E7%BB%9F/">地铁系统</a></div><div class="post-share"><div class="social-share" data-image="https://s2.loli.net/2024/12/20/l1u8jr4AOwSJMhd.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/posts/45688.html" title="自定义注解场景使用"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/12/20/n2FlYJx36ZhHzXO.jpg" onerror="onerror=null;src='/images/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">自定义注解场景使用</div></div><div class="info-2"><div class="info-item-1">自定义注解 使用场景  登录校验  AOP日志打印 项目示例：https://gitee.com/lingzhexi/customer-annotation-demo    Java 自定义注解一般使用场景为：【自定义注解 + 拦截器或者 AOP】 一. 什么是注解 (Annotation)Java 注解是什么，以下是引用自维基百科的内容  Java 注解又称 Java 标注，是 JDK5.0 版本开始支持加入源代码的特殊语法元数据。 Java 语言中的类、方法、变量、参数和包等都可以被标注。和 Javadoc 不同，Java 标注可以通过反射获取标注内容。 在编译器生成类文件时，标注可以被嵌入到字节码中。Java 虚拟机可以保留标注内容，在运行时可以获取到标注内容。 当然它也支持自定义 Java 标注。  二. 注解体系图元注解：java.lang.annotation中提供了元注解，可以使用这些注解来定义自己的注解。主要使用的是 Target 和 Retention...</div></div></div></a><a class="pagination-related" href="/posts/43028.html" title="面试系列（八）| 消息队列"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/12/20/J8towxiYd1AVWLF.jpg" onerror="onerror=null;src='/images/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">面试系列（八）| 消息队列</div></div><div class="info-2"><div class="info-item-1">消息队列 消息队列解决的核心场景：解构、异步、削峰  1.为什么使用MQ​    公司业务场景，核心：解耦、异步、削峰 解耦：​    A系统发数据给到BCD系统，如果E系统需要接入？C系统不需要了？A系统的负责人就需要来回修改接口对接其他系统。  ​    如果使用MQ，A系统产生一条数据，发送到MQ中，那个系统需要数据自己去MQ消费。如果新的系统需要数据，直接从MQ中消费；某个系统不需要数据的话，取消消费这个MQ即可。这样A系统不需要考虑谁发送数据给谁，不需要考虑是否调用成功、失败超时等问题。  总结：通过一个MQ，Pub/Sub发布订阅消息模型，A系统就和其他系统彻底耦合了。 项目应用：​   ...</div></div></div></a></nav><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div><div class="comment-switch"><span class="first-comment">Valine</span><span id="switch-btn"></span><span class="second-comment">Gitalk</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div><div><div id="gitalk-container"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/avatar.jpg" onerror="this.onerror=null;this.src='/images/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">stormling</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">41</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">26</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">22</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/lingzhexi"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://gitee.com/lingzhexi" target="_blank" title="Gitee"><i class="fab fa-gitee" style="color: #e94f11;"></i></a><a class="social-icon" href="https://github.com/lingzhexi" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:lingzhexi@126.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">欢迎大家来到Stormling博客</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9F%8E%E5%B8%82%E5%9C%B0%E9%93%81-AFC-%E7%B3%BB%E7%BB%9F%E7%AE%80%E6%9E%90"><span class="toc-number">1.</span> <span class="toc-text">城市地铁 AFC 系统简析</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E6%A6%82%E8%BF%B0"><span class="toc-number">1.1.</span> <span class="toc-text">一、概述</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-%E5%AE%9A%E4%B9%89"><span class="toc-number">1.1.1.</span> <span class="toc-text">1.1 定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-%E4%B8%BB%E8%A6%81%E5%B7%A5%E4%BD%9C%E5%86%85%E5%AE%B9"><span class="toc-number">1.1.2.</span> <span class="toc-text">1.2 主要工作内容</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-%E4%BC%98%E7%82%B9"><span class="toc-number">1.1.3.</span> <span class="toc-text">1.3 优点</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E7%BB%93%E6%9E%84%E5%8F%8A%E5%8A%9F%E8%83%BD"><span class="toc-number">1.2.</span> <span class="toc-text">二、结构及功能</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-%E6%B8%85%E5%88%86%E7%BB%93%E7%AE%97%E7%AE%A1%E7%90%86%E4%B8%AD%E5%BF%83-ACC"><span class="toc-number">1.2.1.</span> <span class="toc-text">2.1 清分结算管理中心 (ACC)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-%E7%BA%BF%E8%B7%AF%E4%B8%AD%E5%BF%83-LC"><span class="toc-number">1.2.2.</span> <span class="toc-text">2.2 线路中心 (LC)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-%E8%BD%A6%E7%AB%99%E4%B8%AD%E5%BF%83-SC"><span class="toc-number">1.2.3.</span> <span class="toc-text">2.3 车站中心 (SC)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-AFC-%E8%BD%A6%E7%AB%99%E7%BB%88%E7%AB%AF%E8%AE%BE%E5%A4%87-SLE"><span class="toc-number">1.2.4.</span> <span class="toc-text">2.4 AFC 车站终端设备 (SLE)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-1-%E8%87%AA%E5%8A%A8%E6%A3%80%E7%A5%A8%E6%9C%BA-AGM"><span class="toc-number">1.2.5.</span> <span class="toc-text">2.4.1 自动检票机 (AGM)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-2-%E5%8D%8A%E8%87%AA%E5%8A%A8%E5%94%AE%E7%A5%A8%E6%9C%BA-BOM"><span class="toc-number">1.2.6.</span> <span class="toc-text">2.4.2 半自动售票机 (BOM)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-3-%E8%87%AA%E5%8A%A8%E6%9F%A5%E8%AF%A2%E6%9C%BA-TCM"><span class="toc-number">1.2.7.</span> <span class="toc-text">2.4.3 自动查询机 (TCM)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-5-%E7%A5%A8%E5%8D%A1-Ticket%EF%BC%89"><span class="toc-number">1.2.8.</span> <span class="toc-text">2.5 票卡 (Ticket）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81AFC-%E7%B3%BB%E7%BB%9F%E4%B8%BB%E8%A6%81%E4%B8%9A%E5%8A%A1%E6%B5%81%E7%A8%8B"><span class="toc-number">1.3.</span> <span class="toc-text">三、AFC 系统主要业务流程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E7%A5%A8%E5%8A%A1%E7%AE%A1%E7%90%86%E6%B5%81%E7%A8%8B"><span class="toc-number">1.3.1.</span> <span class="toc-text">（1）票务管理流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E6%94%B6%E7%9B%8A%E7%AE%A1%E7%90%86%E6%B5%81%E7%A8%8B"><span class="toc-number">1.3.2.</span> <span class="toc-text">（2）收益管理流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%883%EF%BC%89%E8%BF%90%E8%90%A5%E7%BB%B4%E6%8A%A4%E6%B5%81%E7%A8%8B"><span class="toc-number">1.3.3.</span> <span class="toc-text">（3）运营维护流程</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/32250.html" title="【每日早报】-2025-01-09 - 星期四"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://file.alapi.cn/60s/202501091736361902_head.png" onerror="this.onerror=null;this.src='/images/404.jpg'" alt="【每日早报】-2025-01-09 - 星期四"/></a><div class="content"><a class="title" href="/posts/32250.html" title="【每日早报】-2025-01-09 - 星期四">【每日早报】-2025-01-09 - 星期四</a><time datetime="2025-01-08T16:00:00.000Z" title="发表于 2025-01-09 00:00:00">2025-01-09</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/19819.html" title="规则引擎 Drools 8+ 快速入门"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/12/22/4ei1fqHM3RKSUr2.webp" onerror="this.onerror=null;this.src='/images/404.jpg'" alt="规则引擎 Drools 8+ 快速入门"/></a><div class="content"><a class="title" href="/posts/19819.html" title="规则引擎 Drools 8+ 快速入门">规则引擎 Drools 8+ 快速入门</a><time datetime="2024-12-11T00:00:00.000Z" title="发表于 2024-12-11 08:00:00">2024-12-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/60908.html" title="数据库系列（二） | Mybatis Plus 3.0+快速入门"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/lingzhexi/blogImage/post/image-20240927101721314.png" onerror="this.onerror=null;this.src='/images/404.jpg'" alt="数据库系列（二） | Mybatis Plus 3.0+快速入门"/></a><div class="content"><a class="title" href="/posts/60908.html" title="数据库系列（二） | Mybatis Plus 3.0+快速入门">数据库系列（二） | Mybatis Plus 3.0+快速入门</a><time datetime="2024-12-09T06:22:03.000Z" title="发表于 2024-12-09 14:22:03">2024-12-09</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/50356.html" title="分布式系列（二） | Redisson分布式锁"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/12/22/Q6z8bLIciZ9TuFS.jpg" onerror="this.onerror=null;this.src='/images/404.jpg'" alt="分布式系列（二） | Redisson分布式锁"/></a><div class="content"><a class="title" href="/posts/50356.html" title="分布式系列（二） | Redisson分布式锁">分布式系列（二） | Redisson分布式锁</a><time datetime="2024-12-05T06:22:03.000Z" title="发表于 2024-12-05 14:22:03">2024-12-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/28724.html" title="分布式系列（一） | Redis分布式锁"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/12/22/n4qy9zw1Pj5r8Nv.jpg" onerror="this.onerror=null;this.src='/images/404.jpg'" alt="分布式系列（一） | Redis分布式锁"/></a><div class="content"><a class="title" href="/posts/28724.html" title="分布式系列（一） | Redis分布式锁">分布式系列（一） | Redis分布式锁</a><time datetime="2024-12-03T06:22:03.000Z" title="发表于 2024-12-03 14:22:03">2024-12-03</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url(https://s2.loli.net/2024/12/20/l1u8jr4AOwSJMhd.jpg);"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2025 By stormling</div><div class="footer_custom_text">码农Stormling程序员,关注公众号【码农Stormling】回复【面试】获取最全面试pdf</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><div class="js-pjax"><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.isShuoshuo
+  const option = null
+
+  const initValine = (el, path) => {
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyValine = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+
+    const valineConfig = {
+      el: '#vcomment',
+      appId: '',
+      appKey: '',
+      avatar: 'monsterid',
+      serverURLs: '',
+      emojiMaps: "",
+      visitor: false,
+      ...option,
+      path: isShuoshuo ? path : (option && option.path) || window.location.pathname
+    }
+
+    new Valine(valineConfig)
+  }
+
+  const loadValine = async (el, path) => {
+    if (typeof Valine === 'function') {
+      initValine(el, path)
+    } else {
+      await btf.getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js')
+      initValine(el, path)
+    }
+  }
+
+  if (isShuoshuo) {
+    'Valine' === 'Valine'
+      ? window.shuoshuoComment = { loadComment: loadValine }
+      : window.loadOtherComment = loadValine
+    return
+  }
+
+  if ('Valine' === 'Valine' || !false) {
+    if (false) btf.loadComment(document.getElementById('vcomment'),loadValine)
+    else setTimeout(loadValine, 0)
+  } else {
+    window.loadOtherComment = loadValine
+  }
+})()</script><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.isShuoshuo
+  const option = null
+
+  const commentCount = n => {
+    const isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+    if (isCommentCount) {
+      isCommentCount.textContent= n
+    }
+  }
+
+  const initGitalk = (el, path) => {
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyGitalk = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+
+    const gitalk = new Gitalk({
+      clientID: '',
+      clientSecret: '',
+      repo: '',
+      owner: '',
+      admin: [''],
+      updateCountCallback: commentCount,
+      ...option,
+      id: isShuoshuo ? path : (option && option.id) || '97056e45599b2e0a2a6a00476bb8997a'
+    })
+
+    gitalk.render('gitalk-container')
+  }
+
+  const loadGitalk = async(el, path) => {
+    if (typeof Gitalk === 'function') initGitalk(el, path)
+    else {
+      await btf.getCSS('https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css')
+      await btf.getScript('https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js')
+      initGitalk(el, path)
+    }
+  }
+
+  if (isShuoshuo) {
+    'Valine' === 'Gitalk'
+      ? window.shuoshuoComment = { loadComment: loadGitalk }
+      : window.loadOtherComment = loadGitalk
+    return
+  }
+
+  if ('Valine' === 'Gitalk' || !false) {
+    if (false) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+    else loadGitalk()
+  } else {
+    window.loadOtherComment = loadGitalk
+  }
+})()</script></div><div class="aplayer no-destroy" data-id="2426530028" data-server="netease" data-type="playlist" data-fixed="true" data-autoplay="true"> </div><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/fireworks.min.js"></script><script defer="defer" id="fluttering_ribbon" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-fluttering-ribbon.min.js"></script><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-nest.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = true;
+document.body.addEventListener('input', POWERMODE);
+</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/metingjs/dist/Meting.min.js"></script><script>(() => {
+  const destroyAplayer = () => {
+    if (window.aplayers) {
+      for (let i = 0; i < window.aplayers.length; i++) {
+        if (!window.aplayers[i].options.fixed) {
+          window.aplayers[i].destroy()
+        }
+      }
+    }
+  }
+
+  const runMetingJS = () => {
+    typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+  }
+
+  btf.addGlobalFn('pjaxSend', destroyAplayer, 'destroyAplayer')
+  btf.addGlobalFn('pjaxComplete', loadMeting, 'runMetingJS')
+})()</script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>(() => {
+  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => fn())
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      pjax.loadUrl('/404.html')
+    }
+  })
+})()</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false,"tagMode":false});</script></body></html>

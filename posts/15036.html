@@ -1,0 +1,467 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>MQ系列（六）| RocketMQ 快速入门 | 码农Stormling</title><meta name="author" content="stormling"><meta name="copyright" content="stormling"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="ffffff"><meta name="description" content="RocketMQ 快速入门  本参考链接：RocketMQ 是什么？原作者：小白debug  前言  作为一个程序员，假设你有 A、B 两个服务，A 服务发出消息后，不想让 B 服务立马处理到。而是要过半小时才让 B 服务处理到，该怎么实现？ 这类延迟处理消息的场景非常常见，举个例子，比如我每天早上到公司后都会点个外卖，我希望外卖能在中午送过来，而不是立马送过来，这就需要将外卖消息经过延时后，再投">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MQ系列（六）| RocketMQ 快速入门">
+<meta property="og:url" content="http://www.stormling.top/posts/15036.html">
+<meta property="og:site_name" content="码农Stormling">
+<meta property="og:description" content="RocketMQ 快速入门  本参考链接：RocketMQ 是什么？原作者：小白debug  前言  作为一个程序员，假设你有 A、B 两个服务，A 服务发出消息后，不想让 B 服务立马处理到。而是要过半小时才让 B 服务处理到，该怎么实现？ 这类延迟处理消息的场景非常常见，举个例子，比如我每天早上到公司后都会点个外卖，我希望外卖能在中午送过来，而不是立马送过来，这就需要将外卖消息经过延时后，再投">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2024/12/18/kY2ahrc1TAMPZ7S.webp">
+<meta property="article:published_time" content="2024-11-28T06:22:03.000Z">
+<meta property="article:modified_time" content="2024-12-22T10:54:51.867Z">
+<meta property="article:author" content="stormling">
+<meta property="article:tag" content="消息队列">
+<meta property="article:tag" content="架构">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2024/12/18/kY2ahrc1TAMPZ7S.webp"><link rel="shortcut icon" href="/images/favicon.ico"><link rel="canonical" href="http://www.stormling.top/posts/15036.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"prismjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":true,"highlightMacStyle":true},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'MQ系列（六）| RocketMQ 快速入门',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  isShuoshuo: false
+}</script><meta name="generator" content="Hexo 5.4.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+  window.addEventListener('load', preloader.endLoading)
+
+  if (true) {
+    btf.addGlobalFn('pjaxSend', preloader.initLoading, 'preloader_init')
+    btf.addGlobalFn('pjaxComplete', preloader.endLoading, 'preloader_end')
+  }
+})()</script><div id="web_bg" style="background-color: #efefef;"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/avatar.jpg" onerror="onerror=null;src='/images/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">41</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">26</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">22</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/categories/Java"><i class="fa-fw fas fa-coffee"></i><span> Java</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-spring"></i><span> Spring全家桶</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/Spring"><i class="fa-fw fas fa-spring"></i><span> Spring</span></a></li><li><a class="site-page child" href="/categories/SpringBoot"><i class="fa-fw fas fa-spring-boot"></i><span> SpringBoot</span></a></li><li><a class="site-page child" href="/categories/SpringCloud"><i class="fa-fw fas fa-spring-cloud"></i><span> SpringCloud</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/categories/JVM"><i class="fa-fw fas fa-cogs"></i><span> JVM</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 源码</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/Mybatis"><span> Mybatis</span></a></li><li><a class="site-page child" href="/categories/HashMap"><span> HashMap</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 其他</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/books/"><i class="fa-fw fas fa-book-open"></i><span> 互联网电子书汇总</span></a></li><li><a class="site-page child" href="/compass/"><i class="fa-fw fas fa-compass"></i><span> JAVA八股文指南</span></a></li><li><a class="site-page child" href="/history/"><i class="fa-fw fas fa-book-open"></i><span> 历史</span></a></li><li><a class="site-page child" href="/gallery/"><i class="fa-fw fas fa-image"></i><span> 相册</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://s2.loli.net/2024/12/18/kY2ahrc1TAMPZ7S.webp);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/avatar.jpg" alt="Logo"><span class="site-name">码农Stormling</span></a><a class="nav-page-title" href="/"><span class="site-name">MQ系列（六）| RocketMQ 快速入门</span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/categories/Java"><i class="fa-fw fas fa-coffee"></i><span> Java</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-spring"></i><span> Spring全家桶</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/Spring"><i class="fa-fw fas fa-spring"></i><span> Spring</span></a></li><li><a class="site-page child" href="/categories/SpringBoot"><i class="fa-fw fas fa-spring-boot"></i><span> SpringBoot</span></a></li><li><a class="site-page child" href="/categories/SpringCloud"><i class="fa-fw fas fa-spring-cloud"></i><span> SpringCloud</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/categories/JVM"><i class="fa-fw fas fa-cogs"></i><span> JVM</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 源码</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/Mybatis"><span> Mybatis</span></a></li><li><a class="site-page child" href="/categories/HashMap"><span> HashMap</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 其他</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/books/"><i class="fa-fw fas fa-book-open"></i><span> 互联网电子书汇总</span></a></li><li><a class="site-page child" href="/compass/"><i class="fa-fw fas fa-compass"></i><span> JAVA八股文指南</span></a></li><li><a class="site-page child" href="/history/"><i class="fa-fw fas fa-book-open"></i><span> 历史</span></a></li><li><a class="site-page child" href="/gallery/"><i class="fa-fw fas fa-image"></i><span> 相册</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">MQ系列（六）| RocketMQ 快速入门</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-11-28T06:22:03.000Z" title="发表于 2024-11-28 14:22:03">2024-11-28</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-12-22T10:54:51.867Z" title="更新于 2024-12-22 18:54:51">2024-12-22</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/">消息队列</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/%E6%9E%B6%E6%9E%84/">架构</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">2.9k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>9分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div id="post-outdate-notice" data="{&quot;limitDay&quot;:365,&quot;messagePrev&quot;:&quot;距离上次更新已经&quot;,&quot;messageNext&quot;:&quot;天了，文章内容可能已经过时。&quot;,&quot;postUpdate&quot;:&quot;2024-12-22 18:54:51&quot;}" hidden></div><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/lightgallery.js/1.0.1/css/lightgallery.min.css" /><div class=".article-gallery"><h1 id="RocketMQ-快速入门"><a href="#RocketMQ-快速入门" class="headerlink" title="RocketMQ 快速入门"></a>RocketMQ 快速入门</h1><hr>
+<blockquote>
+<p>本参考链接：<a target="_blank" rel="noopener" href="https://golangguide.top/%E4%B8%AD%E9%97%B4%E4%BB%B6/rocketmq/%E6%A0%B8%E5%BF%83%E7%9F%A5%E8%AF%86%E7%82%B9/RocketMQ%E6%98%AF%E4%BB%80%E4%B9%88.html#%E5%9C%A8%E6%9E%B6%E6%9E%84%E4%B8%8A%E5%81%9A%E5%87%8F%E6%B3%95"><code>RocketMQ</code> 是什么？</a><br>原作者：<a target="_blank" rel="noopener" href="https://golangguide.top/" title="小白debug">小白debug</a></p>
+</blockquote>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
+<p> 作为一个程序员，假设你有 A、B 两个服务，A 服务发出消息后，不想让 B 服务<strong>立马</strong>处理到。而是要<strong>过半小时</strong>才让 B 服务处理到，该怎么实现？<br> 这类延迟处理消息的场景非常常见，举个例子，比如我每天早上到公司后都会点个外卖，我希望外卖能在中午送过来，而不是立马送过来，这就需要将外卖消息经过延时后，再投递到商家侧。</p>
+</blockquote>
+<p><a target="_blank" rel="noopener" href="https://gcore.jsdelivr.net/gh/lingzhexi/blogImage/2024/12/202412171202428.jpeg" title="延时消息场景" class="gallery-item"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://gcore.jsdelivr.net/gh/lingzhexi/blogImage/2024/12/202412171202428.jpeg" alt="延时消息场景"></a></p>
+<h2 id="延时消息场景"><a href="#延时消息场景" class="headerlink" title="延时消息场景"></a>延时消息场景</h2><p>那么问题就来了，有没有优雅的解决方案？<br>当然有，<strong>没有什么是加一层中间层不能解决的，如果有，那就再加一层</strong>。<br>这次我们要加的中间层是消息队列 **<code>RocketMQ</code>**。</p>
+<p><a target="_blank" rel="noopener" href="https://gcore.jsdelivr.net/gh/lingzhexi/blogImage/2024/12/202412171202896.jpeg" title="RocketMQ" class="gallery-item"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://gcore.jsdelivr.net/gh/lingzhexi/blogImage/2024/12/202412171202896.jpeg" alt="RocketMQ"></a></p>
+<h3 id="RocketMQ-是什么？"><a href="#RocketMQ-是什么？" class="headerlink" title="RocketMQ 是什么？"></a><code>RocketMQ</code> 是什么？</h3><p><code>RocketMQ</code> 是阿里自研的国产<strong>消息队列</strong>，目前已经是 <code>Apache</code> 的顶级项目。和其他消息队列一样，它接受来自<strong>生产者</strong>的消息，将消息分类，每一类是一个 <strong>topic</strong>，<strong>消费者</strong>根据需要订阅 <code>topic</code>，获取里面的消息。</p>
+<p><a target="_blank" rel="noopener" href="https://gcore.jsdelivr.net/gh/lingzhexi/blogImage/2024/12/202412171202844.jpeg" title="消息队列模型" class="gallery-item"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://gcore.jsdelivr.net/gh/lingzhexi/blogImage/2024/12/202412171202844.jpeg" alt="消息队列模型"></a></p>
+<p>是不是很像我们上篇文章里提到的消息队 <code>Kafka</code>，那么问题很自然就来了，<strong>既然都是消息队列，那它们之间有什么区别呢</strong>？</p>
+<h3 id="RocketMQ-和-Kafka-区别"><a href="#RocketMQ-和-Kafka-区别" class="headerlink" title="RocketMQ 和 Kafka 区别"></a><code>RocketMQ</code> 和 <code>Kafka</code> 区别</h3><p><code>RocketMQ</code> 的架构其实参考了 <code>Kafka</code> 的设计思想，同时又在 <code>Kafka</code> 的基础上做了一些调整。</p>
+<p><a target="_blank" rel="noopener" href="https://gcore.jsdelivr.net/gh/lingzhexi/blogImage/2024/12/202412171202547.jpeg" title="RocketMQ参考Kafka架构" class="gallery-item"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://gcore.jsdelivr.net/gh/lingzhexi/blogImage/2024/12/202412171202547.jpeg" alt="RocketMQ参考Kafka架构"></a></p>
+<p>这些调整，用一句话总结就是，”<strong>和 Kafka 相比，RocketMQ 在架构上做了减法，在功能上做了加法</strong>“。我们来看下这句话的含义。</p>
+<h2 id="在架构上做减法"><a href="#在架构上做减法" class="headerlink" title="在架构上做减法"></a>在架构上做减法</h2><p>我们来简单回顾下消息队列 Kafka 的架构。<br><code>kakfa</code> 也是通过多个 <code>topic</code> 对消息进行分类。</p>
+<p><a target="_blank" rel="noopener" href="https://gcore.jsdelivr.net/gh/lingzhexi/blogImage/2024/12/202412171202917.jpeg" title="topic分类" class="gallery-item"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://gcore.jsdelivr.net/gh/lingzhexi/blogImage/2024/12/202412171202917.jpeg" alt="topic分类"></a></p>
+<ul>
+<li>为了提升单个 topic 的并发<strong>性能</strong>，将<strong>单个 topic</strong> 拆为多个 <code>partition</code>。</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://gcore.jsdelivr.net/gh/lingzhexi/blogImage/2024/12/202412171202262.jpeg" title="partition" class="gallery-item"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://gcore.jsdelivr.net/gh/lingzhexi/blogImage/2024/12/202412171202262.jpeg" alt="partition"></a></p>
+<ul>
+<li>为了提升系统<strong>扩展性</strong>，将多个 partition 分别部署在不同 <code>broker</code> 上。</li>
+<li>为了提升系统的<strong>可用性</strong>，为 partition 加了多个副本。</li>
+<li>为了协调和管理 Kafka 集群的数据信息，引入<code>Zookeeper</code>作为协调节点。</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://gcore.jsdelivr.net/gh/lingzhexi/blogImage/2024/12/202412171202698.jpeg" title="kakfa架构" class="gallery-item"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://gcore.jsdelivr.net/gh/lingzhexi/blogImage/2024/12/202412171202698.jpeg" alt="kakfa架构"></a></p>
+<p>如果你对这些依旧很陌生，可以看看上篇文章《**<a target="_blank" rel="noopener" href="https://www.cnblogs.com/stormling2022/p/18605254">MQ系列（五）|Kafka 快速入门</a>**》。<br>Kafka 已经是非常强的消息队列了，我们来看下 <code>RocketMQ</code> 在 Kafka 架构的基础上，还能玩出什么花样来。</p>
+<h3 id="简化协调节点"><a href="#简化协调节点" class="headerlink" title="简化协调节点"></a>简化协调节点</h3><blockquote>
+<p>zookeeper 太重 ，nameserver 替代 zookeeper</p>
+</blockquote>
+<p><code>Zookeeper</code> 在 Kafka 架构中会和 broker 通信，维护 Kafka 集群信息。一个新的 <code>broker</code> 连上 <code>Zookeeper</code> 后，其他 <code>broker</code> 就能立马感知到它的加入，像这种能在分布式环境下，让多个实例同时获取到同一份信息的服务，就是所谓的<strong>分布式协调服务</strong>。</p>
+<p><a target="_blank" rel="noopener" href="https://gcore.jsdelivr.net/gh/lingzhexi/blogImage/2024/12/202412171202011.jpeg" title="Zookeeper的作用" class="gallery-item"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://gcore.jsdelivr.net/gh/lingzhexi/blogImage/2024/12/202412171202011.jpeg" alt="Zookeeper的作用"></a><code>Zookeeper</code>的作用</p>
+<p>但 <code>Zookeeper</code> 作为一个<strong>通用的</strong>分布式协调服务，它不仅可以用于服务注册与发现，还可以用于分布式锁、配置管理等场景。 Kafka 其实只用到了它的部分功能，多少有点<strong>杀鸡用牛刀</strong>的味道。<strong>太重了</strong>。</p>
+<p>所以 <code>RocketMQ</code> 直接将 <code>Zookeeper</code> 去掉，换成了 <strong>nameserver</strong>，用一种更轻量的方式，管理消息队列的集群信息。生产者通过 nameserver 获取到 topic 和 broker 的路由信息，然后再与 broker 通信，实现<strong>服务发现</strong>和<strong>负载均衡</strong>的效果。</p>
+<p><a target="_blank" rel="noopener" href="https://gcore.jsdelivr.net/gh/lingzhexi/blogImage/2024/12/202412171338641.jpeg" title="nameserver是什么" class="gallery-item"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://gcore.jsdelivr.net/gh/lingzhexi/blogImage/2024/12/202412171338641.jpeg" alt="nameserver是什么"></a></p>
+<p>当然，开发 <code>Kafka</code> 的大佬们后来也意识到了 <code>Zookeeper</code> 过重的问题，所以从 2.8.0 版本就支持将 <code>Zookeeper</code> 移除，通过 在 <code>broker</code> 之间加入一致性算法 <code>raft</code> 实现同样的效果，这就是所谓的 <strong><code>KRaft</code></strong> 或 <strong><code>Quorum</code></strong> 模式。</p>
+<blockquote>
+<p>raft 算法可以看下这里：<a target="_blank" rel="noopener" href="https://javaguide.cn/distributed-system/protocol/raft-algorithm.html">Raft 算法详解 | JavaGuide</a></p>
+</blockquote>
+<p><a target="_blank" rel="noopener" href="https://gcore.jsdelivr.net/gh/lingzhexi/blogImage/2024/12/202412171202973.jpeg" title="KRaft模式" class="gallery-item"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://gcore.jsdelivr.net/gh/lingzhexi/blogImage/2024/12/202412171202973.jpeg" alt="KRaft模式"></a></p>
+<h3 id="简化分区"><a href="#简化分区" class="headerlink" title="简化分区"></a>简化分区</h3><blockquote>
+<p>Queue 替换 partition，增加一个 <code>commitLog</code> ，Queue放消息的简要信息（包含消息偏移量），<code>commitLog</code> 放具体的消息</p>
+</blockquote>
+<p>我们知道，<code>Kafka</code> 会将 <code>topic</code> 拆分为多个 <code>partition</code>，用来提升<strong>并发性能</strong>。</p>
+<p><a target="_blank" rel="noopener" href="https://gcore.jsdelivr.net/gh/lingzhexi/blogImage/2024/12/202412171202431.jpeg" title="partition是什么" class="gallery-item"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://gcore.jsdelivr.net/gh/lingzhexi/blogImage/2024/12/202412171202431.jpeg" alt="partition是什么"></a></p>
+<p>在 <code>RocketMQ</code> 里也一样，将 <code>topic</code> 拆分成了多个分区，但换了个名字，叫 <strong>Queue</strong>,也就是”<strong>队列</strong>“。</p>
+<p><a target="_blank" rel="noopener" href="https://gcore.jsdelivr.net/gh/lingzhexi/blogImage/2024/12/202412171203970.jpeg" title="RocketMQ中的队列" class="gallery-item"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://gcore.jsdelivr.net/gh/lingzhexi/blogImage/2024/12/202412171203970.jpeg" alt="RocketMQ中的队列"></a></p>
+<p><code>Kafka</code> 中的 <code>partition</code> 会存储<strong>完整</strong>的消息体，而 <code>RocketMQ</code> 的 <code>Queue</code> 上却只存一些<strong>简要</strong>信息，比如消息偏移 <code>offset</code>，而消息的完整数据则放到”一个”叫 <code>commitlog</code> 的文件上，通过 <code>offset</code> 我们可以定位到 <code>commitlog</code> 上的某条消息。<br><code>Kafka</code> 消费消息，<code>broker</code> 只需要直接从 <code>partition</code> 读取消息返回就好，也就是读第<strong>一次</strong>就够了。</p>
+<p><a target="_blank" rel="noopener" href="https://gcore.jsdelivr.net/gh/lingzhexi/blogImage/2024/12/202412171203298.jpeg" title="img" class="gallery-item"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://gcore.jsdelivr.net/gh/lingzhexi/blogImage/2024/12/202412171203298.jpeg" alt="img"></a></p>
+<p>而在 <code>RocketMQ</code> 中，<code>broker</code> 则需要先从 <code>Queue</code> 上读取到 offset 的值，再跑到 <code>commitlog</code> 上将完整数据读出来，也就是需要读<strong>两次</strong>。</p>
+<p><a target="_blank" rel="noopener" href="https://gcore.jsdelivr.net/gh/lingzhexi/blogImage/2024/12/202412171203460.jpeg" title="img" class="gallery-item"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://gcore.jsdelivr.net/gh/lingzhexi/blogImage/2024/12/202412171203460.jpeg" alt="img"></a></p>
+<p>那么问题就来了，看起来 <code>Kafka</code> 的设计更高效？为什么 <code>RocketMQ</code> 不采用 <code>Kafka</code> 的设计？<br>这就不得说一下 Kafka 的<strong>底层存储</strong>了。</p>
+<h2 id="Kafka-的底层存储"><a href="#Kafka-的底层存储" class="headerlink" title="Kafka 的底层存储"></a>Kafka 的底层存储</h2><blockquote>
+<p>segment 小文件</p>
+</blockquote>
+<p><code>Kafka</code> 的 <code>partition</code> 分区，其实在底层由很多<strong>段</strong>（**<code>segment</code><strong>）组成，每个 <code>segment</code> 可以认为就是个</strong>小文件**。将消息数据写入到 <code>partition</code> 分区，本质上就是将数据写入到某个 <code>segment</code> 文件下。</p>
+<p><a target="_blank" rel="noopener" href="https://gcore.jsdelivr.net/gh/lingzhexi/blogImage/2024/12/202412171353496.jpeg" title="segment是什么" class="gallery-item"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://gcore.jsdelivr.net/gh/lingzhexi/blogImage/2024/12/202412171353496.jpeg" alt="segment是什么"></a></p>
+<h3 id="segment是什么"><a href="#segment是什么" class="headerlink" title="segment是什么"></a>segment是什么</h3><blockquote>
+<p>多个segment 文件下顺序列劣化成随机写，性能下降指标：8个分区 64个 <code>topic</code></p>
+</blockquote>
+<p>我们知道，操作系统的机械磁盘，<strong>顺序写</strong>的性能会比<strong>随机写</strong>快很多，差距高达几十倍。为了提升性能，<code>Kafka</code> 对每个小文件都是顺序写。<br>如果只有<strong>一个</strong> <code>segment</code> 文件，那写文件的性能会很好。<br>但当 <code>topic</code> 变多之后，<code>topic</code> 底下的 <code>partition</code> 分区也会变多，对应的 <code>partition</code> 底下的 <code>segment</code> 文件也会变多。同时写<strong>多个</strong> <code>topic</code> 底下的 <code>partition</code>，就是同时<strong>写多个文件</strong>，虽然每个文件内部都是顺序写，但多个文件存放在磁盘的不同地方，原本<strong>顺序写磁盘就可能劣化变成了随机写</strong>。于是写性能就降低了。</p>
+<p><a target="_blank" rel="noopener" href="https://gcore.jsdelivr.net/gh/lingzhexi/blogImage/2024/12/202412171353184.jpeg" title="顺序写劣化为随机写" class="gallery-item"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://gcore.jsdelivr.net/gh/lingzhexi/blogImage/2024/12/202412171353184.jpeg" alt="顺序写劣化为随机写"></a></p>
+<p>那问题又又来了，究竟多少 topic 才算多？这个看实际情况，但打太极从来不是我的风格。<br>我给一个经验值<strong>仅供参考</strong>，8 个分区的情况下，超过 64 topic, Kafka 性能就会开始下降。</p>
+<h2 id="RocketMQ-的底层存储"><a href="#RocketMQ-的底层存储" class="headerlink" title="RocketMQ 的底层存储"></a><code>RocketMQ</code> 的底层存储</h2><p>为了缓解同时写多个文件带来的随机写问题，<code>RocketMQ</code> 索性将单个 broker 底下的多个 topic 数据，全都写到”<strong>一个</strong>“逻辑文件 <code>CommitLog</code> 上，这就消除了随机写多文件的问题，将所有写操作都变成了顺序写。大大提升了 <code>RocketMQ</code> 在多 topic 场景下的写性能。</p>
+<p><a target="_blank" rel="noopener" href="https://gcore.jsdelivr.net/gh/lingzhexi/blogImage/2024/12/202412171353601.jpeg" title="CommitLog的作用" class="gallery-item"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://gcore.jsdelivr.net/gh/lingzhexi/blogImage/2024/12/202412171353601.jpeg" alt="CommitLog的作用"></a><code>CommitLog</code>的作用</p>
+<blockquote>
+<p>注意上面提到的”<strong>一个</strong>“是带引号的，虽然逻辑上它是一个大文件，但实际上这个 <code>CommitLog</code> 由多个小文件组成。每个文件的大小是固定的，当一个文件被写满后，会创建一个新的文件来继续存储新的消息。这种方式可以方便地管理和清理旧的消息。</p>
+</blockquote>
+<h3 id="简化备份模型"><a href="#简化备份模型" class="headerlink" title="简化备份模型"></a>简化备份模型</h3><blockquote>
+<p><code>kafka</code> 将主<code>broker</code> 中 <code>partition</code> <strong>同步</strong> <code>segment</code> 文件数据到到 从 <code>broker</code>的副本 <code>partition</code>下 <code>segement</code>文件</p>
+<p><code>rocketMQ</code> 直接同步主 <code>broker</code>中的 <code>commitLog</code> 文件到 从 <code>broker</code> 中</p>
+</blockquote>
+<p>我们知道，<code>Kafka</code> 会将 <code>partition</code> 分散到多个 <code>broker</code> 中，并为 <code>partition</code> 配置副本，将 <code>partition</code> 分为 <code>leader</code>和 <code>follower</code>，也就是<strong>主和从</strong>。<code>broker</code> 中既可能有 <strong>A</strong> <code>topic</code> 的主 <code>partition</code>，也可能有 <strong>B</strong> <code>topic</code> 的从 <code>partition</code>。<br>主从 <code>partition</code> 之间会建立数据同步，本质上就是同步 <code>partition</code> 底下的 <code>segment</code> 文件数据</p>
+<p><a target="_blank" rel="noopener" href="https://gcore.jsdelivr.net/gh/lingzhexi/blogImage/2024/12/202412171353101.jpeg" title="Kafka主从parttion同步数据" class="gallery-item"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://gcore.jsdelivr.net/gh/lingzhexi/blogImage/2024/12/202412171353101.jpeg" alt="Kafka主从parttion同步数据"></a></p>
+<p><code>RocketMQ</code> 将 <code>broker</code> 上的所有 <code>topic</code> 数据到写到 <code>CommitLog</code> 上。如果还像 <code>Kafka</code> 那样给每个分区单独建立同步通信，就还得将 <code>CommitLog</code> 里的内容<strong>拆开</strong>，这就还是退化为<strong>随机读</strong>了。<br>于是 <code>RocketMQ</code> 索性<strong>以 broker 为单位区分主从</strong>，主从之间同步 <code>CommitLog</code> 文件，保持高可用的同时，也大大简化了备份模型。</p>
+<p><a target="_blank" rel="noopener" href="https://gcore.jsdelivr.net/gh/lingzhexi/blogImage/2024/12/202412171353848.jpeg" title="RocketMQ主从broker同步" class="gallery-item"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://gcore.jsdelivr.net/gh/lingzhexi/blogImage/2024/12/202412171353848.jpeg" alt="RocketMQ主从broker同步"></a></p>
+<p>好了，到这里，我们熟悉的 <code>Kafka</code> 架构，就成了 <code>RocketMQ</code> 的架构。</p>
+<p><a target="_blank" rel="noopener" href="https://gcore.jsdelivr.net/gh/lingzhexi/blogImage/2024/12/202412171353845.jpeg" title="Kafka架构" class="gallery-item"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://gcore.jsdelivr.net/gh/lingzhexi/blogImage/2024/12/202412171353845.jpeg" alt="Kafka架构"></a></p>
+<p>是不是跟 <code>Kafka</code> 的很像但又简化了不少？</p>
+<p><a target="_blank" rel="noopener" href="https://gcore.jsdelivr.net/gh/lingzhexi/blogImage/2024/12/202412171353940.jpeg" title="RocketMQ架构" class="gallery-item"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://gcore.jsdelivr.net/gh/lingzhexi/blogImage/2024/12/202412171353940.jpeg" alt="RocketMQ架构"></a></p>
+<h2 id="在功能上做加法"><a href="#在功能上做加法" class="headerlink" title="在功能上做加法"></a>在功能上做加法</h2><p>虽然 <code>RocketMQ</code> 的架构比 Kafka 的简单，但功能却比 <code>Kafka</code> 要更丰富，我们来看下。</p>
+<h3 id="消息过滤"><a href="#消息过滤" class="headerlink" title="消息过滤"></a>消息过滤</h3><blockquote>
+<p><code>RocketMQ</code> 支持对消息打标，消费者根据 tag 过滤需要的数据，支持二级分类</p>
+<p><code>kafka</code> 需要获取全部消息，再过滤出需要的消息</p>
+</blockquote>
+<p>我们知道，<code>Kafka</code> 支持通过 <code>topic</code> 将数据进行分类，比如订单数据和用户数据是两个不同的 <code>topic</code>，但如果我还想<strong>再进一步分类</strong>呢？比如同样是用户数据，还能根据 <code>vip</code> 等级进一步分类。假设我们只需要获取 <code>vip6</code> 的用户数据，在 <code>Kafka</code> 里，消费者需要消费 <code>topic</code> 为用户数据的<strong>所有消息</strong>，再将 <code>vip6</code> 的用户过滤出来。</p>
+<p>而 <code>RocketMQ</code> 支持对消息打上<strong>标记</strong>，也就是打 <strong>tag</strong>，消费者能根据 tag 过滤所需要的数据。比如我们可以在部分消息上标记 tag=vip6，这样消费者就能<strong>只获取</strong>这部分数据，省下了消费者过滤数据时的资源消耗。</p>
+<blockquote>
+<p>相当于 <code>RocketMQ</code> 除了支持通过 <code>topic</code> 进行一级分类，还支持通过 <code>tag</code> 进行二级分类。</p>
+</blockquote>
+<p><a target="_blank" rel="noopener" href="https://cdn.xiaobaidebug.top/1716039636534.jpeg" title="tag二级过滤" class="gallery-item"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.xiaobaidebug.top/1716039636534.jpeg" alt="tag二级过滤"></a></p>
+<h3 id="支持事务"><a href="#支持事务" class="headerlink" title="支持事务"></a>支持事务</h3><p>我们知道 <code>Kafka</code> 支持事务，比如生产者发三条消息 <code>ABC</code>，这三条消息要么同时发送成功，要么同时发送失败。</p>
+<p><a target="_blank" rel="noopener" href="https://cdn.xiaobaidebug.top/1716039652367.jpeg" title="Kafka的事务" class="gallery-item"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.xiaobaidebug.top/1716039652367.jpeg" alt="Kafka的事务"></a><br>是，这确实也叫事务，但<strong>跟我们要的不太一样</strong>。</p>
+<p>写业务代码的时候，我们更想要的事务是，”<strong>执行一些自定义逻辑</strong>“和”<strong>生产者发消息</strong>“这两件事，要么同时成功，要么同时失败。</p>
+<p>而这正是 <code>RocketMQ</code> 支持的事务能力。</p>
+<p><a target="_blank" rel="noopener" href="https://cdn.xiaobaidebug.top/1716039663099.jpeg" title="RocketMQ的事务" class="gallery-item"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.xiaobaidebug.top/1716039663099.jpeg" alt="RocketMQ的事务"></a></p>
+<h3 id="加入延时队列"><a href="#加入延时队列" class="headerlink" title="加入延时队列"></a>加入延时队列</h3><blockquote>
+<p><code>kafka</code> 实现费劲</p>
+</blockquote>
+<p>如果我们希望消息投递出去之后，消费者不能立马消费到，而是过个一定时间后才消费，也就是所谓的<strong>延时消息</strong>，就像文章开头的定时外卖那样。如果我们使用 Kafka， 要实现类似的功能的话，就会很费劲。<br>但 <code>RocketMQ</code> 天然支持<strong>延时队列</strong>，我们可以很方便实现这一功能。</p>
+<h3 id="加入死信队列"><a href="#加入死信队列" class="headerlink" title="加入死信队列"></a>加入死信队列</h3><blockquote>
+<p><code>kafka</code> 原生不支持</p>
+</blockquote>
+<p>消费消息是有可能失败的，失败后一般可以设置<strong>重试</strong>。如果多次重试失败，<code>RocketMQ</code> 会将消息放到一个专门的队列，方便我们<strong>后面单独处理</strong>。这种专门存放失败消息的队列，就是<strong>死信队列</strong>。<br>Kafka 原生不支持这个功能，需要我们自己实现。</p>
+<h3 id="消息回溯"><a href="#消息回溯" class="headerlink" title="消息回溯"></a>消息回溯</h3><blockquote>
+<p><code>kafka</code> 调整<code>offset</code></p>
+<p><code>rocketMQ</code> 还可以调整时间</p>
+</blockquote>
+<p>Kafka 支持通过<strong>调整 offset</strong> 来让消费者从某个地方开始消费，而 <code>RocketMQ</code>，除了可以调整 offset, 还支持<strong>调整时间</strong>。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
+<li><code>RocketMQ</code> 和 <code>Kafka</code> 相比，在架构上做了减法，在功能上做了加法</li>
+<li>跟 Kafka 的架构相比，<code>RocketMQ</code> 简化了协调节点和分区以及备份模型。同时增强了消息过滤、消息回溯和事务能力，加入了延迟队列，死信队列等新特性</li>
+</ul>
+<h2 id="延伸"><a href="#延伸" class="headerlink" title="延伸"></a>延伸</h2><p>最后遗留一个问题。<br>现在看起来，<code>RocketMQ</code> 好像各方面都比 <code>Kafka</code> 更能打。<br>但 <code>Kafka</code> 却一直没被淘汰，说明 <code>RocketMQ</code> 必然是有着不如 <code>Kafka</code> 的地方。<br>是啥呢？<br><strong>性能</strong>，严格来说是<strong>吞吐量</strong>。<br>这就很奇怪了，**为什么 <code>RocketMQ</code> 参考了 Kafka 的架构，性能却还不如 <code>Kafka</code>**？</p>
+</div><script src="https://cdn.jsdelivr.net/lightgallery.js/1.0.1/js/lightgallery.min.js"></script><script>if (typeof lightGallery !== 'undefined') {
+        var options = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options);
+        }</script></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://www.stormling.top">stormling</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://www.stormling.top/posts/15036.html">http://www.stormling.top/posts/15036.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="http://www.stormling.top" target="_blank">码农Stormling</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/">消息队列</a><a class="post-meta__tags" href="/tags/%E6%9E%B6%E6%9E%84/">架构</a></div><div class="post-share"><div class="social-share" data-image="https://s2.loli.net/2024/12/18/kY2ahrc1TAMPZ7S.webp" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/posts/56299.html" title="MQ系列（七）| RocketMQ 为什么性能不如Kafka?"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/12/18/tF4vDjQonRkZdch.webp" onerror="onerror=null;src='/images/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">MQ系列（七）| RocketMQ 为什么性能不如Kafka?</div></div><div class="info-2"><div class="info-item-1">RocketMQ 为什么性能不如 Kafka？ RocketMQ 使用的是 mmap 零拷贝技术，而 kafka 使用的是 sendfile (硬件设备技术 SG-DMA，不影响（不占用）CPU工作) mmap   内核缓冲区-&gt;映射用户缓冲区-&gt;内核缓冲区-&gt;网卡sendfile 内核缓冲区-&gt; SG-DMA -&gt; 网卡  在上篇文章《rocketmq 是什么》中，我们了解到 RocketMQ 的架构其实参考了 kafka 的设计思想，同时又在 kafka 的基础上做了一些调整。看起来，RocketMQ 好像各方面都比 kafka 更能打。  但 kafka 却一直没被淘汰，说明 RocketMQ 必然是有着不如 kafka 的地方。是啥呢？性能，严格来说是吞吐量。阿里中间件团队对它们做过压测，同样条件下，kafka 比 RocketMQ 快 **50%**左右。但即使这样，RocketMQ 依然能每秒处理 10w 量级的数据，依旧非常能打。你不能说 RocketMQ 弱，只能说 Kafka 性能太强了。 不过这就很奇怪了，为什么...</div></div></div></a><a class="pagination-related" href="/posts/24869.html" title="MQ系列（五）| Kafka 快速入门"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/12/18/tsPhp4fmEXZkano.webp" onerror="onerror=null;src='/images/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">MQ系列（五）| Kafka 快速入门</div></div><div class="info-2"><div class="info-item-1">Kafka 快速入门介绍 参考：Kafka 是什么？  架构一个高性能，高扩展性，高可用，支持持久化的超强消息队列，它就是我们常说的消息队列 KafkaZookeeper 协调管理多个 broker 组成，内部有多个 topic 分类，每个 topic 又分成多个 partition ，每个 partition 有多个副本 replia，不同的partition 会分布在不同 broker 上，提升性能同时，还增加了系统可用性和可扩展性  高性能 对消息进行分类，每个类是一个 topic  单个 topic 的消息可能过多，可将单个队列拆分成多个段，每段就是一个分区 partition ，每个消费者负责一个 partition  高扩展性可将 partition 分部在多台设备，每台设备代表一个 broker  高可用存在一个问题，如果其中一个partition所在的 broker 挂了，那么这部分的消息不久丢失了吗？ 可以给partition 多加几个副本 replica，从中分为 Leader 和 Follower，Leader 负责生产者和消费者的读写，Follower...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/posts/56299.html" title="MQ系列（七）| RocketMQ 为什么性能不如Kafka?"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/12/18/tF4vDjQonRkZdch.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-11-30</div><div class="info-item-2">MQ系列（七）| RocketMQ 为什么性能不如Kafka?</div></div><div class="info-2"><div class="info-item-1">RocketMQ 为什么性能不如 Kafka？ RocketMQ 使用的是 mmap 零拷贝技术，而 kafka 使用的是 sendfile (硬件设备技术 SG-DMA，不影响（不占用）CPU工作) mmap   内核缓冲区-&gt;映射用户缓冲区-&gt;内核缓冲区-&gt;网卡sendfile 内核缓冲区-&gt; SG-DMA -&gt; 网卡  在上篇文章《rocketmq 是什么》中，我们了解到 RocketMQ 的架构其实参考了 kafka 的设计思想，同时又在 kafka 的基础上做了一些调整。看起来，RocketMQ 好像各方面都比 kafka 更能打。  但 kafka 却一直没被淘汰，说明 RocketMQ 必然是有着不如 kafka 的地方。是啥呢？性能，严格来说是吞吐量。阿里中间件团队对它们做过压测，同样条件下，kafka 比 RocketMQ 快 **50%**左右。但即使这样，RocketMQ 依然能每秒处理 10w 量级的数据，依旧非常能打。你不能说 RocketMQ 弱，只能说 Kafka 性能太强了。 不过这就很奇怪了，为什么...</div></div></div></a><a class="pagination-related" href="/posts/24869.html" title="MQ系列（五）| Kafka 快速入门"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/12/18/tsPhp4fmEXZkano.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-11-27</div><div class="info-item-2">MQ系列（五）| Kafka 快速入门</div></div><div class="info-2"><div class="info-item-1">Kafka 快速入门介绍 参考：Kafka 是什么？  架构一个高性能，高扩展性，高可用，支持持久化的超强消息队列，它就是我们常说的消息队列 KafkaZookeeper 协调管理多个 broker 组成，内部有多个 topic 分类，每个 topic 又分成多个 partition ，每个 partition 有多个副本 replia，不同的partition 会分布在不同 broker 上，提升性能同时，还增加了系统可用性和可扩展性  高性能 对消息进行分类，每个类是一个 topic  单个 topic 的消息可能过多，可将单个队列拆分成多个段，每段就是一个分区 partition ，每个消费者负责一个 partition  高扩展性可将 partition 分部在多台设备，每台设备代表一个 broker  高可用存在一个问题，如果其中一个partition所在的 broker 挂了，那么这部分的消息不久丢失了吗？ 可以给partition 多加几个副本 replica，从中分为 Leader 和 Follower，Leader 负责生产者和消费者的读写，Follower...</div></div></div></a><a class="pagination-related" href="/posts/40901.html" title="MQ系列（四）| RabbitMQ 死信队列和延迟队列"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/12/18/bENsgfpKC4dyTiG.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-11-24</div><div class="info-item-2">MQ系列（四）| RabbitMQ 死信队列和延迟队列</div></div><div class="info-2"><div class="info-item-1">死信队列死信是什么死信：无法被消费的消息。由于特定的原因导致队列中的某些消息无法被消费，这些消息没有后续的处理，就会变成死信。当消息在队列中无法被正常消费时，会被发送到死信队列中。 死信来源消息 TTL队列达到最大长度消息拒签(basicNack 或 basicReject)且重入队列为false(requeue=false) 死信架构  消息TTL   名称 交换机 路由键 类型 特征 参数    普通交换机 normal_exchange zhangsan direct / /   普通队列 normal_queue zhangsan / TTL DLX DLK x-dead-letter-exchange：dead_exchangex-dead-letter-routing-key：lisix-message-ttl: 10 * 1000   死信交换机 dead_exchange lisi direct / /   死信队列 dead_queue lisi / / /   生产者发送消息10条消息到队列...</div></div></div></a><a class="pagination-related" href="/posts/38624.html" title="MQ系列（三）| RabbitMQ 消息确认机制"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/12/18/dSrsLijuqOReo1X.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-11-20</div><div class="info-item-2">MQ系列（三）| RabbitMQ 消息确认机制</div></div><div class="info-2"><div class="info-item-1">RabbitMQ 消息确认机制 :heavy_exclamation_mark::heavy_exclamation_mark::heavy_exclamation_mark:温馨提示：基于JDK17、SpringBoot 2.1.8.RELEASE 版本，由于RabbitMQ 在 SpringBoot3+ 的配置项有所不同， 所以请严格按照该本版来使用，挖一坑：【后续会出一个SpringBoot3+版本的配置相关教程】  架构  概念保证消息不丢失，可靠抵达，可以使用事务消息，性能下降250倍 为此引入确认机制  生产者确认回调：publisher confirmCallback 生产者退回回调：publisher returnCallback未投递到queue退回模式 消费者确认：consumer ack确认机制  ComfirmCallback【生产者确认回调】 概念：ComfirmCallback是生产者消息确认机制的一部分。当生产者发送消息到 RabbitMQ 的交换器（Exchange）后，RabbitMQ 会返回一个确认消息给生产者，这个确认过程可以通过...</div></div></div></a><a class="pagination-related" href="/posts/41545.html" title="MQ系列（二）| RabbitMQ 整合 SpringBoot"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/12/18/SwBIEotR8Kd3Dbq.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-11-14</div><div class="info-item-2">MQ系列（二）| RabbitMQ 整合 SpringBoot</div></div><div class="info-2"><div class="info-item-1">RabbitMQ 整合 SpringBoot概述 大多应用中，可通过消息服务中间件来提升系统异步通信、扩展解耦能力、流量削峰    消息服务中两个重要概念：消息代理（`message broker`）和目的地（`destination`） 当消息发送者发送消息以后，将由消息代理接管，消息代理保证消息传递到指定目的地。    消息队列主要有两种形式的目的地1.     队列（`queue`）：点对点消息通信（`point-to-point`） 2.     主题（`topic`）：发布（`publish`）/订阅（`subscribe`）消息通信    RabbitMQ 架构图 概念生产者 Producer生产者是消息的发送方，它将消息发送到 RabbitMQ 的交换器中。  ✨消息 Message 消息=消息头+消息体，根据routekey发送到指定的交换机 Exchange 消息头：含有各种属性 routing-key（路由键）、priority（优先级）、delivery-mode（指出该消息可能需要持久性存储）等。  ✨消息代理...</div></div></div></a><a class="pagination-related" href="/posts/46172.html" title="MQ系列（一）| RabbitMQ 快速入门"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/12/18/Zh2tIFuJkaPSTwM.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-11-10</div><div class="info-item-2">MQ系列（一）| RabbitMQ 快速入门</div></div><div class="info-2"><div class="info-item-1">RabbitMQ 快速入门 官网：https://www.rabbitmq.com/ 入门教程：https://www.rabbitmq.com/tutorials 最新版本：4.0.2 版本参考：JDK17、Maven Or Gradle  1、简介RabbitMQ是一个可靠且成熟的消息传递和流代理，易于部署在云环境、本地和本地机器上。它目前被全球数百万人使用。 2、为什么使用公司业务场景核心：解耦、异步、削峰 2.1、解耦A系统发数据给到BCD系统，如果E系统需要接入？C系统不需要了？A系统的负责人就需要来回修改接口对接其他系统。   如果使用MQ，A系统产生一条数据，发送到MQ中，那个系统需要数据自己去MQ消费。如果新的系统需要数据，直接从MQ中消费；某个系统不需要数据的话，取消消费这个MQ即可。这样A系统不需要考虑谁发送数据给谁，不需要考虑是否调用成功、失败超时等问题。   总结：通过一个MQ，Pub/Sub发布订阅消息模型，A系统就和其他系统彻底耦合了。 2.2.1、项目应用...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div><div class="comment-switch"><span class="first-comment">Valine</span><span id="switch-btn"></span><span class="second-comment">Gitalk</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div><div><div id="gitalk-container"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/avatar.jpg" onerror="this.onerror=null;this.src='/images/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">stormling</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">41</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">26</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">22</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/lingzhexi"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://gitee.com/lingzhexi" target="_blank" title="Gitee"><i class="fab fa-gitee" style="color: #e94f11;"></i></a><a class="social-icon" href="https://github.com/lingzhexi" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:lingzhexi@126.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">欢迎大家来到Stormling博客</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#RocketMQ-%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8"><span class="toc-number">1.</span> <span class="toc-text">RocketMQ 快速入门</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BB%B6%E6%97%B6%E6%B6%88%E6%81%AF%E5%9C%BA%E6%99%AF"><span class="toc-number">1.2.</span> <span class="toc-text">延时消息场景</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#RocketMQ-%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-number">1.2.1.</span> <span class="toc-text">RocketMQ 是什么？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RocketMQ-%E5%92%8C-Kafka-%E5%8C%BA%E5%88%AB"><span class="toc-number">1.2.2.</span> <span class="toc-text">RocketMQ 和 Kafka 区别</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9C%A8%E6%9E%B6%E6%9E%84%E4%B8%8A%E5%81%9A%E5%87%8F%E6%B3%95"><span class="toc-number">1.3.</span> <span class="toc-text">在架构上做减法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%80%E5%8C%96%E5%8D%8F%E8%B0%83%E8%8A%82%E7%82%B9"><span class="toc-number">1.3.1.</span> <span class="toc-text">简化协调节点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%80%E5%8C%96%E5%88%86%E5%8C%BA"><span class="toc-number">1.3.2.</span> <span class="toc-text">简化分区</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Kafka-%E7%9A%84%E5%BA%95%E5%B1%82%E5%AD%98%E5%82%A8"><span class="toc-number">1.4.</span> <span class="toc-text">Kafka 的底层存储</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#segment%E6%98%AF%E4%BB%80%E4%B9%88"><span class="toc-number">1.4.1.</span> <span class="toc-text">segment是什么</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RocketMQ-%E7%9A%84%E5%BA%95%E5%B1%82%E5%AD%98%E5%82%A8"><span class="toc-number">1.5.</span> <span class="toc-text">RocketMQ 的底层存储</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%80%E5%8C%96%E5%A4%87%E4%BB%BD%E6%A8%A1%E5%9E%8B"><span class="toc-number">1.5.1.</span> <span class="toc-text">简化备份模型</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9C%A8%E5%8A%9F%E8%83%BD%E4%B8%8A%E5%81%9A%E5%8A%A0%E6%B3%95"><span class="toc-number">1.6.</span> <span class="toc-text">在功能上做加法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B6%88%E6%81%AF%E8%BF%87%E6%BB%A4"><span class="toc-number">1.6.1.</span> <span class="toc-text">消息过滤</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%94%AF%E6%8C%81%E4%BA%8B%E5%8A%A1"><span class="toc-number">1.6.2.</span> <span class="toc-text">支持事务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%A0%E5%85%A5%E5%BB%B6%E6%97%B6%E9%98%9F%E5%88%97"><span class="toc-number">1.6.3.</span> <span class="toc-text">加入延时队列</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%A0%E5%85%A5%E6%AD%BB%E4%BF%A1%E9%98%9F%E5%88%97"><span class="toc-number">1.6.4.</span> <span class="toc-text">加入死信队列</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B6%88%E6%81%AF%E5%9B%9E%E6%BA%AF"><span class="toc-number">1.6.5.</span> <span class="toc-text">消息回溯</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">1.7.</span> <span class="toc-text">总结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BB%B6%E4%BC%B8"><span class="toc-number">1.8.</span> <span class="toc-text">延伸</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/32250.html" title="【每日早报】-2025-01-09 - 星期四"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://file.alapi.cn/60s/202501091736361902_head.png" onerror="this.onerror=null;this.src='/images/404.jpg'" alt="【每日早报】-2025-01-09 - 星期四"/></a><div class="content"><a class="title" href="/posts/32250.html" title="【每日早报】-2025-01-09 - 星期四">【每日早报】-2025-01-09 - 星期四</a><time datetime="2025-01-08T16:00:00.000Z" title="发表于 2025-01-09 00:00:00">2025-01-09</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/19819.html" title="规则引擎 Drools 8+ 快速入门"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/12/22/4ei1fqHM3RKSUr2.webp" onerror="this.onerror=null;this.src='/images/404.jpg'" alt="规则引擎 Drools 8+ 快速入门"/></a><div class="content"><a class="title" href="/posts/19819.html" title="规则引擎 Drools 8+ 快速入门">规则引擎 Drools 8+ 快速入门</a><time datetime="2024-12-11T00:00:00.000Z" title="发表于 2024-12-11 08:00:00">2024-12-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/60908.html" title="数据库系列（二） | Mybatis Plus 3.0+快速入门"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/lingzhexi/blogImage/post/image-20240927101721314.png" onerror="this.onerror=null;this.src='/images/404.jpg'" alt="数据库系列（二） | Mybatis Plus 3.0+快速入门"/></a><div class="content"><a class="title" href="/posts/60908.html" title="数据库系列（二） | Mybatis Plus 3.0+快速入门">数据库系列（二） | Mybatis Plus 3.0+快速入门</a><time datetime="2024-12-09T06:22:03.000Z" title="发表于 2024-12-09 14:22:03">2024-12-09</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/50356.html" title="分布式系列（二） | Redisson分布式锁"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/12/22/Q6z8bLIciZ9TuFS.jpg" onerror="this.onerror=null;this.src='/images/404.jpg'" alt="分布式系列（二） | Redisson分布式锁"/></a><div class="content"><a class="title" href="/posts/50356.html" title="分布式系列（二） | Redisson分布式锁">分布式系列（二） | Redisson分布式锁</a><time datetime="2024-12-05T06:22:03.000Z" title="发表于 2024-12-05 14:22:03">2024-12-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/28724.html" title="分布式系列（一） | Redis分布式锁"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/12/22/n4qy9zw1Pj5r8Nv.jpg" onerror="this.onerror=null;this.src='/images/404.jpg'" alt="分布式系列（一） | Redis分布式锁"/></a><div class="content"><a class="title" href="/posts/28724.html" title="分布式系列（一） | Redis分布式锁">分布式系列（一） | Redis分布式锁</a><time datetime="2024-12-03T06:22:03.000Z" title="发表于 2024-12-03 14:22:03">2024-12-03</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url(https://s2.loli.net/2024/12/18/kY2ahrc1TAMPZ7S.webp);"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2025 By stormling</div><div class="footer_custom_text">码农Stormling程序员,关注公众号【码农Stormling】回复【面试】获取最全面试pdf</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><div class="js-pjax"><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.isShuoshuo
+  const option = null
+
+  const initValine = (el, path) => {
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyValine = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+
+    const valineConfig = {
+      el: '#vcomment',
+      appId: '',
+      appKey: '',
+      avatar: 'monsterid',
+      serverURLs: '',
+      emojiMaps: "",
+      visitor: false,
+      ...option,
+      path: isShuoshuo ? path : (option && option.path) || window.location.pathname
+    }
+
+    new Valine(valineConfig)
+  }
+
+  const loadValine = async (el, path) => {
+    if (typeof Valine === 'function') {
+      initValine(el, path)
+    } else {
+      await btf.getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js')
+      initValine(el, path)
+    }
+  }
+
+  if (isShuoshuo) {
+    'Valine' === 'Valine'
+      ? window.shuoshuoComment = { loadComment: loadValine }
+      : window.loadOtherComment = loadValine
+    return
+  }
+
+  if ('Valine' === 'Valine' || !false) {
+    if (false) btf.loadComment(document.getElementById('vcomment'),loadValine)
+    else setTimeout(loadValine, 0)
+  } else {
+    window.loadOtherComment = loadValine
+  }
+})()</script><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.isShuoshuo
+  const option = null
+
+  const commentCount = n => {
+    const isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+    if (isCommentCount) {
+      isCommentCount.textContent= n
+    }
+  }
+
+  const initGitalk = (el, path) => {
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyGitalk = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+
+    const gitalk = new Gitalk({
+      clientID: '',
+      clientSecret: '',
+      repo: '',
+      owner: '',
+      admin: [''],
+      updateCountCallback: commentCount,
+      ...option,
+      id: isShuoshuo ? path : (option && option.id) || '50fb70599e5c392f6fed67bb8293cf94'
+    })
+
+    gitalk.render('gitalk-container')
+  }
+
+  const loadGitalk = async(el, path) => {
+    if (typeof Gitalk === 'function') initGitalk(el, path)
+    else {
+      await btf.getCSS('https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css')
+      await btf.getScript('https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js')
+      initGitalk(el, path)
+    }
+  }
+
+  if (isShuoshuo) {
+    'Valine' === 'Gitalk'
+      ? window.shuoshuoComment = { loadComment: loadGitalk }
+      : window.loadOtherComment = loadGitalk
+    return
+  }
+
+  if ('Valine' === 'Gitalk' || !false) {
+    if (false) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+    else loadGitalk()
+  } else {
+    window.loadOtherComment = loadGitalk
+  }
+})()</script></div><div class="aplayer no-destroy" data-id="2426530028" data-server="netease" data-type="playlist" data-fixed="true" data-autoplay="true"> </div><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/fireworks.min.js"></script><script defer="defer" id="fluttering_ribbon" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-fluttering-ribbon.min.js"></script><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-nest.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = true;
+document.body.addEventListener('input', POWERMODE);
+</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/metingjs/dist/Meting.min.js"></script><script>(() => {
+  const destroyAplayer = () => {
+    if (window.aplayers) {
+      for (let i = 0; i < window.aplayers.length; i++) {
+        if (!window.aplayers[i].options.fixed) {
+          window.aplayers[i].destroy()
+        }
+      }
+    }
+  }
+
+  const runMetingJS = () => {
+    typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+  }
+
+  btf.addGlobalFn('pjaxSend', destroyAplayer, 'destroyAplayer')
+  btf.addGlobalFn('pjaxComplete', loadMeting, 'runMetingJS')
+})()</script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>(() => {
+  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => fn())
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      pjax.loadUrl('/404.html')
+    }
+  })
+})()</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false,"tagMode":false});</script></body></html>

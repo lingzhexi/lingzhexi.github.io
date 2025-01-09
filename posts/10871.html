@@ -1,0 +1,657 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>面试系列（四）| 虚拟机JVM | 码农Stormling</title><meta name="author" content="stormling"><meta name="copyright" content="stormling"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="ffffff"><meta name="description" content="JVM 的主要作用是什么？JVM 就是 Java Virtual Machine（Java 虚拟机）的缩写，JVM 屏蔽了与具体操作系统平台相关的信息，使 Java 程序只需生成在 Java 虚拟机上运行的目标代码 （字节码），就可以在不同的平台上运行。 据验证Java 的内存区域？JVM 在执行 Java 程序的过程中会把它管理的内存分为若干个不同的区域，这些组成部分有些是线程私有的，有些则是线">
+<meta property="og:type" content="article">
+<meta property="og:title" content="面试系列（四）| 虚拟机JVM">
+<meta property="og:url" content="http://www.stormling.top/posts/10871.html">
+<meta property="og:site_name" content="码农Stormling">
+<meta property="og:description" content="JVM 的主要作用是什么？JVM 就是 Java Virtual Machine（Java 虚拟机）的缩写，JVM 屏蔽了与具体操作系统平台相关的信息，使 Java 程序只需生成在 Java 虚拟机上运行的目标代码 （字节码），就可以在不同的平台上运行。 据验证Java 的内存区域？JVM 在执行 Java 程序的过程中会把它管理的内存分为若干个不同的区域，这些组成部分有些是线程私有的，有些则是线">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2024/12/24/bkfEWeo5KF94L2U.webp">
+<meta property="article:published_time" content="2021-10-11T05:38:23.000Z">
+<meta property="article:modified_time" content="2025-01-07T14:42:50.308Z">
+<meta property="article:author" content="stormling">
+<meta property="article:tag" content="JVM">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2024/12/24/bkfEWeo5KF94L2U.webp"><link rel="shortcut icon" href="/images/favicon.ico"><link rel="canonical" href="http://www.stormling.top/posts/10871.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"prismjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":true,"highlightMacStyle":true},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '面试系列（四）| 虚拟机JVM',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  isShuoshuo: false
+}</script><meta name="generator" content="Hexo 5.4.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+  window.addEventListener('load', preloader.endLoading)
+
+  if (true) {
+    btf.addGlobalFn('pjaxSend', preloader.initLoading, 'preloader_init')
+    btf.addGlobalFn('pjaxComplete', preloader.endLoading, 'preloader_end')
+  }
+})()</script><div id="web_bg" style="background-color: #efefef;"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/avatar.jpg" onerror="onerror=null;src='/images/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">41</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">26</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">22</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/categories/Java"><i class="fa-fw fas fa-coffee"></i><span> Java</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-spring"></i><span> Spring全家桶</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/Spring"><i class="fa-fw fas fa-spring"></i><span> Spring</span></a></li><li><a class="site-page child" href="/categories/SpringBoot"><i class="fa-fw fas fa-spring-boot"></i><span> SpringBoot</span></a></li><li><a class="site-page child" href="/categories/SpringCloud"><i class="fa-fw fas fa-spring-cloud"></i><span> SpringCloud</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/categories/JVM"><i class="fa-fw fas fa-cogs"></i><span> JVM</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 源码</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/Mybatis"><span> Mybatis</span></a></li><li><a class="site-page child" href="/categories/HashMap"><span> HashMap</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 其他</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/books/"><i class="fa-fw fas fa-book-open"></i><span> 互联网电子书汇总</span></a></li><li><a class="site-page child" href="/compass/"><i class="fa-fw fas fa-compass"></i><span> JAVA八股文指南</span></a></li><li><a class="site-page child" href="/history/"><i class="fa-fw fas fa-book-open"></i><span> 历史</span></a></li><li><a class="site-page child" href="/gallery/"><i class="fa-fw fas fa-image"></i><span> 相册</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://s2.loli.net/2024/12/24/bkfEWeo5KF94L2U.webp);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/avatar.jpg" alt="Logo"><span class="site-name">码农Stormling</span></a><a class="nav-page-title" href="/"><span class="site-name">面试系列（四）| 虚拟机JVM</span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/categories/Java"><i class="fa-fw fas fa-coffee"></i><span> Java</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-spring"></i><span> Spring全家桶</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/Spring"><i class="fa-fw fas fa-spring"></i><span> Spring</span></a></li><li><a class="site-page child" href="/categories/SpringBoot"><i class="fa-fw fas fa-spring-boot"></i><span> SpringBoot</span></a></li><li><a class="site-page child" href="/categories/SpringCloud"><i class="fa-fw fas fa-spring-cloud"></i><span> SpringCloud</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/categories/JVM"><i class="fa-fw fas fa-cogs"></i><span> JVM</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 源码</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/Mybatis"><span> Mybatis</span></a></li><li><a class="site-page child" href="/categories/HashMap"><span> HashMap</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 其他</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/books/"><i class="fa-fw fas fa-book-open"></i><span> 互联网电子书汇总</span></a></li><li><a class="site-page child" href="/compass/"><i class="fa-fw fas fa-compass"></i><span> JAVA八股文指南</span></a></li><li><a class="site-page child" href="/history/"><i class="fa-fw fas fa-book-open"></i><span> 历史</span></a></li><li><a class="site-page child" href="/gallery/"><i class="fa-fw fas fa-image"></i><span> 相册</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">面试系列（四）| 虚拟机JVM</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-10-11T05:38:23.000Z" title="发表于 2021-10-11 13:38:23">2021-10-11</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-01-07T14:42:50.308Z" title="更新于 2025-01-07 22:42:50">2025-01-07</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E9%9D%A2%E8%AF%95/">面试</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">7.7k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>23分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div id="post-outdate-notice" data="{&quot;limitDay&quot;:365,&quot;messagePrev&quot;:&quot;距离上次更新已经&quot;,&quot;messageNext&quot;:&quot;天了，文章内容可能已经过时。&quot;,&quot;postUpdate&quot;:&quot;2025-01-07 22:42:50&quot;}" hidden></div><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/lightgallery.js/1.0.1/css/lightgallery.min.css" /><div class=".article-gallery"><h2 id="JVM-的主要作用是什么？"><a href="#JVM-的主要作用是什么？" class="headerlink" title="JVM 的主要作用是什么？"></a>JVM 的主要作用是什么？</h2><p><code>JVM</code> 就是 <code>Java Virtual Machine</code>（<code>Java</code> 虚拟机）的缩写，<code>JVM</code> 屏蔽了与具体操作系统平台相关的信息，使 <code>Java</code> 程序只需生成在 <code>Java</code> 虚拟机上运行的目标代码 （字节码），就可以在不同的平台上运行。</p>
+<h4 id="据验证"><a href="#据验证" class="headerlink" title="据验证"></a><strong>据验证</strong></h4><h2 id="Java-的内存区域？"><a href="#Java-的内存区域？" class="headerlink" title="Java 的内存区域？"></a>Java 的内存区域？</h2><p><code>JVM</code> 在执行 <code>Java</code> 程序的过程中会把它管理的内存分为若干个不同的区域，这些组成部分有些是线程私有的，有些则是线程共享的，Java 内存区域也叫做运行时数据区，它的具体划分如下：</p>
+<p><a target="_blank" rel="noopener" href="https://s2.loli.net/2024/12/20/2pIKtBacCoWeHQg.jpg" class="gallery-item"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/12/20/2pIKtBacCoWeHQg.jpg"></a></p>
+<ul>
+<li><code>虚拟机栈</code> : <code>Java</code> 虚拟机栈是线程私有的数据区，Java 虚拟机栈的生命周期与线程相同，虚拟机栈也是局部变量的存储位置。方法在执行过程中，会在虚拟机栈中创建一个 <code>栈帧(stack frame)</code>。每个方法执行的过程就对应了一个入栈和出栈的过程。</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://s2.loli.net/2024/12/20/ZRl8heHLdWGc4Cu.jpg" class="gallery-item"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/12/20/ZRl8heHLdWGc4Cu.jpg"></a></p>
+<ul>
+<li><p><code>本地方法栈</code>: 本地方法栈也是线程私有的数据区，本地方法栈存储的区域主要是 Java 中使用 <code>native</code> 关键字修饰的方法所存储的区域。</p>
+</li>
+<li><p><code>程序计数器</code>：程序计数器也是线程私有的数据区，这部分区域用于存储线程的指令地址，用于判断线程的分支、循环、跳转、异常、线程切换和恢复等功能，这些都通过程序计数器来完成。</p>
+</li>
+<li><p><code>方法区</code>：方法区是各个线程共享的内存区域，它用于存储虚拟机加载的 类信息、常量、静态变量、即时编译器编译后的代码等数据。</p>
+</li>
+<li><p><code>堆</code>：堆是线程共享的数据区，堆是 <code>JVM</code> 中最大的一块存储区域，所有的对象实例都会分配在堆上。<code>JDK 1.7</code> 后，字符串常量池从永久代中剥离出来，存放在堆中。</p>
+<p>堆空间的内存分配（默认情况下）：</p>
+<p>命令行上执行如下命令，会查看默认的 <code>JVM</code> 参数。</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">java -XX:+PrintFlagsFinal -version<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>输出的内容非常多，但是只有两行能够反映出上面的内存分配结果</p>
+<p><a target="_blank" rel="noopener" href="https://gcore.jsdelivr.net/gh/lingzhexi/blogImage/img/2022/03/202203031032217.jpeg" class="gallery-item"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://gcore.jsdelivr.net/gh/lingzhexi/blogImage/img/2022/03/202203031032217.jpeg"></a><a target="_blank" rel="noopener" href="https://s2.loli.net/2024/12/20/t8xhcwPgvC2RBzH.jpg" class="gallery-item"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/12/20/t8xhcwPgvC2RBzH.jpg"></a><a target="_blank" rel="noopener" href="https://gcore.jsdelivr.net/gh/lingzhexi/blogImage/img/2022/03/202203021542355.jpeg" class="gallery-item"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://gcore.jsdelivr.net/gh/lingzhexi/blogImage/img/2022/03/202203021542355.jpeg"></a></p>
+</li>
+<li><p><code>eden</code> 区：<strong>8/10</strong> 的年轻代空间</p>
+</li>
+<li><p><code>survivor</code> <strong>0 : 1/10</strong> 的年轻代空间</p>
+</li>
+<li><p><code>survivor</code> <strong>1 : 1/10</strong> 的年轻代空间</p>
+</li>
+<li><p>老年代 ：<strong>三分之二</strong>的堆空间</p>
+</li>
+<li><p>年轻代 ：<strong>三分之一</strong>的堆空间</p>
+</li>
+<li><p><code>运行时常量池</code>：运行时常量池又被称为 <code>Runtime Constant Pool</code>，这块区域是方法区的一部分，它的名字非常有意思，通常被称为 <code>非堆</code>。它并不要求常量一定只有在编译期才能产生，也就是并非编译期间将常量放在常量池中，运行期间也可以将新的常量放入常量池中，String 的 intern 方法就是一个典型的例子。</p>
+</li>
+</ul>
+<h2 id="Java-中的类加载机制？"><a href="#Java-中的类加载机制？" class="headerlink" title="Java 中的类加载机制？"></a>Java 中的类加载机制？</h2><p><code>Java</code> 虚拟机负责把描述类的数据从 <code>Class</code> 文件加载到系统内存中，并对类的数据进行<strong>校验、转换解析和初始化</strong>，最终形成可以被虚拟机直接使用的 <code>Java</code> 类型，这个过程被称之为 Java 的<code>类加载机制</code>。</p>
+<p>一个类从被加载到虚拟机内存开始，到卸载出内存为止，一共会经历下面这些过程。</p>
+<p><a target="_blank" rel="noopener" href="https://s2.loli.net/2024/12/20/9eKTE7mgdb1ZSVw.jpg" class="gallery-item"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/12/20/9eKTE7mgdb1ZSVw.jpg"></a></p>
+<p>类加载机制一共有五个步骤，分别是：</p>
+<p><strong>加载、链接、初始化、使用和卸载</strong>阶段，这五个阶段的顺序是确定的。</p>
+<p>其中链接阶段会细分成三个阶段，分别是验证、准备、解析阶段，这三个阶段的顺序是不确定的，这三个阶段通常交互进行。解析阶段通常会在初始化之后再开始，这是为了支持 Java 语言的运行时绑定特性（也被称为<code>动态绑定</code>）。</p>
+<p>下面我们就来聊一下这几个过程。</p>
+<h3 id="加载"><a href="#加载" class="headerlink" title="加载"></a>加载</h3><p>关于什么时候开始加载这个过程，《Java 虚拟机规范》并没有强制约束，所以这一点我们可以自由实现。加载是整个类加载过程的第一个阶段，在这个阶段，Java 虚拟机需要完成三件事情：</p>
+<ul>
+<li>通过一个类的全限定名来获取定义此类的二进制字节流。</li>
+<li>将这个字节流表示的一种存储结构转换为运行时数据区中方法区的数据结构。</li>
+<li>在内存中生成一个 <code>Class</code> 对象，这个对象就代表了这个数据结构的访问入口。</li>
+</ul>
+<p>《Java 虚拟机规范》并未规定全限定名是如何获取的，所以现在业界有很多获取全限定名的方式：</p>
+<ul>
+<li><p>从 <code>ZIP</code> 包中读取，最终会改变为 <code>JAR、EAR、WAR</code> 格式。</p>
+</li>
+<li><p>从网络中获取，最常见的应用就是 <code>Web Applet</code>。</p>
+</li>
+<li><p>运行时动态生成，使用最多的就是动态代理技术。</p>
+</li>
+<li><p>由其他文件生成，比如 <code>JSP</code> 应用场景，由 <code>JSP</code> 文件生成对应的 <code>Class</code> 文件。</p>
+</li>
+<li><p>从数据库中读取，这种场景就比较小了。</p>
+</li>
+<li><p>可以从加密文件中获取，这是典型的防止 Class 文件被反编译的保护措施。</p>
+<p>加载阶段既可以使用虚拟机内置的引导类加载器来完成，也可以使用用户自定义的类加载器来完成。程序员可以通过自己定义类加载器来控制字节流的访问方式。</p>
+<p>数组的加载不需要通过类加载器来创建，它是直接在内存中分配，但是数组的元素类型（数组去掉所有维度的类型）最终还是要靠类加载器来完成加载。</p>
+</li>
+</ul>
+<h3 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h3><p>加载过后的下一个阶段就是验证，因为我们上一步讲到在内存中生成了一个</p>
+<p><code>Class</code> 对象，这个对象是访问其代表数据结构的入口，所以这一步验证的工作就是确保 <code>Class</code> 文件的字节流中的内容符合《<code>Java</code> 虚拟机规范》中的要求，保证这些信息被当作代码运行后，它不会威胁到虚拟机的安全。</p>
+<p>验证阶段主要分为四个阶段的检验：</p>
+<ul>
+<li>文件格式验证。</li>
+<li>元数据验证。</li>
+<li>字节码验证。</li>
+<li>符号引用验证。</li>
+</ul>
+<h4 id="文件格式验证"><a href="#文件格式验证" class="headerlink" title="文件格式验证"></a><strong>文件格式验证</strong></h4><p>这一阶段可能会包含下面这些验证点：</p>
+<ul>
+<li>魔数是否以 <code>0xCAFEBABE</code> 开头。</li>
+<li>主、次版本号是否在当前 Java 虚拟机接受范围之内。</li>
+<li>常量池的常量中是否有不支持的常量类型。</li>
+<li>指向常量的各种索引值中是否有指向不存在的常量或不符合类型的常量。</li>
+<li><code>CONSTANT_Utf8_info</code> 型的常量中是否有不符合 <code>UTF8</code> 编码的数据。</li>
+<li><code>Class</code> 文件中各个部分及文件本身是否有被删除的或附加的其他信息。</li>
+</ul>
+<p>实际上验证点远远不止有这些，上面这些只是从 <code>HotSpot</code> 源码中摘抄的一小段内容。</p>
+<h4 id="元数据验证"><a href="#元数据验证" class="headerlink" title="元数据验证"></a><strong>元数据验证</strong></h4><p>这一阶段主要是对字节码描述的信息进行语义分析，以确保描述的信息符合《<code>Java</code> 语言规范》，验证点包括</p>
+<ul>
+<li><p>验证的类是否有父类（除了 <code>Object</code> 类之外，所有的类都应该有父类）。</p>
+</li>
+<li><p>要验证类的父类是否继承了不允许继承的类。</p>
+</li>
+<li><p>如果这个类不是抽象类，那么这个类是否实现了父类或者接口中要求的所有方法。</p>
+</li>
+<li><p>是否覆盖了 final 字段，是否出现了不符合规定的重载等。</p>
+<p>需要记住这一阶段只是对《<code>Java</code> 语言规范》的验证。</p>
+</li>
+</ul>
+<h4 id="字节码验证"><a href="#字节码验证" class="headerlink" title="字节码验证"></a><strong>字节码验证</strong></h4><p>字节码验证阶段是最复杂的一个阶段，这个阶段主要是确定程序语意是否合法、是否是符合逻辑的。这个阶段主要是对类的方法体（<code>Class</code> 文件中的 <code>Code</code> 属性）进行校验分析。这部分验证包括</p>
+<ul>
+<li><p>确保操作数栈的数据类型和实际执行时的数据类型是否一致。</p>
+</li>
+<li><p>保证任何跳转指令不会跳出到方法体外的字节码指令上。</p>
+</li>
+<li><p>保证方法体中的类型转换是有效的，例如可以把一个子类对象赋值给父类数据类型，但是不能把父类数据类型赋值给子类等诸如此不安全的类型转换。</p>
+</li>
+<li><p>其他验证。</p>
+<p>如果没有通过字节码验证，就说明验证出问题。但是不一定通过了字节码验证，就能保证程序是安全的。</p>
+</li>
+</ul>
+<h4 id="符号引用验证"><a href="#符号引用验证" class="headerlink" title="符号引用验证"></a><strong>符号引用验证</strong></h4><p>最后一个阶段的校验行为发生在虚拟机将符号引用转换为直接引用的时候，这个转化将在连接的第三个阶段，即解析阶段中发生。符号引用验证可以看作是对类自身以外的各类信息进行匹配性校验，这个验证主要包括</p>
+<ul>
+<li><p>符号引用中的字符串全限定名是否能找到对应的类。</p>
+</li>
+<li><p>指定类中是否存在符合方法的字段描述符以及简单名称所描述的方法和字段。</p>
+</li>
+<li><p>符号引用的类、字段方法的可访问性是否可被当前类所访问。</p>
+</li>
+<li><p>其他验证。</p>
+<p>这一阶段主要是确保解析行为能否正常执行，如果无法通过符号引用验证，就会出现类似 <code>IllegalAccessError</code>、<code>NoSuchFieldError</code>、<code>NoSuchMethodError</code> 等错误。</p>
+</li>
+</ul>
+<p>验证阶段对于虚拟机来说非常重要，如果能通过验证，就说明你的程序在运行时不会产生任何影响。</p>
+<h3 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h3><p>准备阶段是为类中的变量分配内存并设置其初始值的阶段，这些变量所使用的内存都应当在方法区中进行分配，在</p>
+<p><code>JDK</code> 7 之前，<code>HotSpot</code> 使用<strong>永久代</strong>来实现方法区，是符合这种逻辑概念的。而在 <code>JDK</code> 8 之后，变量则会随着 <code>Class</code> 对象一起存放在 <code>Java</code> 堆中。</p>
+<p>下面通常情况下的基本类型和引用类型的初始值</p>
+<p><a target="_blank" rel="noopener" href="https://s2.loli.net/2024/12/20/P7jki9K8geEmOrM.jpg" class="gallery-item"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/12/20/P7jki9K8geEmOrM.jpg"></a></p>
+<p>除了 “通常情况” 下，还有一些 “例外情况”，如果类字段属性中存在</p>
+<p><code>ConstantValue</code> 属性，那就这个变量值在初始阶段就会初始化为 ConstantValue 属性所指定的初始值，比如</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token keyword">int</span> value <span class="token operator">=</span> <span class="token string">"666"</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>编译时就会把 value 的值设置为 666。</p>
+<h3 id="解析"><a href="#解析" class="headerlink" title="解析"></a>解析</h3><p>解析阶段是 Java 虚拟机将常量池内的符号引用替换为直接引用的过程。</p>
+<ul>
+<li><p><code>符号引用</code>：符号引用以一组符号来描述所引用的目标。符号引用可以是任何形式的字面量，只要使用时能无歧义地定位到目标即可，符号引用和虚拟机的布局无关。</p>
+</li>
+<li><p><code>直接引用</code>：直接引用可以直接指向目标的指针、相对便宜量或者一个能间接定位到目标的句柄。直接引用和虚拟机的布局是相关的，不同的虚拟机对于相同的符号引用所翻译出来的直接引用一般是不同的。如果有了直接引用，那么直接引用的目标一定被加载到了内存中。</p>
+<p>这样说你可能还有点不明白，我再换一种说法：</p>
+</li>
+</ul>
+<blockquote>
+<p>在编译的时候一个每个 Java 类都会被编译成一个 class 文件，但在编译的时候虚拟机并不知道所引用类的地址，所以就用符号引用来代替，而在这个解析阶段就是为了把这个符号引用转化成为真正的地址的阶段。</p>
+</blockquote>
+<p>《Java 虚拟机规范》并未规定解析阶段发生的时间，只要求了在</p>
+<p><code>anewarray</code>、<code>checkcast</code>、<code>getfield</code>、<code>getstatic</code>、<code>instanceof</code>、<code>invokedynamic</code>、<code>invokeinterface</code>、<code>invokespecial</code>、<code>invokestatic</code>、<code>invokevirtual</code>、<code>ldc</code>、<code>ldc_w</code>、<code>ldc2_w</code>、<code>multianewarray</code>、<code>new</code>、<code>putfield</code> 和 <code>putstatic</code> 这 17 个用于操作符号引用的字节码指令之前，先对所使用的符号引用进行解析。</p>
+<p>解析也分为四个步骤</p>
+<ul>
+<li>类或接口的解析</li>
+<li>字段解析</li>
+<li>方法解析</li>
+<li>接口方法解析</li>
+</ul>
+<h3 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h3><p>初始化是类加载过程的最后一个步骤，在之前的阶段中，都是由 Java 虚拟机占主导作用，但是到了这一步，却把主动权移交给应用程序。</p>
+<p>对于初始化阶段，《<code>Java</code> 虚拟机规范》严格规定了只有下面这六种情况下才会触发类的初始化。</p>
+<ul>
+<li><p>在遇到 <code>new、getstatic、putstatic</code> 或者 <code>invokestatic</code> 这四条字节码指令时，如果没有进行过初始化，那么首先触发初始化。通过这四个字节码的名称可以判断，这四条字节码其实就两个场景，调用 <code>new</code> 关键字的时候进行初始化、读取或者设置一个静态字段的时候、调用静态方法的时候。</p>
+</li>
+<li><p>在初始化类的时候，如果父类还没有初始化，那么就需要先对父类进行初始化。</p>
+</li>
+<li><p>在使用 <code>java.lang.reflect</code> 包的方法进行反射调用的时候。</p>
+</li>
+<li><p>当虚拟机启动时，用户需要指定执行主类的时候，说白了就是虚拟机会先初始化 main 方法这个类。</p>
+</li>
+<li><p>在使用 <code>JDK</code> 7 新加入的动态语言支持时，如果一个 <code>jafva.lang.invoke.MethodHandle</code> 实例最后的解析结果为 <code>REF_getstatic、REF_putstatic、REF_invokeStatic、REF_newInvokeSpecial</code> 四种类型的方法句柄，并且这个方法句柄对应的类没有进行过初始化，需要先对其进行初始化。</p>
+</li>
+<li><p>当一个接口中定义了 <code>JDK</code> 8 新加入的默认方法（被 default 关键字修饰的接口方法）时，如果有这个接口的实现类发生了初始化，那该接口要在其之前被初始化。</p>
+<p>其实上面只有前四个大家需要知道就好了，后面两个比较冷门。</p>
+</li>
+</ul>
+<blockquote>
+<p>如果说要回答类加载的话，其实聊到这里已经可以了，但是为了完整性，我们索性把后面两个过程也来聊一聊。</p>
+</blockquote>
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><p>这个阶段没什么可说的，就是初始化之后的代码由 JVM 来动态调用执行。</p>
+<h3 id="卸载"><a href="#卸载" class="headerlink" title="卸载"></a>卸载</h3><p>当代表一个类的</p>
+<p><code>Class</code> 对象不再被引用，那么 Class 对象的生命周期就结束了，对应的在方法区中的数据也会被卸载。</p>
+<blockquote>
+<p>⚠️但是需要注意一点：JVM 自带的类加载器装载的类，是不会卸载的，由用户自定义的类加载器加载的类是可以卸载的。</p>
+</blockquote>
+<h2 id="在-JVM-中，对象是如何创建的？"><a href="#在-JVM-中，对象是如何创建的？" class="headerlink" title="在 JVM 中，对象是如何创建的？"></a>在 JVM 中，对象是如何创建的？</h2><blockquote>
+<p>如果要回答对象是怎么创建的，我们一般想到的回答是直接 <code>new</code> 出来就行了，这个回答不仅局限于编程中，也融入在我们生活中的方方面面。</p>
+<p>但是遇到面试的时候你只回答一个 <code>new</code> 出来就行了” 显然是不行的，因为面试更趋向于让你解释当程序执行到 <code>new</code> 这条指令时，它的背后发生了什么。</p>
+<p>所以你需要从 <code>JVM</code> 的角度来解释这件事情。</p>
+</blockquote>
+<p>当虚拟机遇到一个</p>
+<p><code>new</code> 指令时（其实就是字节码），首先会去检查这个指令的参数是否能在常量池中定位到一个类的符号引用，并且检查这个符号引用所代表的类是否已经被加载、解析和初始化。因为此时很可能不知道具体的类是什么，所以这里使用的是符号引用。如果发现这个类没有经过上面类加载的过程，那么就执行相应的类加载过程。类检查完成后，接下来虚拟机将会为新生对象<strong>分配内存</strong>，对象所需的大小在类加载完成后便可确定（我会在下面的面试题中介绍）。</p>
+<p>分配内存相当于是把一块固定的内存块从堆中划分出来。划分出来之后，虚拟机会将分配到的内存空间都初始化为零值，如果使用了<code>TLAB</code>（本地线程分配缓冲），这一项初始化工作可以提前在 <code>TLAB</code> 分配时进行。这一步操作保证了对象实例字段在 <code>Java</code> 代码中可以不赋值就能直接使用。接下来，<code>Java</code> 虚拟机还会对对象进行必要的设置，比如确定对象是哪个类的实例、对象的 <code>hashcode</code>、对象的 <code>gc</code> 分代年龄信息。这些信息存放在对象的对象头（<code>Object Header</code>）中。</p>
+<p>如果上面的工作都做完后，从虚拟机的角度来说，一个新的对象就创建完毕了；但是对于程序员来说，对象创建才刚刚开始，因为构造函数，即 <code>Class</code> 文件中的 <code>&lt;init&gt;()</code> 方法还没有执行，所有字段都为默认的零值。<code>new</code> 指令之后才会执行 <code>&lt;init&gt;()</code> 方法，然后按照程序员的意愿对对象进行初始化，这样一个对象才可能被完整的构造出来。</p>
+<h2 id="内存分配方式有哪些呢？"><a href="#内存分配方式有哪些呢？" class="headerlink" title="内存分配方式有哪些呢？"></a>内存分配方式有哪些呢？</h2><p>在类加载完成后，虚拟机需要为新生对象分配内存，为<strong>对象分配内存</strong>相当于是<strong>把一块确定的区域从【堆】中划分</strong>出来。这就涉及到一个问题，</p>
+<p><strong>要划分的堆区是否规整</strong>。</p>
+<ul>
+<li><p><strong>假设规整</strong>：所有使用过的内存放在一边，未使用的内存放在一边，中间放着一个指针，这个指针为分界指示器。那么为新对象分配内存空间就相当于是把指针向空闲的空间挪动对象大小相等的距离，这种内存分配方式叫做【**指针碰撞(Bump The Pointer)**】。</p>
+</li>
+<li><p><strong>假设不规整</strong>：已经被使用的内存和未被使用的内存<strong>相互交错</strong>在一起，这种情况下就没有办法使用指针碰撞，这里就要使用另外一种记录内存使用的方式：【<strong>空闲列表(Free List</strong>)】。空闲列表维护了一个列表，这个列表记录了<strong>哪些内存块是可用</strong>的，在分配的时候从列表中找到一块足够大的空间划分给对象实例，并更新列表上的记录。</p>
+<p>所以，上述两种分配方式选择哪个，取决于 <code>Java</code> <strong>堆是否规整</strong>来决定。</p>
+</li>
+<li><p><strong>指针碰撞</strong>：<code>Serial</code>、<code>ParNew</code> 等<strong>带压缩整理</strong>过程的收集器，</p>
+</li>
+<li><p><strong>空闲列表</strong>： <code>CMS</code> 这种基于<strong>清除算法</strong>的收集器时，</p>
+</li>
+</ul>
+<h2 id="对象的内存布局？"><a href="#对象的内存布局？" class="headerlink" title="对象的内存布局？"></a>对象的内存布局？</h2><p>在<code>hotspot</code> 虚拟机中，对象在内存中的布局分为三块区域：</p>
+<ul>
+<li><code>对象头(Header)</code></li>
+<li><code>实例数据(Instance Data)</code></li>
+<li><code>对齐填充(Padding)</code></li>
+</ul>
+<p>这三块区域的内存分布如下图所示</p>
+<p><a target="_blank" rel="noopener" href="https://s2.loli.net/2024/12/20/ipeYynBAKwrJ6UF.jpg" class="gallery-item"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/12/20/ipeYynBAKwrJ6UF.jpg"></a></p>
+<p>我们来详细介绍一下上面对象中的内容。</p>
+<h3 id="对象头-Header"><a href="#对象头-Header" class="headerlink" title="对象头 Header"></a>对象头 Header</h3><p>对象头 <code>Header</code> 主要包含 <code>MarkWord</code> 和对象指针 <code>Klass Pointer</code>，如果是数组的话，还要包含数组的长度。</p>
+<p><a target="_blank" rel="noopener" href="https://s2.loli.net/2024/12/20/aTL8273HxYWq1og.jpg" class="gallery-item"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/12/20/aTL8273HxYWq1og.jpg"></a></p>
+<ul>
+<li>32 位虚拟机： <code>MarkWord</code> ，<code>Klass Pointer</code> 和数组长度分别占用 32 位，也就是 4 字节。</li>
+<li>64 位虚拟机：<code>MarkWord</code> ，<code>Klass Pointer</code> 和数组长度分别占用 64 位，也就是 8 字节。</li>
+</ul>
+<p>在 32 位虚拟机和 64 位虚拟机的<code>MarkWord</code> 所占用的字节大小不一样，32 位虚拟机的 <code>MarkWord</code> 和 <code>Klass Pointer</code> 分别占用 32 bits 的字节，而 64 位虚拟机的 <code>Mark Word</code> 和 <code>Klass Pointer</code> 占用了 64 <code>bits</code> 的字节，下面我们以 32 位虚拟机为例，来看一下其 <code>Mark Word</code> 的字节具体是如何分配的。</p>
+<p><a target="_blank" rel="noopener" href="https://s2.loli.net/2024/12/20/P1rXkYKMC8fDdhF.jpg" class="gallery-item"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/12/20/P1rXkYKMC8fDdhF.jpg"></a></p>
+<p>用中文翻译过来就是</p>
+<p><a target="_blank" rel="noopener" href="https://s2.loli.net/2024/12/20/2B6n3YTMagd4HLI.jpg" class="gallery-item"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/12/20/2B6n3YTMagd4HLI.jpg"></a></p>
+<ul>
+<li>无状态也就是<code>无锁</code>的时候，对象头开辟 25 <code>bit</code> 的空间用来存储对象的 <code>hashcode</code> ，4 <code>bit</code> 用于存放分代年龄，1 <code>bit</code> 用来存放是否偏向锁的标识位，2 <code>bit</code> 用来存放锁标识位为 01。</li>
+<li><code>偏向锁</code> 中划分更细，还是开辟 25 <code>bit</code> 的空间，其中 23 <code>bit</code> 用来存放线程 ID，<code>2bit</code> 用来存放 <code>epoch</code>，<code>4bit</code> 存放分代年龄，1 <code>bit</code> 存放是否偏向锁标识， 0 表示无锁，1 表示偏向锁，锁的标识位还是 01。</li>
+<li><code>轻量级锁</code>中直接开辟 30 <code>bit</code> 的空间存放指向栈中锁记录的指针，<code>2bit</code> 存放锁的标志位，其标志位为 00。</li>
+<li><code>重量级锁</code>中和轻量级锁一样，30 <code>bit</code> 的空间用来存放指向重量级锁的指针，2 <code>bit</code> 存放锁的标识位，为 11</li>
+<li><code>GC标记</code>开辟 30 <code>bit</code> 的内存空间却没有占用，2 <code>bit</code> 空间存放锁标志位为 11。</li>
+</ul>
+<p>其中无锁和偏向锁的锁标志位都是 01，只是在前面的 1 <code>bit</code> 区分了这是无锁状态还是偏向锁状态。</p>
+<p>关于为什么这么分配的内存，我们可以从 <code>OpenJDK</code> 中的 <code>markOop.hpp</code> 类中的枚举窥出端倪</p>
+<p><a target="_blank" rel="noopener" href="https://s2.loli.net/2024/12/20/pTGKBxd1A6IEO2X.jpg" class="gallery-item"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/12/20/pTGKBxd1A6IEO2X.jpg"></a></p>
+<p>来解释一下</p>
+<ul>
+<li><code>age_bits</code> 就是我们说的分代回收的标识，占用 4 字节</li>
+<li><code>lock_bits</code> 是锁的标志位，占用 2 个字节</li>
+<li><code>biased_lock_bits</code> 是是否偏向锁的标识，占用 1 个字节。</li>
+<li><code>max_hash_bits</code> 是针对无锁计算的 <code>hashcode</code> 占用字节数量，如果是 32 位虚拟机，就是 32 - 4 - 2 -1 = 25 <code>byte</code>，如果是 64 位虚拟机，64 - 4 - 2 - 1 = 57 <code>byte</code>，但是会有 25 字节未使用，所以 64 位的 <code>hashcode</code> 占用 31 <code>byte</code>。</li>
+<li><code>hash_bits</code> 是针对 64 位虚拟机来说，如果最大字节数大于 31，则取 31，否则取真实的字节数</li>
+<li><code>cms_bits</code> 我觉得应该是不是 64 位虚拟机就占用 0 <code>byte</code>，是 64 位就占用 1byte</li>
+<li><code>epoch_bits</code> 就是 epoch 所占用的字节大小，2 字节。</li>
+</ul>
+<p>在上面的虚拟机对象头分配表中，我们可以看到有几种锁的状态：<strong>无锁（无状态）</strong>，<strong>偏向锁</strong>，<strong>轻量级锁</strong>，<strong>重量级锁</strong>，其中轻量级锁和偏向锁是<code>JDK1.6</code> 中对 <code>synchronized</code> 锁进行优化后新增加的，其目的就是为了<strong>大大优化锁的性能</strong>，所以在 <code>JDK</code> 1.6 中，使用 <code>synchronized</code> 的开销也没那么大了。其实从锁有无锁定来讲，还是只有<strong>无锁和重量级锁</strong>，偏向锁和轻量级锁的出现就是增加了锁的<strong>获取性能</strong>而已，并没有出现新的锁。</p>
+<p>所以我们的重点放在对<code>synchronized</code> 重量级锁的研究上，当 <code>monitor</code> 被某个线程持有后，它就会处于<strong>锁定状态</strong>。在 <code>HotSpot</code> 虚拟机中，<code>monitor</code> 的底层代码是由 <code>ObjectMonitor</code> 实现的，其主要数据结构如下（位于 <code>HotSpot</code> 虚拟机源码 <code>ObjectMonitor.hpp</code> 文件，<code>C++</code> 实现的）</p>
+<p><a target="_blank" rel="noopener" href="https://s2.loli.net/2024/12/20/x6GIoZ4aWFPfQqO.jpg" class="gallery-item"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/12/20/x6GIoZ4aWFPfQqO.jpg"></a></p>
+<p>这段 C++ 中需要注意几个属性：</p>
+<p><code>_WaitSet</code> 、 <code>_EntryList</code> 和 <code>_Owner</code>，每个等待获取锁的线程都会被封装称为 <code>ObjectWaiter</code> 对象。</p>
+<p><a target="_blank" rel="noopener" href="https://s2.loli.net/2024/12/20/yqtvzOug5KJ3nbc.jpg" class="gallery-item"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/12/20/yqtvzOug5KJ3nbc.jpg"></a></p>
+<p><code>    _Owner</code> 是指向了 <code>ObjectMonitor</code> 对象的线程，而 <code>_WaitSet</code> 和 <code>_EntryList</code> 就是用来保存每个线程的列表。</p>
+<blockquote>
+<p>那么这两个列表有什么区别呢？这个问题我和你聊一下锁的获取流程你就清楚了。</p>
+</blockquote>
+<h3 id="锁的两个列表"><a href="#锁的两个列表" class="headerlink" title="锁的两个列表"></a><strong>锁的两个列表</strong></h3><p>当多个线程同时访问某段同步代码时，首先会进入</p>
+<p><code>_EntryList</code> 集合，当线程获取到对象的 <code>monitor</code> 之后，就会进入 <code>_Owner</code> 区域，并把 <code>ObjectMonitor</code> 对象的 <code>_Owner</code> 指向为当前线程，并使 <code>_count + 1</code>，如果调用了释放锁（比如 <code>wait</code>）的操作，就会释放当前持有的 <code>monitor</code> ，<code>owner = null</code>， _count - 1，同时这个线程会进入到 <code>_WaitSet</code> 列表中等待被唤醒。如果当前线程执行完毕后也会释放 <code>monitor</code> 锁，只不过此时不会进入 <code>_WaitSet</code> 列表了，而是直接复位 <code>_count</code> 的值。</p>
+<p><a target="_blank" rel="noopener" href="https://s2.loli.net/2024/12/20/cpIQeDXZlzk3ovY.jpg" class="gallery-item"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/12/20/cpIQeDXZlzk3ovY.jpg"></a></p>
+<p><code>Klass Pointer</code> 表示的是类型指针，也就是对象指向它的类元数据的指针，虚拟机通过这个指针来确定这个对象是哪个类的实例。</p>
+<blockquote>
+<p>你可能不是很理解指针是个什么概念，你可以简单理解为指针就是指向某个数据的地址。</p>
+</blockquote>
+<p><a target="_blank" rel="noopener" href="https://s2.loli.net/2024/12/20/qCTZx5cvsEUw2dP.jpg" class="gallery-item"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/12/20/qCTZx5cvsEUw2dP.jpg"></a></p>
+<h3 id="实例数据-Instance-Data"><a href="#实例数据-Instance-Data" class="headerlink" title="实例数据 Instance Data"></a>实例数据 <code>Instance Data</code></h3><p>实例数据部分是对象真正存储的有效信息，也是代码中定义的各个字段的字节大小，比如一个</p>
+<p><code>byte</code> 占 1 个字节，一个 <code>int</code> 占用 4 个字节。</p>
+<h3 id="对齐-Padding"><a href="#对齐-Padding" class="headerlink" title="对齐 Padding"></a>对齐 <code>Padding</code></h3><p>对齐不是必须存在的，它只起到了占位符 (<code>%d, %c</code> 等) 的作用。这就是 JVM 的要求了，因为 <code>HotSpot</code> <code>JVM</code> 要求对象的起始地址必须是 8 字节的整数倍，也就是说对象的字节大小是 8 的整数倍，不够的需要使用 <code>Padding</code> 补全。</p>
+<h2 id="对象访问定位的方式有哪些？"><a href="#对象访问定位的方式有哪些？" class="headerlink" title="对象访问定位的方式有哪些？"></a>对象访问定位的方式有哪些？</h2><p>我们创建一个对象的目的当然就是为了使用它，但是，一个对象被创建出来之后，在<code>JVM</code> 中是如何访问这个对象的呢？一般有两种方式：<strong>通过句柄访问</strong>和 <strong>通过直接指针访问</strong>。</p>
+<ul>
+<li><p>如果使用句柄访问方式的话，<code>Java</code> 堆中可能会划分出一块内存作为句柄池，引用（<code>reference</code>）中存储的是对象的句柄地址，而句柄中包含了对象的实例数据与类型数据各自具体的地址信息。如下图所示。</p>
+<p><a target="_blank" rel="noopener" href="https://gcore.jsdelivr.net/gh/lingzhexi/blogImage/img/2022/03/202203021545142.jpeg" class="gallery-item"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://gcore.jsdelivr.net/gh/lingzhexi/blogImage/img/2022/03/202203021545142.jpeg"></a></p>
+</li>
+<li><p>如果使用直接指针访问的话，<code>Java</code> 堆中对象的内存布局就会有所区别，栈区引用指示的是堆中的实例数据的地址，如果只是访问对象本身的话，就不会多一次直接访问的开销，而对象类型数据的指针是存在于方法区中，如果定位的话，需要多一次直接定位开销。如下图所示</p>
+<p><a target="_blank" rel="noopener" href="https://gcore.jsdelivr.net/gh/lingzhexi/blogImage/img/2022/03/202203021545927.jpeg" class="gallery-item"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://gcore.jsdelivr.net/gh/lingzhexi/blogImage/img/2022/03/202203021545927.jpeg"></a></p>
+<p>这两种对象访问方式各有各的优势，使用句柄最大的好处就是引用中存储的是句柄地址，对象移动时只需改变句柄的地址就可以，而无需改变对象本身。</p>
+</li>
+</ul>
+<p>使用直接指针来访问速度更快，它节省了一次指针定位的时间开销，由于对象访问在 Java 中非常频繁，因为这类的开销也是值得优化的地方。</p>
+<p>上面聊到了对象的两种数据，一种是对象的实例数据，这没什么好说的，就是对象实例字段的数据，一种是对象的类型数据，这个数据说的是对象的类型、父类、实现的接口和方法等。</p>
+<h2 id="如何判断对象已经死亡？"><a href="#如何判断对象已经死亡？" class="headerlink" title="如何判断对象已经死亡？"></a>如何判断对象已经死亡？</h2><blockquote>
+<p>引用计数、可达性分析</p>
+</blockquote>
+<p>我们大家知道，基本上所有的对象都在堆中分布，当我们不再使用对象的时候，垃圾收集器会对无用对象进行回收♻️，那么 JVM 是如何判断哪些对象已经是 “无用对象” 的呢？</p>
+<p>首先我们先来说第一种：</p>
+<p><strong>引用计数法</strong>。</p>
+<p>引用计数法的判断标准是这样的：在对象中添加一个引用计数器，每当有一个地方引用它时，计数器的值就会加一；当引用失效时，计数器的值就会减一；只要任何时刻计数器为零的对象就是不会再被使用的对象。虽然这种判断方式非常简单粗暴，但是往往很有用，不过，在 Java 领域，主流的 Hotspot 虚拟机实现并没有采用这种方式，因为引用计数法不能解决对象之间的循环引用问题。</p>
+<p>循环引用问题简单来讲就是两个对象之间互相依赖着对方，除此之外，再无其他引用，这样虚拟机无法判断引用是否为零从而进行垃圾回收操作。</p>
+<p>还有一种判断对象无用：</p>
+<p><strong>可达性分析算法</strong>。</p>
+<p>当前主流的 JVM 都采用了可达性分析算法来进行判断，这个算法的基本思路就是通过一系列被称为</p>
+<p><code>GC Roots</code>的根对象作为起始节点集，从这些节点开始，根据引用关系向下搜索，搜索过程走过的路径被称为<code>引用链</code>（<code>Reference</code> <code>Chain</code>），如果某个对象到 <code>GC</code> <code>Roots</code> 之间没有任何引用链相连接，或者说从 <code>GC</code> <code>Roots</code> 到这个对象不可达时，则证明此这个对象是无用对象，需要被垃圾回收。</p>
+<p>这种引用方式如下</p>
+<p><a target="_blank" rel="noopener" href="https://gcore.jsdelivr.net/gh/lingzhexi/blogImage/img/2022/03/202203021545756.jpeg" class="gallery-item"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://gcore.jsdelivr.net/gh/lingzhexi/blogImage/img/2022/03/202203021545756.jpeg"></a></p>
+<p>如上图所示，从枚举根节点 <code>GC</code> <code>Roots</code> 开始进行遍历，<code>object 1 、2、3、4</code> 是存在引用关系的对象，而 <code>object 5、6、7</code> 之间虽然有关联，但是它们到 GC <code>Roots</code> 之间是不可达的，所以被认为是可以回收的对象。</p>
+<p>在 <code>Java</code> 技术体系中，可以作为 <code>GC Roots</code> 进行检索的对象主要有</p>
+<ul>
+<li>在虚拟机栈（栈帧中的本地变量表）中引用的对象。</li>
+<li>方法区中类静态属性引用的对象，比如 <code>Java</code> 类的引用类型静态变量。</li>
+<li>方法区中常量引用的对象，比如字符串常量池中的引用。</li>
+<li>在本地方法栈中 <code>JNI</code> 引用的对象。</li>
+<li><code>JVM</code> 内部的引用，比如基本数据类型对应的 <code>Class</code> 对象，一些异常对象比如 <code>NullPointerException</code>、<code>OutOfMemoryError</code> 等，还有系统类加载器。</li>
+<li>所有被 <code>synchronized</code> 持有的对象。</li>
+<li>还有一些 <code>JVM</code> 内部的比如 <code>JMXBean</code>、<code>JVMTI</code> 中注册的回调，本地代码缓存等。</li>
+<li>根据用户所选的垃圾收集器以及当前回收的内存区域的不同，还可能会有一些对象临时加入，共同构成 <code>GC Roots</code> 集合。</li>
+</ul>
+<p>虽然我们上面提到了两种判断对象回收的方法，但无论是引用计数法还是判断 <code>GC Roots</code> 都离不开<code>引用</code>这一层关系。</p>
+<blockquote>
+<p>这里涉及到到强引用、软引用、弱引用、虚引用的引用关系，后续再聊</p>
+</blockquote>
+<h2 id="如何判断一个不再使用的类？"><a href="#如何判断一个不再使用的类？" class="headerlink" title="如何判断一个不再使用的类？"></a>如何判断一个不再使用的类？</h2><p>判断一个类型属于 “不再使用的类” 需要满足下面这三个条件</p>
+<ul>
+<li>这个类所有的实例已经被回收，也就是 <code>Java</code> 堆中不存在该类及其任何这个类字类的实例</li>
+<li>加载这个类的类加载器已经被回收，但是类加载器一般很难会被回收，除非这个类加载器是为了这个目的设计的，比如 <code>OSGI</code>、<code>JSP</code> 的重加载等，否则通常很难达成。</li>
+<li>这个类对应的 <code>Class</code> 对象没有任何地方被引用，无法在任何时刻通过反射访问这个类的属性和方法。</li>
+</ul>
+<p>虚拟机允许对满足上面这三个条件的无用类进行回收操作。</p>
+</div><script src="https://cdn.jsdelivr.net/lightgallery.js/1.0.1/js/lightgallery.min.js"></script><script>if (typeof lightGallery !== 'undefined') {
+        var options = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options);
+        }</script></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://www.stormling.top">stormling</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://www.stormling.top/posts/10871.html">http://www.stormling.top/posts/10871.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="http://www.stormling.top" target="_blank">码农Stormling</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/JVM/">JVM</a></div><div class="post-share"><div class="social-share" data-image="https://s2.loli.net/2024/12/24/bkfEWeo5KF94L2U.webp" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/posts/10871.html" title="面试系列（五）| JVM垃圾回收算法"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/12/20/sL5EIGAYVDUuH6a.jpg" onerror="onerror=null;src='/images/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">面试系列（五）| JVM垃圾回收算法</div></div><div class="info-2"><div class="info-item-1">JVM 分代收集理论有哪些？ 强分代：新生代和老年代 弱分代：新生代和老年代 跨代引用：记忆集【有跨代（dirty）、无跨带（clean）】  分代收集 强分代假说：强分代假说指的是 JVM 认为绝大多数对象的生存周期都是朝生夕灭的； 弱分代假说：弱分代假说指的是只要熬过越多次垃圾收集过程的对象就越难以回收（看来对象也会长心眼）。  就是基于这两个假说理论，  JVM 将堆区划分为不同的区域，再将需要回收的对象根据其熬过垃圾回收的次数分配到不同的区域中存储。   JVM 根据这两条分代收集理论把堆区划分  新生代 (Young Generation) ：每次垃圾收集时都发现有大批对象死去  老年代 (Old Generation)：剩下没有死去的对象会直接晋升到老年代中 跨代引用  上面这两个假说  没有考虑对象的引用关系，而事实情况是，对象之间会存在引用关系，基于此又诞生了  跨代引用假说 (Intergeneration Reference...</div></div></div></a><a class="pagination-related" href="/posts/16712.html" title="面试系列（三）| 幂等性"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://gcore.jsdelivr.net/gh/lingzhexi/blogImage/img/2022/03/202203021721701.jpg" onerror="onerror=null;src='/images/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">面试系列（三）| 幂等性</div></div><div class="info-2"><div class="info-item-1">幂等性​    HTTP/1.1 中对幂等性的定义是：一次和多次请求某一个资源对于资源本身应该具有同样的结果（网络超时等问题除外）。也就是说，其任意多次执行对资源本身所产生的影响均与一次执行的影响相同。 这里需要关注几个重点：   幂等不仅仅只是一次（或多次）请求对资源没有副作用（比如查询数据库操作，没有增删改，因此没有对数据库有任何影响）。   幂等还包括第一次请求的时候对资源产生了副作用，但是以后的多次请求都不会再对资源产生副作用。   幂等关注的是以后的多次请求是否对资源产生的副作用，而不关注结果。   网络超时等问题，不是幂等的讨论范围。   幂等性是系统服务对外一种承诺（而不是实现），承诺只要调用接口成功，外部多次调用对系统的影响是一致的。声明为幂等的服务会认为外部调用失败是常态，并且失败之后必然会有重试。 什么情况下需要幂等业务开发中，经常会遇到重复提交的情况，无论是由于网络问题无法收到请求结果而重新发起请求，或是前端的操作抖动而造成重复提交情况。 在交易系统，支付系统这种重复提交造成的问题有尤其明显，比如：   用户在 APP...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/posts/45688.html" title="面试系列（七）| JVM常见命令"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/12/20/bmwuCVrIBpY3ftS.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2021-10-19</div><div class="info-item-2">面试系列（七）| JVM常见命令</div></div><div class="info-2"><div class="info-item-1">JVM 常用命令介绍下面介绍一下  JVM 中常用的调优、故障处理等工具。  jps ：虚拟机进程工具，全称是 **JVM Process Status Tool**，它的功能和 Linux 中的 ps 类似，可以列出正在运行的虚拟机进程，并显示虚拟机执行主类 Main Class 所在的本地虚拟机唯一ID，虽然功能比较单一，但是这个命令绝对是使用最高频的一个命令。 _jstat_：虚拟机统计信息工具，用于监视虚拟机各种运行状态的信息的命令行工具，它可以显示本地或者远程虚拟机进程中的类加载、内存、垃圾收集、即时编译等运行时数据。 jinfo：Java 配置信息工具，全称是 _Configuration Info for Java_，它的作用是可以实时调整虚拟机各项参数。 _jmap_：Java 内存映像工具，全称是 _Memory Map For Java_，它用于生成转储快照，用来排查内存占用情况 jhat：虚拟机堆转储快照分析工具，全称是 _JVM Heap Analysis Tool_，这个指令通常和 jmap 一起搭配使用，jhat 内置了一个 HTTP/Web...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div><div class="comment-switch"><span class="first-comment">Valine</span><span id="switch-btn"></span><span class="second-comment">Gitalk</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div><div><div id="gitalk-container"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/avatar.jpg" onerror="this.onerror=null;this.src='/images/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">stormling</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">41</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">26</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">22</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/lingzhexi"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://gitee.com/lingzhexi" target="_blank" title="Gitee"><i class="fab fa-gitee" style="color: #e94f11;"></i></a><a class="social-icon" href="https://github.com/lingzhexi" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:lingzhexi@126.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">欢迎大家来到Stormling博客</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#JVM-%E7%9A%84%E4%B8%BB%E8%A6%81%E4%BD%9C%E7%94%A8%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-number">1.</span> <span class="toc-text">JVM 的主要作用是什么？</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8D%AE%E9%AA%8C%E8%AF%81"><span class="toc-number">1.0.1.</span> <span class="toc-text">据验证</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Java-%E7%9A%84%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F%EF%BC%9F"><span class="toc-number">2.</span> <span class="toc-text">Java 的内存区域？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Java-%E4%B8%AD%E7%9A%84%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6%EF%BC%9F"><span class="toc-number">3.</span> <span class="toc-text">Java 中的类加载机制？</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%A0%E8%BD%BD"><span class="toc-number">3.1.</span> <span class="toc-text">加载</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%AA%8C%E8%AF%81"><span class="toc-number">3.2.</span> <span class="toc-text">验证</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F%E9%AA%8C%E8%AF%81"><span class="toc-number">3.2.1.</span> <span class="toc-text">文件格式验证</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%83%E6%95%B0%E6%8D%AE%E9%AA%8C%E8%AF%81"><span class="toc-number">3.2.2.</span> <span class="toc-text">元数据验证</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AD%97%E8%8A%82%E7%A0%81%E9%AA%8C%E8%AF%81"><span class="toc-number">3.2.3.</span> <span class="toc-text">字节码验证</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AC%A6%E5%8F%B7%E5%BC%95%E7%94%A8%E9%AA%8C%E8%AF%81"><span class="toc-number">3.2.4.</span> <span class="toc-text">符号引用验证</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%87%86%E5%A4%87"><span class="toc-number">3.3.</span> <span class="toc-text">准备</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%A3%E6%9E%90"><span class="toc-number">3.4.</span> <span class="toc-text">解析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="toc-number">3.5.</span> <span class="toc-text">初始化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8"><span class="toc-number">3.6.</span> <span class="toc-text">使用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%B8%E8%BD%BD"><span class="toc-number">3.7.</span> <span class="toc-text">卸载</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9C%A8-JVM-%E4%B8%AD%EF%BC%8C%E5%AF%B9%E8%B1%A1%E6%98%AF%E5%A6%82%E4%BD%95%E5%88%9B%E5%BB%BA%E7%9A%84%EF%BC%9F"><span class="toc-number">4.</span> <span class="toc-text">在 JVM 中，对象是如何创建的？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D%E6%96%B9%E5%BC%8F%E6%9C%89%E5%93%AA%E4%BA%9B%E5%91%A2%EF%BC%9F"><span class="toc-number">5.</span> <span class="toc-text">内存分配方式有哪些呢？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%86%85%E5%AD%98%E5%B8%83%E5%B1%80%EF%BC%9F"><span class="toc-number">6.</span> <span class="toc-text">对象的内存布局？</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%B9%E8%B1%A1%E5%A4%B4-Header"><span class="toc-number">6.1.</span> <span class="toc-text">对象头 Header</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%94%81%E7%9A%84%E4%B8%A4%E4%B8%AA%E5%88%97%E8%A1%A8"><span class="toc-number">6.2.</span> <span class="toc-text">锁的两个列表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B%E6%95%B0%E6%8D%AE-Instance-Data"><span class="toc-number">6.3.</span> <span class="toc-text">实例数据 Instance Data</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%B9%E9%BD%90-Padding"><span class="toc-number">6.4.</span> <span class="toc-text">对齐 Padding</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%B9%E8%B1%A1%E8%AE%BF%E9%97%AE%E5%AE%9A%E4%BD%8D%E7%9A%84%E6%96%B9%E5%BC%8F%E6%9C%89%E5%93%AA%E4%BA%9B%EF%BC%9F"><span class="toc-number">7.</span> <span class="toc-text">对象访问定位的方式有哪些？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E5%88%A4%E6%96%AD%E5%AF%B9%E8%B1%A1%E5%B7%B2%E7%BB%8F%E6%AD%BB%E4%BA%A1%EF%BC%9F"><span class="toc-number">8.</span> <span class="toc-text">如何判断对象已经死亡？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E5%88%A4%E6%96%AD%E4%B8%80%E4%B8%AA%E4%B8%8D%E5%86%8D%E4%BD%BF%E7%94%A8%E7%9A%84%E7%B1%BB%EF%BC%9F"><span class="toc-number">9.</span> <span class="toc-text">如何判断一个不再使用的类？</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/32250.html" title="【每日早报】-2025-01-09 - 星期四"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://file.alapi.cn/60s/202501091736361902_head.png" onerror="this.onerror=null;this.src='/images/404.jpg'" alt="【每日早报】-2025-01-09 - 星期四"/></a><div class="content"><a class="title" href="/posts/32250.html" title="【每日早报】-2025-01-09 - 星期四">【每日早报】-2025-01-09 - 星期四</a><time datetime="2025-01-08T16:00:00.000Z" title="发表于 2025-01-09 00:00:00">2025-01-09</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/19819.html" title="规则引擎 Drools 8+ 快速入门"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/12/22/4ei1fqHM3RKSUr2.webp" onerror="this.onerror=null;this.src='/images/404.jpg'" alt="规则引擎 Drools 8+ 快速入门"/></a><div class="content"><a class="title" href="/posts/19819.html" title="规则引擎 Drools 8+ 快速入门">规则引擎 Drools 8+ 快速入门</a><time datetime="2024-12-11T00:00:00.000Z" title="发表于 2024-12-11 08:00:00">2024-12-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/60908.html" title="数据库系列（二） | Mybatis Plus 3.0+快速入门"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/lingzhexi/blogImage/post/image-20240927101721314.png" onerror="this.onerror=null;this.src='/images/404.jpg'" alt="数据库系列（二） | Mybatis Plus 3.0+快速入门"/></a><div class="content"><a class="title" href="/posts/60908.html" title="数据库系列（二） | Mybatis Plus 3.0+快速入门">数据库系列（二） | Mybatis Plus 3.0+快速入门</a><time datetime="2024-12-09T06:22:03.000Z" title="发表于 2024-12-09 14:22:03">2024-12-09</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/50356.html" title="分布式系列（二） | Redisson分布式锁"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/12/22/Q6z8bLIciZ9TuFS.jpg" onerror="this.onerror=null;this.src='/images/404.jpg'" alt="分布式系列（二） | Redisson分布式锁"/></a><div class="content"><a class="title" href="/posts/50356.html" title="分布式系列（二） | Redisson分布式锁">分布式系列（二） | Redisson分布式锁</a><time datetime="2024-12-05T06:22:03.000Z" title="发表于 2024-12-05 14:22:03">2024-12-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/28724.html" title="分布式系列（一） | Redis分布式锁"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/12/22/n4qy9zw1Pj5r8Nv.jpg" onerror="this.onerror=null;this.src='/images/404.jpg'" alt="分布式系列（一） | Redis分布式锁"/></a><div class="content"><a class="title" href="/posts/28724.html" title="分布式系列（一） | Redis分布式锁">分布式系列（一） | Redis分布式锁</a><time datetime="2024-12-03T06:22:03.000Z" title="发表于 2024-12-03 14:22:03">2024-12-03</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url(https://s2.loli.net/2024/12/24/bkfEWeo5KF94L2U.webp);"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2025 By stormling</div><div class="footer_custom_text">码农Stormling程序员,关注公众号【码农Stormling】回复【面试】获取最全面试pdf</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><div class="js-pjax"><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.isShuoshuo
+  const option = null
+
+  const initValine = (el, path) => {
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyValine = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+
+    const valineConfig = {
+      el: '#vcomment',
+      appId: '',
+      appKey: '',
+      avatar: 'monsterid',
+      serverURLs: '',
+      emojiMaps: "",
+      visitor: false,
+      ...option,
+      path: isShuoshuo ? path : (option && option.path) || window.location.pathname
+    }
+
+    new Valine(valineConfig)
+  }
+
+  const loadValine = async (el, path) => {
+    if (typeof Valine === 'function') {
+      initValine(el, path)
+    } else {
+      await btf.getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js')
+      initValine(el, path)
+    }
+  }
+
+  if (isShuoshuo) {
+    'Valine' === 'Valine'
+      ? window.shuoshuoComment = { loadComment: loadValine }
+      : window.loadOtherComment = loadValine
+    return
+  }
+
+  if ('Valine' === 'Valine' || !false) {
+    if (false) btf.loadComment(document.getElementById('vcomment'),loadValine)
+    else setTimeout(loadValine, 0)
+  } else {
+    window.loadOtherComment = loadValine
+  }
+})()</script><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.isShuoshuo
+  const option = null
+
+  const commentCount = n => {
+    const isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+    if (isCommentCount) {
+      isCommentCount.textContent= n
+    }
+  }
+
+  const initGitalk = (el, path) => {
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyGitalk = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+
+    const gitalk = new Gitalk({
+      clientID: '',
+      clientSecret: '',
+      repo: '',
+      owner: '',
+      admin: [''],
+      updateCountCallback: commentCount,
+      ...option,
+      id: isShuoshuo ? path : (option && option.id) || 'e89292ab1e1e3448462dc89faed4873b'
+    })
+
+    gitalk.render('gitalk-container')
+  }
+
+  const loadGitalk = async(el, path) => {
+    if (typeof Gitalk === 'function') initGitalk(el, path)
+    else {
+      await btf.getCSS('https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css')
+      await btf.getScript('https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js')
+      initGitalk(el, path)
+    }
+  }
+
+  if (isShuoshuo) {
+    'Valine' === 'Gitalk'
+      ? window.shuoshuoComment = { loadComment: loadGitalk }
+      : window.loadOtherComment = loadGitalk
+    return
+  }
+
+  if ('Valine' === 'Gitalk' || !false) {
+    if (false) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+    else loadGitalk()
+  } else {
+    window.loadOtherComment = loadGitalk
+  }
+})()</script></div><div class="aplayer no-destroy" data-id="2426530028" data-server="netease" data-type="playlist" data-fixed="true" data-autoplay="true"> </div><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/fireworks.min.js"></script><script defer="defer" id="fluttering_ribbon" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-fluttering-ribbon.min.js"></script><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-nest.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = true;
+document.body.addEventListener('input', POWERMODE);
+</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/metingjs/dist/Meting.min.js"></script><script>(() => {
+  const destroyAplayer = () => {
+    if (window.aplayers) {
+      for (let i = 0; i < window.aplayers.length; i++) {
+        if (!window.aplayers[i].options.fixed) {
+          window.aplayers[i].destroy()
+        }
+      }
+    }
+  }
+
+  const runMetingJS = () => {
+    typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+  }
+
+  btf.addGlobalFn('pjaxSend', destroyAplayer, 'destroyAplayer')
+  btf.addGlobalFn('pjaxComplete', loadMeting, 'runMetingJS')
+})()</script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>(() => {
+  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => fn())
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      pjax.loadUrl('/404.html')
+    }
+  })
+})()</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false,"tagMode":false});</script></body></html>

@@ -1,0 +1,466 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>MQ系列（一）| RabbitMQ 快速入门 | 码农Stormling</title><meta name="author" content="stormling"><meta name="copyright" content="stormling"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="ffffff"><meta name="description" content="RabbitMQ 快速入门 官网：https:&#x2F;&#x2F;www.rabbitmq.com&#x2F; 入门教程：https:&#x2F;&#x2F;www.rabbitmq.com&#x2F;tutorials 最新版本：4.0.2 版本参考：JDK17、Maven Or Gradle  1、简介RabbitMQ是一个可靠且成熟的消息传递和流代理，易于部署在云环境、本地和本地机器上。它目前被全球数百万人使用。 2、为什么使用公司业务场景核心：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MQ系列（一）| RabbitMQ 快速入门">
+<meta property="og:url" content="http://www.stormling.top/posts/46172.html">
+<meta property="og:site_name" content="码农Stormling">
+<meta property="og:description" content="RabbitMQ 快速入门 官网：https:&#x2F;&#x2F;www.rabbitmq.com&#x2F; 入门教程：https:&#x2F;&#x2F;www.rabbitmq.com&#x2F;tutorials 最新版本：4.0.2 版本参考：JDK17、Maven Or Gradle  1、简介RabbitMQ是一个可靠且成熟的消息传递和流代理，易于部署在云环境、本地和本地机器上。它目前被全球数百万人使用。 2、为什么使用公司业务场景核心：">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2024/12/18/Zh2tIFuJkaPSTwM.webp">
+<meta property="article:published_time" content="2024-11-10T06:22:03.000Z">
+<meta property="article:modified_time" content="2024-12-22T09:09:04.771Z">
+<meta property="article:author" content="stormling">
+<meta property="article:tag" content="消息队列">
+<meta property="article:tag" content="架构">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2024/12/18/Zh2tIFuJkaPSTwM.webp"><link rel="shortcut icon" href="/images/favicon.ico"><link rel="canonical" href="http://www.stormling.top/posts/46172.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"prismjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":true,"highlightMacStyle":true},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'MQ系列（一）| RabbitMQ 快速入门',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  isShuoshuo: false
+}</script><meta name="generator" content="Hexo 5.4.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+  window.addEventListener('load', preloader.endLoading)
+
+  if (true) {
+    btf.addGlobalFn('pjaxSend', preloader.initLoading, 'preloader_init')
+    btf.addGlobalFn('pjaxComplete', preloader.endLoading, 'preloader_end')
+  }
+})()</script><div id="web_bg" style="background-color: #efefef;"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/avatar.jpg" onerror="onerror=null;src='/images/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">41</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">26</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">22</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/categories/Java"><i class="fa-fw fas fa-coffee"></i><span> Java</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-spring"></i><span> Spring全家桶</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/Spring"><i class="fa-fw fas fa-spring"></i><span> Spring</span></a></li><li><a class="site-page child" href="/categories/SpringBoot"><i class="fa-fw fas fa-spring-boot"></i><span> SpringBoot</span></a></li><li><a class="site-page child" href="/categories/SpringCloud"><i class="fa-fw fas fa-spring-cloud"></i><span> SpringCloud</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/categories/JVM"><i class="fa-fw fas fa-cogs"></i><span> JVM</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 源码</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/Mybatis"><span> Mybatis</span></a></li><li><a class="site-page child" href="/categories/HashMap"><span> HashMap</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 其他</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/books/"><i class="fa-fw fas fa-book-open"></i><span> 互联网电子书汇总</span></a></li><li><a class="site-page child" href="/compass/"><i class="fa-fw fas fa-compass"></i><span> JAVA八股文指南</span></a></li><li><a class="site-page child" href="/history/"><i class="fa-fw fas fa-book-open"></i><span> 历史</span></a></li><li><a class="site-page child" href="/gallery/"><i class="fa-fw fas fa-image"></i><span> 相册</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://s2.loli.net/2024/12/18/Zh2tIFuJkaPSTwM.webp);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/avatar.jpg" alt="Logo"><span class="site-name">码农Stormling</span></a><a class="nav-page-title" href="/"><span class="site-name">MQ系列（一）| RabbitMQ 快速入门</span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/categories/Java"><i class="fa-fw fas fa-coffee"></i><span> Java</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-spring"></i><span> Spring全家桶</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/Spring"><i class="fa-fw fas fa-spring"></i><span> Spring</span></a></li><li><a class="site-page child" href="/categories/SpringBoot"><i class="fa-fw fas fa-spring-boot"></i><span> SpringBoot</span></a></li><li><a class="site-page child" href="/categories/SpringCloud"><i class="fa-fw fas fa-spring-cloud"></i><span> SpringCloud</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/categories/JVM"><i class="fa-fw fas fa-cogs"></i><span> JVM</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 源码</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/Mybatis"><span> Mybatis</span></a></li><li><a class="site-page child" href="/categories/HashMap"><span> HashMap</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 其他</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/books/"><i class="fa-fw fas fa-book-open"></i><span> 互联网电子书汇总</span></a></li><li><a class="site-page child" href="/compass/"><i class="fa-fw fas fa-compass"></i><span> JAVA八股文指南</span></a></li><li><a class="site-page child" href="/history/"><i class="fa-fw fas fa-book-open"></i><span> 历史</span></a></li><li><a class="site-page child" href="/gallery/"><i class="fa-fw fas fa-image"></i><span> 相册</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">MQ系列（一）| RabbitMQ 快速入门</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-11-10T06:22:03.000Z" title="发表于 2024-11-10 14:22:03">2024-11-10</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-12-22T09:09:04.771Z" title="更新于 2024-12-22 17:09:04">2024-12-22</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/">消息队列</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/%E6%9E%B6%E6%9E%84/">架构</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">2k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>6分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div id="post-outdate-notice" data="{&quot;limitDay&quot;:365,&quot;messagePrev&quot;:&quot;距离上次更新已经&quot;,&quot;messageNext&quot;:&quot;天了，文章内容可能已经过时。&quot;,&quot;postUpdate&quot;:&quot;2024-12-22 17:09:04&quot;}" hidden></div><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/lightgallery.js/1.0.1/css/lightgallery.min.css" /><div class=".article-gallery"><h1 id="RabbitMQ-快速入门"><a href="#RabbitMQ-快速入门" class="headerlink" title="RabbitMQ 快速入门"></a>RabbitMQ 快速入门</h1><blockquote>
+<p>官网：<a target="_blank" rel="noopener" href="https://www.rabbitmq.com/">https://www.rabbitmq.com/</a></p>
+<p>入门教程：<a target="_blank" rel="noopener" href="https://www.rabbitmq.com/tutorials">https://www.rabbitmq.com/tutorials</a></p>
+<p>最新版本：<code>4.0.2</code></p>
+<p>版本参考：<code>JDK17、Maven Or Gradle</code></p>
+</blockquote>
+<h2 id="1、简介"><a href="#1、简介" class="headerlink" title="1、简介"></a>1、简介</h2><p>RabbitMQ是一个可靠且成熟的消息传递和流代理，易于部署在云环境、本地和本地机器上。它目前被全球数百万人使用。<br><a target="_blank" rel="noopener" href="https://gcore.jsdelivr.net/gh/lingzhexi/blogImage/post/rabbitmq-logo-with-name.svg" title="rabbitmq-logo-with-name" class="gallery-item"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://gcore.jsdelivr.net/gh/lingzhexi/blogImage/post/rabbitmq-logo-with-name.svg" alt="rabbitmq-logo-with-name"  /></a></p>
+<h2 id="2、为什么使用"><a href="#2、为什么使用" class="headerlink" title="2、为什么使用"></a>2、为什么使用</h2><p>公司业务场景核心：解耦、异步、削峰</p>
+<h3 id="2-1、解耦"><a href="#2-1、解耦" class="headerlink" title="2.1、解耦"></a>2.1、解耦</h3><p><code>A</code>系统发数据给到<code>BCD</code>系统，如果<code>E</code>系统需要接入？<code>C</code>系统不需要了？A系统的负责人就需要来回修改接口对接其他系统。</p>
+<p> <a target="_blank" rel="noopener" href="https://gcore.jsdelivr.net/gh/lingzhexi/blogImage/post/202203061747025.png" title="未解耦" class="gallery-item"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://gcore.jsdelivr.net/gh/lingzhexi/blogImage/post/202203061747025.png" alt="未解耦"></a></p>
+<p>如果使用<code>MQ</code>，<code>A</code>系统产生一条数据，发送到<code>MQ</code>中，那个系统需要数据自己去<code>MQ</code>消费。如果新的系统需要数据，直接从<code>MQ</code>中消费；某个系统不需要数据的话，取消消费这个<code>MQ</code>即可。这样<code>A</code>系统不需要考虑谁发送数据给谁，不需要考虑是否调用成功、失败超时等问题。</p>
+<p><a target="_blank" rel="noopener" href="https://gcore.jsdelivr.net/gh/lingzhexi/blogImage/post/202203062104532.png" title="MQ解耦" class="gallery-item"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://gcore.jsdelivr.net/gh/lingzhexi/blogImage/post/202203062104532.png" alt="MQ解耦"></a> </p>
+<p><strong>总结</strong>：通过一个<code>MQ</code>，<code>Pub/Sub</code>发布订阅消息模型，<code>A</code>系统就和其他系统彻底耦合了。</p>
+<h4 id="2-2-1、项目应用"><a href="#2-2-1、项目应用" class="headerlink" title="2.2.1、项目应用"></a>2.2.1、项目应用</h4><p> 车站系统通过控制命令下发给各个设备，其中车站的设备通常包含：<strong>闸机</strong>、<strong>半自动售票机</strong>、<strong>自动售票机</strong>、<strong>手持机等设备</strong>。</p>
+<p>如果按照常规的同步方式来对接不同的设备，这将使得系统冗余的代码很多。当车站增减一个设备就可能需要重新对接接口，造成系统<strong>耦合性很高</strong>，这样的效率不高且不优雅。</p>
+<p>所以当系统需要发送命令（<strong>生产一个数据</strong>），将数据放到<code>MQ</code>中，不需要知道哪个设备接收消息成功或者失败，其中需要消费的设备自己去订阅并且获取相应的消息即可。这样就可以达到系统下发设备控制命令，不同设备响应。</p>
+<h3 id="2-2、异步"><a href="#2-2、异步" class="headerlink" title="2.2、异步"></a>2.2、异步</h3><p> <code>A</code>系统接收请求，需要本地入库，还需要<code>BCD</code>三个系统入库，本地入库（<code>3ms</code>），<code>BCD</code>（<code>300ms+400ms+500ms</code>），用户体验很差等待时间太长。业内请求需要做到 <code>200ms</code> 以内，对用户几乎无感。</p>
+<p><a target="_blank" rel="noopener" href="https://gcore.jsdelivr.net/gh/lingzhexi/blogImage/post/202203062204267.png" title="异步-1" class="gallery-item"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://gcore.jsdelivr.net/gh/lingzhexi/blogImage/post/202203062204267.png" alt="异步-1"></a> </p>
+<p> 使用MQ，A系统连续发送3条消息到消息队列，假如消耗5ms，请求花了 5 + 3 = 8ms ，对于用户来说就是点了一个按钮返回很快。</p>
+<p><a target="_blank" rel="noopener" href="https://gcore.jsdelivr.net/gh/lingzhexi/blogImage/img/2022/03/202203062210072.png" title="异步-2" class="gallery-item"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://gcore.jsdelivr.net/gh/lingzhexi/blogImage/img/2022/03/202203062210072.png" alt="异步-2"></a> </p>
+<h3 id="2-3、削峰"><a href="#2-3、削峰" class="headerlink" title="2.3、削峰"></a>2.3、削峰</h3><p> 每天一段时间，A系统风平浪静，每秒请求数量就<code>50</code>个。结果每次一到 <code>12:00~13:00</code>，每秒并发请求数量突然暴增到5k+条。但是系统是直接基于<code>MySQL</code>，大量请求涌入<code>MySQL</code>，每秒执行约<code>5k</code>条<code>SQL</code>， 一般情况下<code>MySQL</code> 每秒可抗 <code>2k</code>请求，<code>5k</code>的请求可能打死<code>MySQL</code>，导致无法使用。 一旦过了高峰，到了下午就到了低峰期，每秒请求数量 <code>50</code> 左右，对整个系统没有多少压力了。</p>
+<p><a target="_blank" rel="noopener" href="https://gcore.jsdelivr.net/gh/lingzhexi/blogImage/post/202203062301225.png" title="未削峰" class="gallery-item"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://gcore.jsdelivr.net/gh/lingzhexi/blogImage/post/202203062301225.png" alt="未削峰"></a> </p>
+<p>如果使用MQ，每秒 5k 请求写入 MQ , A系统每秒最多处理 2k 个请求，因为 MySQL每秒最多请求 2k 个请求。A系统从MQ中慢慢拉取请求，每秒2k个请求，不超过自己每秒最大的请求数量即可。所以再高峰期，A系统不会挂掉。而MQ每秒进 5k ，出 2k，请求就会在高峰期积压可能多大十几万甚至百万的消息再 MQ中。 </p>
+<p><a target="_blank" rel="noopener" href="https://gcore.jsdelivr.net/gh/lingzhexi/blogImage/post/202203062328446.png" title="MQ削峰" class="gallery-item"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://gcore.jsdelivr.net/gh/lingzhexi/blogImage/post/202203062328446.png" alt="MQ削峰"></a> </p>
+<p>总结：短暂的挤压后是可允许的，等到高峰期过后，每秒进入<code>MQ</code>的消息降低很多，但是系统依然按照 2k 的请求取消费，<code>A</code>系统很快的就会把挤压解决掉了。</p>
+<h3 id="2-4、并行"><a href="#2-4、并行" class="headerlink" title="2.4、并行"></a>2.4、并行</h3><p> <a target="_blank" rel="noopener" href="https://gcore.jsdelivr.net/gh/lingzhexi/blogImage/post/202409252215400.jpg" title="img" class="gallery-item"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://gcore.jsdelivr.net/gh/lingzhexi/blogImage/post/202409252215400.jpg" alt="img"></a></p>
+<h3 id="2-5、排队"><a href="#2-5、排队" class="headerlink" title="2.5、排队"></a>2.5、排队</h3><p><a target="_blank" rel="noopener" href="https://gcore.jsdelivr.net/gh/lingzhexi/blogImage/post/202409252215401.jpg" title="img" class="gallery-item"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://gcore.jsdelivr.net/gh/lingzhexi/blogImage/post/202409252215401.jpg" alt="img"></a> </p>
+<h2 id="3、消息队列工具-RabbitMQ"><a href="#3、消息队列工具-RabbitMQ" class="headerlink" title="3、消息队列工具 RabbitMQ"></a>3、消息队列工具 RabbitMQ</h2><h3 id="3-1、常见MQ产品"><a href="#3-1、常见MQ产品" class="headerlink" title="3.1、常见MQ产品"></a>3.1、常见MQ产品</h3><ul>
+<li><p>ActiveMQ：基于<code>JMS</code>（<code>Java Message Service</code>）协议，<code>java</code>语言，<code>jdk</code></p>
+</li>
+<li><p>RabbitMQ：基于<code>AMQP</code>协议，<code>erlang</code>语言开发，稳定性好</p>
+</li>
+<li><p>RocketMQ：基于<code>JMS</code>，阿里巴巴产品，目前交由<code>Apache</code>基金会</p>
+</li>
+<li><p>Kafka：分布式消息系统，高吞吐量</p>
+</li>
+</ul>
+<h3 id="3-2、RabbitMQ基础概念"><a href="#3-2、RabbitMQ基础概念" class="headerlink" title="3.2、RabbitMQ基础概念"></a>3.2、RabbitMQ基础概念</h3><p><a target="_blank" rel="noopener" href="https://gcore.jsdelivr.net/gh/lingzhexi/blogImage/post/RabbitMQ%E7%BB%84%E4%BB%B6.jpg" title="RabbitMQ组件" class="gallery-item"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://gcore.jsdelivr.net/gh/lingzhexi/blogImage/post/RabbitMQ%E7%BB%84%E4%BB%B6.jpg" alt="RabbitMQ组件"></a>        Broker：简单来说就是消息队列服务器实体</p>
+<pre><code>Exchange：消息交换机，它指定消息按什么规则，路由到哪个队列
+
+Queue：消息队列载体，每个消息都会被投入到一个或多个队列
+
+Binding：绑定，它的作用就是把 exchange和 queue按照路由规则绑定起来
+
+Routing Key：路由关键字， exchange根据这个关键字进行消息投递
+
+vhost：虚拟主机，一个 broker里可以开设多个 vhost，用作不同用户的权限分离
+
+producer：消息生产者，就是投递消息的程序
+
+consumer：消息消费者，就是接受消息的程序
+
+channel：消息通道，在客户端的每个连接里，可建立多个 channel，每个 channel代表一个会话任务
+</code></pre>
+<h3 id="3-3、五种消息模型"><a href="#3-3、五种消息模型" class="headerlink" title="3.3、五种消息模型"></a>3.3、五种消息模型</h3><p>RabbitMQ提供了6种消息模型，但是第6种其实是RPC，并不是MQ，因此不予学习。那么也就剩下5种。</p>
+<p>但是其实3、4、5这三种都属于订阅模型，只不过进行路由的方式不同。</p>
+<p><a target="_blank" rel="noopener" href="https://gcore.jsdelivr.net/gh/lingzhexi/blogImage/post/202409252215403.jpg" title="img" class="gallery-item"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://gcore.jsdelivr.net/gh/lingzhexi/blogImage/post/202409252215403.jpg" alt="img"></a> </p>
+<ul>
+<li><strong>基本消息模型</strong>：生产者–&gt;队列–&gt;消费者</li>
+</ul>
+<ul>
+<li><strong><code>work</code>消息模型</strong>：生产者–&gt;队列–&gt;多个消费者竞争消费</li>
+</ul>
+<ul>
+<li><strong>订阅模型</strong>-**<code>Fanout</code>**：广播模式，将消息交给所有绑定到交换机的队列，每个消费者都会收到同一条消息</li>
+</ul>
+<ul>
+<li>**订阅模型-<code>Direct</code>**：定向，把消息交给符合指定 <strong><code>rotingKey</code></strong> 的队列</li>
+</ul>
+<ul>
+<li><strong>订阅模型-<code>Topic</code> 主题模式</strong>：通配符，把消息交给符合**<code>routing pattern</code>（**路由模式） 的队列</li>
+</ul>
+<h2 id="4、消息不丢失"><a href="#4、消息不丢失" class="headerlink" title="4、消息不丢失"></a>4、消息不丢失</h2><h3 id="4-1、MQ角度"><a href="#4-1、MQ角度" class="headerlink" title="4.1、MQ角度"></a>4.1、<code>MQ</code>角度</h3><ol>
+<li><p>生产者不丢数据</p>
+</li>
+<li><p>MQ服务器不丢数据</p>
+</li>
+<li><p>消费者不丢数据</p>
+</li>
+</ol>
+<p>保证消息不丢失有两种<strong>实现方式</strong>：</p>
+<ul>
+<li><p>开启事务模式 (不推荐)</p>
+</li>
+<li><p>消息息确认模式（生产者，消费者）</p>
+</li>
+</ul>
+<p>说明：开启事务会大幅<strong>降低消息发送及接收效率</strong>，使用的<strong>相对较少</strong>，因此我们生产环境一般都采取消息<strong>确认模式</strong></p>
+<h3 id="4-2、消息确认"><a href="#4-2、消息确认" class="headerlink" title="4.2、消息确认"></a>4.2、消息确认</h3><h5 id="1、消息持久化"><a href="#1、消息持久化" class="headerlink" title="1、消息持久化"></a>1、消息持久化</h5><p>如果希望RabbitMQ重启之后消息不丢失，那么需要对以下3种实体均配置持久化</p>
+<ul>
+<li><strong>Exchange</strong></li>
+<li><strong>Queue</strong></li>
+<li><strong>message</strong></li>
+</ul>
+<p>声明exchange时设置持久化（<code>durable = true</code>）并且不自动删除 (<code>autoDelete = false</code>)</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">boolean</span> durable <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+<span class="token keyword">boolean</span> autoDelete <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+channel<span class="token punctuation">.</span><span class="token function">exchangeDeclare</span><span class="token punctuation">(</span><span class="token string">"dlx"</span><span class="token punctuation">,</span> <span class="token constant">TOPIC</span><span class="token punctuation">,</span> durable<span class="token punctuation">,</span> autoDelete<span class="token punctuation">,</span> <span class="token keyword">null</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>声明queue时设置持久化（<code>durable = true</code>）并且不自动删除 (<code>autoDelete = false</code>)</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">boolean</span> durable <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+<span class="token keyword">boolean</span> autoDelete <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+channel<span class="token punctuation">.</span><span class="token function">queueDeclare</span><span class="token punctuation">(</span><span class="token string">"order-summary-queue"</span><span class="token punctuation">,</span> durable<span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">,</span> autoDelete<span class="token punctuation">,</span> queueArguments<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>发送消息时通过设置（<code>deliveryMode=2</code>）持久化消息：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">AMQP<span class="token punctuation">.</span>BasicProperties</span> properties <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">AMQP<span class="token punctuation">.</span>BasicProperties<span class="token punctuation">.</span>Builder</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+                    <span class="token punctuation">.</span><span class="token function">contentType</span><span class="token punctuation">(</span><span class="token string">"application/json"</span><span class="token punctuation">)</span>
+                    <span class="token punctuation">.</span><span class="token function">deliveryMode</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span>
+                    <span class="token punctuation">.</span><span class="token function">priority</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>
+                    <span class="token punctuation">.</span><span class="token function">build</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+channel<span class="token punctuation">.</span><span class="token function">basicPublish</span><span class="token punctuation">(</span><span class="token string">"order"</span><span class="token punctuation">,</span> <span class="token string">"order.created"</span><span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">,</span> properties<span class="token punctuation">,</span> <span class="token string">"sample-data"</span><span class="token punctuation">.</span><span class="token function">getBytes</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h5 id="2、发送确认"><a href="#2、发送确认" class="headerlink" title="2、发送确认"></a>2、发送确认</h5><p>有时，业务处理成功，消息也发了，但是我们并不知道消息是否成功到达了<code>rabbitmq</code>，如果由于网络等原因导致业务成功而消息发送失败，那么发送方将出现不一致的问题，此时可以使用<code>rabbitmq</code>的发送确认功能，即要求<code>rabbitmq</code>显式告知我们消息是否已成功发送。</p>
+<h5 id="3、手动消费确认"><a href="#3、手动消费确认" class="headerlink" title="3、手动消费确认"></a>3、手动消费确认</h5><p>有时，消息被正确投递到消费方，但是消费方处理失败，那么便会出现消费方的不一致问题。比如:订单已创建的消息发送到用户积分子系统中用于增加用户积分，但是积分消费方处理却都失败了，用户就会问：我购买了东西为什么积分并没有增加呢？</p>
+<p>要解决这个问题，需要引入消费方确认，即只有消息被成功处理之后才告知<code>rabbitmq</code>以<code>ack</code>，否则告知<code>rabbitmq</code>以<code>nack</code></p>
+</div><script src="https://cdn.jsdelivr.net/lightgallery.js/1.0.1/js/lightgallery.min.js"></script><script>if (typeof lightGallery !== 'undefined') {
+        var options = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options);
+        }</script></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://www.stormling.top">stormling</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://www.stormling.top/posts/46172.html">http://www.stormling.top/posts/46172.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="http://www.stormling.top" target="_blank">码农Stormling</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/">消息队列</a><a class="post-meta__tags" href="/tags/%E6%9E%B6%E6%9E%84/">架构</a></div><div class="post-share"><div class="social-share" data-image="https://s2.loli.net/2024/12/18/Zh2tIFuJkaPSTwM.webp" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/posts/41545.html" title="MQ系列（二）| RabbitMQ 整合 SpringBoot"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/12/18/SwBIEotR8Kd3Dbq.webp" onerror="onerror=null;src='/images/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">MQ系列（二）| RabbitMQ 整合 SpringBoot</div></div><div class="info-2"><div class="info-item-1">RabbitMQ 整合 SpringBoot概述 大多应用中，可通过消息服务中间件来提升系统异步通信、扩展解耦能力、流量削峰    消息服务中两个重要概念：消息代理（`message broker`）和目的地（`destination`） 当消息发送者发送消息以后，将由消息代理接管，消息代理保证消息传递到指定目的地。    消息队列主要有两种形式的目的地1.     队列（`queue`）：点对点消息通信（`point-to-point`） 2.     主题（`topic`）：发布（`publish`）/订阅（`subscribe`）消息通信    RabbitMQ 架构图 概念生产者 Producer生产者是消息的发送方，它将消息发送到 RabbitMQ 的交换器中。  ✨消息 Message 消息=消息头+消息体，根据routekey发送到指定的交换机 Exchange 消息头：含有各种属性 routing-key（路由键）、priority（优先级）、delivery-mode（指出该消息可能需要持久性存储）等。  ✨消息代理...</div></div></div></a><a class="pagination-related" href="/posts/12892.html" title="Redis系列（一）| 单机集群搭建3主3从"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/12/22/4ei1fqHM3RKSUr2.webp" onerror="onerror=null;src='/images/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">Redis系列（一）| 单机集群搭建3主3从</div></div><div class="info-2"><div class="info-item-1">Redis集群部署-单主机 6节点 3M+3S下载docker redis 镜像docker pull redis:4.0 # 或者直接下载最新版redis镜像 docker pull redis  !!! 注意 redis 5.0以上创建集群不在使用ruby，因此如果使用最新版的redis 一下ruby部分内容直接跳过 在 /data下新建 redis-cluster 文件夹，然后创建 redis-cluster.tmpl 文件# bind 127.0.0.1 protected-mode no port $&#123;PORT&#125; daemonize no dir &#x2F;data&#x2F;redis appendonly yes cluster-enabled yes cluster-config-file nodes.conf cluster-node-timeout 15000 cluster-announce-port $&#123;PORT&#125; cluster-announce-bus-port...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/posts/56299.html" title="MQ系列（七）| RocketMQ 为什么性能不如Kafka?"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/12/18/tF4vDjQonRkZdch.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-11-30</div><div class="info-item-2">MQ系列（七）| RocketMQ 为什么性能不如Kafka?</div></div><div class="info-2"><div class="info-item-1">RocketMQ 为什么性能不如 Kafka？ RocketMQ 使用的是 mmap 零拷贝技术，而 kafka 使用的是 sendfile (硬件设备技术 SG-DMA，不影响（不占用）CPU工作) mmap   内核缓冲区-&gt;映射用户缓冲区-&gt;内核缓冲区-&gt;网卡sendfile 内核缓冲区-&gt; SG-DMA -&gt; 网卡  在上篇文章《rocketmq 是什么》中，我们了解到 RocketMQ 的架构其实参考了 kafka 的设计思想，同时又在 kafka 的基础上做了一些调整。看起来，RocketMQ 好像各方面都比 kafka 更能打。  但 kafka 却一直没被淘汰，说明 RocketMQ 必然是有着不如 kafka 的地方。是啥呢？性能，严格来说是吞吐量。阿里中间件团队对它们做过压测，同样条件下，kafka 比 RocketMQ 快 **50%**左右。但即使这样，RocketMQ 依然能每秒处理 10w 量级的数据，依旧非常能打。你不能说 RocketMQ 弱，只能说 Kafka 性能太强了。 不过这就很奇怪了，为什么...</div></div></div></a><a class="pagination-related" href="/posts/15036.html" title="MQ系列（六）| RocketMQ 快速入门"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/12/18/kY2ahrc1TAMPZ7S.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-11-28</div><div class="info-item-2">MQ系列（六）| RocketMQ 快速入门</div></div><div class="info-2"><div class="info-item-1">RocketMQ 快速入门  本参考链接：RocketMQ 是什么？原作者：小白debug  前言  作为一个程序员，假设你有 A、B 两个服务，A 服务发出消息后，不想让 B 服务立马处理到。而是要过半小时才让 B 服务处理到，该怎么实现？ 这类延迟处理消息的场景非常常见，举个例子，比如我每天早上到公司后都会点个外卖，我希望外卖能在中午送过来，而不是立马送过来，这就需要将外卖消息经过延时后，再投递到商家侧。   延时消息场景那么问题就来了，有没有优雅的解决方案？当然有，没有什么是加一层中间层不能解决的，如果有，那就再加一层。这次我们要加的中间层是消息队列 **RocketMQ**。  RocketMQ 是什么？RocketMQ 是阿里自研的国产消息队列，目前已经是 Apache 的顶级项目。和其他消息队列一样，它接受来自生产者的消息，将消息分类，每一类是一个 topic，消费者根据需要订阅 topic，获取里面的消息。  是不是很像我们上篇文章里提到的消息队 Kafka，那么问题很自然就来了，既然都是消息队列，那它们之间有什么区别呢？ RocketMQ 和 Kafka...</div></div></div></a><a class="pagination-related" href="/posts/24869.html" title="MQ系列（五）| Kafka 快速入门"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/12/18/tsPhp4fmEXZkano.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-11-27</div><div class="info-item-2">MQ系列（五）| Kafka 快速入门</div></div><div class="info-2"><div class="info-item-1">Kafka 快速入门介绍 参考：Kafka 是什么？  架构一个高性能，高扩展性，高可用，支持持久化的超强消息队列，它就是我们常说的消息队列 KafkaZookeeper 协调管理多个 broker 组成，内部有多个 topic 分类，每个 topic 又分成多个 partition ，每个 partition 有多个副本 replia，不同的partition 会分布在不同 broker 上，提升性能同时，还增加了系统可用性和可扩展性  高性能 对消息进行分类，每个类是一个 topic  单个 topic 的消息可能过多，可将单个队列拆分成多个段，每段就是一个分区 partition ，每个消费者负责一个 partition  高扩展性可将 partition 分部在多台设备，每台设备代表一个 broker  高可用存在一个问题，如果其中一个partition所在的 broker 挂了，那么这部分的消息不久丢失了吗？ 可以给partition 多加几个副本 replica，从中分为 Leader 和 Follower，Leader 负责生产者和消费者的读写，Follower...</div></div></div></a><a class="pagination-related" href="/posts/40901.html" title="MQ系列（四）| RabbitMQ 死信队列和延迟队列"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/12/18/bENsgfpKC4dyTiG.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-11-24</div><div class="info-item-2">MQ系列（四）| RabbitMQ 死信队列和延迟队列</div></div><div class="info-2"><div class="info-item-1">死信队列死信是什么死信：无法被消费的消息。由于特定的原因导致队列中的某些消息无法被消费，这些消息没有后续的处理，就会变成死信。当消息在队列中无法被正常消费时，会被发送到死信队列中。 死信来源消息 TTL队列达到最大长度消息拒签(basicNack 或 basicReject)且重入队列为false(requeue=false) 死信架构  消息TTL   名称 交换机 路由键 类型 特征 参数    普通交换机 normal_exchange zhangsan direct / /   普通队列 normal_queue zhangsan / TTL DLX DLK x-dead-letter-exchange：dead_exchangex-dead-letter-routing-key：lisix-message-ttl: 10 * 1000   死信交换机 dead_exchange lisi direct / /   死信队列 dead_queue lisi / / /   生产者发送消息10条消息到队列...</div></div></div></a><a class="pagination-related" href="/posts/38624.html" title="MQ系列（三）| RabbitMQ 消息确认机制"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/12/18/dSrsLijuqOReo1X.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-11-20</div><div class="info-item-2">MQ系列（三）| RabbitMQ 消息确认机制</div></div><div class="info-2"><div class="info-item-1">RabbitMQ 消息确认机制 :heavy_exclamation_mark::heavy_exclamation_mark::heavy_exclamation_mark:温馨提示：基于JDK17、SpringBoot 2.1.8.RELEASE 版本，由于RabbitMQ 在 SpringBoot3+ 的配置项有所不同， 所以请严格按照该本版来使用，挖一坑：【后续会出一个SpringBoot3+版本的配置相关教程】  架构  概念保证消息不丢失，可靠抵达，可以使用事务消息，性能下降250倍 为此引入确认机制  生产者确认回调：publisher confirmCallback 生产者退回回调：publisher returnCallback未投递到queue退回模式 消费者确认：consumer ack确认机制  ComfirmCallback【生产者确认回调】 概念：ComfirmCallback是生产者消息确认机制的一部分。当生产者发送消息到 RabbitMQ 的交换器（Exchange）后，RabbitMQ 会返回一个确认消息给生产者，这个确认过程可以通过...</div></div></div></a><a class="pagination-related" href="/posts/41545.html" title="MQ系列（二）| RabbitMQ 整合 SpringBoot"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/12/18/SwBIEotR8Kd3Dbq.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-11-14</div><div class="info-item-2">MQ系列（二）| RabbitMQ 整合 SpringBoot</div></div><div class="info-2"><div class="info-item-1">RabbitMQ 整合 SpringBoot概述 大多应用中，可通过消息服务中间件来提升系统异步通信、扩展解耦能力、流量削峰    消息服务中两个重要概念：消息代理（`message broker`）和目的地（`destination`） 当消息发送者发送消息以后，将由消息代理接管，消息代理保证消息传递到指定目的地。    消息队列主要有两种形式的目的地1.     队列（`queue`）：点对点消息通信（`point-to-point`） 2.     主题（`topic`）：发布（`publish`）/订阅（`subscribe`）消息通信    RabbitMQ 架构图 概念生产者 Producer生产者是消息的发送方，它将消息发送到 RabbitMQ 的交换器中。  ✨消息 Message 消息=消息头+消息体，根据routekey发送到指定的交换机 Exchange 消息头：含有各种属性 routing-key（路由键）、priority（优先级）、delivery-mode（指出该消息可能需要持久性存储）等。  ✨消息代理...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div><div class="comment-switch"><span class="first-comment">Valine</span><span id="switch-btn"></span><span class="second-comment">Gitalk</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div><div><div id="gitalk-container"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/avatar.jpg" onerror="this.onerror=null;this.src='/images/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">stormling</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">41</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">26</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">22</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/lingzhexi"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://gitee.com/lingzhexi" target="_blank" title="Gitee"><i class="fab fa-gitee" style="color: #e94f11;"></i></a><a class="social-icon" href="https://github.com/lingzhexi" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:lingzhexi@126.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">欢迎大家来到Stormling博客</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#RabbitMQ-%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8"><span class="toc-number">1.</span> <span class="toc-text">RabbitMQ 快速入门</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1%E3%80%81%E7%AE%80%E4%BB%8B"><span class="toc-number">1.1.</span> <span class="toc-text">1、简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2%E3%80%81%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BD%BF%E7%94%A8"><span class="toc-number">1.2.</span> <span class="toc-text">2、为什么使用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1%E3%80%81%E8%A7%A3%E8%80%A6"><span class="toc-number">1.2.1.</span> <span class="toc-text">2.1、解耦</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-1%E3%80%81%E9%A1%B9%E7%9B%AE%E5%BA%94%E7%94%A8"><span class="toc-number">1.2.1.1.</span> <span class="toc-text">2.2.1、项目应用</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2%E3%80%81%E5%BC%82%E6%AD%A5"><span class="toc-number">1.2.2.</span> <span class="toc-text">2.2、异步</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3%E3%80%81%E5%89%8A%E5%B3%B0"><span class="toc-number">1.2.3.</span> <span class="toc-text">2.3、削峰</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4%E3%80%81%E5%B9%B6%E8%A1%8C"><span class="toc-number">1.2.4.</span> <span class="toc-text">2.4、并行</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-5%E3%80%81%E6%8E%92%E9%98%9F"><span class="toc-number">1.2.5.</span> <span class="toc-text">2.5、排队</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3%E3%80%81%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%E5%B7%A5%E5%85%B7-RabbitMQ"><span class="toc-number">1.3.</span> <span class="toc-text">3、消息队列工具 RabbitMQ</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1%E3%80%81%E5%B8%B8%E8%A7%81MQ%E4%BA%A7%E5%93%81"><span class="toc-number">1.3.1.</span> <span class="toc-text">3.1、常见MQ产品</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2%E3%80%81RabbitMQ%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5"><span class="toc-number">1.3.2.</span> <span class="toc-text">3.2、RabbitMQ基础概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3%E3%80%81%E4%BA%94%E7%A7%8D%E6%B6%88%E6%81%AF%E6%A8%A1%E5%9E%8B"><span class="toc-number">1.3.3.</span> <span class="toc-text">3.3、五种消息模型</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4%E3%80%81%E6%B6%88%E6%81%AF%E4%B8%8D%E4%B8%A2%E5%A4%B1"><span class="toc-number">1.4.</span> <span class="toc-text">4、消息不丢失</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1%E3%80%81MQ%E8%A7%92%E5%BA%A6"><span class="toc-number">1.4.1.</span> <span class="toc-text">4.1、MQ角度</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2%E3%80%81%E6%B6%88%E6%81%AF%E7%A1%AE%E8%AE%A4"><span class="toc-number">1.4.2.</span> <span class="toc-text">4.2、消息确认</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1%E3%80%81%E6%B6%88%E6%81%AF%E6%8C%81%E4%B9%85%E5%8C%96"><span class="toc-number">1.4.2.0.1.</span> <span class="toc-text">1、消息持久化</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2%E3%80%81%E5%8F%91%E9%80%81%E7%A1%AE%E8%AE%A4"><span class="toc-number">1.4.2.0.2.</span> <span class="toc-text">2、发送确认</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3%E3%80%81%E6%89%8B%E5%8A%A8%E6%B6%88%E8%B4%B9%E7%A1%AE%E8%AE%A4"><span class="toc-number">1.4.2.0.3.</span> <span class="toc-text">3、手动消费确认</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/32250.html" title="【每日早报】-2025-01-09 - 星期四"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://file.alapi.cn/60s/202501091736361902_head.png" onerror="this.onerror=null;this.src='/images/404.jpg'" alt="【每日早报】-2025-01-09 - 星期四"/></a><div class="content"><a class="title" href="/posts/32250.html" title="【每日早报】-2025-01-09 - 星期四">【每日早报】-2025-01-09 - 星期四</a><time datetime="2025-01-08T16:00:00.000Z" title="发表于 2025-01-09 00:00:00">2025-01-09</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/19819.html" title="规则引擎 Drools 8+ 快速入门"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/12/22/4ei1fqHM3RKSUr2.webp" onerror="this.onerror=null;this.src='/images/404.jpg'" alt="规则引擎 Drools 8+ 快速入门"/></a><div class="content"><a class="title" href="/posts/19819.html" title="规则引擎 Drools 8+ 快速入门">规则引擎 Drools 8+ 快速入门</a><time datetime="2024-12-11T00:00:00.000Z" title="发表于 2024-12-11 08:00:00">2024-12-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/60908.html" title="数据库系列（二） | Mybatis Plus 3.0+快速入门"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/lingzhexi/blogImage/post/image-20240927101721314.png" onerror="this.onerror=null;this.src='/images/404.jpg'" alt="数据库系列（二） | Mybatis Plus 3.0+快速入门"/></a><div class="content"><a class="title" href="/posts/60908.html" title="数据库系列（二） | Mybatis Plus 3.0+快速入门">数据库系列（二） | Mybatis Plus 3.0+快速入门</a><time datetime="2024-12-09T06:22:03.000Z" title="发表于 2024-12-09 14:22:03">2024-12-09</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/50356.html" title="分布式系列（二） | Redisson分布式锁"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/12/22/Q6z8bLIciZ9TuFS.jpg" onerror="this.onerror=null;this.src='/images/404.jpg'" alt="分布式系列（二） | Redisson分布式锁"/></a><div class="content"><a class="title" href="/posts/50356.html" title="分布式系列（二） | Redisson分布式锁">分布式系列（二） | Redisson分布式锁</a><time datetime="2024-12-05T06:22:03.000Z" title="发表于 2024-12-05 14:22:03">2024-12-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/28724.html" title="分布式系列（一） | Redis分布式锁"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2024/12/22/n4qy9zw1Pj5r8Nv.jpg" onerror="this.onerror=null;this.src='/images/404.jpg'" alt="分布式系列（一） | Redis分布式锁"/></a><div class="content"><a class="title" href="/posts/28724.html" title="分布式系列（一） | Redis分布式锁">分布式系列（一） | Redis分布式锁</a><time datetime="2024-12-03T06:22:03.000Z" title="发表于 2024-12-03 14:22:03">2024-12-03</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url(https://s2.loli.net/2024/12/18/Zh2tIFuJkaPSTwM.webp);"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2025 By stormling</div><div class="footer_custom_text">码农Stormling程序员,关注公众号【码农Stormling】回复【面试】获取最全面试pdf</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><div class="js-pjax"><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.isShuoshuo
+  const option = null
+
+  const initValine = (el, path) => {
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyValine = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+
+    const valineConfig = {
+      el: '#vcomment',
+      appId: '',
+      appKey: '',
+      avatar: 'monsterid',
+      serverURLs: '',
+      emojiMaps: "",
+      visitor: false,
+      ...option,
+      path: isShuoshuo ? path : (option && option.path) || window.location.pathname
+    }
+
+    new Valine(valineConfig)
+  }
+
+  const loadValine = async (el, path) => {
+    if (typeof Valine === 'function') {
+      initValine(el, path)
+    } else {
+      await btf.getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js')
+      initValine(el, path)
+    }
+  }
+
+  if (isShuoshuo) {
+    'Valine' === 'Valine'
+      ? window.shuoshuoComment = { loadComment: loadValine }
+      : window.loadOtherComment = loadValine
+    return
+  }
+
+  if ('Valine' === 'Valine' || !false) {
+    if (false) btf.loadComment(document.getElementById('vcomment'),loadValine)
+    else setTimeout(loadValine, 0)
+  } else {
+    window.loadOtherComment = loadValine
+  }
+})()</script><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.isShuoshuo
+  const option = null
+
+  const commentCount = n => {
+    const isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+    if (isCommentCount) {
+      isCommentCount.textContent= n
+    }
+  }
+
+  const initGitalk = (el, path) => {
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyGitalk = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+
+    const gitalk = new Gitalk({
+      clientID: '',
+      clientSecret: '',
+      repo: '',
+      owner: '',
+      admin: [''],
+      updateCountCallback: commentCount,
+      ...option,
+      id: isShuoshuo ? path : (option && option.id) || '3b2a98eacc3131109b5288ec688f0d42'
+    })
+
+    gitalk.render('gitalk-container')
+  }
+
+  const loadGitalk = async(el, path) => {
+    if (typeof Gitalk === 'function') initGitalk(el, path)
+    else {
+      await btf.getCSS('https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css')
+      await btf.getScript('https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js')
+      initGitalk(el, path)
+    }
+  }
+
+  if (isShuoshuo) {
+    'Valine' === 'Gitalk'
+      ? window.shuoshuoComment = { loadComment: loadGitalk }
+      : window.loadOtherComment = loadGitalk
+    return
+  }
+
+  if ('Valine' === 'Gitalk' || !false) {
+    if (false) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+    else loadGitalk()
+  } else {
+    window.loadOtherComment = loadGitalk
+  }
+})()</script></div><div class="aplayer no-destroy" data-id="2426530028" data-server="netease" data-type="playlist" data-fixed="true" data-autoplay="true"> </div><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/fireworks.min.js"></script><script defer="defer" id="fluttering_ribbon" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-fluttering-ribbon.min.js"></script><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-nest.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = true;
+document.body.addEventListener('input', POWERMODE);
+</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/metingjs/dist/Meting.min.js"></script><script>(() => {
+  const destroyAplayer = () => {
+    if (window.aplayers) {
+      for (let i = 0; i < window.aplayers.length; i++) {
+        if (!window.aplayers[i].options.fixed) {
+          window.aplayers[i].destroy()
+        }
+      }
+    }
+  }
+
+  const runMetingJS = () => {
+    typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+  }
+
+  btf.addGlobalFn('pjaxSend', destroyAplayer, 'destroyAplayer')
+  btf.addGlobalFn('pjaxComplete', loadMeting, 'runMetingJS')
+})()</script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>(() => {
+  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => fn())
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      pjax.loadUrl('/404.html')
+    }
+  })
+})()</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false,"tagMode":false});</script></body></html>
